@@ -1,4 +1,15 @@
-# Business Source License Terms
+# Business Source License 1.1
+License text copyright (c) 2017 MariaDB Corporation Ab, All Rights Reserved.
+"Business Source License" is a trademark of MariaDB Corporation Ab.
+
+## Parameters
+* Licensor: Soft DAO
+* Licensed Work: Contracts. The Licensed Work is (c) 2023 Soft DAO
+* Additional Use Grant: None
+* Change Date: 2027-01-01
+* Change License: GNU General Public License v2.0 or later
+
+## Terms
 The Licensor hereby grants you the right to copy, modify, create derivative works, redistribute, and make non-production use of the Licensed Work. The Licensor may make an Additional Use Grant, above, permitting limited production use.
 
 Effective on the Change Date, or the fourth anniversary of the first publicly available distribution of a specific version of the Licensed Work under this License, whichever comes first, the Licensor hereby grants you rights under the terms of the Change License, and the rights granted in the paragraph above terminate.
@@ -14,7 +25,7 @@ Any use of the Licensed Work in violation of this License will automatically ter
 This License does not grant you any right in any trademark or logo of Licensor or its affiliates (provided that you may use a trademark or logo of Licensor as expressly required by this License).TO THE EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSED WORK IS PROVIDED ON AN “AS IS” BASIS. LICENSOR HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS, EXPRESS OR IMPLIED, INCLUDING (WITHOUT LIMITATION) WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND TITLE. MariaDB hereby grants you permission to use this License’s text to license your works, and to refer to it using the trademark “Business Source License”, as long as you comply with the Covenants of Licensor below.
 
 ## Covenants of Licensor
-In consideration of the right to use this License’s text and the “Business Source License” name and trademark, Licensor covenants to Soft DAO, and to all other recipients of the licensed work to be provided by Licensor:
+In consideration of the right to use this License’s text and the “Business Source License” name and trademark, Licensor covenants to MariaDB, and to all other recipients of the licensed work to be provided by Licensor:
 
 To specify as the Change License the GPL Version 2.0 or any later version, or a license that is compatible with GPL Version 2.0 or a later version, where “compatible” means that software provided under the Change License can be included in a program with software provided under GPL Version 2.0 or a later version. Licensor may specify additional Change Licenses without limitation.
 To either: (a) specify an additional grant of rights to use that does not impose any additional restriction on the right granted in this License, as the Additional Use Grant; or (b) insert the text “None” to specify a Change Date. Not to modify this License in any other way.
