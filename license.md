@@ -3,8 +3,8 @@ License text copyright (c) 2017 MariaDB Corporation Ab, All Rights Reserved.
 "Business Source License" is a trademark of MariaDB Corporation Ab.
 
 ## Parameters
-* Licensor: Soft DAO
-* Licensed Work: Contracts. The Licensed Work is (c) 2023 Soft DAO
+* Licensor: Softernet Foundation Ltd.
+* Licensed Work: Contracts. The Licensed Work is (c) 2023 Softernet Foundation Ltd.
 * Additional Use Grant: None
 * Change Date: 2027-01-01
 * Change License: GNU General Public License v2.0 or later
