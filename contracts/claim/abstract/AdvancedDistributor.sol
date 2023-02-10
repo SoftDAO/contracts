@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BSL-1.1
 pragma solidity 0.8.16;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -21,7 +21,7 @@ abstract contract AdvancedDistributor is Ownable, Sweepable, ERC20Votes, Distrib
 		string memory _uri,
 		uint256 _voteFactor,
 		uint256 _fractionDenominator
-	) Distributor(_token, _total, _uri, _fractionDenominator) ERC20Permit("Internal vote tracker") ERC20("Internal vote tracker", "IVT") {
+	) Distributor(_token, _total, _uri, _fractionDenominator) ERC20Permit("Internal vote tracker") ERC20("Internal vote tracker", "IVT") Sweepable(payable(owner())) {
 		voteFactor = _voteFactor;
 		emit SetVoteFactor(voteFactor);
 	}
@@ -89,6 +89,11 @@ abstract contract AdvancedDistributor is Ownable, Sweepable, ERC20Votes, Distrib
 	function setUri(string memory _uri) external onlyOwner {
 		uri = _uri;
 		emit SetUri(uri);
+	}
+
+	// set the recipient of swept funds
+	function setSweepRecipient(address payable _recipient) external onlyOwner {
+		_setSweepRecipient(_recipient);
 	}
 
 	function getTotalVotes() external view returns (uint256) {

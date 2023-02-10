@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BSL-1.1
 pragma solidity 0.8.16;
 
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -27,4 +27,14 @@ interface IDistributor {
 	function getClaimableAmount(address beneficiary) external view returns (uint256);
 
 	function getFractionDenominator() external view returns (uint256);
+
+	function token() external view returns (IERC20);
+	
+	function total() external view returns (uint256);
+
+	function uri() external view returns (string memory);
+
+	function NAME() external view returns (string memory);
+
+	function VERSION() external view returns (uint256);
 }

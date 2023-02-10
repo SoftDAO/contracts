@@ -1,6 +1,6 @@
 pragma solidity >=0.8.0 <0.9.0;
 
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BSL-1.1
 
 interface ISaleManager_v_1_3 {
 	function getAdmin(bytes32 saleId) external view returns (address);

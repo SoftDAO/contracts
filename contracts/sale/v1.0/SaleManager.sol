@@ -1,5 +1,5 @@
 pragma solidity 0.8.16;
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BSL-1.1
 
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";

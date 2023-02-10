@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BSL-1.1
 pragma solidity 0.8.16;
 
 import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -18,9 +18,9 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
 	uint256 immutable fractionDenominator; // denominator for vesting fraction (e.g. if vested fraction is 100 and fractionDenominator is 10000, 1% of tokens have vested)
 
 	// provide context on the contract name and version
-	function NAME() external virtual returns (string memory);
+	function NAME() external virtual view returns (string memory);
 
-	function VERSION() external virtual returns (uint256);
+	function VERSION() external virtual view returns (uint256);
 
 	constructor(
 		IERC20 _token,

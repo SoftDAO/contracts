@@ -1,14 +1,14 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BSL-1.1
 pragma solidity 0.8.16;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 import { DistributionRecord } from "./abstract/Distributor.sol";
 import { TrancheVesting, Tranche } from "./abstract/TrancheVesting.sol";
 import { MerkleSet } from "./abstract/MerkleSet.sol";
 import { ISaleManager_v_1_3 } from "../sale/v1.3/ISaleManager.sol";
-import { IERC20Extended } from "../interfaces/IERC20Extended.sol";
 
 contract TrancheVestingSale_1_3 is TrancheVesting {
 	ISaleManager_v_1_3 public immutable saleManager;
@@ -61,7 +61,7 @@ contract TrancheVestingSale_1_3 is TrancheVesting {
 	}
 
 	function tryDecimals(IERC20 _token) internal view returns (int256) {
-		try IERC20Extended(address(_token)).decimals() returns (uint8 decimals) {
+		try IERC20Metadata(address(_token)).decimals() returns (uint8 decimals) {
 			return int256(uint256(decimals));
 		} catch {
 			return -1;
