@@ -331,7 +331,7 @@ contract FlatPriceSale is Sale, PullPaymentUpgradeable {
 		(
 			uint80 roundID,
 			int256 _price,
-			uint256 startedAt,
+			, // uint256 startedAt
 			uint256 timeStamp,
 			uint80 answeredInRound
 		) = oracle.latestRoundData();
