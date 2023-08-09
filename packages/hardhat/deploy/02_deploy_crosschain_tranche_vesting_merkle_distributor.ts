@@ -178,12 +178,11 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
   await Registry.connect(deployerSigner).addAdmin(deployer);
   const registerDistributorResult = await Registry.connect(deployerSigner).register(
     Distributor.address,
-  //   // TODO: generate new interface ids
-    
-  //   // CrosschainDistributor, IDistributor, ITrancheVesting, AdvancedDistributor, IMerkleSet, ERC20Votes, IVoting: ["0x0cab5d00", "0x616aa576", "0x93cc7303", "0xed7a31af", "0x49590657", "0xe3741f15", "0xc823125b"]
-  //   // new interface ids for crosschain/advanced distributor as of 7/28: ["0x1f743925", "0x616aa576", "0x93cc7303", "0xfea5558a", "0x49590657", "0xe3741f15", "0xc823125b"]
-  //   // new interface ids for crosschain/advanced distributor as of 7/30:
-    ["0x4d91fe87", "0x616aa576", "0x93cc7303", "0xac409228", "0x49590657", "0xe3741f15", "0xc823125b"]
+    // CrosschainDistributor, IDistributor, ITrancheVesting, AdvancedDistributor, IMerkleSet, ERC20Votes, IVoting: ["0x0cab5d00", "0x616aa576", "0x93cc7303", "0xed7a31af", "0x49590657", "0xe3741f15", "0xc823125b"]
+    // new interface ids for crosschain/advanced distributor as of 7/28: ["0x1f743925", "0x616aa576", "0x93cc7303", "0xfea5558a", "0x49590657", "0xe3741f15", "0xc823125b"]
+    // new interface ids for crosschain/advanced distributor as of 7/30: ["0x4d91fe87", "0x616aa576", "0x93cc7303", "0xac409228", "0x49590657", "0xe3741f15", "0xc823125b"]
+    // new interface ids as of 8/9
+    ["0x139a2876", "0xf24b44d9", "0x616aa576", "0x93cc7303", "0x49590657", "0xe3741f15", "0xc823125b"]
   )
   const registerTokenResult = await Registry.connect(deployerSigner).register(
     Token.address,
