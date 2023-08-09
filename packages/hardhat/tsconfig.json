@@ -11,6 +11,6 @@
   },
   "include": ["./test", "./scripts", "./typechain-types"],
   "files": [
-    "./hardhat.config.ts"
+    "hardhat.config.js"
   ]
 }
