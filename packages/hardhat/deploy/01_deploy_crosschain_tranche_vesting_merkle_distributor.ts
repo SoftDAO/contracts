@@ -83,7 +83,7 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
   const { deploy } = deployments
   const { deployer, seller: user } = await getNamedAccounts()
   // const userAddress = user.toLowerCase()
-  // const deployerSigner = await ethers.getSigner(deployer)
+  const deployerSigner = await ethers.getSigner(deployer)
   // const userSigner = await ethers.getSigner(user)
   
   // const registryResult = await deploy("Registry", {
@@ -103,7 +103,7 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
 
   const config = {
     "goerli": [
-      // erc20 TVOTES toekn
+      // erc20 TVOTES token
       "0xC15bAC780f7702E83d421955132d192c8841B13f",
       // connext
       "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
@@ -151,16 +151,17 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
     args: config.mumbai,
     
     // local args
-    // args: [
-    //   Token.address,
-    //   connextMockSource.address,
-    //   ONE_MILLION,
-    //   'ipfs://QmPjC9nM3pPfhNHia9umjWjoyXX46ARXnzHGu6mV7VtmvF',
-    //   '1000000000000000000',
-    //   tranches,
-    //   '0x25e9b9b2a57375a5b6bad1c2575126b6307c93a5816b1d636a3a2fe07fd88a40',
-    //   '0'
-    // ],
+  //   args: [
+  //     Token.address,
+  //     connextMockSource.address,
+  //     ONE_MILLION,
+  //     'https://example.com',
+  //     '10000',
+  //     tranches,
+  //     '0x25e9b9b2a57375a5b6bad1c2575126b6307c93a5816b1d636a3a2fe07fd88a40',
+  //     '0'
+  //   ],
+
     log: true,
   })
 
@@ -177,10 +178,12 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
   // await Registry.connect(deployerSigner).addAdmin(deployer);
   // const registerDistributorResult = await Registry.connect(deployerSigner).register(
   //   Distributor.address,
-  //   // CrosschainDistributor, IDistributor, ITrancheVesting, AdvancedDistributor, IMerkleSet, ERC20Votes, IVoting
-  //   ["0x0cab5d00", "0x616aa576", "0x93cc7303", "0xed7a31af", "0x49590657", "0xe3741f15", "0xc823125b"]
-  //   with new interface ids for crosschain/advanced distributor as of 7/28: ["0x1f743925", "0x616aa576", "0x93cc7303", "0xfea5558a", "0x49590657", "0xe3741f15", "0xc823125b"]
-  //   with new interface ids for crosschain/advanced distributor as of 7/30: ["0x4d91fe87", "0x616aa576", "0x93cc7303", "0xac409228", "0x49590657", "0xe3741f15", "0xc823125b"]
+  //   // TODO: generate new interface ids
+    
+  //   // CrosschainDistributor, IDistributor, ITrancheVesting, AdvancedDistributor, IMerkleSet, ERC20Votes, IVoting: ["0x0cab5d00", "0x616aa576", "0x93cc7303", "0xed7a31af", "0x49590657", "0xe3741f15", "0xc823125b"]
+  //   // new interface ids for crosschain/advanced distributor as of 7/28: ["0x1f743925", "0x616aa576", "0x93cc7303", "0xfea5558a", "0x49590657", "0xe3741f15", "0xc823125b"]
+  //   // new interface ids for crosschain/advanced distributor as of 7/30:
+  //   ["0x4d91fe87", "0x616aa576", "0x93cc7303", "0xac409228", "0x49590657", "0xe3741f15", "0xc823125b"]
   // )
   // const registerTokenResult = await Registry.connect(deployerSigner).register(
   //   Token.address,
@@ -213,4 +216,4 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
   // )
 }
 
-module.exports.tags = ['1', 'crosschain claims']
+module.exports.tags = ['01', 'crosschain claims']
