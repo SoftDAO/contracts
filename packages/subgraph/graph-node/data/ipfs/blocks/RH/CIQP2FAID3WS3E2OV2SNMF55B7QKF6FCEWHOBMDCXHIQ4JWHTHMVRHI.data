@@ -1,0 +1,244 @@
+
+§>Ÿ>dataSources:
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmQt42UTVkCgzh1Pcho978XnEN4fTzw6QNAbHXE7UULPGg
+          name: Registry
+        - file:
+            /: /ipfs/QmZxTAPGMn8nhpfdyeos5xqBWFykH3QdCzNhpfvoHUK7RK
+          name: IDistributor
+        - file:
+            /: /ipfs/QmUHoyoPFSf5QUPUx48T4QZA6AFKfuVdmSRLdZQyYirdkc
+          name: AdvancedDistributor
+        - file:
+            /: /ipfs/QmfJufYbJxXd599rfaWRjVQhYGiduRp9kamodPj5vRtHoC
+          name: ITrancheVesting
+        - file:
+            /: /ipfs/QmXL2RHAF1BaaSRxm87PggSdPKQR2rtTQLke2ihRCALrXZ
+          name: IPriceTierVesting
+        - file:
+            /: /ipfs/QmQEx1ALfUAvXUDeM26qhndTRz9UGDzsF8SQF31CZ6KsJN
+          name: IContinuousVesting
+        - file:
+            /: /ipfs/QmVkgbSMT9SrNoFcfxSdSmhghS2zz7Y6g3QxQ1xZ8HccrB
+          name: IERC20Metadata
+        - file:
+            /: /ipfs/QmSCEJ6Az5gnpHkTLNWdEtTfKh7t12Y3araQyBXYwMCaLA
+          name: IMerkleSet
+        - file:
+            /: /ipfs/QmW2snhMKJAFDbQrEg1Jh79nnVdTT8D6MvEynGwW5SmUDE
+          name: Trader
+        - file:
+            /: /ipfs/QmSpEaM9BMRk2uSZFbw23uLeHj7LLjtBdEUPMP4kUvmwis
+          name: CrosschainDistributor
+        - file:
+            /: /ipfs/QmdUBy8AitMFLpHVkS87yXev84eTKLXAbgDuRMLiPhhB2c
+          name: ERC20Votes
+      apiVersion: 0.0.6
+      entities:
+        - Registry
+        - Distributor
+        - AdvancedDistributor
+        - TrancheVesting
+        - ContinuousVesting
+        - MerkleSet
+        - CrosschainDistributor
+      eventHandlers:
+        - event: DeployRegistry()
+          handler: handleDeployRegistry
+        - event: 'Register(indexed address,bytes4[],address)'
+          handler: handleRegister
+        - event: 'Unregister(indexed address,bytes4[],address)'
+          handler: handleUnregister
+        - event: 'RoleGranted(indexed bytes32,indexed address,indexed address)'
+          handler: handleRoleGranted
+        - event: 'RoleRevoked(indexed bytes32,indexed address,indexed address)'
+          handler: handleRoleRevoked
+        - event: 'OwnershipTransferred(indexed address,indexed address)'
+          handler: handleOwnershipTransferred
+      file:
+        /: /ipfs/QmQdsh4DUq5GSmwVqrKTnM2cNZG6PL1bhBVXMcN5SSzukv
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: Registry
+    network: localhost
+    source:
+      abi: Registry
+      address: '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+schema:
+  file:
+    /: /ipfs/Qmbeg5qj3ZeazEiC5DdJJnMGoWvV4u6dfFg5Puq5MdA5oZ
+specVersion: 0.0.4
+templates:
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmT3UAyo4TLPJmoxc2MLzZFtH7qnjvBs3haGJn628hj2T6
+          name: IDistributorPatched
+      apiVersion: 0.0.6
+      entities:
+        - Distributor
+        - DistributionRecord
+        - Claim
+      eventHandlers:
+        - event: 'InitializeDistributionRecord(indexed address,uint256)'
+          handler: handleInitializeDistributionRecord
+        - event: 'Claim(indexed address,uint256)'
+          handler: handleClaim
+      file:
+        /: /ipfs/QmTPRgqPqHJaua5qrEzDH47TKPEW9Cr1EjhNj2NEqKVboL
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: Distributor
+    network: localhost
+    source:
+      abi: IDistributorPatched
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmZxTAPGMn8nhpfdyeos5xqBWFykH3QdCzNhpfvoHUK7RK
+          name: IDistributor
+        - file:
+            /: /ipfs/QmUHoyoPFSf5QUPUx48T4QZA6AFKfuVdmSRLdZQyYirdkc
+          name: AdvancedDistributor
+      apiVersion: 0.0.6
+      entities:
+        - Distributor
+        - AdvancedDistributor
+        - DistributionRecord
+        - Claim
+      eventHandlers:
+        - event: 'OwnershipTransferred(indexed address,indexed address)'
+          handler: handleOwnershipTransferred
+        - event: 'SweepToken(indexed address,uint256)'
+          handler: handleSweepToken
+        - event: SweepNative(uint256)
+          handler: handleSweepNative
+        - event: 'Adjust(indexed address,int256)'
+          handler: handleAdjust
+        - event: SetToken(indexed address)
+          handler: handleSetToken
+        - event: SetTotal(uint256)
+          handler: handleSetTotal
+        - event: SetUri(indexed string)
+          handler: handleSetUri
+        - event: SetVoteFactor(uint256)
+          handler: handleSetVoteFactor
+      file:
+        /: /ipfs/QmP8Bk9BuatrUHXY7FaD3aHo4M6fzAuMDEKTzYZyBo9cyr
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: AdvancedDistributor
+    network: localhost
+    source:
+      abi: AdvancedDistributor
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmfJufYbJxXd599rfaWRjVQhYGiduRp9kamodPj5vRtHoC
+          name: ITrancheVesting
+      apiVersion: 0.0.6
+      entities:
+        - Distributor
+        - Tranche
+        - TrancheVesting
+      eventHandlers:
+        - event: 'SetTranche(indexed uint256,uint128,uint128)'
+          handler: handleSetTranche
+      file:
+        /: /ipfs/QmXPZZ9eMthA9BmdRQ62ndLWNE5HFR5AMexzvpTaVuNUKq
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: TrancheVesting
+    network: localhost
+    source:
+      abi: ITrancheVesting
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmSCEJ6Az5gnpHkTLNWdEtTfKh7t12Y3araQyBXYwMCaLA
+          name: IMerkleSet
+      apiVersion: 0.0.6
+      entities:
+        - Distributor
+        - MerkleSet
+      eventHandlers:
+        - event: SetMerkleRoot(bytes32)
+          handler: handleSetMerkleRoot
+      file:
+        /: /ipfs/QmcMGjscuVNmpw4CUTmAiLUy4fj2bKkKEsepwLFNauKL9i
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: MerkleSet
+    network: localhost
+    source:
+      abi: IMerkleSet
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmSpEaM9BMRk2uSZFbw23uLeHj7LLjtBdEUPMP4kUvmwis
+          name: CrosschainDistributor
+        - file:
+            /: /ipfs/QmZxTAPGMn8nhpfdyeos5xqBWFykH3QdCzNhpfvoHUK7RK
+          name: IDistributor
+        - file:
+            /: /ipfs/QmVkgbSMT9SrNoFcfxSdSmhghS2zz7Y6g3QxQ1xZ8HccrB
+          name: IERC20Metadata
+      apiVersion: 0.0.6
+      entities:
+        - Distributor
+        - DistributionRecord
+        - Account
+        - Claim
+      eventHandlers:
+        - event: >-
+            CrosschainClaim(indexed bytes32,indexed address,indexed
+            address,uint32,uint256)
+          handler: handleCrosschainClaim
+      file:
+        /: /ipfs/QmUYakivwSaWdYEKBtWxsXX4zoER8QAWUBJLSVUfk4iZh9
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: CrosschainDistributor
+    network: localhost
+    source:
+      abi: CrosschainDistributor
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmW2snhMKJAFDbQrEg1Jh79nnVdTT8D6MvEynGwW5SmUDE
+          name: Trader
+      apiVersion: 0.0.6
+      entities:
+        - Trade
+        - Trader
+      eventHandlers:
+        - event: 'SetConfig(address,uint256)'
+          handler: handleSetConfig
+        - event: SetSweepRecipient(address)
+          handler: handleSetSweepRecipient
+        - event: >-
+            HashflowTradeSingleHop((address,address,address,address,address,address,uint256,uint256,uint256,uint256,uint256,bytes32,bytes))
+          handler: handleHashflowTradeSingleHop
+        - event: >-
+            HashflowTradeXChain((uint16,uint16,address,bytes32,address,bytes32,address,address,address,uint256,uint256,uint256,uint256,bytes32,bytes),uint8)
+          handler: handleHashflowTradeXChain
+        - event: 'OwnershipTransferred(indexed address,indexed address)'
+          handler: handleOwnershipTransferred
+      file:
+        /: /ipfs/QmSjw49CDEyfTL12pWhnMkxZeAKJbym25gmaEfFZa5cTfs
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: Trader
+    network: localhost
+    source:
+      abi: Trader
+Ÿ>

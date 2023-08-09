@@ -13,6 +13,7 @@
     "test": "npx hardhat jest",
     "verify": "hardhat etherscan-verify",
     "generate-merkle-root": "ts-node ./scripts/generate-merkle-root.ts",
+    "generate-abi-interfaces": "yarn compile && ts-node ./scripts/generate-abi-interfaces.ts",
     "upload-ipfs-remote": "ts-node ./scripts/upload-ipfs-remote.ts"
   },
   "devDependencies": {
