@@ -2,7 +2,7 @@ import { log } from '@graphprotocol/graph-ts'
 import { OwnershipTransferred, SweepToken, SweepNative, Adjust, SetToken, SetTotal, SetUri, SetVoteFactor } from "../../../generated/templates/AdvancedDistributor/AdvancedDistributor";
 
 import { getDistributor, getAdvancedDistributor, getDistributionRecord, createAdjustment } from "../../lib";
-import { IDistributorPatched as IDistributor } from '../../../generated/templates/Distributor/IDistributorPatched';
+import { IDistributor } from '../../../generated/templates/Distributor/IDistributor';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 	log.info('Updating advanced distributor {} owner to {}', [event.address.toHexString(), event.params.newOwner.toHexString()])

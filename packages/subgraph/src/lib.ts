@@ -1,5 +1,5 @@
 import { Address, ethereum, BigInt, Bytes, log, Result, store } from "@graphprotocol/graph-ts";
-import { IDistributorPatched as IDistributor } from "../generated/templates/Distributor/IDistributorPatched";
+import { IDistributor } from "../generated/templates/Distributor/IDistributor";
 import { Distributor as DistributorTemplate, AdvancedDistributor as AdvancedDistributorTemplate, CrosschainDistributor, TrancheVesting as TrancheVestingTemplate, MerkleSet as MerkleSetTemplate } from '../generated/templates'
 import { IERC20Metadata } from '../generated/Registry/IERC20Metadata'
 import { ITrancheVesting } from '../generated/Registry/ITrancheVesting'

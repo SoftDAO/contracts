@@ -25,8 +25,6 @@ dataSources:
           file: Registry/abis/contracts/utilities/Registry.json
         - name: IDistributor
           file: Registry/abis/contracts/interfaces/IDistributor.json
-        - name: IDistributorPatched
-          file: Registry/abis/contracts/interfaces/IDistributorPatched.json
         - name: AdvancedDistributor
           file: Registry/abis/contracts/claim/abstract/AdvancedDistributor.json
         - name: ITrancheVesting
@@ -75,6 +73,8 @@ templates:
         - DistributionRecord
         - Claim
       abis:
+        - name: IDistributor
+          file: Distributor/abis/contracts/interfaces/IDistributor.json
         - name: IDistributorPatched
           file: Distributor/abis/contracts/interfaces/IDistributorPatched.json
       eventHandlers:

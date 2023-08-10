@@ -1,4 +1,4 @@
-import { InitializeDistributionRecord, InitializeDistributor, Claim } from "../../../generated/templates/Distributor/IDistributorPatched";
+import { InitializeDistributionRecord, InitializeDistributor, Claim } from "../../../generated/templates/Distributor/IDistributor";
 import { createClaim, createDistributionRecord, getOrCreateDistributionRecord, getDistributor, getOrCreateDistributor, getSale } from "../../lib";
 
 export function handleInitializeDistributor(event: InitializeDistributor): void {
@@ -20,7 +20,7 @@ export function handleInitializeDistributor(event: InitializeDistributor): void 
 }
 
 export function handleInitializeDistributionRecord(event: InitializeDistributionRecord): void {
-  getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.params.amount, event.block);
+  getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.params.total, event.block);
 }
 
 export function handleClaim(event: Claim): void {
