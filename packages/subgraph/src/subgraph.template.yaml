@@ -476,28 +476,3 @@ templates:
       eventHandlers:
         - event: CrosschainClaim(indexed bytes32,indexed address,indexed address,uint32,uint256)
           handler: handleCrosschainClaim
-  # - kind: ethereum/contract
-  #   name: ERC20Votes
-  #   network: {{SubgraphNetwork}}
-  #   source:
-  #     abi: ERC20Votes
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.6
-  #     language: wasm/assemblyscript
-  #     file: ./src/governance/erc20VotesMapping.ts
-  #     entities:
-  #       - ERC20VotesContract
-  #       - ERC20VotesMetadata
-  #       - Account
-  #     abis:
-  #       - name: ERC20Votes
-  #         file: ./abis/contracts/token/ERC20Votes.json
-  #     eventHandlers:
-  #       - event: DelegateChanged(indexed address,indexed address,indexed address)
-  #         handler: handleDelegateChanged
-  #       # - event: DelegateVotesChanged(indexed address,uint256,uint256)
-  #       #   handler: handleDelegateVotesChanged
-  #       - event: Transfer(indexed address,indexed address,uint256)
-  #         handler: handleTransfer
-  

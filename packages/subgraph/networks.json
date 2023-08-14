@@ -2,6 +2,34 @@
   "mumbai": {
     "CrosschainTrancheVestingMerkle": {
       "address": "0x062A649970d3df04e79B68BD5ee1B4e6EA799d87"
+    },
+    "TrancheVestingSale_2_0": {
+      "address": "0x1F56f6A9aD23850Fb4dED9c32F25c28CD5d5c8aa",
+      "startBlock": 15729776
+    },
+    "FlatPriceSaleFactory": {
+      "address": "0x865D024BFd9e1C2Cd665fAc6666c5C3E4a375dd7",
+      "startBlock": 15621922
+    },
+    "FlatPriceSaleImplementation": {
+      "address": "0x135D889aFF58584e12ab3bd4ce327a18aF3356Ef",
+      "startBlock": 15621920
+    },
+    "SaleManager_v_1_0": {
+      "address": "0x000047203100A45635029eC21bbBec5EC53Cb6f6",
+      "startBlock": 14699410
+    },
+    "SaleManager_v_1_2": {
+      "address": "0xfF7a903e86b10AaEB8Da65CeF0eBc07eA3F9354b",
+      "startBlock": 15085473
+    },
+    "SaleManager_v_1_3": {
+      "address": "0x6BbCA3864332C0FAd534b04C99C76E166aB2dfAA",
+      "startBlock": 15448945
+    },
+    "Registry": {
+      "address": "0xc70573B924C92618E6143F6ac4C2B1aD7ba8785b",
+      "startBlock": 16242929
     }
   },
   "localhost": {
@@ -16,6 +44,35 @@
     },
     "MyERC20Votes": {
       "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+    }
+  },
+  "goerli": {
+    "FlatPriceSaleFactory": {
+      "address": "0xF043A0488E4541D7c9a77a0f998e4687683399b0",
+      "startBlock": 7677509
+    },
+    "FlatPriceSaleImplementation": {
+      "address": "0x0b6E2c1fc63B0477f38062474e653CC1723c80Ff",
+      "startBlock": 7677507
+    },
+    "SaleManager_v_1_0": {
+      "address": "0xa069807cEa167873fD230507e2b85c1d052b5902",
+      "startBlock": 7255512
+    },
+    "SaleManager_v_1_2": {
+      "address": "0xeEDB0e8e589F9ADf6768fc006BaA1C6462f5e563",
+      "startBlock": 7180529
+    },
+    "SaleManager_v_1_3": {
+      "address": "0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F",
+      "startBlock": 7267817
+    },
+    "Registry": {
+      "address": "0x3a03bF4106404B94d426bC31B831889f0d43960b",
+      "startBlock": 7972181
+    },
+    "ContinuousVestingMerkle": {
+      "address": "0x43c49387EAE2aA8979E9D471f2Ad8544AFaf9687"
     }
   }
 }

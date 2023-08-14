@@ -6,6 +6,20 @@ import {
   DataSourceContext
 } from "@graphprotocol/graph-ts";
 
+export class FlatPriceSale extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("FlatPriceSale", [address.toHex()]);
+  }
+
+  static createWithContext(address: Address, context: DataSourceContext): void {
+    DataSourceTemplate.createWithContext(
+      "FlatPriceSale",
+      [address.toHex()],
+      context
+    );
+  }
+}
+
 export class Distributor extends DataSourceTemplate {
   static create(address: Address): void {
     DataSourceTemplate.create("Distributor", [address.toHex()]);
@@ -62,6 +76,16 @@ export class MerkleSet extends DataSourceTemplate {
   }
 }
 
+export class Trader extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("Trader", [address.toHex()]);
+  }
+
+  static createWithContext(address: Address, context: DataSourceContext): void {
+    DataSourceTemplate.createWithContext("Trader", [address.toHex()], context);
+  }
+}
+
 export class CrosschainDistributor extends DataSourceTemplate {
   static create(address: Address): void {
     DataSourceTemplate.create("CrosschainDistributor", [address.toHex()]);
@@ -73,15 +97,5 @@ export class CrosschainDistributor extends DataSourceTemplate {
       [address.toHex()],
       context
     );
-  }
-}
-
-export class Trader extends DataSourceTemplate {
-  static create(address: Address): void {
-    DataSourceTemplate.create("Trader", [address.toHex()]);
-  }
-
-  static createWithContext(address: Address, context: DataSourceContext): void {
-    DataSourceTemplate.createWithContext("Trader", [address.toHex()], context);
   }
 }

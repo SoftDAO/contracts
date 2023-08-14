@@ -31,7 +31,7 @@ export function handleDeployRegistry(event: DeployRegistry): void {
 	log.info('Trying to add distributor info to distributor {} with interfaces {}', [registeredAddress.id, registeredAddress.interfaceIds.toString()])
 
 	// add advanced distributor info
-	if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.AdvancedDistributor, legacyInterfaces.AdvancedDistributor])) {
+	if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.AdvancedDistributor, legacyInterfaces.AdvancedDistributor, "0xfea5558a", "0xac409228"])) {
 		log.info('Registered {} as AdvancedDistributor', [registeredAddress.id])
 		getOrCreateAdvancedDistributor(distributor.id, block)
 	}
@@ -43,21 +43,21 @@ export function handleDeployRegistry(event: DeployRegistry): void {
 	}
 
 	// add various vesting configs
-	if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.ITrancheVesting])) {
+	if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.ITrancheVesting, "0xb3854e29", "0x93cc7303", "0x3b6767f5", "0x7c9dae5c"])) {
 		if (distributor.id != '0xd7bd991f09203fd70353b84ea1e2be2d4b652c85') {
 			log.info('Registered {} as ITrancheVesting', [registeredAddress.id])
 				getOrCreateTrancheVesting(distributor.id, block)
 		}
-	} else if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.IContinuousVesting, legacyInterfaces.IContinuousVesting])) {
+	} else if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.IContinuousVesting, legacyInterfaces.IContinuousVesting, "0xcacb5171", "0x09e04257", "0x7c13a6ee"])) {
 		log.info('Registered {} as IContinuousVesting', [registeredAddress.id])
 		getOrCreateContinuousVesting(distributor.id, block)
-	} else if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.IPriceTierVesting]) || distributor.id == '0xd7bd991f09203fd70353b84ea1e2be2d4b652c85') {
+	} else if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.IPriceTierVesting, "0x71f30ab2"]) || distributor.id == '0xd7bd991f09203fd70353b84ea1e2be2d4b652c85') {
 		getOrCreatePriceTiers(distributor.id, block)
 	}
 
 	// add crosschain distributor info
 	if (
-		interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.CrosschainDistributor])
+		interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.CrosschainDistributor, "0xbda88b28","0x4d91fe87"])
 		// misconfigured test distributor on goerli
 		&& distributor.id != '0xb3ff7d09c4871cfcfea4e1520e6565092b213aab'
 	) {
@@ -93,7 +93,7 @@ export function handleRegister(event: Register): void {
 	registeredAddress.save()
 
 	// Special case: a distributor
-	if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.IDistributor, legacyInterfaces.IDistributor]))  {
+	if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.IDistributor, legacyInterfaces.IDistributor, "0x0621dbd4", "0xab85ea0e", "0xa4d35362", "0x8401541e", "0x2c597ff5", "0x616aa576", "0xa3996a27"]))  {
 		log.info('Registered {} as IDistributor', [registeredAddress.id])
 		// the registered address is a distributor
 		const distributor = getOrCreateDistributor(Address.fromString(registeredAddress.id), event.block);

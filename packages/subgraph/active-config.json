@@ -1,0 +1,21 @@
+{
+  "SubgraphNetwork": "optimism-goerli",
+  "FlatPriceSaleFactory": [
+    {
+      "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
+      "BlockNumber": 2775414
+    }
+  ],
+  "FlatPriceSale": [
+    {
+      "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
+      "BlockNumber": 2775412
+    }
+  ],
+  "Registry": [
+    {
+      "Address": "0xb64f3493384AcA9ceCCB80b73b50da572caa95E4",
+      "BlockNumber": 3580794
+    }
+  ]
+}

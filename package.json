@@ -21,7 +21,7 @@
     "hardhat:lint-staged": "yarn workspace @se-2/hardhat lint-staged",
     "test": "yarn workspace @se-2/hardhat test",
     "generate-merkle-root": "yarn workspace @se-2/hardhat generate-merkle-root",
-    "generate-abi-interfaces":  "yarn workspace @se-2/hardhat generate-abi-interfaces",
+    "generate-abi-interfaces": "yarn workspace @se-2/hardhat generate-abi-interfaces",
     "upload-ipfs-remote": "yarn workspace @se-2/hardhat upload-ipfs-remote",
     "start": "yarn workspace @se-2/nextjs dev",
     "next:lint": "yarn workspace @se-2/nextjs lint",

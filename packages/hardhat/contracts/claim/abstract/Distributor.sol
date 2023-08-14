@@ -48,10 +48,10 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
     address beneficiary,
     uint256 _totalAmount
   ) internal virtual {
-    uint120 totalAmount = uint120(_totalAmount);
 
     // Checks
-    require(totalAmount <= type(uint120).max, 'Distributor: totalAmount > type(uint120).max');
+    require(_totalAmount <= type(uint120).max, 'Distributor: totalAmount > type(uint120).max');
+    uint120 totalAmount = uint120(_totalAmount);
 
     // Effects - note that the existing claimed quantity is re-used during re-initialization
     records[beneficiary] = DistributionRecord(true, totalAmount, records[beneficiary].claimed);
