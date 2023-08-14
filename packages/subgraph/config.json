@@ -204,5 +204,14 @@
         "BlockNumber": 3195631
       }
     ]
+  },
+  "gnosis": {
+    "SubgraphNetwork": "gnosis",
+    "Registry" : [
+      {
+        "Address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D",
+        "BlockNumber": 29461994
+      }
+    ]
   }
 }

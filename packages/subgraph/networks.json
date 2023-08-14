@@ -74,5 +74,10 @@
     "ContinuousVestingMerkle": {
       "address": "0x43c49387EAE2aA8979E9D471f2Ad8544AFaf9687"
     }
+  },
+  "gnosis": {
+    "Registry": {
+      "address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D"
+    }
   }
 }

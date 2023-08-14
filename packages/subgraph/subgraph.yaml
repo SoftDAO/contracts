@@ -4,48 +4,6 @@ schema:
 dataSources:
   
   
-  - kind: ethereum/contract
-    name: FlatPriceSaleFactory
-    network: optimism-goerli
-    source:
-      address: '0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20'
-      abi: FlatPriceSaleFactory
-      startBlock: 2775414
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ./src/sale/v2.0/flatPriceSaleFactoryMapping.ts
-      entities:
-        - Sale
-      abis:
-        - name: FlatPriceSaleFactory
-          file: ./abis/contracts/sale/v2/FlatPriceSaleFactory.json
-      eventHandlers:
-        - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
-          handler: handleNewSale
-  
-  
-  - kind: ethereum/contract
-    name: FlatPriceSaleImplementation
-    network: optimism-goerli
-    source:
-      address: '0xb41169Cc124298Be20e2Ca956cC46E266ab5E203'
-      abi: FlatPriceSale
-      startBlock: 2775412
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - SaleImplementation
-      abis:
-        - name: FlatPriceSale
-          file: ./abis/contracts/sale/v2/FlatPriceSale.json
-      eventHandlers:
-        - event: ImplementationConstructor(indexed address,uint256)
-          handler: handleImplementationConstructor
-      file: ./src/sale/v2.0/saleImplementationMapping.ts
   
   
   
@@ -53,11 +11,11 @@ dataSources:
   
   - kind: ethereum/contract
     name: Registry
-    network: optimism-goerli
+    network: gnosis
     source:
-      address: '0xb64f3493384AcA9ceCCB80b73b50da572caa95E4'
+      address: '0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D'
       abi: Registry
-      startBlock: 3580794
+      startBlock: 29461994
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -111,7 +69,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: FlatPriceSale
-    network: optimism-goerli
+    network: gnosis
     source:
       abi: FlatPriceSale
     mapping:
@@ -152,7 +110,7 @@ templates:
   # We use a patched interface definition to handle older distributors with a slightly different InitializeDistributor signature
   - kind: ethereum/contract
     name: Distributor
-    network: optimism-goerli
+    network: gnosis
     source:
       abi: IDistributorPatched
     mapping:
@@ -175,7 +133,7 @@ templates:
   # Older distributors had a slightly different event signature
   # - kind: ethereum/contract
   #   name: Distributor
-  #   network: optimism-goerli
+  #   network: gnosis
   #   source:
   #     abi: IDistributor
   #   mapping:
@@ -197,7 +155,7 @@ templates:
   #         handler: handleClaim
   - kind: ethereum/contract
     name: AdvancedDistributor
-    network: optimism-goerli
+    network: gnosis
     source:
       abi: AdvancedDistributor
     mapping:
@@ -239,7 +197,7 @@ templates:
        
   - kind: ethereum/contract
     name: TrancheVesting
-    network: optimism-goerli
+    network: gnosis
     source:
       abi: ITrancheVesting
     mapping:
@@ -260,7 +218,7 @@ templates:
 
   - kind: ethereum/contract
     name: MerkleSet
-    network: optimism-goerli
+    network: gnosis
     source:
       abi: IMerkleSet
     mapping:
@@ -280,7 +238,7 @@ templates:
 
   - kind: ethereum/contract
     name: Trader
-    network: optimism-goerli
+    network: gnosis
     source:
       abi: Trader
     mapping:
@@ -307,7 +265,7 @@ templates:
           handler: handleOwnershipTransferred
   - kind: ethereum/contract
     name: CrosschainDistributor
-    network: optimism-goerli
+    network: gnosis
     source:
       abi: CrosschainDistributor
     mapping:

@@ -23,7 +23,9 @@ function getApiKey(network) {
     case "fuji": {
       return process.env.SNOWTRACE_API_KEY;
     }
-    case "localhost":
+    case "gnosis": {
+      return process.env.GNOSISSCAN_API_KEY;
+    }
     case "mainnet":
     case "goerli": {
       return process.env.ETHERSCAN_API_KEY;
@@ -79,6 +81,16 @@ module.exports = {
     coinmarketcap: process.env.COINMARKETCAP || null,
   },
   networks: {
+    mainnet: {
+      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_MAINNET_KEY}`,
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
+      chainId: 1
+    },
+    gnosis: {
+      url: `https://rpc.ankr.com/gnosis`,
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
+      chainId: 100
+    },
     goerli: {
       url: `https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_GOERLI_KEY}`,
       accounts: [`${process.env.DEPLOYER_PRIVATE_KEY}`],
