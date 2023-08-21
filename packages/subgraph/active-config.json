@@ -1,9 +1,39 @@
 {
-  "SubgraphNetwork": "gnosis",
+  "SubgraphNetwork": "goerli",
+  "FlatPriceSaleFactory": [
+    {
+      "Address": "0xF043A0488E4541D7c9a77a0f998e4687683399b0",
+      "BlockNumber": 7677509
+    }
+  ],
+  "FlatPriceSale": [
+    {
+      "Address": "0x0b6E2c1fc63B0477f38062474e653CC1723c80Ff",
+      "BlockNumber": 7677507
+    }
+  ],
+  "SaleManager_v_1_0": [
+    {
+      "Address": "0xa069807cEa167873fD230507e2b85c1d052b5902",
+      "BlockNumber": 7255512
+    }
+  ],
+  "SaleManager_v_1_2": [
+    {
+      "Address": "0xeEDB0e8e589F9ADf6768fc006BaA1C6462f5e563",
+      "BlockNumber": 7180529
+    }
+  ],
+  "SaleManager_v_1_3": [
+    {
+      "Address": "0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F",
+      "BlockNumber": 7267817
+    }
+  ],
   "Registry": [
     {
-      "Address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D",
-      "BlockNumber": 29461994
+      "Address": "0x3a03bF4106404B94d426bC31B831889f0d43960b",
+      "BlockNumber": 7972181
     }
   ]
 }

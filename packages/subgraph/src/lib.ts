@@ -397,7 +397,7 @@ export function getDistributor(id: Address): Distributor {
 /**
  * Create a distribution record or throw
  */
-export function createDistributionRecord(distributorAddress: Address, beneficiaryAddress: Address, total: BigInt, block: ethereum.Block): DistributionRecord {
+export function createDistributionRecord(distributorAddress: Address, beneficiaryAddress: Address, block: ethereum.Block): DistributionRecord {
 	const distributionRecordId = distributorAddress.toHexString() + '-' + beneficiaryAddress.toHexString();
 	let distributionRecord = DistributionRecord.load(distributionRecordId);
 
@@ -406,7 +406,6 @@ export function createDistributionRecord(distributorAddress: Address, beneficiar
 	distributionRecord = new DistributionRecord(distributionRecordId);
 	distributionRecord.distributor = distributorAddress.toHexString();
 	distributionRecord.beneficiary = beneficiaryAddress.toHexString();
-	distributionRecord.total = total;
 	distributionRecord.claimed = BigInt.fromI32(0);
 	distributionRecord.createdAt = block.timestamp;
 	distributionRecord.save()
@@ -421,11 +420,11 @@ export function getDistributionRecord(distributorAddress: Address, beneficiaryAd
 	return distributionRecord
 }
 
-export function getOrCreateDistributionRecord(distributorAddress: Address, beneficiaryAddress: Address, total: BigInt, block: ethereum.Block): DistributionRecord {
+export function getOrCreateDistributionRecord(distributorAddress: Address, beneficiaryAddress: Address, block: ethereum.Block): DistributionRecord {
 	const distributionRecordId = distributorAddress.toHexString() + '-' + beneficiaryAddress.toHexString();
 	let distributionRecord = DistributionRecord.load(distributionRecordId);
 	if (!distributionRecord) {
-		return createDistributionRecord(distributorAddress, beneficiaryAddress, total, block)
+		return createDistributionRecord(distributorAddress, beneficiaryAddress, block)
 	}
 
 	return distributionRecord

@@ -25,10 +25,6 @@ export function handleAdjust(event: Adjust): void {
 	const distributionRecord = getDistributionRecord(event.address, event.params.beneficiary);
 	const adjustment = createAdjustment(event.transaction, distributionRecord, event.params.amount, distributor.uris[0], event.block);
 
-	// account for the adjustment
-	distributionRecord.total = distributionRecord.total.plus(adjustment.amount);
-	distributionRecord.save();
-
 	distributor.total = distributor.total.plus(adjustment.amount);
 	distributor.save();
 }

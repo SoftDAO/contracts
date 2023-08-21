@@ -20,7 +20,7 @@ domainIdToChainId.set(1887071092, 1442);
 
 export function handleCrosschainClaim(event: CrosschainClaim): void {
   const distributor = getOrCreateDistributor(event.address, event.block);
-  const distributionRecord = getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.params.amount, event.block);
+  const distributionRecord = getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.block);
   const claim = createClaim(event.transaction, distributionRecord, event.params.beneficiary, event.params.amount, distributor.uris[0], event.block);
   // update claimed amount
   distributionRecord.claimed = distributionRecord.claimed + event.params.amount;

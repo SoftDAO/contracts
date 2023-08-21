@@ -1,5 +1,5 @@
 import { InitializeDistributionRecord, InitializeDistributor, Claim } from "../../../generated/templates/Distributor/IDistributor";
-import { createClaim, createDistributionRecord, getOrCreateDistributionRecord, getDistributor, getOrCreateDistributor, getSale } from "../../lib";
+import { createClaim, getOrCreateDistributionRecord, getDistributor, getOrCreateDistributor, getSale } from "../../lib";
 
 export function handleInitializeDistributor(event: InitializeDistributor): void {
   const distributor = getOrCreateDistributor(event.address, event.block)
@@ -20,12 +20,12 @@ export function handleInitializeDistributor(event: InitializeDistributor): void 
 }
 
 export function handleInitializeDistributionRecord(event: InitializeDistributionRecord): void {
-  getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.params.total, event.block);
+  getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.block);
 }
 
 export function handleClaim(event: Claim): void {
 	const distributor = getDistributor(event.address);
-  const distributionRecord = getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.params.amount, event.block);
+  const distributionRecord = getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.block);
   createClaim(event.transaction, distributionRecord, event.params.beneficiary, event.params.amount, distributor.uris[0], event.block);
   // update claimed amount
   distributionRecord.claimed = distributionRecord.claimed + event.params.amount;

@@ -3,12 +3,176 @@ schema:
   file: schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Registry
-    network: gnosis
+    name: FlatPriceSaleFactory
+    network: goerli
     source:
-      address: "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D"
+      address: "0xF043A0488E4541D7c9a77a0f998e4687683399b0"
+      abi: FlatPriceSaleFactory
+      startBlock: 7677509
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: FlatPriceSaleFactory/FlatPriceSaleFactory.wasm
+      entities:
+        - Sale
+      abis:
+        - name: FlatPriceSaleFactory
+          file: FlatPriceSaleFactory/abis/contracts/sale/v2/FlatPriceSaleFactory.json
+      eventHandlers:
+        - event: NewSale(indexed address,indexed
+            address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
+          handler: handleNewSale
+  - kind: ethereum/contract
+    name: FlatPriceSaleImplementation
+    network: goerli
+    source:
+      address: "0x0b6E2c1fc63B0477f38062474e653CC1723c80Ff"
+      abi: FlatPriceSale
+      startBlock: 7677507
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - SaleImplementation
+      abis:
+        - name: FlatPriceSale
+          file: FlatPriceSaleImplementation/abis/contracts/sale/v2/FlatPriceSale.json
+      eventHandlers:
+        - event: ImplementationConstructor(indexed address,uint256)
+          handler: handleImplementationConstructor
+      file: FlatPriceSaleImplementation/FlatPriceSaleImplementation.wasm
+  - kind: ethereum/contract
+    name: SaleManager_v_1_3
+    network: goerli
+    source:
+      abi: SaleManager_v_1_3
+      address: "0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F"
+      startBlock: 7267817
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Purchase
+        - Sale
+        - Distributor
+      abis:
+        - name: SaleManager_v_1_3
+          file: SaleManager_v_1_3/abis/contracts/sale/v1.3/SaleManager.json
+        - name: IDistributor
+          file: SaleManager_v_1_3/abis/contracts/interfaces/IDistributor.json
+        - name: IERC20Metadata
+          file: SaleManager_v_1_3/abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+      eventHandlers:
+        - event: NewSale(indexed bytes32,indexed bytes32,indexed
+            address,address,uint256,uint256,uint256,uint256,uint256,uint256,string,uint256,uint8)
+          handler: handleNewSale
+        - event: UpdateStart(indexed bytes32,uint256)
+          handler: handleUpdateStart
+        - event: UpdateEnd(indexed bytes32,uint256)
+          handler: handleUpdateEnd
+        - event: UpdateMerkleRoot(indexed bytes32,bytes32)
+          handler: handleUpdateMerkleRoot
+        - event: Buy(indexed bytes32,indexed address,uint256,bool,bytes32[])
+          handler: handleBuy
+        - event: RegisterClaimManager(indexed bytes32,indexed address)
+          handler: handleRegisterClaimManager
+        - event: UpdateMaxQueueTime(indexed bytes32,uint256)
+          handler: handleUpdateMaxQueueTime
+        - event: Deploy(address,uint8,address)
+          handler: handleDeploy
+        - event: UpdateUri(indexed bytes32,string)
+          handler: handleUpdateUri
+      file: SaleManager_v_1_3/SaleManager_v_1_3.wasm
+  - kind: ethereum/contract
+    name: SaleManager_v_1_2
+    network: goerli
+    source:
+      abi: SaleManager_v_1_2
+      address: "0xeEDB0e8e589F9ADf6768fc006BaA1C6462f5e563"
+      startBlock: 7180529
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Purchase
+        - Sale
+      abis:
+        - name: SaleManager_v_1_2
+          file: SaleManager_v_1_2/abis/contracts/sale/v1.2/SaleManager.json
+        - name: IDistributor
+          file: SaleManager_v_1_2/abis/contracts/interfaces/IDistributor.json
+        - name: IERC20Metadata
+          file: SaleManager_v_1_2/abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+      eventHandlers:
+        - event: NewSale(indexed bytes32,indexed bytes32,indexed
+            address,address,uint256,uint256,uint256,uint256,uint256,string,uint256,uint8)
+          handler: handleNewSale
+        - event: UpdateStart(indexed bytes32,uint256)
+          handler: handleUpdateStart
+        - event: UpdateEnd(indexed bytes32,uint256)
+          handler: handleUpdateEnd
+        - event: UpdateMerkleRoot(indexed bytes32,bytes32)
+          handler: handleUpdateMerkleRoot
+        - event: Buy(indexed bytes32,indexed address,uint256,bool,bytes32[])
+          handler: handleBuy
+        - event: RegisterClaimManager(indexed bytes32,indexed address)
+          handler: handleRegisterClaimManager
+        - event: UpdateMaxQueueTime(indexed bytes32,uint256)
+          handler: handleUpdateMaxQueueTime
+        - event: Deploy(address,uint8,address)
+          handler: handleDeploy
+        - event: UpdateUri(indexed bytes32,string)
+          handler: handleUpdateUri
+      file: SaleManager_v_1_2/SaleManager_v_1_2.wasm
+  - kind: ethereum/contract
+    name: SaleManager_v_1_0
+    network: goerli
+    source:
+      abi: SaleManager_v_1_0
+      address: "0xa069807cEa167873fD230507e2b85c1d052b5902"
+      startBlock: 7255512
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Purchase
+        - Sale
+      abis:
+        - name: SaleManager_v_1_0
+          file: SaleManager_v_1_0/abis/contracts/sale/v1.0/SaleManager.json
+        - name: IDistributor
+          file: SaleManager_v_1_0/abis/contracts/interfaces/IDistributor.json
+        - name: IERC20Metadata
+          file: SaleManager_v_1_0/abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+      eventHandlers:
+        - event: NewSale(indexed bytes32,indexed bytes32,indexed
+            address,uint256,uint256,uint256,uint256,uint256,string,string,uint256,uint8)
+          handler: handleNewSale
+        - event: UpdateStart(indexed bytes32,uint256)
+          handler: handleUpdateStart
+        - event: UpdateEnd(indexed bytes32,uint256)
+          handler: handleUpdateEnd
+        - event: UpdateMerkleRoot(indexed bytes32,bytes32)
+          handler: handleUpdateMerkleRoot
+        - event: Buy(indexed bytes32,indexed address,uint256,bool,bytes32[])
+          handler: handleBuy
+        - event: RegisterClaimManager(indexed bytes32,indexed address)
+          handler: handleRegisterClaimManager
+        - event: UpdateMaxQueueTime(indexed bytes32,uint256)
+          handler: handleUpdateMaxQueueTime
+      file: SaleManager_v_1_0/SaleManager_v_1_0.wasm
+  - kind: ethereum/contract
+    name: Registry
+    network: goerli
+    source:
+      address: "0x3a03bF4106404B94d426bC31B831889f0d43960b"
       abi: Registry
-      startBlock: 29461994
+      startBlock: 7972181
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -61,7 +225,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: FlatPriceSale
-    network: gnosis
+    network: goerli
     source:
       abi: FlatPriceSale
     mapping:
@@ -101,7 +265,7 @@ templates:
           handler: handleRegisterDistributor
   - kind: ethereum/contract
     name: Distributor
-    network: gnosis
+    network: goerli
     source:
       abi: IDistributorPatched
     mapping:
@@ -123,7 +287,7 @@ templates:
           handler: handleClaim
   - kind: ethereum/contract
     name: AdvancedDistributor
-    network: gnosis
+    network: goerli
     source:
       abi: AdvancedDistributor
     mapping:
@@ -160,7 +324,7 @@ templates:
           handler: handleSetVoteFactor
   - kind: ethereum/contract
     name: TrancheVesting
-    network: gnosis
+    network: goerli
     source:
       abi: ITrancheVesting
     mapping:
@@ -180,7 +344,7 @@ templates:
           handler: handleSetTranche
   - kind: ethereum/contract
     name: MerkleSet
-    network: gnosis
+    network: goerli
     source:
       abi: IMerkleSet
     mapping:
@@ -199,7 +363,7 @@ templates:
           handler: handleSetMerkleRoot
   - kind: ethereum/contract
     name: Trader
-    network: gnosis
+    network: goerli
     source:
       abi: Trader
     mapping:
@@ -226,7 +390,7 @@ templates:
           handler: handleOwnershipTransferred
   - kind: ethereum/contract
     name: CrosschainDistributor
-    network: gnosis
+    network: goerli
     source:
       abi: CrosschainDistributor
     mapping:

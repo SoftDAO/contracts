@@ -1403,15 +1403,6 @@ export class DistributionRecord extends Entity {
     return value!.toStringArray();
   }
 
-  get total(): BigInt {
-    let value = this.get("total");
-    return value!.toBigInt();
-  }
-
-  set total(value: BigInt) {
-    this.set("total", Value.fromBigInt(value));
-  }
-
   get claimed(): BigInt {
     let value = this.get("claimed");
     return value!.toBigInt();
