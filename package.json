@@ -5,7 +5,8 @@
   "workspaces": {
     "packages": [
       "packages/hardhat",
-      "packages/nextjs"
+      "packages/nextjs",
+      "packages/subgraph"
     ]
   },
   "scripts": {
@@ -18,8 +19,10 @@
     "generate": "yarn workspace @se-2/hardhat generate",
     "hardhat:lint": "yarn workspace @se-2/hardhat lint",
     "hardhat:lint-staged": "yarn workspace @se-2/hardhat lint-staged",
-    "hardhat:test": "yarn workspace @se-2/hardhat test",
-    "test": "yarn hardhat:test",
+    "test": "yarn workspace @se-2/hardhat test",
+    "generate-merkle-root": "yarn workspace @se-2/hardhat generate-merkle-root",
+    "generate-abi-interfaces": "yarn workspace @se-2/hardhat generate-abi-interfaces",
+    "upload-ipfs-remote": "yarn workspace @se-2/hardhat upload-ipfs-remote",
     "start": "yarn workspace @se-2/nextjs dev",
     "next:lint": "yarn workspace @se-2/nextjs lint",
     "next:format": "yarn workspace @se-2/nextjs format",
@@ -31,6 +34,8 @@
   },
   "packageManager": "yarn@3.2.3",
   "devDependencies": {
+    "axios": "^1.4.0",
+    "form-data": "^4.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3"
   },
