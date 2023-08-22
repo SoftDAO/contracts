@@ -1,39 +1,21 @@
 {
-  "SubgraphNetwork": "goerli",
-  "FlatPriceSaleFactory": [
+  "SubgraphNetwork": "arbitrum-one",
+  "Registry": [
     {
-      "Address": "0xF043A0488E4541D7c9a77a0f998e4687683399b0",
-      "BlockNumber": 7677509
+      "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
+      "BlockNumber": 54948060
     }
   ],
   "FlatPriceSale": [
     {
-      "Address": "0x0b6E2c1fc63B0477f38062474e653CC1723c80Ff",
-      "BlockNumber": 7677507
+      "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
+      "BlockNumber": 54950075
     }
   ],
-  "SaleManager_v_1_0": [
+  "FlatPriceSaleFactory": [
     {
-      "Address": "0xa069807cEa167873fD230507e2b85c1d052b5902",
-      "BlockNumber": 7255512
-    }
-  ],
-  "SaleManager_v_1_2": [
-    {
-      "Address": "0xeEDB0e8e589F9ADf6768fc006BaA1C6462f5e563",
-      "BlockNumber": 7180529
-    }
-  ],
-  "SaleManager_v_1_3": [
-    {
-      "Address": "0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F",
-      "BlockNumber": 7267817
-    }
-  ],
-  "Registry": [
-    {
-      "Address": "0x3a03bF4106404B94d426bC31B831889f0d43960b",
-      "BlockNumber": 7972181
+      "Address": "0xA82d7ED01c31DD2A46681D18E3E213C9E9231605",
+      "BlockNumber": 54950092
     }
   ]
 }
