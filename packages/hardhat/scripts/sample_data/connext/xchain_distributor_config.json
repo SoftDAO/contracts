@@ -1,0 +1,20 @@
+{
+  "name": "CONNEXT TEST FAIR DELAY DISTRIBUTOR - MUMBAI",
+  "title": "Test TVOTES Distribution",
+  "description": "This is a test Connext distribution.",
+  "intro": "<div><p style='margin-top: 2em; margin-bottom: 2em; font-size: 16px;'>As you claim these testnet tokens, you are joining a community of more than 10 members around the world.  Congratulations!</p></div>",
+  "vestingDescription": "Tokens are fully vested.",
+  "logo": {
+    "uri": "ipfs://QmWjJDJMQnzczZ4k6Zd4s6wCF1fEY4KscbF5SXkF2QWhuc",
+    "name": "connext_logo_small.png"
+  },
+  "favicon": {
+    "uri": "ipfs://QmWjJDJMQnzczZ4k6Zd4s6wCF1fEY4KscbF5SXkF2QWhuc",
+    "name": "connext_logo_small.png"
+  },
+  "website": "https://tokensoft.io",
+  "twitter": "https://twitter.com/TokensoftInc",
+  "discord": "https://discord.gg/tokensoft",
+  "telegram": "https://t.me/tokensoftsupport",
+  "merkleProof": "ipfs://QmdWrX1AAZ4cQHFoMbdFtadCwzpg7ZjeEtvHd5TQqUZbsp"
+}
