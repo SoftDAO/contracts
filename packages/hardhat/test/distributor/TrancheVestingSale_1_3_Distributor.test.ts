@@ -60,7 +60,6 @@ describe("TrancheVestingSale_1_3", function () {
 
     // transfer tokens to buyers
     for (let signer of buyers) {
-      console.log({ buyers })
       await usdc.transfer(signer.address, usdcPaymentAmount)
     }
 
@@ -661,7 +660,7 @@ describe("TrancheVestingSale_1_3", function () {
     )
   });
 
-  it.skip("Handles negative adjustments to a user's total claimable amount", async () => {
+  it("Handles negative adjustments to a user's total claimable amount", async () => {
     const buyer = buyer4
     const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
     
@@ -689,7 +688,7 @@ describe("TrancheVestingSale_1_3", function () {
     expect(balance).toEqual(newAllocation)
   })
 
-  it.skip("Handles positive adjustments to a user's total claimable amount", async () => {
+  it("Handles positive adjustments to a user's total claimable amount", async () => {
     const buyer = buyer5
     const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
     

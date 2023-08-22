@@ -218,7 +218,6 @@ describe("CrosschainTrancheVestingMerkle", function () {
     // transfer tokens to the distributors
     await token.transfer(distributor.address, await distributor.total())
     await token.transfer(distributorWithQueue.address, await distributorWithQueue.total())
-    console.log({token: token.address, connextDestination: connextMockDestination.address, connextSource:connextMockSource.address, distributor: distributor.address, satellite: satellite.address})
   });
 
   it("Metadata is correct", async () => {
