@@ -120,3 +120,6 @@ export const makeMonthlyTranches = (startingDate: Date, startingFraction: number
 	return tranches
 }
 
+export const lastBlockTime = async () => {
+  return BigInt(await time.latest())
+}
