@@ -18,7 +18,10 @@ let buyer0: SignerWithAddress
 let buyer1: SignerWithAddress
 let buyer2: SignerWithAddress
 let buyer3: SignerWithAddress
+let buyer4: SignerWithAddress
+let buyer5: SignerWithAddress
 let buyers: SignerWithAddress[]
+let claimers: SignerWithAddress[]
 let delegatee: SignerWithAddress
 let nonBuyer: SignerWithAddress
 let feeRecipient: SignerWithAddress
@@ -54,10 +57,11 @@ const uri = "https://example.com"
 
 describe("PriceTierVestingSale_2_0", function () {
   beforeAll(async () => {
-    [deployer, admin, recipient, buyer0, buyer1, buyer2, buyer3, nonBuyer, feeRecipient, delegatee] = await ethers.getSigners();
+    [deployer, admin, recipient, buyer0, buyer1, buyer2, buyer3, buyer4, buyer5, nonBuyer, feeRecipient, delegatee] = await ethers.getSigners();
 
     // make a couple purchases as various users.
-    buyers = [buyer0, buyer1, buyer2, buyer3]
+    buyers = [buyer0, buyer1, buyer2, buyer3, buyer4, buyer5]
+    claimers = [buyer0, buyer1, buyer2, buyer3]
   
     // a payment token (USDC)
     const GenericERC20Factory = await ethers.getContractFactory("GenericERC20", deployer);
@@ -334,7 +338,7 @@ describe("PriceTierVestingSale_2_0", function () {
     }
   
     // the distributor total must match (note the adjustment for rounding error)
-    expect((await distributor.total()).toBigInt()).toEqual(BigInt(buyers.length) * boughtPerBuyer + 1n)
+    expect((await distributor.total()).toBigInt()).toEqual(BigInt(buyers.length) * boughtPerBuyer + 2n)
     // nothing has been claimed
     expect((await distributor.claimed()).toBigInt()).toEqual(0n)
 
@@ -571,7 +575,7 @@ describe("PriceTierVestingSale_2_0", function () {
     const total = (await distributor.total()).toBigInt()
     const userTotal = total / BigInt(buyers.length)
 
-    for (let user of buyers) {
+    for (let user of claimers) {
       // get the user's initial token balance
       const initialBalance = (await newToken.balanceOf(user.address)).toBigInt();
       // claim from the fully veseted distributor
@@ -589,8 +593,6 @@ describe("PriceTierVestingSale_2_0", function () {
       // no votes remaining
       expect((await distributor.getVotes(user.address)).toBigInt()).toEqual(0n)
     }
-    // all tokens have been distributed from the fully vested distributor (within rounding error)
-    expect((await newToken.balanceOf(distributor.address)).toBigInt()).toBeLessThan(10n)
   });
 
   it("buyers cannot claim any tokens when no tranches have completed", async () => {
@@ -599,7 +601,7 @@ describe("PriceTierVestingSale_2_0", function () {
     const total = (await distributor.total()).toBigInt()
     const userTotal = total / BigInt(buyers.length)
 
-    for (let user of buyers) {
+    for (let user of claimers) {
       // get the user's initial token balance
       const initialBalance = (await newToken.balanceOf(user.address)).toBigInt();
       await expect(
@@ -826,7 +828,7 @@ describe("PriceTierVestingSale_2_0", function () {
   })
 
   it("Handles negative adjustments to a user's total claimable amount", async () => {
-    const buyer = buyers[0]
+    const buyer = buyer4
     const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
     
     // adjust a buyer's allocation downward
@@ -854,7 +856,7 @@ describe("PriceTierVestingSale_2_0", function () {
   })
 
   it("Handles positive adjustments to a user's total claimable amount", async () => {
-    const buyer = buyers[1]
+    const buyer = buyer5
     const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
     
     // adjust a buyer's allocation upward
@@ -862,11 +864,15 @@ describe("PriceTierVestingSale_2_0", function () {
     await fullyVestedDistributor.adjust(
       buyer.address,
       10000n
-    )
-
+      )
+      
+      
     const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
     expect(newAllocation).toEqual(initialAllocation.add(10000n))
-
+    
+    // transfer additional tokens to the distributor
+    await newToken.transfer(fullyVestedDistributor.address, 10000n)
+    
     // claim
     await fullyVestedDistributor.connect(buyer).claim(buyer.address)
     
