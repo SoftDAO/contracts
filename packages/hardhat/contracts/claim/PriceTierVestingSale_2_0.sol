@@ -128,6 +128,7 @@ contract PriceTierVestingSale_2_0 is PriceTierVesting {
       fractionDenominator;
   }
 
+  // get the total number of tokens claimable regardless of vesting
   function getTotalClaimableAmount(address beneficiary) internal view returns (uint256) {
     // check the distribution record first, if the user's claimable
     // amount was adjusted, it will be initialized/total updated

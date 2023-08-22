@@ -89,9 +89,11 @@ contract TrancheVestingSale_1_3 is TrancheVesting {
   function claim(
     address beneficiary // the address that will receive tokens
   ) external validSaleParticipant(beneficiary) nonReentrant {
-    uint256 purchasedAmount = getPurchasedAmount(beneficiary);
+    uint256 totalClaimableAmount = getTotalClaimableAmount(beneficiary);
+
     // effects
-    uint256 claimedAmount = super._executeClaim(beneficiary, purchasedAmount);
+    uint256 claimedAmount = super._executeClaim(beneficiary, totalClaimableAmount);
+    
     // interactions
     super._settleClaim(beneficiary, claimedAmount);
   }
@@ -116,5 +118,14 @@ contract TrancheVestingSale_1_3 is TrancheVesting {
     return
       (getPurchasedAmount(beneficiary) * getVestedFraction(beneficiary, block.timestamp)) /
       fractionDenominator;
+  }
+
+  // get the total number of tokens claimable regardless of vesting
+  function getTotalClaimableAmount(address beneficiary) internal view returns (uint256) {
+    // check the distribution record first, if the user's claimable
+    // amount was adjusted, it will be initialized/total updated
+    if (records[beneficiary].initialized) return records[beneficiary].total;
+
+    return getPurchasedAmount(beneficiary);
   }
 }
