@@ -3,12 +3,12 @@ pragma solidity 0.8.16;
 
 import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import { SafeERC20 } from '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
-import { AggregatorV3Interface } from '@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol';
 
 import { DistributionRecord } from '../interfaces/IDistributor.sol';
 import { PriceTierVesting, PriceTier } from './abstract/PriceTierVesting.sol';
 import { MerkleSet } from './abstract/MerkleSet.sol';
 import { FlatPriceSale } from '../sale/v2/FlatPriceSale.sol';
+import "../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 
 contract PriceTierVestingSale_2_0 is PriceTierVesting {
   FlatPriceSale public immutable sale;
@@ -33,7 +33,7 @@ contract PriceTierVestingSale_2_0 is PriceTierVesting {
     // when price tier vesting ends (seconds past epoch) and all tokens are unlocked
     uint256 _end,
     // source for pricing info
-    AggregatorV3Interface _oracle,
+    IOracleOrL2OracleWithSequencerCheck _oracle,
     PriceTier[] memory priceTiers, // vesting PriceTiers
     uint256 _voteFactor, // the factor for voting power in basis points (e.g. 15000 means users have a 50% voting bonus for unclaimed tokens)
     string memory _uri // information on the sale (e.g. merkle proofs)
