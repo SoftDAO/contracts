@@ -281,7 +281,7 @@ describe("CrosschainTrancheVestingMerkle", function () {
     expect(t3.toBigInt()).toEqual(config.total)
   })
 
-  it.only("Can claim via EOA signature", async () => {
+  it("Can claim via EOA signature", async () => {
     const user = eligible1
     const relayerFee = ethers.utils.parseEther('0.1')
 
