@@ -1,126 +1,82 @@
 {
-  "localhost": {
-    "SubgraphNetwork": "localhost",
-    "ConnextMock": [
-      {
-        "Address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-        "BlockNumber": 0,
-        "PublishedAt": "Thu, 10 Aug 2023 12:31:42 GMT",
-        "Git": {
-          "Branch": "migrate-contracts",
-          "Commit": "a6137f271af872b9983937b85220be230114158c"
-        }
-      }
-    ],
-    "CrosschainTrancheVestingMerkle": [
-      {
-        "Address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-        "BlockNumber": 0,
-        "PublishedAt": "Thu, 10 Aug 2023 12:31:42 GMT",
-        "Git": {
-          "Branch": "migrate-contracts",
-          "Commit": "a6137f271af872b9983937b85220be230114158c"
-        }
-      }
-    ],
-    "MyERC20Votes": [
-      {
-        "Address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-        "BlockNumber": 0,
-        "PublishedAt": "Thu, 10 Aug 2023 12:31:42 GMT",
-        "Git": {
-          "Branch": "migrate-contracts",
-          "Commit": "a6137f271af872b9983937b85220be230114158c"
-        }
-      }
-    ],
+  "arbitrum": {
+    "SubgraphNetwork": "arbitrum-one",
     "Registry": [
       {
-        "Address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-        "BlockNumber": 0,
-        "PublishedAt": "Thu, 10 Aug 2023 12:31:42 GMT",
-        "Git": {
-          "Branch": "migrate-contracts",
-          "Commit": "a6137f271af872b9983937b85220be230114158c"
-        }
-      }
-    ]
-  },
-  "goerli": {
-    "SubgraphNetwork": "goerli",
-    "FlatPriceSaleFactory": [
-      {
-        "Address": "0xF043A0488E4541D7c9a77a0f998e4687683399b0",
-        "BlockNumber": 7677509
+        "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
+        "BlockNumber": 54948060
       }
     ],
     "FlatPriceSale": [
       {
-        "Address": "0x0b6E2c1fc63B0477f38062474e653CC1723c80Ff",
-        "BlockNumber": 7677507
+        "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
+        "BlockNumber": 54950075
       }
     ],
-    "SaleManager_v_1_0": [
+    "FlatPriceSaleFactory": [
       {
-        "Address": "0xa069807cEa167873fD230507e2b85c1d052b5902",
-        "BlockNumber": 7255512
-      }
-    ],
-    "SaleManager_v_1_2": [
-      {
-        "Address": "0xeEDB0e8e589F9ADf6768fc006BaA1C6462f5e563",
-        "BlockNumber": 7180529
-      }
-    ],
-    "SaleManager_v_1_3": [
-      {
-        "Address": "0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F",
-        "BlockNumber": 7267817
-      }
-    ],
-    "Registry": [
-      {
-        "Address": "0x3a03bF4106404B94d426bC31B831889f0d43960b",
-        "BlockNumber": 7972181
+        "Address": "0xA82d7ED01c31DD2A46681D18E3E213C9E9231605",
+        "BlockNumber": 54950092
       }
     ]
   },
-  "mumbai": {
-    "SubgraphNetwork": "mumbai",
-    "FlatPriceSaleFactory": [
-      {
-        "Address": "0x31b7625997603Ce07B349d6f0300B6CB5896959b",
-        "BlockNumber": 28262063
-      }
-    ],
+  "arbitrumGoerli": {
+    "SubgraphNetwork": "arbitrum-goerli",
     "FlatPriceSale": [
       {
-        "Address": "0x493E0a1f8304832658c461c2EaBfaeCeeE507097",
-        "BlockNumber": 28262061
+        "Address": "0x07537efBa62504425f879E9D60A25aB09D139161",
+        "BlockNumber": 1982862
       }
     ],
-    "SaleManager_v_1_0": [
+    "FlatPriceSaleFactory": [
+      {
+        "Address": "0x17c14f6087C62666D28361697f4a9B4D39DC3Bc5",
+        "BlockNumber": 1982866
+      }
+    ],
+    "Registry": [
       {
         "Address": "0x71bE8339023d779f2f85893761729Bb27b97891d",
-        "BlockNumber": 27393431
+        "BlockNumber": 3195631
+      }
+    ]
+  },
+  "avalanche": {
+    "SubgraphNetwork": "avalanche",
+    "FlatPriceSaleFactory": [
+      {
+        "Address": "0x9Ef415dE715c0a55AA867bcDEa00eAf914aD6cb7",
+        "BlockNumber": 23986268
+      }
+    ],
+    "FlatPriceSale": [
+      {
+        "Address": "0x92DcF0aFD197E73345c893b856B93ee68CB61809",
+        "BlockNumber": 23986265
+      }
+    ],
+    "SaleManager_v_1_0": [
+      {
+        "Address": "0xa82d7ed01c31dd2a46681d18e3e213c9e9231605",
+        "BlockNumber": 14288822
       }
     ],
     "SaleManager_v_1_2": [
       {
-        "Address": "0x9c2D86d00aFDe6e616CADfBc0fe2D47C1d22b1c8",
-        "BlockNumber": 27393439
+        "Address": "0xa1A793d9Ff235FB02C570B2290Ee669144C6d053",
+        "BlockNumber": 16981202
       }
     ],
     "SaleManager_v_1_3": [
       {
-        "Address": "0xa1A793d9Ff235FB02C570B2290Ee669144C6d053",
-        "BlockNumber": 27393448
+        "Address": "0xb64f3493384AcA9ceCCB80b73b50da572caa95E4",
+        "BlockNumber": 17878271
       }
     ],
     "Registry": [
       {
-        "Address": "0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3",
-        "BlockNumber": 31312720
+        "Address": "0x245A9bD01ccF512D1374BE4F7A8Eb06dA21E6333",
+        "BlockNumber": 23979563
       }
     ]
   },
@@ -163,54 +119,186 @@
       }
     ]
   },
-  "optimismGoerli": {
-    "SubgraphNetwork": "optimism-goerli",
-    "FlatPriceSaleFactory": [
-      {
-        "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
-        "BlockNumber": 2775414
-      }
-    ],
-    "FlatPriceSale": [
-      {
-        "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
-        "BlockNumber": 2775412
-      }
-    ],
-    "Registry": [
-      {
-        "Address": "0xb64f3493384AcA9ceCCB80b73b50da572caa95E4",
-        "BlockNumber": 3580794
-      }
-    ]
-  },
-  "arbitrumGoerli": {
-    "SubgraphNetwork": "arbitrum-goerli",
-    "FlatPriceSale": [
-      {
-        "Address": "0x07537efBa62504425f879E9D60A25aB09D139161",
-        "BlockNumber": 1982862
-      }
-    ],
-    "FlatPriceSaleFactory": [
-      {
-        "Address": "0x17c14f6087C62666D28361697f4a9B4D39DC3Bc5",
-        "BlockNumber": 1982866
-      }
-    ],
-    "Registry": [
-      {
-        "Address": "0x71bE8339023d779f2f85893761729Bb27b97891d",
-        "BlockNumber": 3195631
-      }
-    ]
-  },
   "gnosis": {
     "SubgraphNetwork": "gnosis",
     "Registry" : [
       {
         "Address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D",
         "BlockNumber": 29461994
+      }
+    ]
+  },
+  "goerli": {
+    "SubgraphNetwork": "goerli",
+    "FlatPriceSaleFactory": [
+      {
+        "Address": "0xF043A0488E4541D7c9a77a0f998e4687683399b0",
+        "BlockNumber": 7677509
+      }
+    ],
+    "FlatPriceSale": [
+      {
+        "Address": "0x0b6E2c1fc63B0477f38062474e653CC1723c80Ff",
+        "BlockNumber": 7677507
+      }
+    ],
+    "SaleManager_v_1_0": [
+      {
+        "Address": "0xa069807cEa167873fD230507e2b85c1d052b5902",
+        "BlockNumber": 7255512
+      }
+    ],
+    "SaleManager_v_1_2": [
+      {
+        "Address": "0xeEDB0e8e589F9ADf6768fc006BaA1C6462f5e563",
+        "BlockNumber": 7180529
+      }
+    ],
+    "SaleManager_v_1_3": [
+      {
+        "Address": "0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F",
+        "BlockNumber": 7267817
+      }
+    ],
+    "Registry": [
+      {
+        "Address": "0x3a03bF4106404B94d426bC31B831889f0d43960b",
+        "BlockNumber": 7972181
+      }
+    ]
+  },
+  "localhost": {
+    "SubgraphNetwork": "localhost"
+  },
+  "mainnet": {
+    "SubgraphNetwork": "mainnet",
+    "TrancheVestingSale_2_0": [
+      {
+        "Address": "0x1F56f6A9aD23850Fb4dED9c32F25c28CD5d5c8aa",
+        "BlockNumber": 15729776
+      }
+    ],
+    "FlatPriceSaleFactory": [
+      {
+        "Address": "0x865D024BFd9e1C2Cd665fAc6666c5C3E4a375dd7",
+        "BlockNumber": 15621922
+      }
+    ],
+    "FlatPriceSale": [
+      {
+        "Address": "0x135D889aFF58584e12ab3bd4ce327a18aF3356Ef",
+        "BlockNumber": 15621920
+      }
+    ],
+    "SaleManager_v_1_0": [
+      {
+        "Address": "0x000047203100A45635029eC21bbBec5EC53Cb6f6",
+        "BlockNumber": 14699410
+      }
+    ],
+    "SaleManager_v_1_2": [
+      {
+        "Address": "0xfF7a903e86b10AaEB8Da65CeF0eBc07eA3F9354b",
+        "BlockNumber": 15085473
+      }
+    ],
+    "SaleManager_v_1_3": [
+      {
+        "Address": "0x6BbCA3864332C0FAd534b04C99C76E166aB2dfAA",
+        "BlockNumber": 15448945
+      }
+    ],
+    "Registry": [
+      {
+        "Address": "0xc70573B924C92618E6143F6ac4C2B1aD7ba8785b",
+        "BlockNumber": 16242929
+      }
+    ]
+  },
+  "matic": {
+    "SubgraphNetwork": "matic",
+    "SaleManager_v_1_0": [
+      {
+        "Address": "0xe6fF4586e8c28D0B47426D980468622f1001D234",
+        "BlockNumber": 26645783
+      }
+    ],
+    "SaleManager_v_1_3": [
+      {
+        "Address": "0x65caF259cC7e2c5309451534d6a6FacBe971b399",
+        "BlockNumber": 31294756
+      }
+    ],
+    "FlatPriceSale": [
+      {
+        "Address": "0x135D889aFF58584e12ab3bd4ce327a18aF3356Ef",
+        "BlockNumber": 44405056,
+        "PublishedAt": "Tue, 27 Jun 2023 16:33:15 GMT",
+        "Git": {
+          "Branch": "update-polygon-contracts",
+          "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
+        }
+      }
+    ],
+    "FlatPriceSaleFactory": [
+      {
+        "Address": "0x865D024BFd9e1C2Cd665fAc6666c5C3E4a375dd7",
+        "BlockNumber": 44405062,
+        "PublishedAt": "Tue, 27 Jun 2023 16:33:15 GMT",
+        "Git": {
+          "Branch": "update-polygon-contracts",
+          "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
+        }
+      }
+    ],
+    "Registry": [
+      {
+        "Address": "0xAFb6682999EDe4E29DF25Da04ab84f5b96030Fe8",
+        "BlockNumber": 44405137,
+        "PublishedAt": "Tue, 27 Jun 2023 16:35:55 GMT",
+        "Git": {
+          "Branch": "update-polygon-contracts",
+          "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
+        }
+      }
+    ]
+  },
+  "mumbai": {
+    "SubgraphNetwork": "mumbai",
+    "FlatPriceSaleFactory": [
+      {
+        "Address": "0x31b7625997603Ce07B349d6f0300B6CB5896959b",
+        "BlockNumber": 28262063
+      }
+    ],
+    "FlatPriceSale": [
+      {
+        "Address": "0x493E0a1f8304832658c461c2EaBfaeCeeE507097",
+        "BlockNumber": 28262061
+      }
+    ],
+    "SaleManager_v_1_0": [
+      {
+        "Address": "0x71bE8339023d779f2f85893761729Bb27b97891d",
+        "BlockNumber": 27393431
+      }
+    ],
+    "SaleManager_v_1_2": [
+      {
+        "Address": "0x9c2D86d00aFDe6e616CADfBc0fe2D47C1d22b1c8",
+        "BlockNumber": 27393439
+      }
+    ],
+    "SaleManager_v_1_3": [
+      {
+        "Address": "0xa1A793d9Ff235FB02C570B2290Ee669144C6d053",
+        "BlockNumber": 27393448
+      }
+    ],
+    "Registry": [
+      {
+        "Address": "0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3",
+        "BlockNumber": 31312720
       }
     ]
   }
