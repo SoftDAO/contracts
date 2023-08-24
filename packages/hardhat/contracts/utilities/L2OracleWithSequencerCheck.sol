@@ -3,6 +3,17 @@ pragma solidity ^0.8.16;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV2V3Interface.sol";
 
+/**
+ * @title L2OracleWithSequencerCheck
+ * @author 
+ * @notice Data feed oracle for use on optimistic L2s (Arbiturm, Optimism, Base, 
+ * Metis) that uses a data feed that tracks the last known status of the 
+ * L2 sequencer at a given point in time, and reverts if the sequencer is 
+ * down, or is up but a specified grace period has not passed.
+ * 
+ * @dev For a list of available Sequencer Uptime Feed proxy addresses, see: 
+ * https://docs.chain.link/docs/data-feeds/l2-sequencer-feeds
+ */
 contract L2OracleWithSequencerCheck {
     AggregatorV2V3Interface internal dataFeed;
     AggregatorV2V3Interface internal sequencerUptimeFeed;
@@ -12,10 +23,6 @@ contract L2OracleWithSequencerCheck {
     error SequencerDown();
     error GracePeriodNotOver();
 
-    /**
-     * For a list of available Sequencer Uptime Feed proxy addresses, see:
-     * https://docs.chain.link/docs/data-feeds/l2-sequencer-feeds
-     */
     constructor(address _dataFeed, address _sequencerUptimeFeed) {
         dataFeed = AggregatorV2V3Interface(
             _dataFeed
@@ -25,7 +32,7 @@ contract L2OracleWithSequencerCheck {
         );
     }
 
-    // Check the sequencer status and return the latest data
+    //// @dev Checks the sequencer status and returns the latest data
     function latestRoundData() public view returns (
       uint80 roundId,
       int256 answer,
