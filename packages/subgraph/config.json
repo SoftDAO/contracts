@@ -234,12 +234,6 @@
         "BlockNumber": 15621920
       }
     ],
-    "SaleManager_v_1_0": [
-      {
-        "Address": "0x000047203100A45635029eC21bbBec5EC53Cb6f6",
-        "BlockNumber": 14699410
-      }
-    ],
     "SaleManager_v_1_2": [
       {
         "Address": "0xfF7a903e86b10AaEB8Da65CeF0eBc07eA3F9354b",
@@ -304,87 +298,6 @@
           "Branch": "update-polygon-contracts",
           "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
         }
-      }
-    ]
-  },
-  "mumbai": {
-    "SubgraphNetwork": "mumbai",
-    "FlatPriceSaleFactory": [
-      {
-        "Address": "0x31b7625997603Ce07B349d6f0300B6CB5896959b",
-        "BlockNumber": 28262063
-      }
-    ],
-    "FlatPriceSale": [
-      {
-        "Address": "0x493E0a1f8304832658c461c2EaBfaeCeeE507097",
-        "BlockNumber": 28262061
-      }
-    ],
-    "SaleManager_v_1_0": [
-      {
-        "Address": "0x71bE8339023d779f2f85893761729Bb27b97891d",
-        "BlockNumber": 27393431
-      }
-    ],
-    "SaleManager_v_1_2": [
-      {
-        "Address": "0x9c2D86d00aFDe6e616CADfBc0fe2D47C1d22b1c8",
-        "BlockNumber": 27393439
-      }
-    ],
-    "SaleManager_v_1_3": [
-      {
-        "Address": "0xa1A793d9Ff235FB02C570B2290Ee669144C6d053",
-        "BlockNumber": 27393448
-      }
-    ],
-    "Registry": [
-      {
-        "Address": "0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3",
-        "BlockNumber": 31312720
-      }
-    ]
-  },
-  "optimism": {
-    "SubgraphNetwork": "optimism",
-    "Registry": [
-      {
-        "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
-        "BlockNumber": 69955988
-      }
-    ],
-    "FlatPriceSale": [
-      {
-        "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
-        "BlockNumber": 69959643
-      }
-    ],
-    "FlatPriceSaleFactory": [
-      {
-        "Address": "0xA82d7ED01c31DD2A46681D18E3E213C9E9231605",
-        "BlockNumber": 69959655
-      }
-    ]
-  },
-  "optimismGoerli": {
-    "SubgraphNetwork": "optimism-goerli",
-    "FlatPriceSaleFactory": [
-      {
-        "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
-        "BlockNumber": 2775414
-      }
-    ],
-    "FlatPriceSale": [
-      {
-        "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
-        "BlockNumber": 2775412
-      }
-    ],
-    "Registry": [
-      {
-        "Address": "0xb64f3493384AcA9ceCCB80b73b50da572caa95E4",
-        "BlockNumber": 3580794
       }
     ]
   }
