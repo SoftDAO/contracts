@@ -1,48 +1,45 @@
 {
-  "SubgraphNetwork": "matic",
-  "SaleManager_v_1_0": [
+  "SubgraphNetwork": "mainnet",
+  "TrancheVestingSale_2_0": [
     {
-      "Address": "0xe6fF4586e8c28D0B47426D980468622f1001D234",
-      "BlockNumber": 26645783
-    }
-  ],
-  "SaleManager_v_1_3": [
-    {
-      "Address": "0x65caF259cC7e2c5309451534d6a6FacBe971b399",
-      "BlockNumber": 31294756
-    }
-  ],
-  "FlatPriceSale": [
-    {
-      "Address": "0x135D889aFF58584e12ab3bd4ce327a18aF3356Ef",
-      "BlockNumber": 44405056,
-      "PublishedAt": "Tue, 27 Jun 2023 16:33:15 GMT",
-      "Git": {
-        "Branch": "update-polygon-contracts",
-        "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
-      }
+      "Address": "0x1F56f6A9aD23850Fb4dED9c32F25c28CD5d5c8aa",
+      "BlockNumber": 15729776
     }
   ],
   "FlatPriceSaleFactory": [
     {
       "Address": "0x865D024BFd9e1C2Cd665fAc6666c5C3E4a375dd7",
-      "BlockNumber": 44405062,
-      "PublishedAt": "Tue, 27 Jun 2023 16:33:15 GMT",
-      "Git": {
-        "Branch": "update-polygon-contracts",
-        "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
-      }
+      "BlockNumber": 15621922
+    }
+  ],
+  "FlatPriceSale": [
+    {
+      "Address": "0x135D889aFF58584e12ab3bd4ce327a18aF3356Ef",
+      "BlockNumber": 15621920
+    }
+  ],
+  "SaleManager_v_1_0": [
+    {
+      "Address": "0x000047203100A45635029eC21bbBec5EC53Cb6f6",
+      "BlockNumber": 14699410
+    }
+  ],
+  "SaleManager_v_1_2": [
+    {
+      "Address": "0xfF7a903e86b10AaEB8Da65CeF0eBc07eA3F9354b",
+      "BlockNumber": 15085473
+    }
+  ],
+  "SaleManager_v_1_3": [
+    {
+      "Address": "0x6BbCA3864332C0FAd534b04C99C76E166aB2dfAA",
+      "BlockNumber": 15448945
     }
   ],
   "Registry": [
     {
-      "Address": "0xAFb6682999EDe4E29DF25Da04ab84f5b96030Fe8",
-      "BlockNumber": 44405137,
-      "PublishedAt": "Tue, 27 Jun 2023 16:35:55 GMT",
-      "Git": {
-        "Branch": "update-polygon-contracts",
-        "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
-      }
+      "Address": "0xc70573B924C92618E6143F6ac4C2B1aD7ba8785b",
+      "BlockNumber": 16242929
     }
   ]
 }
