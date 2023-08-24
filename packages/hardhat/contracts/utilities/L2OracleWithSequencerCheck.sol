@@ -3,7 +3,7 @@ pragma solidity ^0.8.16;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV2V3Interface.sol";
 
-contract OracleWithSequencerCheck {
+contract L2OracleWithSequencerCheck {
     AggregatorV2V3Interface internal dataFeed;
     AggregatorV2V3Interface internal sequencerUptimeFeed;
 
