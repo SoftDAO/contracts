@@ -1,21 +1,48 @@
 {
-  "SubgraphNetwork": "arbitrum-one",
-  "Registry": [
+  "SubgraphNetwork": "matic",
+  "SaleManager_v_1_0": [
     {
-      "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
-      "BlockNumber": 54948060
+      "Address": "0xe6fF4586e8c28D0B47426D980468622f1001D234",
+      "BlockNumber": 26645783
+    }
+  ],
+  "SaleManager_v_1_3": [
+    {
+      "Address": "0x65caF259cC7e2c5309451534d6a6FacBe971b399",
+      "BlockNumber": 31294756
     }
   ],
   "FlatPriceSale": [
     {
-      "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
-      "BlockNumber": 54950075
+      "Address": "0x135D889aFF58584e12ab3bd4ce327a18aF3356Ef",
+      "BlockNumber": 44405056,
+      "PublishedAt": "Tue, 27 Jun 2023 16:33:15 GMT",
+      "Git": {
+        "Branch": "update-polygon-contracts",
+        "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
+      }
     }
   ],
   "FlatPriceSaleFactory": [
     {
-      "Address": "0xA82d7ED01c31DD2A46681D18E3E213C9E9231605",
-      "BlockNumber": 54950092
+      "Address": "0x865D024BFd9e1C2Cd665fAc6666c5C3E4a375dd7",
+      "BlockNumber": 44405062,
+      "PublishedAt": "Tue, 27 Jun 2023 16:33:15 GMT",
+      "Git": {
+        "Branch": "update-polygon-contracts",
+        "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
+      }
+    }
+  ],
+  "Registry": [
+    {
+      "Address": "0xAFb6682999EDe4E29DF25Da04ab84f5b96030Fe8",
+      "BlockNumber": 44405137,
+      "PublishedAt": "Tue, 27 Jun 2023 16:35:55 GMT",
+      "Git": {
+        "Branch": "update-polygon-contracts",
+        "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
+      }
     }
   ]
 }

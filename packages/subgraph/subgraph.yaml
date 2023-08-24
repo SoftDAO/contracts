@@ -6,11 +6,11 @@ dataSources:
   
   - kind: ethereum/contract
     name: FlatPriceSaleFactory
-    network: arbitrum-one
+    network: matic
     source:
-      address: '0xA82d7ED01c31DD2A46681D18E3E213C9E9231605'
+      address: '0x865D024BFd9e1C2Cd665fAc6666c5C3E4a375dd7'
       abi: FlatPriceSaleFactory
-      startBlock: 54950092
+      startBlock: 44405062
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -28,11 +28,11 @@ dataSources:
   
   - kind: ethereum/contract
     name: FlatPriceSaleImplementation
-    network: arbitrum-one
+    network: matic
     source:
-      address: '0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20'
+      address: '0x135D889aFF58584e12ab3bd4ce327a18aF3356Ef'
       abi: FlatPriceSale
-      startBlock: 54950075
+      startBlock: 44405056
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -48,16 +48,97 @@ dataSources:
       file: ./src/sale/v2.0/saleImplementationMapping.ts
   
   
+  - kind: ethereum/contract
+    name: SaleManager_v_1_3
+    network: matic
+    source:
+      abi: SaleManager_v_1_3
+      address: '0x65caF259cC7e2c5309451534d6a6FacBe971b399'
+      startBlock: 31294756
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Purchase
+        - Sale
+        - Distributor
+      abis:
+        - name: SaleManager_v_1_3
+          file: ./abis/contracts/sale/v1.3/SaleManager.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.json
+        - name: IERC20Metadata
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+      eventHandlers:
+        - event: NewSale(indexed bytes32,indexed bytes32,indexed address,address,uint256,uint256,uint256,uint256,uint256,uint256,string,uint256,uint8)
+          handler: handleNewSale
+        - event: UpdateStart(indexed bytes32,uint256)
+          handler: handleUpdateStart
+        - event: UpdateEnd(indexed bytes32,uint256)
+          handler: handleUpdateEnd
+        - event: UpdateMerkleRoot(indexed bytes32,bytes32)
+          handler: handleUpdateMerkleRoot
+        - event: Buy(indexed bytes32,indexed address,uint256,bool,bytes32[])
+          handler: handleBuy
+        - event: RegisterClaimManager(indexed bytes32,indexed address)
+          handler: handleRegisterClaimManager
+        - event: UpdateMaxQueueTime(indexed bytes32,uint256)
+          handler: handleUpdateMaxQueueTime
+        - event: Deploy(address,uint8,address)
+          handler: handleDeploy
+        - event: UpdateUri(indexed bytes32,string)
+          handler: handleUpdateUri
+      file: ./src/sale/v1.3/saleManagerMapping.ts
   
   
   
   - kind: ethereum/contract
-    name: Registry
-    network: arbitrum-one
+    name: SaleManager_v_1_0
+    network: matic
     source:
-      address: '0xb41169Cc124298Be20e2Ca956cC46E266ab5E203'
+      abi: SaleManager_v_1_0
+      address: '0xe6fF4586e8c28D0B47426D980468622f1001D234'
+      startBlock: 26645783
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Purchase
+        - Sale
+      abis:
+        - name: SaleManager_v_1_0
+          file: ./abis/contracts/sale/v1.0/SaleManager.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.json
+        - name: IERC20Metadata
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+      eventHandlers:
+        - event: NewSale(indexed bytes32,indexed bytes32,indexed address,uint256,uint256,uint256,uint256,uint256,string,string,uint256,uint8)
+          handler: handleNewSale
+        - event: UpdateStart(indexed bytes32,uint256)
+          handler: handleUpdateStart
+        - event: UpdateEnd(indexed bytes32,uint256)
+          handler: handleUpdateEnd
+        - event: UpdateMerkleRoot(indexed bytes32,bytes32)
+          handler: handleUpdateMerkleRoot
+        - event: Buy(indexed bytes32,indexed address,uint256,bool,bytes32[])
+          handler: handleBuy
+        - event: RegisterClaimManager(indexed bytes32,indexed address)
+          handler: handleRegisterClaimManager
+        - event: UpdateMaxQueueTime(indexed bytes32,uint256)
+          handler: handleUpdateMaxQueueTime
+      file: ./src/sale/v1.0/saleManagerMapping.ts
+  
+  
+  - kind: ethereum/contract
+    name: Registry
+    network: matic
+    source:
+      address: '0xAFb6682999EDe4E29DF25Da04ab84f5b96030Fe8'
       abi: Registry
-      startBlock: 54948060
+      startBlock: 44405137
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -111,7 +192,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: FlatPriceSale
-    network: arbitrum-one
+    network: matic
     source:
       abi: FlatPriceSale
     mapping:
@@ -152,7 +233,7 @@ templates:
   # We use a patched interface definition to handle older distributors with a slightly different InitializeDistributor signature
   - kind: ethereum/contract
     name: Distributor
-    network: arbitrum-one
+    network: matic
     source:
       abi: IDistributorPatched
     mapping:
@@ -175,7 +256,7 @@ templates:
   # Older distributors had a slightly different event signature
   # - kind: ethereum/contract
   #   name: Distributor
-  #   network: arbitrum-one
+  #   network: matic
   #   source:
   #     abi: IDistributor
   #   mapping:
@@ -197,7 +278,7 @@ templates:
   #         handler: handleClaim
   - kind: ethereum/contract
     name: AdvancedDistributor
-    network: arbitrum-one
+    network: matic
     source:
       abi: AdvancedDistributor
     mapping:
@@ -239,7 +320,7 @@ templates:
        
   - kind: ethereum/contract
     name: TrancheVesting
-    network: arbitrum-one
+    network: matic
     source:
       abi: ITrancheVesting
     mapping:
@@ -260,7 +341,7 @@ templates:
 
   - kind: ethereum/contract
     name: MerkleSet
-    network: arbitrum-one
+    network: matic
     source:
       abi: IMerkleSet
     mapping:
@@ -280,7 +361,7 @@ templates:
 
   - kind: ethereum/contract
     name: Trader
-    network: arbitrum-one
+    network: matic
     source:
       abi: Trader
     mapping:
@@ -307,7 +388,7 @@ templates:
           handler: handleOwnershipTransferred
   - kind: ethereum/contract
     name: CrosschainDistributor
-    network: arbitrum-one
+    network: matic
     source:
       abi: CrosschainDistributor
     mapping:
