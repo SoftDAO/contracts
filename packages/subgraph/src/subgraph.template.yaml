@@ -296,34 +296,11 @@ templates:
         - event: RegisterDistributor(address)
           handler: handleRegisterDistributor
   # We use a patched interface definition to handle older distributors with a slightly different InitializeDistributor signature
-  - kind: ethereum/contract
-    name: Distributor
-    network: {{SubgraphNetwork}}
-    source:
-      abi: IDistributorPatched
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ./src/distributor/v3.0/distributorMapping.ts
-      entities:
-        - Distributor
-        - DistributionRecord
-        - Claim
-      abis:
-        - name: IDistributorPatched
-          file: ./abis/contracts/interfaces/IDistributorPatched.json
-      eventHandlers:
-        - event: InitializeDistributionRecord(indexed address,uint256)
-          handler: handleInitializeDistributionRecord
-        - event: Claim(indexed address,uint256)
-          handler: handleClaim
-  # Older distributors had a slightly different event signature
   # - kind: ethereum/contract
   #   name: Distributor
   #   network: {{SubgraphNetwork}}
   #   source:
-  #     abi: IDistributor
+  #     abi: IDistributorPatched
   #   mapping:
   #     kind: ethereum/events
   #     apiVersion: 0.0.6
@@ -334,13 +311,36 @@ templates:
   #       - DistributionRecord
   #       - Claim
   #     abis:
-  #       - name: IDistributor
-  #         file: ./abis/contracts/interfaces/IDistributor.json
+  #       - name: IDistributorPatched
+  #         file: ./abis/contracts/interfaces/IDistributorPatched.json
   #     eventHandlers:
   #       - event: InitializeDistributionRecord(indexed address,uint256)
   #         handler: handleInitializeDistributionRecord
   #       - event: Claim(indexed address,uint256)
   #         handler: handleClaim
+  # Older distributors had a slightly different event signature
+  - kind: ethereum/contract
+    name: Distributor
+    network: {{SubgraphNetwork}}
+    source:
+      abi: IDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/distributor/v3.0/distributorMapping.ts
+      entities:
+        - Distributor
+        - DistributionRecord
+        - Claim
+      abis:
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.json
+      eventHandlers:
+        - event: InitializeDistributionRecord(indexed address,uint256)
+          handler: handleInitializeDistributionRecord
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
   - kind: ethereum/contract
     name: AdvancedDistributor
     network: {{SubgraphNetwork}}
