@@ -1,7 +1,7 @@
 {
   "mumbai": {
     "CrosschainTrancheVestingMerkle": {
-      "address": "0x062A649970d3df04e79B68BD5ee1B4e6EA799d87"
+      "address": "0xDc5cA1B86936043B23416850D4c94CC96Eba0D34"
     },
     "TrancheVestingSale_2_0": {
       "address": "0x1F56f6A9aD23850Fb4dED9c32F25c28CD5d5c8aa",
@@ -73,6 +73,9 @@
     },
     "ContinuousVestingMerkle": {
       "address": "0x43c49387EAE2aA8979E9D471f2Ad8544AFaf9687"
+    },
+    "Satellite": {
+      "address": "0xE43101b6E15e0be1A740928A1A85fcB33846f631"
     }
   },
   "gnosis": {

@@ -78,7 +78,7 @@ const MERKLE_TREE = {
 }
 
 module.exports = async ({ deployments, getNamedAccounts }) => {
-  const tranches = [{ time: '1690480800', vestedFraction: 10000 }]
+  const tranches = [{ time: '16926336000', vestedFraction: 10000 }]
 
   const { deploy } = deployments
   const { deployer, seller: user } = await getNamedAccounts()
@@ -92,7 +92,8 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
 	// 	log: true
 	// });
 
-	const Registry = await ethers.getContractAt("Registry", '0x5FbDB2315678afecb367f032d93F642f64180aa3')
+  // mumbai registry: 0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3
+	const Registry = await ethers.getContractAt("Registry", '0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3')
   
   // const tokenResult = await deploy('MyERC20Votes', {
   //   from: deployer,
@@ -142,29 +143,28 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
     ]
   }
 
-  const connextMockSource = await deploy('ConnextMock', {
-    from: deployer,
-    args: [1735353714],
-    log: true
-  })
+  // const connextMockSource = await deploy('ConnextMock', {
+  //   from: deployer,
+  //   args: [1735353714],
+  //   log: true
+  // })
 
   const distributor = await deploy('CrosschainTrancheVestingMerkle', {
     from: deployer,
     log: true,
-    // args: config.mumbai,
+    args: config.mumbai,
     
     // local args
-    args: [
-      Token.address,
-      connextMockSource.address,
-      ONE_MILLION,
-      'https://example.com',
-      '10000',
-      tranches,
-      '0x25e9b9b2a57375a5b6bad1c2575126b6307c93a5816b1d636a3a2fe07fd88a40',
-      '0'
-    ]
-
+    // args: [
+    //   Token.address,
+    //   connextMockSource.address,
+    //   ONE_MILLION,
+    //   'https://example.com',
+    //   '10000',
+    //   tranches,
+    //   '0x25e9b9b2a57375a5b6bad1c2575126b6307c93a5816b1d636a3a2fe07fd88a40',
+    //   '0'
+    // ]
   })
 
   console.log('Transferring tokens...')
@@ -177,44 +177,52 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
     await Distributor.total()
   )
 
-  await Registry.connect(deployerSigner).addAdmin(deployer);
+  // await Registry.connect(deployerSigner).addAdmin(deployer);
   const registerDistributorResult = await Registry.connect(deployerSigner).register(
     Distributor.address,
     // CrosschainDistributor, IDistributor, ITrancheVesting, AdvancedDistributor, IMerkleSet, ERC20Votes, IVoting: ["0x0cab5d00", "0x616aa576", "0x93cc7303", "0xed7a31af", "0x49590657", "0xe3741f15", "0xc823125b"]
     // new interface ids for crosschain/advanced distributor as of 7/28: ["0x1f743925", "0x616aa576", "0x93cc7303", "0xfea5558a", "0x49590657", "0xe3741f15", "0xc823125b"]
     // new interface ids for crosschain/advanced distributor as of 7/30: ["0x4d91fe87", "0x616aa576", "0x93cc7303", "0xac409228", "0x49590657", "0xe3741f15", "0xc823125b"]
     // new interface ids as of 8/9
-    ["0x139a2876", "0xf24b44d9", "0x616aa576", "0x93cc7303", "0x49590657", "0xe3741f15", "0xc823125b"]
-  )
-  const registerTokenResult = await Registry.connect(deployerSigner).register(
-    Token.address,
-    // ERC20Votes
-    ["0xe3741f15"]
-  )
-
-  const [beneficiary, amount, domain] = MERKLE_TREE.claims[userAddress].data.map(d => d.value)
-    const { proof } = MERKLE_TREE.claims[userAddress]
-    
-    const txData = [
-      { name: "recipient", type: "address", value: user },
-      { name: "recipientDomain", type: "uint32", value: domain },
-      { name: "beneficiary", type: "address", value: user },
-      { name: "beneficiaryDomain", type: "uint32", value: domain },
-      { name: "amount", type: "uint256", value: amount }
+    [
+      "0x139a2876", // AdvancedDistributor, 
+      "0xf24b44d9", // CrosschainDistributor,
+      "0x616aa576", // IDistributor
+      "0x93cc7303", // ITrancheVesting
+      "0x49590657", // MerkleSet
+      "0xe3741f15", // ERC20Votes,
+      "0xc823125b" // IVoting
     ]
-
-    const hash = ethers.utils.arrayify(ethers.utils.solidityKeccak256(txData.map(t => t.type), txData.map(t => t.value)))
-    const signature = await userSigner.signMessage(hash)
-
-  await Distributor.connect(userSigner).claimBySignature(
-    user,
-    domain,
-    user,
-    domain,
-    amount,
-    signature,
-    proof
   )
+  // const registerTokenResult = await Registry.connect(deployerSigner).register(
+  //   Token.address,
+  //   // ERC20Votes
+  //   ["0xe3741f15"]
+  // )
+
+  // const [beneficiary, amount, domain] = MERKLE_TREE.claims[userAddress].data.map(d => d.value)
+  // const { proof } = MERKLE_TREE.claims[userAddress]
+  
+  // const txData = [
+  //   { name: "recipient", type: "address", value: user },
+  //   { name: "recipientDomain", type: "uint32", value: domain },
+  //   { name: "beneficiary", type: "address", value: user },
+  //   { name: "beneficiaryDomain", type: "uint32", value: domain },
+  //   { name: "amount", type: "uint256", value: amount }
+  // ]
+
+  // const hash = ethers.utils.arrayify(ethers.utils.solidityKeccak256(txData.map(t => t.type), txData.map(t => t.value)))
+  // const signature = await userSigner.signMessage(hash)
+
+  // await Distributor.connect(userSigner).claimBySignature(
+  //   user,
+  //   domain,
+  //   user,
+  //   domain,
+  //   amount,
+  //   signature,
+  //   proof
+  // )
 }
 
 module.exports.tags = ['02', 'crosschainTrancheDistributor']

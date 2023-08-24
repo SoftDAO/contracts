@@ -169,7 +169,6 @@ type DistributionRecord @entity {
   beneficiary: Account!
   claims: [Claim!]! @derivedFrom(field: "distributionRecord")
   adjustments: [Adjustment!]! @derivedFrom(field: "distributionRecord")
-  total: BigInt! # Total claims 
   claimed: BigInt!
   createdAt: BigInt!
 }
