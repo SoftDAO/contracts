@@ -6,6 +6,8 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV2V3Interface.sol";
 contract FakeSequencerUptimeFeed is AggregatorV2V3Interface {
 	int256 private answer;
 	string private oracleDescription;
+	uint256 private startedAt = 1692820776;
+	uint256 private updatedAt = 1692820776;
 
 	constructor(int256 _answer, string memory _oracleDescription) {
 		answer = _answer;
@@ -26,14 +28,16 @@ contract FakeSequencerUptimeFeed is AggregatorV2V3Interface {
 
 	function setAnswer(int256 _answer) public {
 		answer = _answer;
+		startedAt = block.timestamp;
+		updatedAt = block.timestamp;
 	}
 
   function getAnswer(uint256 roundId) external view returns (int256) {
     return answer;
   }
 
-  function getTimestamp(uint256 roundId) external pure returns (uint256) {
-    return 1692820776;
+  function getTimestamp(uint256 roundId) external view returns (uint256) {
+    return startedAt;
   }
 
   function latestAnswer() external view returns (int256) {
@@ -44,8 +48,8 @@ contract FakeSequencerUptimeFeed is AggregatorV2V3Interface {
     return 18446744073709552139;
   }
 
-  function latestTimestamp() external pure returns (uint256) {
-    return 1692820776;
+  function latestTimestamp() external view returns (uint256) {
+    return startedAt;
   }
 
 	function latestRoundData()
@@ -54,12 +58,12 @@ contract FakeSequencerUptimeFeed is AggregatorV2V3Interface {
 		returns (
 			uint80 roundId,
 			int256,
-			uint256 startedAt,
-			uint256 updatedAt,
+			uint256,
+			uint256,
 			uint80 answeredInRound
 		)
 	{
-		return (18446744073709552139, answer, 1692820776, 1692820776, 18446744073709552139);
+		return (18446744073709552139, answer, startedAt, updatedAt, 18446744073709552139);
 	}
 
 	function getRoundData(uint80 _roundId)
@@ -68,11 +72,11 @@ contract FakeSequencerUptimeFeed is AggregatorV2V3Interface {
 		returns (
 			uint80 roundId,
 			int256,
-			uint256 startedAt,
-			uint256 updatedAt,
+			uint256,
+			uint256,
 			uint80 answeredInRound
 		)
 	{
-		return (18446744073709552139, answer, 1692820776, 1692820776, 18446744073709552139);
+		return (18446744073709552139, answer, startedAt, updatedAt, 18446744073709552139);
 	}
 }
