@@ -2,6 +2,8 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import { BigNumber } from 'ethers'
 import hre from 'hardhat'
 import { FakeSequencerUptimeFeed, FakeChainlinkOracle, IOracleOrL2OracleWithSequencerCheck } from '../typechain-types'
+import { lastBlockTime } from './lib'
+import { time } from '@nomicfoundation/hardhat-network-helpers'
 
 const ethers = (hre as any).ethers
 
@@ -48,7 +50,7 @@ describe('L2OracleWithSequencerCheck', () => {
     expect(answer).toEqual(BigNumber.from(ethUsdPrice))
   })
 
-  it('L2OracleWithSequencerCheck should answer with correct price', async () => {
+  it('Oracle should answer with correct price', async () => {
     const [, answer] = await l2OracleWithSequencerCheck.latestRoundData()
 
     expect(answer).toEqual(BigNumber.from(ethUsdPrice))
@@ -58,7 +60,7 @@ describe('L2OracleWithSequencerCheck', () => {
     
   })
 
-  it('L2OracleWithSequencerCheck should not return answer while sequencer down', async () => {
+  it('Oracle should not return answer while sequencer down', async () => {
     // take sequencer down
     await fakeSequencerUptimeFeed.setAnswer(1)
 
@@ -69,5 +71,22 @@ describe('L2OracleWithSequencerCheck', () => {
     await expect(l2OracleWithSequencerCheck.latestRoundData()).rejects.toMatchObject({
       errorName: expect.stringMatching(/sequencerdown/i)
     })
+
+    // bring sequencer up
+    await fakeSequencerUptimeFeed.setAnswer(0)
+    const [, newAnswer, startedAt] = await fakeSequencerUptimeFeed.latestRoundData()
+    expect(newAnswer).toEqual(BigNumber.from(0))
+    expect(startedAt).toEqual(BigNumber.from(await lastBlockTime()))
+
+    await (expect(l2OracleWithSequencerCheck.latestRoundData())).rejects.toMatchObject({
+      errorName: expect.stringMatching(/graceperiodnotover/i)
+    })
+
+    // wait for grace period to end
+    await time.increase(4000)
+    const [, oracleAnswer] = await l2OracleWithSequencerCheck.latestRoundData()
+    expect(oracleAnswer).toEqual(BigNumber.from(ethUsdPrice))
   })
+
+
 })
