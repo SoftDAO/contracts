@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV2V3Interface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 
 /**
@@ -16,8 +16,8 @@ import "../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
  * https://docs.chain.link/docs/data-feeds/l2-sequencer-feeds
  */
 contract L2OracleWithSequencerCheck is IOracleOrL2OracleWithSequencerCheck {
-    AggregatorV2V3Interface internal dataFeed;
-    AggregatorV2V3Interface internal sequencerUptimeFeed;
+    AggregatorV3Interface internal dataFeed;
+    AggregatorV3Interface internal sequencerUptimeFeed;
 
     uint256 private constant GRACE_PERIOD_TIME = 3600;
 
@@ -25,10 +25,10 @@ contract L2OracleWithSequencerCheck is IOracleOrL2OracleWithSequencerCheck {
     error GracePeriodNotOver();
 
     constructor(address _dataFeed, address _sequencerUptimeFeed) {
-        dataFeed = AggregatorV2V3Interface(
+        dataFeed = AggregatorV3Interface(
             _dataFeed
         );
-        sequencerUptimeFeed = AggregatorV2V3Interface(
+        sequencerUptimeFeed = AggregatorV3Interface(
             _sequencerUptimeFeed
         );
     }
