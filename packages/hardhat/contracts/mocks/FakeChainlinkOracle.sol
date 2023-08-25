@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.16;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 
-contract FakeChainlinkOracle is AggregatorV3Interface {
+contract FakeChainlinkOracle is IOracleOrL2OracleWithSequencerCheck {
 	int256 private answer;
 	string private oracleDescription;
 
@@ -42,7 +42,7 @@ contract FakeChainlinkOracle is AggregatorV3Interface {
 		return (92233720368547777283, answer, 1644641759, 1644641759, 92233720368547777283);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* _roundId */)
 		external
 		view
 		returns (
@@ -57,7 +57,7 @@ contract FakeChainlinkOracle is AggregatorV3Interface {
 	}
 }
 
-contract FakeEthOracle is AggregatorV3Interface {
+contract FakeEthOracle is IOracleOrL2OracleWithSequencerCheck {
 	int256 private answer;
 	string private oracleDescription;
 
@@ -96,7 +96,7 @@ contract FakeEthOracle is AggregatorV3Interface {
 		return (92233720368547777283, answer, 1644641759, 1644641759, 92233720368547777283);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* _roundId */)
 		external
 		view
 		returns (
@@ -111,7 +111,7 @@ contract FakeEthOracle is AggregatorV3Interface {
 	}
 }
 
-contract FakeUsdcOracle is AggregatorV3Interface {
+contract FakeUsdcOracle is IOracleOrL2OracleWithSequencerCheck {
 	int256 private answer;
 	string private oracleDescription;
 
@@ -150,7 +150,7 @@ contract FakeUsdcOracle is AggregatorV3Interface {
 		return (92233720368547777283, answer, 1644641759, 1644641759, 92233720368547777283);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* _roundId */)
 		external
 		view
 		returns (
@@ -165,7 +165,7 @@ contract FakeUsdcOracle is AggregatorV3Interface {
 	}
 }
 
-contract FakeUsdtOracle is AggregatorV3Interface {
+contract FakeUsdtOracle is IOracleOrL2OracleWithSequencerCheck {
 	int256 private answer;
 	string private oracleDescription;
 
@@ -204,7 +204,7 @@ contract FakeUsdtOracle is AggregatorV3Interface {
 		return (92233720368547777283, answer, 1644641759, 1644641759, 92233720368547777283);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* _roundId */)
 		external
 		view
 		returns (

@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.16;
 
-import { AggregatorV3Interface } from '@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol';
 import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
 import { PriceTierVesting, PriceTier } from './abstract/PriceTierVesting.sol';
 import { MerkleSet } from './abstract/MerkleSet.sol';
+import "../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 
 contract PriceTierVestingMerkle is PriceTierVesting, MerkleSet {
   constructor(
@@ -18,7 +18,7 @@ contract PriceTierVestingMerkle is PriceTierVesting, MerkleSet {
     // when price tier vesting ends (seconds past epoch) and all tokens are unlocked
     uint256 _end,
     // source for pricing info
-    AggregatorV3Interface _oracle,
+    IOracleOrL2OracleWithSequencerCheck _oracle,
     PriceTier[] memory _priceTiers,
     bytes32 _merkleRoot,
     uint160 _maxDelayTime // the maximum delay time for the fair queue
