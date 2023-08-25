@@ -2,6 +2,7 @@
 pragma solidity ^0.8.16;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV2V3Interface.sol";
+import "../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 
 /**
  * @title L2OracleWithSequencerCheck
@@ -14,7 +15,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV2V3Interface.sol";
  * @dev For a list of available Sequencer Uptime Feed proxy addresses, see: 
  * https://docs.chain.link/docs/data-feeds/l2-sequencer-feeds
  */
-contract L2OracleWithSequencerCheck {
+contract L2OracleWithSequencerCheck is IOracleOrL2OracleWithSequencerCheck {
     AggregatorV2V3Interface internal dataFeed;
     AggregatorV2V3Interface internal sequencerUptimeFeed;
 
@@ -63,5 +64,9 @@ contract L2OracleWithSequencerCheck {
         }
 
         return dataFeed.latestRoundData();
+    }
+
+    function decimals() public view returns (uint8) {
+        return dataFeed.decimals();
     }
 }
