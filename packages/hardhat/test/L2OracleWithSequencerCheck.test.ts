@@ -18,7 +18,6 @@ let ethUsdPrice = 167200000000 // 1672 USD
 
 describe('L2OracleWithSequencerCheck', () => {
   beforeAll(async () => {
-    console.log('Deploying FakeSequencerUptimeFeed...')
     ;[deployer] = await ethers.getSigners()
     const FakeSequencerUptimeFeedFactory = await ethers.getContractFactory('FakeSequencerUptimeFeed', deployer)
     fakeSequencerUptimeFeed = await FakeSequencerUptimeFeedFactory.deploy(
@@ -26,11 +25,9 @@ describe('L2OracleWithSequencerCheck', () => {
       'L2 Sequencer Uptime Status Feed',
     )
 
-    console.log('Deploying FakeEthOracle...')
     const FakeChainlinkOracleFactory = await ethers.getContractFactory('FakeChainlinkOracle', deployer)
     fakeChainlinkOracle = await FakeChainlinkOracleFactory.deploy(ethUsdPrice, 'ETH/USD Price Feed')
 
-    console.log('Deploying L2OracleWithSequencerCheck...')
     const L2OracleWithSequencerCheckFactory = await ethers.getContractFactory('L2OracleWithSequencerCheck', deployer)
     l2OracleWithSequencerCheck = await L2OracleWithSequencerCheckFactory.deploy(
       fakeChainlinkOracle.address,

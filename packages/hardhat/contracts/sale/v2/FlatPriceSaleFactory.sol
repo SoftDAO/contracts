@@ -13,7 +13,7 @@ contract FlatPriceSaleFactory {
 		FlatPriceSale indexed clone,
 		Config config,
 		string baseCurrency,
-		AggregatorV3Interface nativeOracle,
+		IOracleOrL2OracleWithSequencerCheck nativeOracle,
 		bool nativePaymentsEnabled
 	);
 
@@ -26,9 +26,9 @@ contract FlatPriceSaleFactory {
 		Config calldata _config,
 		string calldata _baseCurrency,
 		bool _nativePaymentsEnabled,
-		AggregatorV3Interface _nativeTokenPriceOracle,
+		IOracleOrL2OracleWithSequencerCheck _nativeTokenPriceOracle,
 		IERC20Upgradeable[] calldata tokens,
-		AggregatorV3Interface[] calldata oracles,
+		IOracleOrL2OracleWithSequencerCheck[] calldata oracles,
 		uint8[] calldata decimals
 	) external returns (FlatPriceSale sale) {
 		sale = FlatPriceSale(Clones.clone(address(implementation)));
