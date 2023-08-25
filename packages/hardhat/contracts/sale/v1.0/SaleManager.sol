@@ -119,11 +119,11 @@ contract SaleManager_v_1_0 is ReentrancyGuard {
 	// Get current price from chainlink oracle
 	function getLatestPrice() public view returns (uint256) {
 		(
-			uint80 roundID,
+			/* uint80 roundID */,
 			int256 price,
-			uint256 startedAt,
-			uint256 timeStamp,
-			uint80 answeredInRound
+			/* uint256 startedAt */,
+			/* uint256 timeStamp */,
+			/* uint80 answeredInRound */
 		) = priceOracle.latestRoundData();
 
 		require(price > 0, "negative price");

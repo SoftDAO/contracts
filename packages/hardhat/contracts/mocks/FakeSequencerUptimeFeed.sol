@@ -32,11 +32,11 @@ contract FakeSequencerUptimeFeed is AggregatorV2V3Interface {
 		updatedAt = block.timestamp;
 	}
 
-  function getAnswer(uint256 roundId) external view returns (int256) {
+  function getAnswer(uint256 /* roundId */) external view returns (int256) {
     return answer;
   }
 
-  function getTimestamp(uint256 roundId) external view returns (uint256) {
+  function getTimestamp(uint256 /* roundId */) external view returns (uint256) {
     return startedAt;
   }
 
@@ -66,7 +66,7 @@ contract FakeSequencerUptimeFeed is AggregatorV2V3Interface {
 		return (18446744073709552139, answer, startedAt, updatedAt, 18446744073709552139);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* roundId */)
 		external
 		view
 		returns (

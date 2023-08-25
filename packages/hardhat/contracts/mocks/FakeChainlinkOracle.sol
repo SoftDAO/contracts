@@ -42,7 +42,7 @@ contract FakeChainlinkOracle is IOracleOrL2OracleWithSequencerCheck {
 		return (92233720368547777283, answer, 1644641759, 1644641759, 92233720368547777283);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* _roundId */)
 		external
 		view
 		returns (
@@ -96,7 +96,7 @@ contract FakeEthOracle is IOracleOrL2OracleWithSequencerCheck {
 		return (92233720368547777283, answer, 1644641759, 1644641759, 92233720368547777283);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* _roundId */)
 		external
 		view
 		returns (
@@ -150,7 +150,7 @@ contract FakeUsdcOracle is IOracleOrL2OracleWithSequencerCheck {
 		return (92233720368547777283, answer, 1644641759, 1644641759, 92233720368547777283);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* _roundId */)
 		external
 		view
 		returns (
@@ -204,7 +204,7 @@ contract FakeUsdtOracle is IOracleOrL2OracleWithSequencerCheck {
 		return (92233720368547777283, answer, 1644641759, 1644641759, 92233720368547777283);
 	}
 
-	function getRoundData(uint80 _roundId)
+	function getRoundData(uint80 /* _roundId */)
 		external
 		view
 		returns (
