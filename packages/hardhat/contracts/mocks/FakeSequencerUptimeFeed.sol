@@ -15,7 +15,7 @@ contract FakeSequencerUptimeFeed is AggregatorV2V3Interface {
 	}
 
 	function decimals() external pure returns (uint8) {
-		return 8;
+		return 0;
 	}
 
 	function description() external view returns (string memory) {
