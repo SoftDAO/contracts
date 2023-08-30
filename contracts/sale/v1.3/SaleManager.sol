@@ -5,13 +5,13 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/security/PullPayment.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 import "./ISaleManager.sol";
 
 contract SaleManager_v_1_3 is ReentrancyGuard, PullPayment, ISaleManager_v_1_3 {
 	using SafeERC20 for IERC20;
 
-	AggregatorV3Interface priceOracle;
+	IOracleOrL2OracleWithSequencerCheck priceOracle;
 	IERC20 public immutable paymentToken;
 	uint8 public immutable paymentTokenDecimals;
 
@@ -82,7 +82,7 @@ contract SaleManager_v_1_3 is ReentrancyGuard, PullPayment, ISaleManager_v_1_3 {
 	) payable {
 		paymentToken = IERC20(_paymentToken);
 		paymentTokenDecimals = _paymentTokenDecimals;
-		priceOracle = AggregatorV3Interface(_priceOracle);
+		priceOracle = IOracleOrL2OracleWithSequencerCheck(_priceOracle);
 		emit Deploy(_paymentToken, _paymentTokenDecimals, _priceOracle);
 	}
 

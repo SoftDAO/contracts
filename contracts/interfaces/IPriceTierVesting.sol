@@ -2,7 +2,7 @@
 pragma solidity 0.8.16;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { AggregatorV3Interface } from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "./IOracleOrL2OracleWithSequencerCheck.sol";
 
 // time and vested fraction must monotonically increase in the tranche array
 struct PriceTier {
@@ -14,7 +14,7 @@ interface IPriceTierVesting {
 	event SetPriceTierConfig(
 		uint256 start,
 		uint256 end,
-		AggregatorV3Interface oracle,
+		IOracleOrL2OracleWithSequencerCheck oracle,
 		PriceTier[] tiers
 	);
 
@@ -22,7 +22,7 @@ interface IPriceTierVesting {
 
 	function getEnd() external view returns (uint256);
 
-	function getOracle() external view returns (AggregatorV3Interface);
+	function getOracle() external view returns (IOracleOrL2OracleWithSequencerCheck);
 
 	function getPriceTier(uint256 i) external view returns (PriceTier memory);
 
@@ -31,7 +31,7 @@ interface IPriceTierVesting {
 	function setPriceTiers(
 		uint256 _start,
 		uint256 _end,
-		AggregatorV3Interface _oracle,
+		IOracleOrL2OracleWithSequencerCheck _oracle,
 		PriceTier[] memory _tiers
 	) external;
 }

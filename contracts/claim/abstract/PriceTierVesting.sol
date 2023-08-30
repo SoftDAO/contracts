@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.16;
 
-import { AggregatorV3Interface } from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-
 import { AdvancedDistributor, Distributor, IERC20 } from "./AdvancedDistributor.sol";
 import { IPriceTierVesting, PriceTier } from "../../interfaces/IPriceTierVesting.sol";
+import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 
 abstract contract PriceTierVesting is AdvancedDistributor, IPriceTierVesting {
 	PriceTier[] private tiers;
 	uint256 private start; // time vesting begins
 	uint256 private end; // time vesting ends (all tokens are claimable)
-	AggregatorV3Interface private oracle; // oracle providing prices
+	IOracleOrL2OracleWithSequencerCheck private oracle; // oracle providing prices
 
 	constructor(
 		IERC20 _token,
@@ -19,7 +18,7 @@ abstract contract PriceTierVesting is AdvancedDistributor, IPriceTierVesting {
 		uint256 _voteFactor,
 		uint256 _start,
 		uint256 _end,
-		AggregatorV3Interface _oracle,
+		IOracleOrL2OracleWithSequencerCheck _oracle,
 		PriceTier[] memory _tiers,
     uint160 _maxDelayTime,
 		uint160 _salt
@@ -31,7 +30,7 @@ abstract contract PriceTierVesting is AdvancedDistributor, IPriceTierVesting {
 		(
 			uint80 roundID,
 			int256 _price,
-			, // uint256 startedAt
+			/* uint256 startedAt */,
 			uint256 timeStamp,
 			uint80 answeredInRound
 		) = oracle.latestRoundData();
@@ -52,7 +51,7 @@ abstract contract PriceTierVesting is AdvancedDistributor, IPriceTierVesting {
 		return end;
 	}
 
-	function getOracle() external view override returns (AggregatorV3Interface) {
+	function getOracle() external view override returns (IOracleOrL2OracleWithSequencerCheck) {
 		return oracle;
 	}
 
@@ -97,7 +96,7 @@ abstract contract PriceTierVesting is AdvancedDistributor, IPriceTierVesting {
 	function _setPriceTiers(
 		uint256 _start,
 		uint256 _end,
-		AggregatorV3Interface _oracle,
+		IOracleOrL2OracleWithSequencerCheck _oracle,
 		PriceTier[] memory _tiers
 	) private {
 		require(_tiers.length > 0, "1+ price tiers required");
@@ -133,7 +132,7 @@ abstract contract PriceTierVesting is AdvancedDistributor, IPriceTierVesting {
 	function setPriceTiers(
 		uint256 _start,
 		uint256 _end,
-		AggregatorV3Interface _oracle,
+		IOracleOrL2OracleWithSequencerCheck _oracle,
 		PriceTier[] memory _tiers
 	) external onlyOwner {
 		_setPriceTiers(_start, _end, _oracle, _tiers);

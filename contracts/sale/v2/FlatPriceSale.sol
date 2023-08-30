@@ -2,11 +2,10 @@
 pragma solidity 0.8.16;
 // pragma abicoder v2;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PullPaymentUpgradeable.sol";
 import "./Sale.sol";
-
+import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 /**
 Allow qualified users to participate in a sale according to sale rules.
 
@@ -79,7 +78,7 @@ struct Metrics {
 }
 
 struct PaymentTokenInfo {
-	AggregatorV3Interface oracle;
+	IOracleOrL2OracleWithSequencerCheck oracle;
 	uint8 decimals;
 }
 
@@ -91,7 +90,7 @@ contract FlatPriceSale is Sale, PullPaymentUpgradeable {
 	event Initialize(
 		Config config,
 		string baseCurrency,
-		AggregatorV3Interface nativeOracle,
+		IOracleOrL2OracleWithSequencerCheck nativeOracle,
 		bool nativePaymentsEnabled
 	);
 	event SetPaymentTokenInfo(IERC20Upgradeable token, PaymentTokenInfo paymentTokenInfo);
@@ -132,7 +131,7 @@ contract FlatPriceSale is Sale, PullPaymentUpgradeable {
 	string public constant VERSION = "2.2";
 
 	// <native token>/<base currency> price, e.g. ETH/USD price
-	AggregatorV3Interface public nativeTokenPriceOracle;
+	IOracleOrL2OracleWithSequencerCheck public nativeTokenPriceOracle;
 
 	// whether native payments are enabled (set during intialization)
 	bool nativePaymentsEnabled;
@@ -169,9 +168,9 @@ contract FlatPriceSale is Sale, PullPaymentUpgradeable {
 		Config calldata _config,
 		string calldata _baseCurrency,
 		bool _nativePaymentsEnabled,
-		AggregatorV3Interface _nativeTokenPriceOracle,
+		IOracleOrL2OracleWithSequencerCheck _nativeTokenPriceOracle,
 		IERC20Upgradeable[] calldata tokens,
-		AggregatorV3Interface[] calldata oracles,
+		IOracleOrL2OracleWithSequencerCheck[] calldata oracles,
 		uint8[] calldata decimals
 	) public initializer validUpdate(_config) {
 		// initialize the PullPayment escrow contract
@@ -327,11 +326,11 @@ contract FlatPriceSale is Sale, PullPaymentUpgradeable {
 	}
 
 	// Get a positive token price from a chainlink oracle
-	function getOraclePrice(AggregatorV3Interface oracle) public view returns (uint256) {
+	function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle) public view returns (uint256) {
 		(
 			uint80 roundID,
 			int256 _price,
-			, // uint256 startedAt
+			/* uint256 startedAt */,
 			uint256 timeStamp,
 			uint80 answeredInRound
 		) = oracle.latestRoundData();
@@ -405,7 +404,7 @@ contract FlatPriceSale is Sale, PullPaymentUpgradeable {
 	function tokensToBaseCurrency(
 		uint256 tokenQuantity,
 		uint256 tokenDecimals,
-		AggregatorV3Interface oracle
+		IOracleOrL2OracleWithSequencerCheck oracle
 	) public view returns (uint256 value) {
 		return (tokenQuantity * getOraclePrice(oracle)) / (10**tokenDecimals);
 	}
