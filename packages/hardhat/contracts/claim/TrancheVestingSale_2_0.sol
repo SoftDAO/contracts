@@ -93,7 +93,7 @@ contract TrancheVestingSale_2_0 is TrancheVesting {
     uint256 claimedAmount = super._executeClaim(beneficiary, totalClaimableAmount);
     
     // interactions
-    super._settleClaim(beneficiary, claimedAmount);
+    _settleClaim(beneficiary, claimedAmount);
   }
 
   function getDistributionRecord(
