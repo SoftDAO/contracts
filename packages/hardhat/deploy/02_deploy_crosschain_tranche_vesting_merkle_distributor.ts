@@ -131,7 +131,7 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
       // uint256 total
       '12400000000000000000000',
       // string uri
-      "ipfs://QmQteNyDYzX68Bt9m3yPyAZniAswa9Mjn7ZZoMsXwKrjaH",
+      "ipfs://QmXmV9wGXsMivSMyG4u3cfiochXdc7SEJ3muWf3Js3o5PB",
       // uint256 voteFactor
       "10000",
       // Tranche[] tranches

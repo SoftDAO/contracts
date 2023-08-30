@@ -15,7 +15,7 @@ const config = {
     // connext goerli
     "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
     // distributor (mumbai)
-    "0xcde1bc5306684f5e1303C50925622c1b095DB79A",
+    "0x00636acca3759C8a97cfb5F6A9aA37A00D39c32F",
     // distributor domain (mumbai)
     9991,
     // merkle root
