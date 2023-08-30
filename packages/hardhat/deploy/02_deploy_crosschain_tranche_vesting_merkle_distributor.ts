@@ -129,7 +129,7 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
       // connext
       "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
       // uint256 total
-      '5900000000000000000000',
+      '12400000000000000000000',
       // string uri
       "ipfs://QmQteNyDYzX68Bt9m3yPyAZniAswa9Mjn7ZZoMsXwKrjaH",
       // uint256 voteFactor
@@ -137,9 +137,9 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
       // Tranche[] tranches
       [{ time: '1692648000', vestedFraction: 10000 }],
       // bytes32 merkleRoot
-      "0xd63eb12c7cf26f6b928d314de289a5337d2f220d8c57d5cc3e642e5f88a24916",
+      "0x84cdf46e26483edc0b5c02b32c560087c6964920041e12f88a8d168ff24f603e",
       // uint160 maxDelayTime
-      '300'
+      '0'
     ]
   }
 

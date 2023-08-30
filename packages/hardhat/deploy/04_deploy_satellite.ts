@@ -15,11 +15,11 @@ const config = {
     // connext goerli
     "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
     // distributor (mumbai)
-    "0xDc5cA1B86936043B23416850D4c94CC96Eba0D34",
+    "0xcde1bc5306684f5e1303C50925622c1b095DB79A",
     // distributor domain (mumbai)
     9991,
     // merkle root
-    "0xd63eb12c7cf26f6b928d314de289a5337d2f220d8c57d5cc3e642e5f88a24916"
+    "0x84cdf46e26483edc0b5c02b32c560087c6964920041e12f88a8d168ff24f603e"
   ],
   "goerliOptimism": [
     // connext optimism goerli
