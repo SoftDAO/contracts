@@ -31,7 +31,7 @@ abstract contract Sweepable is Ownable {
     }
 
     // sweep native token to the recipient (public function)
-    function sweepNative() external {
+    function sweepNative() external onlyOwner {
         uint256 amount = address(this).balance;
         (bool success, ) = recipient.call{value: amount}("");
         require(success, "Transfer failed.");
