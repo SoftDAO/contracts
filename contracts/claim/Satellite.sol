@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.16;
 
+import '@openzeppelin/contracts/access/Ownable.sol';
+
 import { IConnext } from '../interfaces/IConnext.sol';
 import { ICrosschain } from '../interfaces/ICrosschain.sol';
 import { MerkleSet } from './abstract/MerkleSet.sol';
@@ -21,7 +23,7 @@ import { MerkleSet } from './abstract/MerkleSet.sol';
  * as this is the intended behavior for a properly constructed merkle root.
  */
 
-contract Satellite is MerkleSet {
+contract Satellite is MerkleSet, Ownable {
   // ========== Events ===========
   /**
    * @notice Emitted when a claim is initiated
@@ -97,5 +99,9 @@ contract Satellite is MerkleSet {
 
     // Emit event
     emit ClaimInitiated(transferId, msg.sender, total);
+  }
+
+  function setMerkleRoot(bytes32 _merkleRoot) external onlyOwner {
+    _setMerkleRoot(_merkleRoot);
   }
 }
