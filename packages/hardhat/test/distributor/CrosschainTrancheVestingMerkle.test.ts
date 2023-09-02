@@ -70,12 +70,14 @@ const config: Config = {
   votingFactor: 2n * 10n ** 4n,
   // created using yarn generate-merkle-root
   proof: {
-    "merkleRoot": "0xc1778e1119d42ffb00f014fe412946116e02f73b32e324022cedb5256b5b95cd",
+    "merkleRoot": "0x3399e578a7bff45b20657250f95b3615842251d97ed589d2e2cbdfeb1f6221df",
     "claims": {
-      "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc": {
+      "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc_1735353714": {
         "proof": [
           "0x6718c87625cce6cc64ebea422c01216633da3330fe7c9098da88b4734f8bc2a8",
-          "0xb8cb8af04efd13b603589588a13c9e63474c4d79452a944db4e9c7d2d2c7ec2f"
+          "0x476b9a794fc5bb3f179ce62fe321538eb5ec1fc61ad52c611ce7777d5b6772a9",
+          "0x6ce2381eb35666c935c53012fc7b1c094afa7016a0105b991386e1b5047b9a42",
+          "0xd2d3a588cf66b5845d61bed8bcc1ea02e5262d3da644e74dc20c19d54f2672c0"
         ],
         "data": [
           {
@@ -95,9 +97,59 @@ const config: Config = {
           }
         ]
       },
-      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8": {
+      "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc_2": {
         "proof": [
-          "0x76b9712b2409dcb4449bd096a2902b87b13c43a5072e2da15920338790e7972d"
+          "0xd7374742afbdba8cd08695797d600178f2f4dd8e96393278015e54537ca6abfb"
+        ],
+        "data": [
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "value": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
+          },
+          {
+            "name": "amount",
+            "type": "uint256",
+            "value": "1000"
+          },
+          {
+            "name": "domain",
+            "type": "uint32",
+            "value": "2"
+          }
+        ]
+      },
+      "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc_9991": {
+        "proof": [
+          "0x4e0a7d895052a7a3f15aab83c8eaf07f6aeedecf80180b939afcd04a1da90054",
+          "0x76b9712b2409dcb4449bd096a2902b87b13c43a5072e2da15920338790e7972d",
+          "0x6ce2381eb35666c935c53012fc7b1c094afa7016a0105b991386e1b5047b9a42",
+          "0xd2d3a588cf66b5845d61bed8bcc1ea02e5262d3da644e74dc20c19d54f2672c0"
+        ],
+        "data": [
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "value": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
+          },
+          {
+            "name": "amount",
+            "type": "uint256",
+            "value": "1000"
+          },
+          {
+            "name": "domain",
+            "type": "uint32",
+            "value": "9991"
+          }
+        ]
+      },
+      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8_1735353714": {
+        "proof": [
+          "0xaf2464ccc18de3428ad47d81761e6e8a11181721bdafe6f771472868383e431c",
+          "0xc20c9f5eeaae4ee16fe1a2d45461426fedcec9fad53fabfce4aa0a8e561c28f4",
+          "0x0842d94fc2f26214e0a1b947c555b3a6aaccccd693ccd0b318701ab352a4f945",
+          "0xd2d3a588cf66b5845d61bed8bcc1ea02e5262d3da644e74dc20c19d54f2672c0"
         ],
         "data": [
           {
@@ -117,10 +169,87 @@ const config: Config = {
           }
         ]
       },
-      "0x90f79bf6eb2c4f870365e785982e1f101e93b906": {
+      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8_2": {
+        "proof": [
+          "0xccd469a0611b0196a3c3ae606b4a4273afd6adee2c89f47c3451d70f568f2a00",
+          "0xd23b1cb50c3935dc60ef37e2d271f0774ec32628a88ea01a38fe4f8e5a3d17d3",
+          "0x0842d94fc2f26214e0a1b947c555b3a6aaccccd693ccd0b318701ab352a4f945",
+          "0xd2d3a588cf66b5845d61bed8bcc1ea02e5262d3da644e74dc20c19d54f2672c0"
+        ],
+        "data": [
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "value": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+          },
+          {
+            "name": "amount",
+            "type": "uint256",
+            "value": "1000"
+          },
+          {
+            "name": "domain",
+            "type": "uint32",
+            "value": "2"
+          }
+        ]
+      },
+      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8_9991": {
+        "proof": [
+          "0xb8cb8af04efd13b603589588a13c9e63474c4d79452a944db4e9c7d2d2c7ec2f",
+          "0xc20c9f5eeaae4ee16fe1a2d45461426fedcec9fad53fabfce4aa0a8e561c28f4",
+          "0x0842d94fc2f26214e0a1b947c555b3a6aaccccd693ccd0b318701ab352a4f945",
+          "0xd2d3a588cf66b5845d61bed8bcc1ea02e5262d3da644e74dc20c19d54f2672c0"
+        ],
+        "data": [
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "value": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+          },
+          {
+            "name": "amount",
+            "type": "uint256",
+            "value": "1000"
+          },
+          {
+            "name": "domain",
+            "type": "uint32",
+            "value": "9991"
+          }
+        ]
+      },
+      "0x90f79bf6eb2c4f870365e785982e1f101e93b906_1735353714": {
+        "proof": [
+          "0x1af5318f76f272183cb0c4cebdb544c015a1f393b1704ecaa5d55e0a74f23a48",
+          "0x76b9712b2409dcb4449bd096a2902b87b13c43a5072e2da15920338790e7972d",
+          "0x6ce2381eb35666c935c53012fc7b1c094afa7016a0105b991386e1b5047b9a42",
+          "0xd2d3a588cf66b5845d61bed8bcc1ea02e5262d3da644e74dc20c19d54f2672c0"
+        ],
+        "data": [
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "value": "0x90f79bf6eb2c4f870365e785982e1f101e93b906"
+          },
+          {
+            "name": "amount",
+            "type": "uint256",
+            "value": "1000"
+          },
+          {
+            "name": "domain",
+            "type": "uint32",
+            "value": "1735353714"
+          }
+        ]
+      },
+      "0x90f79bf6eb2c4f870365e785982e1f101e93b906_2": {
         "proof": [
           "0x73df9df38ba48b812d2bad1c95fa3ba5390bdc5c3aec13e4c598a893c8af4811",
-          "0xb8cb8af04efd13b603589588a13c9e63474c4d79452a944db4e9c7d2d2c7ec2f"
+          "0x476b9a794fc5bb3f179ce62fe321538eb5ec1fc61ad52c611ce7777d5b6772a9",
+          "0x6ce2381eb35666c935c53012fc7b1c094afa7016a0105b991386e1b5047b9a42",
+          "0xd2d3a588cf66b5845d61bed8bcc1ea02e5262d3da644e74dc20c19d54f2672c0"
         ],
         "data": [
           {
@@ -139,6 +268,31 @@ const config: Config = {
             "value": "2"
           }
         ]
+      },
+      "0x90f79bf6eb2c4f870365e785982e1f101e93b906_9991": {
+        "proof": [
+          "0xc25b7c5617644193bb62c05eec3bccb2d1576238d1ac05a15486b932ac89afbf",
+          "0xd23b1cb50c3935dc60ef37e2d271f0774ec32628a88ea01a38fe4f8e5a3d17d3",
+          "0x0842d94fc2f26214e0a1b947c555b3a6aaccccd693ccd0b318701ab352a4f945",
+          "0xd2d3a588cf66b5845d61bed8bcc1ea02e5262d3da644e74dc20c19d54f2672c0"
+        ],
+        "data": [
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "value": "0x90f79bf6eb2c4f870365e785982e1f101e93b906"
+          },
+          {
+            "name": "amount",
+            "type": "uint256",
+            "value": "1000"
+          },
+          {
+            "name": "domain",
+            "type": "uint32",
+            "value": "9991"
+          }
+        ]
       }
     }
   }
@@ -151,6 +305,7 @@ describe("CrosschainTrancheVestingMerkle", function () {
     await time.increaseTo(now);
 
     [deployer, eligible1, eligible2, eligible3, ineligible] = await ethers.getSigners();
+    ({ deployer: deployer.address, e1: eligible1.address, e2: eligible2.address, e3: eligible3.address })
 
     const GenericERC20Factory = await ethers.getContractFactory("GenericERC20", deployer);
     token = await GenericERC20Factory.deploy(
@@ -285,8 +440,8 @@ describe("CrosschainTrancheVestingMerkle", function () {
     const user = eligible1
     const relayerFee = ethers.utils.parseEther('0.1')
 
-    const [beneficiary, amount, domain] = config.proof.claims[user.address.toLowerCase()].data.map(d => d.value)
-    const proof = config.proof.claims[user.address.toLowerCase()].proof
+    const [beneficiary, amount, domain] = config.proof.claims[`${user.address.toLowerCase()}_1735353714`].data.map(d => d.value)
+    const proof = config.proof.claims[`${user.address.toLowerCase()}_1735353714`].proof
     const recipientDomain = domain === DESTINATION_DOMAIN.toString() ? SOURCE_DOMAIN : DESTINATION_DOMAIN;
 
     const txData = [
@@ -400,8 +555,8 @@ describe("CrosschainTrancheVestingMerkle", function () {
   it("Can claim via Merkle Proof", async () => {
     const user = eligible2
 
-    const [beneficiary, amount, domain] = config.proof.claims[user.address.toLowerCase()].data.map(d => d.value)
-    const proof = config.proof.claims[user.address.toLowerCase()].proof
+    const [beneficiary, amount, domain] = config.proof.claims[`${user.address.toLowerCase()}_1735353714`].data.map(d => d.value)
+    const proof = config.proof.claims[`${user.address.toLowerCase()}_1735353714`].proof
 
     // check that user can't claim with invalid proof
     const badProof = [
@@ -432,8 +587,8 @@ describe("CrosschainTrancheVestingMerkle", function () {
   it("Ineligible user cannot claim", async () => {
     const user = ineligible
 
-    const [beneficiary, amount, domain] = config.proof.claims[eligible3.address.toLowerCase()].data.map(d => d.value)
-    const proof = config.proof.claims[eligible3.address.toLowerCase()].proof
+    const [beneficiary, amount, domain] = config.proof.claims[`${eligible3.address.toLowerCase()}_1735353714`].data.map(d => d.value)
+    const proof = config.proof.claims[`${eligible3.address.toLowerCase()}_1735353714`].proof
 
     const txData = [
       { name: "recipient", type: "address", value: user.address },
@@ -469,8 +624,8 @@ describe("CrosschainTrancheVestingMerkle", function () {
     // connext on domain 1735353714 calls distributor on domain 1735353714
     const user = eligible3
 
-    const [beneficiary, amount, domain] = config.proof.claims[user.address.toLowerCase()].data.map(d => d.value)
-    const proof = config.proof.claims[user.address.toLowerCase()].proof
+    const [beneficiary, amount, domain] = config.proof.claims[`${eligible3.address.toLowerCase()}_2`].data.map(d => d.value)
+    const proof = config.proof.claims[`${user.address.toLowerCase()}_2`].proof
 
     const transactionData = await satellite.connect(user).initiateClaim(
       amount,
@@ -507,8 +662,6 @@ describe("CrosschainTrancheVestingMerkle", function () {
    * Likely cause: ethereum addresses must be 40 characters, but that is 41! Why is the randomValue producing values outside the ETH address space?
    */
   it("Queue Delay works as expected", async () => {
-
-
     // Get the largest possible uint160 (this number is all "1"s when displayed in binary)
     const maxUint160 = 2n ** 160n - 1n;
     // get the current random value of the sale
@@ -550,23 +703,21 @@ describe("CrosschainTrancheVestingMerkle", function () {
         { time: now + 2n, vestedFraction: 10000n },
       ])
 
-      const [, amount,] = config.proof.claims[user.address.toLowerCase()].data.map(d => d.value)
-      const proof = config.proof.claims[user.address.toLowerCase()].proof
+      const [, amount,] = config.proof.claims[`${user.address.toLowerCase()}_1735353714`].data.map(d => d.value)
+      const proof = config.proof.claims[`${user.address.toLowerCase()}_1735353714`].proof
 
       // verify the user cannot yet claim
       await expect(distributorWithQueue.claimByMerkleProof(
         user.address,
         amount,
         proof
-      )).rejects.toBeTruthy()
-      // TODO: why does this more specific error check not work
-      // toMatchObject({ message: expect.stringMatching(/Distributor: no more tokens claimable right now/) })
-
+      )).rejects.toMatchObject({ message: expect.stringMatching(/Distributor: no more tokens claimable right now/) })     
+      
       const distributionRecord = await distributorWithQueue.getDistributionRecord(user.address)
-
+      
       // wait for three seconds
       await time.increase(3);
-
+      
       // verify the user can now claim all tokens
       await distributorWithQueue.connect(user).claimByMerkleProof(
         user.address,
@@ -578,8 +729,8 @@ describe("CrosschainTrancheVestingMerkle", function () {
 
   // See sherlock-41 https://github.com/sherlock-audit/2023-06-tokensoft-judging/issues/41
   it("Cannot increase voting power by re-initializing distribution record", async () => {
-    const [, amount, domain] = config.proof.claims[eligible1.address.toLowerCase()].data.map(d => d.value)
-    const proof = config.proof.claims[eligible1.address.toLowerCase()].proof
+    const [, amount, domain] = config.proof.claims[`${eligible1.address.toLowerCase()}_2`].data.map(d => d.value)
+    const proof = config.proof.claims[`${eligible1.address.toLowerCase()}_2`].proof
 
     // get current voting power
     await distributor.connect(eligible1).delegate(eligible1.address);

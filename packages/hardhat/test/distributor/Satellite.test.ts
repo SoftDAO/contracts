@@ -152,6 +152,22 @@ describe("Satellite", function () {
     expect(await satellite.getMerkleRoot()).toEqual(config.proof.merkleRoot)
   })
 
+  it("Can change owner", async () => {
+    await satellite.transferOwnership(eligible1.address)
+    expect(await satellite.owner()).toEqual(eligible1.address)
+
+    await expect(
+      satellite.setMerkleRoot("0xc1778e1119d42ffb00f014fe412946116e02f73b32e324022cedb5256b5b95cd")
+    ).rejects.toMatchObject(
+      { message: expect.stringMatching(/caller is not the owner/) }
+    )
+  })
+
+  it("Can change merkle root", async () => {
+    await satellite.connect(eligible1).setMerkleRoot("0xc1778e1119d42ffb00f014fe412946116e02f73b32e324022cedb5256b5b95cd")
+    expect(await satellite.getMerkleRoot()).toEqual("0xc1778e1119d42ffb00f014fe412946116e02f73b32e324022cedb5256b5b95cd")
+  })
+
   it("Can start a subsidized cross-chain claim by calling Connext", async () => {
     const user = eligible3
 

@@ -1,7 +1,7 @@
 {
   "name": "CONNEXT TEST FAIR DELAY DISTRIBUTOR - MUMBAI",
   "title": "Test TVOTES Distribution",
-  "description": "This is a test Connext distribution.",
+  "description": "This is a test Connext distributor.",
   "intro": "<div />",
   "vestingDescription": "Tokens are fully vested.",
   "logo": {
@@ -16,5 +16,5 @@
   "twitter": "https://twitter.com/TokensoftInc",
   "discord": "https://discord.gg/tokensoft",
   "telegram": "https://t.me/tokensoftsupport",
-  "merkleProof": "ipfs://QmeFaieXiQSgFGHykUQ93y4tTfqNB4dqaFLU6xWHR3jxUK"
+  "merkleProof": "ipfs://QmbzTnTZoKtocLPMPLiDbJrGf5cm1JPaLAA6QD2fjzd6qz"
 }

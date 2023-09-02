@@ -66,19 +66,19 @@ async function main() {
 
             switch(format) {
                 case 'multichain':
-                    obj[address] = buildMultiChainDistributorNode(line, index)
+                    obj = buildMultiChainDistributorNode(obj, line, index)
                     break
                 case 'indexed':
-                    obj[address] = buildIndexedDistributorNode(line, index)
+                    obj = buildIndexedDistributorNode(obj, line, index)
                     break
                 case 'loadtest':
-                    obj[address] = buildLoadTestDistributorNode(line, index)
+                    obj = buildLoadTestDistributorNode(obj, line, index)
                     break
                 case 'connext-preview':
-                    obj[address] = buildConnextPreviewDistributorNode(line, index)
+                    obj = buildConnextPreviewDistributorNode(obj, line, index)
                     break
                 default:
-                    obj[address] = buildAddressOnlyNode(line, index)
+                    obj = buildAddressOnlyNode(obj, line, index)
                     break
             }
 
@@ -97,43 +97,49 @@ async function main() {
     console.log('Total Entries: ' + Object.keys(tree.claims).length)
 }
 
-function buildMultiChainDistributorNode(line: any, index: number) {
+function buildMultiChainDistributorNode(obj: any, line: any, index: number) {
     const address = line.field1.toLowerCase()
     const amount = line.field2
-    const domain = line.field3
+    const domains = line.field3
 
-    if (!amount || !domain) {
+    if (!amount || !domains) {
+        console.log({ line })
         throw new Error('Amount and Domain fields are required for multichain distributors')
     }
 
-    return {
-        index: index,
-        address: address,
-        data: [
-            {
-                name: "beneficiary",
-                type: "address",
-                value: address
-            },
-            {
-                name: "amount",
-                type: "uint256",
-                value: amount
-            },
-            {
-                name: "domain",
-                type: "uint32",
-                value: domain
-            }
-        ]
-    }
+    const domainTokens = domains.split(',')
+    domainTokens.forEach((domain) => {
+        obj[`${address}_${domain}`] = {
+            index: index,
+            address: address,
+            data: [
+                {
+                    name: "beneficiary",
+                    type: "address",
+                    value: address
+                },
+                {
+                    name: "amount",
+                    type: "uint256",
+                    value: amount
+                },
+                {
+                    name: "domain",
+                    type: "uint32",
+                    value: domain
+                }
+            ]
+        }
+    })
+
+    return obj;
 }
 
-function buildIndexedDistributorNode(line: any, index: number) {
+function buildIndexedDistributorNode(obj: any, line: any, index: number) {
     const address = line.field1.toLowerCase()
     const amount = line.field2
 
-    return {
+    obj[address] = {
         index: index,
         address: address,
         data: [
@@ -154,15 +160,17 @@ function buildIndexedDistributorNode(line: any, index: number) {
             }
         ]
     }
+
+    return obj;
 }
 
-function buildLoadTestDistributorNode(line: any, index: number) {
+function buildLoadTestDistributorNode(obj: any, line: any, index: number) {
     const address = line.field1.toLowerCase()
     const amount = line.field4
 
     totalAmount += Number(amount)
 
-    return {
+    obj[address] = {
         index: index,
         address: address,
         data: [
@@ -183,15 +191,18 @@ function buildLoadTestDistributorNode(line: any, index: number) {
             }
         ]
     }
+
+    return obj;
 }
 
-function buildConnextPreviewDistributorNode(line: any, index: number) {
+function buildConnextPreviewDistributorNode(obj: any, line: any, index: number) {
     const address = line.field1.toLowerCase()
     const amount = line.field2.trim()
+    const domain = '1735353714'
 
     totalAmount += Number(amount)
 
-    return {
+    obj[`${address}_${domain}`] = {
         index: index,
         address: address,
         data: [
@@ -212,15 +223,19 @@ function buildConnextPreviewDistributorNode(line: any, index: number) {
             }
         ]
     }
+
+    return obj;
 }
 
-function buildAddressOnlyNode(line: any, index: number) {
+function buildAddressOnlyNode(obj: any, line: any, index: number) {
     const address = line.field1.toLowerCase()
 
-    return {
+    obj[address] = {
         index: index,
         address: address
     }
+
+    return obj;
 }
 
 main()

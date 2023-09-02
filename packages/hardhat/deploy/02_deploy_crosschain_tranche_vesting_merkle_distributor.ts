@@ -93,7 +93,8 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
 	// });
 
   // mumbai registry: 0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3
-	const Registry = await ethers.getContractAt("Registry", '0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3')
+  // arbitrum registry: 0xb41169Cc124298Be20e2Ca956cC46E266ab5E203
+	const Registry = await ethers.getContractAt("Registry", '0xb41169Cc124298Be20e2Ca956cC46E266ab5E203')
   
   // const tokenResult = await deploy('MyERC20Votes', {
   //   from: deployer,
@@ -102,7 +103,8 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
   // })
   
   // TVOTES mumbai: 0x0466310B91743Da33A0ACa64bDAb0e7F5559e36c
-  const Token = await ethers.getContractAt('MyERC20Votes', '0x0466310B91743Da33A0ACa64bDAb0e7F5559e36c', deployerSigner)
+  // TVOTES arbitrum: 0x008B59Ff5364045337994c00eFc7aD1c562bB629
+  const Token = await ethers.getContractAt('MyERC20Votes', '0x008B59Ff5364045337994c00eFc7aD1c562bB629', deployerSigner)
 
   const config = {
     "goerli": [
@@ -129,15 +131,33 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
       // connext
       "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
       // uint256 total
-      '12400000000000000000000',
+      '6500032500000000000000',
       // string uri
-      "ipfs://QmXmV9wGXsMivSMyG4u3cfiochXdc7SEJ3muWf3Js3o5PB",
+      "ipfs://QmXiEzfeth3sjEXArmE9xCcpX44N12gKefGiguq9D9aAgm",
       // uint256 voteFactor
       "10000",
       // Tranche[] tranches
       [{ time: '1692648000', vestedFraction: 10000 }],
       // bytes32 merkleRoot
-      "0x84cdf46e26483edc0b5c02b32c560087c6964920041e12f88a8d168ff24f603e",
+      "0x160650734f32c12d62b59fa2efbef4b3d77b8bd543b978ababddb96e9e89325e",
+      // uint160 maxDelayTime
+      '0'
+    ],
+    "arbitrum": [
+      // erc20 token - TVOTES
+      '0x008B59Ff5364045337994c00eFc7aD1c562bB629',
+      // connext router
+      '0xEE9deC2712cCE65174B561151701Bf54b99C24C8',
+      // uint256 total
+      '7200000000000000000000',
+      // string uri
+      'ipfs://QmSMW9yQXygu3MwPVpz6c8BLi3ZUxDb3qiz1Ehmy5LFcCM',
+      // uint256 voteFactor
+      '10000',
+      // Tranche[] tranches
+      [{ time: '1692648000', vestedFraction: 10000 }],
+      // bytes32 merkleRoot
+      '0xa380f169132591fe29023188206fcd19fbaade18f66af6d963fcc37a5321f5e3',
       // uint160 maxDelayTime
       '0'
     ]
@@ -152,7 +172,7 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
   const distributor = await deploy('CrosschainTrancheVestingMerkle', {
     from: deployer,
     log: true,
-    args: config.mumbai,
+    args: config.arbitrum,
     
     // local args
     // args: [

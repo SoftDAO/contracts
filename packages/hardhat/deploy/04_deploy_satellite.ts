@@ -15,11 +15,11 @@ const config = {
     // connext goerli
     "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
     // distributor (mumbai)
-    "0x00636acca3759C8a97cfb5F6A9aA37A00D39c32F",
+    "0xcD7dE973264D5967D930Ef5144C59E9811ce5787",
     // distributor domain (mumbai)
     9991,
     // merkle root
-    "0x84cdf46e26483edc0b5c02b32c560087c6964920041e12f88a8d168ff24f603e"
+    "0x8dd7736745a15706346a0ccdbd255d66380abf72b923671c092f6c489664e3b3"
   ],
   "goerliOptimism": [
     // connext optimism goerli
@@ -40,6 +40,36 @@ const config = {
     1735353714,
     // merkle root
     "0x45c403f18dff39004d1b6b6915739d85e921934f31b01b51f3ecd5540372537a"
+  ],
+  "optimism": [
+    // connext optimism
+    '0x8f7492DE823025b4CfaAB1D34c58963F2af5DEDA',
+    // distributor (arbitrum)
+    '0x91533b1bBBE84a3Bf6409787cA6A6515080a6F74',
+    // distributor domain (arbitrum)
+    1634886255,
+    // merkle root
+    '0xa380f169132591fe29023188206fcd19fbaade18f66af6d963fcc37a5321f5e3'
+  ],
+  "gnosis": [
+    // connext gnosis
+    '0x5bB83e95f63217CDa6aE3D181BA580Ef377D2109',
+    // distributor (arbitrum)
+    '0x91533b1bBBE84a3Bf6409787cA6A6515080a6F74',
+    // distributor domain (arbitrum)
+    1634886255,
+    // merkle root
+    '0xa380f169132591fe29023188206fcd19fbaade18f66af6d963fcc37a5321f5e3'
+  ],
+  "matic": [
+    // connext matic
+    '0x11984dc4465481512eb5b777E44061C158CF2259',
+    // distributor (arbitrum)
+    '0x91533b1bBBE84a3Bf6409787cA6A6515080a6F74',
+    // distributor domain (arbitrum)
+    1634886255,
+    // merkle root
+    '0xa380f169132591fe29023188206fcd19fbaade18f66af6d963fcc37a5321f5e3'
   ]
 }
 
@@ -49,7 +79,7 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
 
   const satellite = await deploy('Satellite', {
     from: deployer,
-    args: config.goerli,
+    args: config.optimism,
     log: true
   })
 }

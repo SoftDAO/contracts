@@ -14,8 +14,8 @@ import { ECDSA } from '@openzeppelin/contracts/utils/cryptography/ECDSA.sol';
 /**
  * @title CrosschainMerkleDistributor
  * @author
- * @notice Distributes funds to beneficiaries listed in a merkle proof on Connext-compatible chains. Every beneficiary
- * must be included in exactly one merkle leaf.
+ * @notice Distributes funds to beneficiaries listed in a merkle proof on Connext-compatible chains. If a beneficiary is listed in multiple leaves,
+  * they can claim at most the max(amounts) rather than sum(amounts) -- each beneficiary gets a single distribution record across all chains or merkle leaves.
  *
  * @dev There are three ways to claim funds from this contract:
  *

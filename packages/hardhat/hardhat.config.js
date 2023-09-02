@@ -33,7 +33,7 @@ function getApiKey(network) {
     case "optimism":
     case "goerliOptimism":{
       // optimism.etherscan.io: create an account at https://optimistic.etherscan.io/myapikey
-      return process.env.OPTIMISM_API_KEY;
+      return process.env.OPTIMISTIC_ETHERSCANSCAN_API_KEY;
     }
     case "mumbai":
     case "matic": {
@@ -86,6 +86,11 @@ module.exports = {
       accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
       chainId: 1
     },
+    arbitrum: {
+      url: `https://arb-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
+      chainId: 42161
+    },
     gnosis: {
       url: `https://rpc.ankr.com/gnosis`,
       accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
@@ -102,11 +107,21 @@ module.exports = {
       networkCheckTimeout: 99999999,
       timeoutBlocks:99999
     },
+    matic: {
+      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
+      chainId: 137,
+    },
     mumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_MUMBAI_KEY}`,
       accounts: [`${process.env.DEPLOYER_PRIVATE_KEY}`],
       chainId: 80001,
     },
+    optimism: {
+      url: `https://opt-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
+      chainId: 10,
+    }
   },
   solidity: {
     compilers: [
