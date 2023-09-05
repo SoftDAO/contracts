@@ -62,6 +62,11 @@ async function main() {
     if (inputFile.endsWith('.csv')) {
         const lines = await csv({noheader:true, delimiter: delimiter}).fromFile(inputFile)
         accounts = lines.reduce((obj, line, index) => {
+            if (!line) {
+                console.log('skipping empty line')
+                return obj;
+            }
+
             const address = line.field1.toLowerCase()
 
             switch(format) {
@@ -103,12 +108,34 @@ function buildMultiChainDistributorNode(obj: any, line: any, index: number) {
     const domains = line.field3
 
     if (!amount || !domains) {
-        console.log({ line })
         throw new Error('Amount and Domain fields are required for multichain distributors')
     }
 
+    if (Number(amount) === 0) {
+        throw new Error(`Invalid amount for address: ${line}`)
+    }
+
     const domainTokens = domains.split(',')
+    totalAmount += Number(amount)
+
+    if (domainTokens?.length <= 0) {
+        throw new Error(`Missing domain for address: ${line}`)
+    }
+
     domainTokens.forEach((domain) => {
+        if(!['6648936','1869640809','1886350457','1634886255','6450786','6778479'].includes(domain)) {
+            throw new Error(`Invalid domain for address: ${domain}`)
+        }
+
+        if (Object.keys(obj).includes(`${address}_${domain}`)) {
+            // throw new Error(`Duplicate entry for address: ${address}`)
+            console.log(`    Duplicate entry for address: ${address}_${domain}!!!!`)
+        }
+
+        if (index % 500 === 0) {
+            console.log(`${index}...`)
+        }
+
         obj[`${address}_${domain}`] = {
             index: index,
             address: address,
