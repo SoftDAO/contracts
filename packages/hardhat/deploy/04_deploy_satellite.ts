@@ -45,31 +45,31 @@ const config = {
     // connext optimism
     '0x8f7492DE823025b4CfaAB1D34c58963F2af5DEDA',
     // distributor (arbitrum)
-    '0x91533b1bBBE84a3Bf6409787cA6A6515080a6F74',
+    '0xE6B7aB9EBCfBF1A72E489ff00CdF9C6473ff6224',
     // distributor domain (arbitrum)
     1634886255,
     // merkle root
-    '0xa380f169132591fe29023188206fcd19fbaade18f66af6d963fcc37a5321f5e3'
+    '0xc02886f3e079b58a9affa3e560a00f2e34b4d851eae4a892bd0354e9af5538ed'
   ],
   "gnosis": [
     // connext gnosis
     '0x5bB83e95f63217CDa6aE3D181BA580Ef377D2109',
     // distributor (arbitrum)
-    '0x91533b1bBBE84a3Bf6409787cA6A6515080a6F74',
+    '0xE6B7aB9EBCfBF1A72E489ff00CdF9C6473ff6224',
     // distributor domain (arbitrum)
     1634886255,
     // merkle root
-    '0xa380f169132591fe29023188206fcd19fbaade18f66af6d963fcc37a5321f5e3'
+    '0xc02886f3e079b58a9affa3e560a00f2e34b4d851eae4a892bd0354e9af5538ed'
   ],
   "matic": [
     // connext matic
     '0x11984dc4465481512eb5b777E44061C158CF2259',
     // distributor (arbitrum)
-    '0x91533b1bBBE84a3Bf6409787cA6A6515080a6F74',
+    '0xE6B7aB9EBCfBF1A72E489ff00CdF9C6473ff6224',
     // distributor domain (arbitrum)
     1634886255,
     // merkle root
-    '0xa380f169132591fe29023188206fcd19fbaade18f66af6d963fcc37a5321f5e3'
+    '0xc02886f3e079b58a9affa3e560a00f2e34b4d851eae4a892bd0354e9af5538ed'
   ]
 }
 

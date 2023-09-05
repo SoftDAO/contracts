@@ -144,20 +144,20 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
       '0'
     ],
     "arbitrum": [
-      // erc20 token - TVOTES
-      '0x008B59Ff5364045337994c00eFc7aD1c562bB629',
+      // erc20 token - NEXT
+      '0x58b9cB810A68a7f3e1E4f8Cb45D1B9B3c79705E8',
       // connext router
       '0xEE9deC2712cCE65174B561151701Bf54b99C24C8',
       // uint256 total
-      '7200000000000000000000',
+      '62631494252655764000000000',
       // string uri
-      'ipfs://QmSMW9yQXygu3MwPVpz6c8BLi3ZUxDb3qiz1Ehmy5LFcCM',
+      'ipfs://QmX15mryG3AVe5kC3YuXT9ui9Hgbcd5W7NHPaMcEvR8PCY',
       // uint256 voteFactor
       '10000',
       // Tranche[] tranches
-      [{ time: '1692648000', vestedFraction: 10000 }],
+      [{ time: '1693918800', vestedFraction: 10000 }],
       // bytes32 merkleRoot
-      '0xa380f169132591fe29023188206fcd19fbaade18f66af6d963fcc37a5321f5e3',
+      '0xc02886f3e079b58a9affa3e560a00f2e34b4d851eae4a892bd0354e9af5538ed',
       // uint160 maxDelayTime
       '0'
     ]
@@ -187,15 +187,15 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
     // ]
   })
 
-  console.log('Transferring tokens...')
   const Distributor = await ethers.getContractAt(
     'CrosschainTrancheVestingMerkle',
     distributor.address
   )
-  const transferResult = await Token.transfer(
-    Distributor.address,
-    await Distributor.total()
-  )
+  // console.log('Transferring tokens...')
+  // const transferResult = await Token.transfer(
+  //   Distributor.address,
+  //   await Distributor.total()
+  // )
 
   // await Registry.connect(deployerSigner).addAdmin(deployer);
   const registerDistributorResult = await Registry.connect(deployerSigner).register(
