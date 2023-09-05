@@ -17,6 +17,7 @@ domainIdToChainId.set(1734439522, 421613);
 domainIdToChainId.set(2053862260, 280);
 domainIdToChainId.set(1668247156, 1668247156);
 domainIdToChainId.set(1887071092, 1442);
+domainIdToChainId.set(0, 42161); // TODO: fix this, it is hardcoded to arbitrum
 
 export function handleCrosschainClaim(event: CrosschainClaim): void {
   const distributor = getOrCreateDistributor(event.address, event.block);

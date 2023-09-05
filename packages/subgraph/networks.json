@@ -1,7 +1,7 @@
 {
   "mumbai": {
     "CrosschainTrancheVestingMerkle": {
-      "address": "0xDc5cA1B86936043B23416850D4c94CC96Eba0D34"
+      "address": "0xcD7dE973264D5967D930Ef5144C59E9811ce5787"
     },
     "TrancheVestingSale_2_0": {
       "address": "0x1F56f6A9aD23850Fb4dED9c32F25c28CD5d5c8aa",
@@ -75,12 +75,30 @@
       "address": "0x43c49387EAE2aA8979E9D471f2Ad8544AFaf9687"
     },
     "Satellite": {
-      "address": "0xE43101b6E15e0be1A740928A1A85fcB33846f631"
+      "address": "0xa27fE80F7F75BE7C5a82B68C881e121B76dBc5A6"
     }
   },
   "gnosis": {
     "Registry": {
       "address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D"
+    },
+    "Satellite": {
+      "address": "0x6D4D82aE73DC9059Ac83B085b2505e00b5eF8511"
+    }
+  },
+  "arbitrum": {
+    "CrosschainTrancheVestingMerkle": {
+      "address": "0xE6B7aB9EBCfBF1A72E489ff00CdF9C6473ff6224"
+    }
+  },
+  "matic": {
+    "Satellite": {
+      "address": "0x83e8Cf4A51035665BAF97DdB0cf03b565AC76B44"
+    }
+  },
+  "optimism": {
+    "Satellite": {
+      "address": "0x9D9ce29Dc7812ccb63aB14EA987B52d9aF053Eb3"
     }
   }
 }

@@ -1,45 +1,21 @@
 {
-  "SubgraphNetwork": "mainnet",
-  "TrancheVestingSale_2_0": [
+  "SubgraphNetwork": "arbitrum-one",
+  "Registry": [
     {
-      "Address": "0x1F56f6A9aD23850Fb4dED9c32F25c28CD5d5c8aa",
-      "BlockNumber": 15729776
-    }
-  ],
-  "FlatPriceSaleFactory": [
-    {
-      "Address": "0x865D024BFd9e1C2Cd665fAc6666c5C3E4a375dd7",
-      "BlockNumber": 15621922
+      "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
+      "BlockNumber": 54948060
     }
   ],
   "FlatPriceSale": [
     {
-      "Address": "0x135D889aFF58584e12ab3bd4ce327a18aF3356Ef",
-      "BlockNumber": 15621920
+      "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
+      "BlockNumber": 54950075
     }
   ],
-  "SaleManager_v_1_0": [
+  "FlatPriceSaleFactory": [
     {
-      "Address": "0x000047203100A45635029eC21bbBec5EC53Cb6f6",
-      "BlockNumber": 14699410
-    }
-  ],
-  "SaleManager_v_1_2": [
-    {
-      "Address": "0xfF7a903e86b10AaEB8Da65CeF0eBc07eA3F9354b",
-      "BlockNumber": 15085473
-    }
-  ],
-  "SaleManager_v_1_3": [
-    {
-      "Address": "0x6BbCA3864332C0FAd534b04C99C76E166aB2dfAA",
-      "BlockNumber": 15448945
-    }
-  ],
-  "Registry": [
-    {
-      "Address": "0xc70573B924C92618E6143F6ac4C2B1aD7ba8785b",
-      "BlockNumber": 16242929
+      "Address": "0xA82d7ED01c31DD2A46681D18E3E213C9E9231605",
+      "BlockNumber": 54950092
     }
   ]
 }
