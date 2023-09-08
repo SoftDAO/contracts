@@ -405,12 +405,14 @@ export function createDistributionRecord(distributorAddress: Address, beneficiar
 
 	distributionRecord = new DistributionRecord(distributionRecordId);
 	distributionRecord.distributor = distributorAddress.toHexString();
-	distributionRecord.beneficiary = beneficiaryAddress.toHexString();
+
+  const beneficiaryAccount = getOrCreateAccount(beneficiaryAddress, block);
+	distributionRecord.beneficiary = beneficiaryAccount.id;
 	distributionRecord.claimed = BigInt.fromI32(0);
 	distributionRecord.createdAt = block.timestamp;
-	distributionRecord.save()
+	distributionRecord.save();
 
-	return distributionRecord
+	return distributionRecord;
 }
 
 export function getDistributionRecord(distributorAddress: Address, beneficiaryAddress: Address): DistributionRecord {

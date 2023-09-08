@@ -14,7 +14,7 @@
     "prepare:matic": "NETWORK=matic yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
     "prepare:mumbai": "NETWORK=mumbai yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
     "prepare:optimism": "NETWORK=optimism yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
-    "prepare:optimism-goerli": "NETWORK=optimismGoerli yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
+    "prepare:optimism-goerli": "NETWORK=goerliOptimism yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ GITHUB_USERNAME/",
