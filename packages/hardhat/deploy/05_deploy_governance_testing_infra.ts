@@ -1,0 +1,174 @@
+const { ethers } = require('hardhat')
+
+const ONE_BILLION = '1000000000000000000000000000'
+const ONE_MILLION = '1000000000000000000000000'
+
+module.exports = async ({ deployments, getNamedAccounts }) => {
+  const tranches = [{ time: '16926336000', vestedFraction: 10000 }]
+
+  const { deploy } = deployments
+  const { deployer, seller: user } = await getNamedAccounts()
+  // const userAddress = user.toLowerCase()
+  const deployerSigner = await ethers.getSigner(deployer)
+  const userSigner = await ethers.getSigner(user)
+  
+  // const registryResult = await deploy("Registry", {
+	// 	from: deployer,
+	// 	args: [],
+	// 	log: true
+	// });
+
+  // mumbai registry: 0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3
+  // arbitrum registry: 0xb41169Cc124298Be20e2Ca956cC46E266ab5E203
+	const Registry = await ethers.getContractAt("Registry", '0xb41169Cc124298Be20e2Ca956cC46E266ab5E203')
+  
+  // const tokenResult = await deploy('MyERC20Votes', {
+  //   from: deployer,
+  //   args: ['Test ERC20 Votes Token', 'TST', ONE_MILLION],
+  //   log: true
+  // })
+  
+  // TVOTES mumbai: 0x0466310B91743Da33A0ACa64bDAb0e7F5559e36c
+  // TVOTES arbitrum: 0x008B59Ff5364045337994c00eFc7aD1c562bB629
+  const Token = await ethers.getContractAt('MyERC20Votes', '0x008B59Ff5364045337994c00eFc7aD1c562bB629', deployerSigner)
+
+  const config = {
+    "goerli": [
+      // erc20 TVOTES token
+      "0xC15bAC780f7702E83d421955132d192c8841B13f",
+      // connext
+      "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
+      // uint256 total
+      ONE_MILLION,
+      // string uri
+      "ipfs://QmPpxuZCarq8NNPAJPszVUS7ZgfhidpoqgAvhp2CWFgHuV",
+      // uint256 voteFactor
+      "10000",
+      // Tranche[] tranches
+      [{ time: '1690822800', vestedFraction: 10000 }],
+      // bytes32 merkleRoot
+      "0xef3630f9185143cc739673d209043bcc12106ff99ba874a38816946e0becb213",
+      // uint160 maxDelayTime
+      '300'
+    ],
+    "mumbai": [
+      // erc20 token - TVOTES
+      "0x0466310B91743Da33A0ACa64bDAb0e7F5559e36c",
+      // connext
+      "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
+      // uint256 total
+      '6500032500000000000000',
+      // string uri
+      "ipfs://QmXiEzfeth3sjEXArmE9xCcpX44N12gKefGiguq9D9aAgm",
+      // uint256 voteFactor
+      "10000",
+      // Tranche[] tranches
+      [{ time: '1692648000', vestedFraction: 10000 }],
+      // bytes32 merkleRoot
+      "0x160650734f32c12d62b59fa2efbef4b3d77b8bd543b978ababddb96e9e89325e",
+      // uint160 maxDelayTime
+      '0'
+    ],
+    "arbitrum": [
+      // erc20 token - NEXT
+      '0x58b9cB810A68a7f3e1E4f8Cb45D1B9B3c79705E8',
+      // connext router
+      '0xEE9deC2712cCE65174B561151701Bf54b99C24C8',
+      // uint256 total
+      '62631494252655764000000000',
+      // string uri
+      'ipfs://QmX15mryG3AVe5kC3YuXT9ui9Hgbcd5W7NHPaMcEvR8PCY',
+      // uint256 voteFactor
+      '10000',
+      // Tranche[] tranches
+      [{ time: '1693918800', vestedFraction: 10000 }],
+      // bytes32 merkleRoot
+      '0xc02886f3e079b58a9affa3e560a00f2e34b4d851eae4a892bd0354e9af5538ed',
+      // uint160 maxDelayTime
+      '0'
+    ]
+  }
+
+  // const connextMockSource = await deploy('ConnextMock', {
+  //   from: deployer,
+  //   args: [1735353714],
+  //   log: true
+  // })
+
+  const distributor = await deploy('CrosschainTrancheVestingMerkle', {
+    from: deployer,
+    log: true,
+    args: config.arbitrum,
+    
+    // local args
+    // args: [
+    //   Token.address,
+    //   connextMockSource.address,
+    //   ONE_MILLION,
+    //   'https://example.com',
+    //   '10000',
+    //   tranches,
+    //   '0x25e9b9b2a57375a5b6bad1c2575126b6307c93a5816b1d636a3a2fe07fd88a40',
+    //   '0'
+    // ]
+  })
+
+  const Distributor = await ethers.getContractAt(
+    'CrosschainTrancheVestingMerkle',
+    distributor.address
+  )
+  // console.log('Transferring tokens...')
+  // const transferResult = await Token.transfer(
+  //   Distributor.address,
+  //   await Distributor.total()
+  // )
+
+  // await Registry.connect(deployerSigner).addAdmin(deployer);
+  const registerDistributorResult = await Registry.connect(deployerSigner).register(
+    Distributor.address,
+    // CrosschainDistributor, IDistributor, ITrancheVesting, AdvancedDistributor, IMerkleSet, ERC20Votes, IVoting: ["0x0cab5d00", "0x616aa576", "0x93cc7303", "0xed7a31af", "0x49590657", "0xe3741f15", "0xc823125b"]
+    // new interface ids for crosschain/advanced distributor as of 7/28: ["0x1f743925", "0x616aa576", "0x93cc7303", "0xfea5558a", "0x49590657", "0xe3741f15", "0xc823125b"]
+    // new interface ids for crosschain/advanced distributor as of 7/30: ["0x4d91fe87", "0x616aa576", "0x93cc7303", "0xac409228", "0x49590657", "0xe3741f15", "0xc823125b"]
+    // new interface ids as of 8/9
+    [
+      "0x139a2876", // AdvancedDistributor, 
+      "0xf24b44d9", // CrosschainDistributor,
+      "0x616aa576", // IDistributor
+      "0x93cc7303", // ITrancheVesting
+      "0x49590657", // MerkleSet
+      "0xe3741f15", // ERC20Votes,
+      "0xc823125b" // IVoting
+    ]
+  )
+  // const registerTokenResult = await Registry.connect(deployerSigner).register(
+  //   Token.address,
+  //   // ERC20Votes
+  //   ["0xe3741f15"]
+  // )
+
+  // const [beneficiary, amount, domain] = MERKLE_TREE.claims[userAddress].data.map(d => d.value)
+  // const { proof } = MERKLE_TREE.claims[userAddress]
+  
+  // const txData = [
+  //   { name: "recipient", type: "address", value: user },
+  //   { name: "recipientDomain", type: "uint32", value: domain },
+  //   { name: "beneficiary", type: "address", value: user },
+  //   { name: "beneficiaryDomain", type: "uint32", value: domain },
+  //   { name: "amount", type: "uint256", value: amount }
+  // ]
+
+  // const hash = ethers.utils.arrayify(ethers.utils.solidityKeccak256(txData.map(t => t.type), txData.map(t => t.value)))
+  // const signature = await userSigner.signMessage(hash)
+
+  // await Distributor.connect(userSigner).claimBySignature(
+  //   user,
+  //   domain,
+  //   user,
+  //   domain,
+  //   amount,
+  //   signature,
+  //   proof
+  // )
+}
+
+module.exports.tags = ['02', 'crosschainTrancheDistributor']
