@@ -3,11 +3,11 @@ pragma solidity 0.8.16;
 
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
-import { ContinuousVesting } from './abstract/ContinuousVesting.sol';
-import { MerkleSet } from './abstract/MerkleSet.sol';
+import { ContinuousVesting } from './ContinuousVesting.sol';
+import { MerkleSet } from './MerkleSet.sol';
 
 contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
-  constructor(
+  function __ContinuousVestingMerkle_init(
     IERC20 _token, // the token being claimed
     uint256 _total, // the total claimable by all users
     string memory _uri, // information on the sale (e.g. merkle proofs)
@@ -17,8 +17,8 @@ contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
     uint256 _end, // vesting clock ends and this time
     bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
     uint160 _maxDelayTime // the maximum delay time for the fair queue
-  )
-    ContinuousVesting(
+  ) internal {
+    __ContinuousVesting_init(
       _token,
       _total,
       _uri,
@@ -28,11 +28,10 @@ contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
       _end,
       _maxDelayTime,
       uint160(uint256(_merkleRoot))
-    )
-    MerkleSet(_merkleRoot)
-  {}
-
-  // init fn that sets all the values currently set in the constructor?
+    );
+    
+    __MerkleSet_init(_merkleRoot);
+  }
 
   function NAME() external pure override returns (string memory) {
     return 'ContinuousVestingMerkle';
