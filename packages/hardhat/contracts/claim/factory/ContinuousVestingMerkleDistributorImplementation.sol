@@ -31,7 +31,8 @@ contract ContinuousVestingMerkleDistributorImplementation is Initializable, Cont
             _cliff,
             _end,
             _merkleRoot,
-            _maxDelayTime
+            _maxDelayTime,
+            _owner
         );
         
         _transferOwnership(_owner);

@@ -40,6 +40,7 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
         );
 
         assertEq(clone.owner(), address(this));
+        assertEq(clone.getSweepRecipient(), address(this));
     }
 
     function test_PredictDistributorAddress() public {

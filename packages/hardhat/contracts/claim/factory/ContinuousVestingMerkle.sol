@@ -15,7 +15,8 @@ contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
     uint256 _cliff, // claims open at this time
     uint256 _end, // vesting clock ends and this time
     bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
-    uint160 _maxDelayTime // the maximum delay time for the fair queue
+    uint160 _maxDelayTime, // the maximum delay time for the fair queue
+    address _owner
   ) internal {
     __ContinuousVesting_init(
       _token,
@@ -25,7 +26,8 @@ contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
       _cliff,
       _end,
       _maxDelayTime,
-      uint160(uint256(_merkleRoot))
+      uint160(uint256(_merkleRoot)),
+      _owner
     );
     
     __MerkleSet_init(_merkleRoot);

@@ -51,9 +51,11 @@ abstract contract AdvancedDistributor is
   constructor()
     ERC20Permit('Internal vote tracker')
     ERC20('Internal vote tracker', 'IVT')
+
     Sweepable(payable(msg.sender))
   {}
 
+  // TODO: set sweep recipient to owner, pass owner through
   function __AdvancedDistributor_init(
     IERC20 _token,
     uint256 _total,
@@ -61,11 +63,13 @@ abstract contract AdvancedDistributor is
     uint256 _voteFactor,
     uint256 _fractionDenominator,
     uint160 _maxDelayTime,
-    uint160 _salt
+    uint160 _salt,
+    address _owner
   )
 
     internal
   {
+    _setSweepRecipient(payable(_owner));
     voteFactor = _voteFactor;
     emit SetVoteFactor(voteFactor);
 
