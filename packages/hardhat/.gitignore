@@ -18,6 +18,7 @@ cache-zk
 deployments
 
 #Forge files
+lib/forge-std/
 forge-cache/
 out/
 !/broadcast
