@@ -2,7 +2,7 @@
   "name": "@se-2/subgraph",
   "version": "0.0.1",
   "scripts": {
-    "abi-copy": "ts-node scripts/abi_copy.ts",
+    "abi-copy": "ts-node script/abi_copy.ts",
     "active-config": "./node_modules/node-jq/bin/jq \".${NETWORK}\" config.json > active-config.json",
     "prepare:arbitrum": "NETWORK=arbitrum yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
     "prepare:arbitrum-goerli": "NETWORK=arbitrumGoerli yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
