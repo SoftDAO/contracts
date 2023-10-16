@@ -14,7 +14,6 @@ abstract contract ContinuousVesting is AdvancedDistributor, IContinuousVesting {
         IERC20 _token,
         uint256 _total,
         string memory _uri,
-        uint256 _voteFactor,
         uint256 _start,
         uint256 _cliff,
         uint256 _end,
@@ -22,8 +21,9 @@ abstract contract ContinuousVesting is AdvancedDistributor, IContinuousVesting {
         uint160 _salt
     ) internal
     {
+        // use vote factor of 10000 to ensure 1x voting power
         // use a large fraction denominator to provide the highest resolution on continuous vesting.
-        __AdvancedDistributor_init(_token, _total, _uri, _voteFactor, 10**18, _maxDelayTime, _salt);
+        __AdvancedDistributor_init(_token, _total, _uri, 10000, 10**18, _maxDelayTime, _salt);
         require(_start <= _cliff, "vesting cliff before start");
         require(_cliff <= _end, "vesting end before cliff");
         require(_end <= 4102444800, "vesting ends after 4102444800 (Jan 1 2100)");

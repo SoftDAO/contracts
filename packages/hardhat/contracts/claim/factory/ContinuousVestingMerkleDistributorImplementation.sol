@@ -16,7 +16,6 @@ contract ContinuousVestingMerkleDistributorImplementation is Initializable, Cont
         IERC20 _token, // the token being claimed
         uint256 _total, // the total claimable by all users
         string memory _uri, // information on the sale (e.g. merkle proofs)
-        uint256 _voteFactor, // votes have this weight
         uint256 _start, // vesting clock starts at this time
         uint256 _cliff, // claims open at this time
         uint256 _end, // vesting clock ends and this time
@@ -28,7 +27,6 @@ contract ContinuousVestingMerkleDistributorImplementation is Initializable, Cont
             _token,
             _total,
             _uri,
-            _voteFactor,
             _start,
             _cliff,
             _end,

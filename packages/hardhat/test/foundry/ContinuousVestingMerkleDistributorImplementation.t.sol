@@ -20,7 +20,6 @@ contract ContinuousVestingMerkleDistributorImplementationTest is Test {
             0,
             0,
             0,
-            0,
             bytes32(0),
             0,
             address(0)
