@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.16;
+pragma solidity^0.8.16;
 
 import { AdvancedDistributor } from './AdvancedDistributor.sol';
 import { ITrancheVesting, Tranche } from '../../interfaces/ITrancheVesting.sol';

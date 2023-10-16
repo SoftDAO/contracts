@@ -14,7 +14,7 @@ BigNumber.config({ EXPONENTIAL_AT: 1e9 })
 /**
  * Usage: yarn run generate-merkle-root <path to input json> <path to output merkle tree> <formatter> <delimiter>
  *
- * See packages/hardhat/scripts/sample_data/dev_wallets for example input json file.
+ * See packages/hardhat/script/sample_data/dev_wallets for example input json file.
  *
  * Input json files must meet the following requirements:
  *

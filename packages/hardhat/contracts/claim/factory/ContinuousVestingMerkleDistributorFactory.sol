@@ -1,18 +1,14 @@
 // SPDX-License-Identifier: MIT
-
-pragma solidity 0.8.16;
+pragma solidity 0.8.21;
 
 import "@openzeppelin/contracts/proxy/Clones.sol";
-import "./ContinuousVestingMerkleImplementation.sol";
+import "./ContinuousVestingMerkleDistributorImplementation.sol";
 
 contract ContinuousVestingMerkleDistributorFactory {
     address private immutable i_implementation;
-    mapping(address => string) public getIdentifierByAddress;
-    mapping(string => address) public getAddressByIdentifier;
-    
+    address[] public distributors;
+
     event DistributorDeployed(address indexed distributor);
-    // TODO: use below event once message is implemented
-    // event DistributorDeployed(address indexed distributor, string identifier);
 
     constructor(address implementation) {
         i_implementation = implementation;
@@ -28,11 +24,12 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint256 _end, // vesting clock ends and this time
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner
-        // bytes32 calldata message // this will give us the identifier (event id) in the event emitted
+        address _owner,
+        bytes32 salt
     ) public returns (ContinuousVestingMerkleDistributorImplementation distributor) {
-        distributor = ContinuousVestingMerkleDistributorImplementation(Clones.clone(i_implementation));
-        
+        distributor = ContinuousVestingMerkleDistributorImplementation(Clones.cloneDeterministic(i_implementation, salt));
+        distributors.push(address(distributor));
+
         emit DistributorDeployed(address(distributor));
         
         distributor.initialize(
@@ -50,7 +47,12 @@ contract ContinuousVestingMerkleDistributorFactory {
 
         return distributor;
     }
+
     function getImplementation() public view returns (address) {
         return i_implementation;
+    }
+
+    function predictDistributorAddress(bytes32 salt) public view returns (address) {
+        return Clones.predictDeterministicAddress(i_implementation, salt, address(this));
     }
 }

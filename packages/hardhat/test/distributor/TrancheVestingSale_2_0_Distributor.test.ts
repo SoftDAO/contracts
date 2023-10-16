@@ -353,7 +353,7 @@ describe("TrancheVestingSale_2_0", function () {
     expect(distributionRecord.claimed.toBigInt()).toEqual(currentlyClaimable)
 
     // delegate to self
-    const myDistributor = await ethers.getContractAt("ContinuousVestingMerkle", distributor.address, buyer);
+    const myDistributor = await ethers.getContractAt("contracts/claim/ContinuousVestingMerkle.sol:ContinuousVestingMerkle", distributor.address, buyer);
     await myDistributor.delegate(buyer.address)
   
     // voting power has decreased after claim (within rounding error)
@@ -401,7 +401,7 @@ describe("TrancheVestingSale_2_0", function () {
     expect(distributionRecord.claimed.toBigInt()).toEqual(0n)
 
     // delegate to self
-    const myDistributor = await ethers.getContractAt("ContinuousVestingMerkle", distributor.address, buyer);
+    const myDistributor = await ethers.getContractAt("contracts/claim/ContinuousVestingMerkle.sol:ContinuousVestingMerkle", distributor.address, buyer);
     await myDistributor.delegate(buyer.address)
 
     // voting power available after initialization
@@ -431,7 +431,7 @@ describe("TrancheVestingSale_2_0", function () {
     expect(distributionRecord.claimed.toBigInt()).toEqual(0n)
 
     // delegate to self
-    const myDistributor = await ethers.getContractAt("ContinuousVestingMerkle", distributor.address, buyer);
+    const myDistributor = await ethers.getContractAt("contracts/claim/ContinuousVestingMerkle.sol:ContinuousVestingMerkle", distributor.address, buyer);
     await myDistributor.delegate(buyer.address)
         
     // voting power available after initialization

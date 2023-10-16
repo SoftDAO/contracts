@@ -129,7 +129,7 @@ describe("ContinuousVestingMerkle", function () {
       (10n ** 9n * 10n ** 18n).toString()
     ) as GenericERC20
 
-    DistributorFactory = await ethers.getContractFactory("ContinuousVestingMerkle", deployer);
+    DistributorFactory = await ethers.getContractFactory("contracts/claim/ContinuousVestingMerkle.sol:ContinuousVestingMerkle", deployer);
 
     // get the last block time after a recent transaction to make sure it is recent
     let now = BigInt(await time.latest());
@@ -273,7 +273,7 @@ describe("ContinuousVestingMerkle", function () {
     expect((await distributor.getVotes(user.address)).toBigInt()).toEqual(0n)
 
     // delegate to self
-    const myDistributor = await ethers.getContractAt("ContinuousVestingMerkle", distributor.address, user);
+    const myDistributor = await ethers.getContractAt("contracts/claim/ContinuousVestingMerkle.sol:ContinuousVestingMerkle", distributor.address, user);
     await myDistributor.delegate(user.address)
 
     // voting power is present once delegation occurs (within 1%)
@@ -314,7 +314,7 @@ describe("ContinuousVestingMerkle", function () {
     expect((await distributor.getVotes(user.address)).toBigInt()).toEqual(0n)
 
     // delegate to self
-    const myDistributor = await ethers.getContractAt("ContinuousVestingMerkle", distributor.address, user);
+    const myDistributor = await ethers.getContractAt("contracts/claim/ContinuousVestingMerkle.sol:ContinuousVestingMerkle", distributor.address, user);
     await myDistributor.delegate(user.address)
 
     // the user has no balance

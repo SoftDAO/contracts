@@ -2,7 +2,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.16;
+pragma solidity^0.8.16;
 
 contract Registry is AccessControl, Ownable {
 	event DeployRegistry();
