@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity^0.8.16;
+pragma solidity ^0.8.16;
 
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
@@ -31,8 +31,6 @@ contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
     )
     MerkleSet(_merkleRoot)
   {}
-
-  // init fn that sets all the values currently set in the constructor?
 
   function NAME() external pure override returns (string memory) {
     return 'ContinuousVestingMerkle';
