@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import '@openzeppelin/contracts/access/Ownable.sol';
 import { ERC20Votes, ERC20Permit, ERC20 } from '@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol';
 import { SafeERC20 } from '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
@@ -36,6 +37,7 @@ import { FairQueue } from './FairQueue.sol';
  * - If the total changes, make sure to add or withdraw tokens being distributed to match the new total.
  */
 abstract contract AdvancedDistributor is
+  Initializable,
   Ownable,
   Sweepable,
   ERC20Votes,
@@ -55,7 +57,6 @@ abstract contract AdvancedDistributor is
     Sweepable(payable(msg.sender))
   {}
 
-  // TODO: set sweep recipient to owner, pass owner through
   function __AdvancedDistributor_init(
     IERC20 _token,
     uint256 _total,
@@ -66,8 +67,7 @@ abstract contract AdvancedDistributor is
     uint160 _salt,
     address _owner
   )
-
-    internal
+    internal onlyInitializing
   {
     _setSweepRecipient(payable(_owner));
     voteFactor = _voteFactor;

@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+
 /**
  * @title FairQueue
  * @notice Fairly assigns a delay time to each address from a uniform distribution over [0, maxDelayTime]
  * @dev The delay is determined by calculating a distance between the user's address and a pseudorandom value based on a provided salt and a blockhash
  * using the XOR distance metric. Do not use this contract if the event is public because users could grind addresses until they find one with a low delay.
  */
-contract FairQueue {
+contract FairQueue is Initializable {
     event SetDelay(uint160 maxDelayTime);
     /**
      * calculate a speed at which the queue is exhausted such that all users complete the queue by maxDelayTime
@@ -22,7 +24,7 @@ contract FairQueue {
      */
     uint160 public randomValue;
 
-    function __FairQueue_init(uint160 _maxDelayTime, uint160 salt) internal {
+    function __FairQueue_init(uint160 _maxDelayTime, uint160 salt) internal onlyInitializing {
         _setDelay(_maxDelayTime);
         _setPseudorandomValue(salt);
     }

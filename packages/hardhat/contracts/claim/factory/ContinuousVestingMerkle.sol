@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
-
 import { ContinuousVesting } from './ContinuousVesting.sol';
 import { MerkleSet } from './MerkleSet.sol';
 
-contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
+contract ContinuousVestingMerkle is Initializable, ContinuousVesting, MerkleSet {
   function __ContinuousVestingMerkle_init(
     IERC20 _token, // the token being claimed
     uint256 _total, // the total claimable by all users
@@ -17,7 +17,7 @@ contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
     bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
     uint160 _maxDelayTime, // the maximum delay time for the fair queue
     address _owner
-  ) internal {
+  ) internal onlyInitializing {
     __ContinuousVesting_init(
       _token,
       _total,
