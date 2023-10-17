@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-import "@openzeppelin/contracts/proxy/Clones.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
-import "./ContinuousVestingMerkleDistributorImplementation.sol";
+import {ContinuousVestingMerkleDistributorImplementation} from "./ContinuousVestingMerkleDistributorImplementation.sol";
 
 contract ContinuousVestingMerkleDistributorFactory {
     address private immutable i_implementation;

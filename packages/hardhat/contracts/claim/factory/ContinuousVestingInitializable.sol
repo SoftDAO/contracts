@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import "./AdvancedDistributorInitializable.sol";
+import {AdvancedDistributorInitializable} from "./AdvancedDistributorInitializable.sol";
 import {IContinuousVesting} from "../../interfaces/IContinuousVesting.sol";
 
 abstract contract ContinuousVestingInitializable is Initializable, AdvancedDistributorInitializable, IContinuousVesting {

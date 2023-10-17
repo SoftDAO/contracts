@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC20Votes, ERC20Permit, ERC20} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
@@ -10,7 +10,7 @@ import {DistributorInitializable, DistributionRecord, IERC20} from "./Distributo
 import {IAdjustable} from "../../interfaces/IAdjustable.sol";
 import {IVoting} from "../../interfaces/IVoting.sol";
 import {Sweepable} from "../../utilities/Sweepable.sol";
-import "./FairQueueInitializable.sol";
+import {FairQueueInitializable} from "./FairQueueInitializable.sol";
 
 /**
  * @title AdvancedDistributor

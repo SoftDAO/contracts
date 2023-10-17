@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.21;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "./ContinuousVestingMerkleInitializable.sol";
@@ -12,7 +12,6 @@ contract ContinuousVestingMerkleDistributorImplementation is Initializable, Cont
         _disableInitializers();
     }
 
-    // TODO: hard-code vote factor to 10000
     function initialize(
         IERC20 _token, // the token being claimed
         uint256 _total, // the total claimable by all users
