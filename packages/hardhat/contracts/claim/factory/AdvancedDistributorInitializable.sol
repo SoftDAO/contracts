@@ -205,7 +205,7 @@ abstract contract AdvancedDistributorInitializable is
     }
 
     /**
-     * @dev the internal token used only f	or tracking voting power cannot be transferred
+     * @dev the internal token used only for tracking voting power cannot be transferred
      */
     function _transfer(address, address, uint256) internal pure override {
         revert("disabled for voting power");
