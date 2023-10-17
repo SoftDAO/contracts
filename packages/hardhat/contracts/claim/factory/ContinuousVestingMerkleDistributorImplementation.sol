@@ -3,10 +3,11 @@
 pragma solidity 0.8.21;
 
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-import "./ContinuousVestingMerkle.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract ContinuousVestingMerkleDistributorImplementation is Initializable, ContinuousVestingMerkle {
+import "./ContinuousVestingMerkleInitializable.sol";
+
+contract ContinuousVestingMerkleDistributorImplementation is Initializable, ContinuousVestingMerkleInitializable {
     constructor() {
         _disableInitializers();
     }
@@ -23,18 +24,8 @@ contract ContinuousVestingMerkleDistributorImplementation is Initializable, Cont
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner
     ) public initializer {
-        __ContinuousVestingMerkle_init(
-            _token,
-            _total,
-            _uri,
-            _start,
-            _cliff,
-            _end,
-            _merkleRoot,
-            _maxDelayTime,
-            _owner
-        );
-        
+        __ContinuousVestingMerkle_init(_token, _total, _uri, _start, _cliff, _end, _merkleRoot, _maxDelayTime, _owner);
+
         _transferOwnership(_owner);
     }
 }

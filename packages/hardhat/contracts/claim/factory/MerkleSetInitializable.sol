@@ -3,6 +3,7 @@ pragma solidity ^0.8.16;
 
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+
 import {IMerkleSet} from "../../interfaces/IMerkleSet.sol";
 
 /**
@@ -10,7 +11,7 @@ import {IMerkleSet} from "../../interfaces/IMerkleSet.sol";
  * @notice Checks merkle proofs
  * @dev Contracts inheriting from MerkleSet may update the merkle root whenever desired.
  */
-contract MerkleSet is Initializable, IMerkleSet {
+contract MerkleSetInitializable is Initializable, IMerkleSet {
     bytes32 private merkleRoot;
 
     function __MerkleSet_init(bytes32 _merkleRoot) internal onlyInitializing {

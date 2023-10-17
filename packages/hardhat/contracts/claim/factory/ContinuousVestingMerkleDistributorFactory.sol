@@ -2,6 +2,7 @@
 pragma solidity 0.8.21;
 
 import "@openzeppelin/contracts/proxy/Clones.sol";
+
 import "./ContinuousVestingMerkleDistributorImplementation.sol";
 
 contract ContinuousVestingMerkleDistributorFactory {
@@ -26,22 +27,13 @@ contract ContinuousVestingMerkleDistributorFactory {
         address _owner,
         bytes32 salt
     ) public returns (ContinuousVestingMerkleDistributorImplementation distributor) {
-        distributor = ContinuousVestingMerkleDistributorImplementation(Clones.cloneDeterministic(i_implementation, salt));
+        distributor =
+            ContinuousVestingMerkleDistributorImplementation(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
 
         emit DistributorDeployed(address(distributor));
-        
-        distributor.initialize(
-            _token,
-            _total,
-            _uri,
-            _start,
-            _cliff,
-            _end,
-            _merkleRoot,
-            _maxDelayTime,
-            _owner
-        );
+
+        distributor.initialize(_token, _total, _uri, _start, _cliff, _end, _merkleRoot, _maxDelayTime, _owner);
 
         return distributor;
     }

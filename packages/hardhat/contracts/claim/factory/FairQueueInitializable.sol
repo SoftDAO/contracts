@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
  * @dev The delay is determined by calculating a distance between the user's address and a pseudorandom value based on a provided salt and a blockhash
  * using the XOR distance metric. Do not use this contract if the event is public because users could grind addresses until they find one with a low delay.
  */
-contract FairQueue is Initializable {
+contract FairQueueInitializable is Initializable {
     event SetDelay(uint160 maxDelayTime);
     /**
      * calculate a speed at which the queue is exhausted such that all users complete the queue by maxDelayTime
@@ -56,12 +56,12 @@ contract FairQueue is Initializable {
      * @notice get a fixed delay for any address by drawing from a unform distribution over the interval [0, maxDelay]
      * 		@param user The address for which a delay should be calculated. The delay is deterministic for any given address and pseudorandom value.
      * 		@dev The delay is determined by calculating a distance between the user's address and a pseudorandom value using the XOR distance metric (c.f. Kademlia)
-     * 
+     *
      * 		Users cannot exploit the fair delay if:
      * 		- The event is private, i.e. an access list of some form is required
      * 		- Each eligible user gets exactly one address in the access list
      * 		- There is no collusion between event participants, block validators, and event owners
-     * 
+     *
      * 		The threat of collusion is likely minimal:
      * 		- the economic opportunity to validators is zero or relatively small (only specific addresses can participate in private events, and a lower delay time does not imply higher returns)
      * 		- event owners are usually trying to achieve a fair distribution of access to their event

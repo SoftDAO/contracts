@@ -3,10 +3,11 @@ pragma solidity ^0.8.16;
 
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {Distributor, AdvancedDistributor} from "./AdvancedDistributor.sol";
+
+import "./AdvancedDistributorInitializable.sol";
 import {IContinuousVesting} from "../../interfaces/IContinuousVesting.sol";
 
-abstract contract ContinuousVesting is Initializable, AdvancedDistributor, IContinuousVesting {
+abstract contract ContinuousVestingInitializable is Initializable, AdvancedDistributorInitializable, IContinuousVesting {
     uint256 private start; // time vesting clock begins
     uint256 private cliff; // time vesting begins (all tokens vested prior to the cliff are immediately claimable)
     uint256 private end; // time vesting clock ends
@@ -21,14 +22,13 @@ abstract contract ContinuousVesting is Initializable, AdvancedDistributor, ICont
         uint160 _maxDelayTime,
         uint160 _salt,
         address _owner
-    ) internal onlyInitializing
-    {
+    ) internal onlyInitializing {
         __AdvancedDistributor_init(
             _token,
             _total,
             _uri,
-            10000, // 1x voting power
-            10**18, // provide the highest resolution on continuous vesting
+            10000, // 1x voting power for continuous vesting
+            10 ** 18, // provides the highest resolution possible for continuous vesting
             _maxDelayTime,
             _salt,
             _owner

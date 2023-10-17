@@ -12,7 +12,7 @@ import {IDistributor, DistributionRecord} from "../../interfaces/IDistributor.so
  * @title Distributor
  * @notice Distributes funds to beneficiaries and tracks distribution status
  */
-abstract contract Distributor is Initializable, IDistributor, ReentrancyGuard {
+abstract contract DistributorInitializable is Initializable, IDistributor, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     mapping(address => DistributionRecord) internal records; // track distribution records per user
