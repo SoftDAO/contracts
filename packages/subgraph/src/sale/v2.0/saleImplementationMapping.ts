@@ -6,7 +6,7 @@ import {
 import {
   SaleImplementation
 } from "../../../generated/schema";
-import { store, log, BigInt } from '@graphprotocol/graph-ts'
+import { log, BigInt } from '@graphprotocol/graph-ts'
 import { getOrCreateAccount } from "../../lib";
 
 export function handleImplementationConstructor(event: ImplementationConstructor): void {

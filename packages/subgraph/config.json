@@ -233,6 +233,12 @@
           "Commit": "a6137f271af872b9983937b85220be230114158c"
         }
       }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+        "BlockNumber": 0
+      }
     ]
   },
   "mainnet": {

@@ -16,7 +16,7 @@ import {
   Sale,
   Purchase
 } from "../../../generated/schema";
-import { log, BigInt } from '@graphprotocol/graph-ts'
+import { log, BigInt, ByteArray } from '@graphprotocol/graph-ts'
 import { getOrCreateAccount, getOrCreateNativePaymentMethod, getOrCreateTokenPaymentMethod, getSale, getOrCreateDistributor } from "../../lib";
 
 export function handleInitialize(event: Initialize): void {
@@ -134,7 +134,7 @@ export function handleBuy(event: Buy): void {
   // calculate a price
   if (event.params.tokenValue > BigInt.fromI32(0)) {
     // calculate the price from the transaction
-    price = event.params.baseCurrencyValue.times(BigInt.fromI32(10).pow(paymentMethod.decimals as u8)).div(event.params.tokenValue);
+    price = event.params.baseCurrencyValue.times(BigInt.fromI32(10).pow(paymentMethod.decimals as u8).div(event.params.tokenValue));
   } else {
     // fallback for 0 value transactions
     price = BigInt.fromI32(0);
