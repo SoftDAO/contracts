@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import {ContinuousVestingInitializable} from "./ContinuousVestingInitializable.sol";
-import {MerkleSetInitializable} from "./MerkleSetInitializable.sol";
+import "./ContinuousVestingInitializable.sol";
+import "./MerkleSetInitializable.sol";
 
 contract ContinuousVestingMerkleInitializable is Initializable, ContinuousVestingInitializable, MerkleSetInitializable {
     function __ContinuousVestingMerkle_init(
