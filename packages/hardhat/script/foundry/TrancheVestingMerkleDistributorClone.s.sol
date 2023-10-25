@@ -24,13 +24,15 @@ contract TrancheVestingMerkleDistributorCloneScript is Script {
         uint160 maxDelayTime,
         bytes32 salt
     ) public {
+        // couldn't figure out how to set tranches from command line
+        // be sure to set tranches here prior to running this script to deploy to 
+        // test/mainnets
         Tranche[] memory tranches = new Tranche[](1);
         tranches[0] = Tranche(1, 10000);
         TrancheVestingMerkleDistributorImplementation implementation;
         TrancheVestingMerkleDistributorImplementation clone;
         TrancheVestingMerkleDistributorFactory factory;
-        // uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
-        uint256 deployerPrivateKey = 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
+        uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
         implementation = new TrancheVestingMerkleDistributorImplementation();
         factory = new TrancheVestingMerkleDistributorFactory(address(implementation));
