@@ -27,7 +27,7 @@ abstract contract ContinuousVestingInitializable is Initializable, AdvancedDistr
             _token,
             _total,
             _uri,
-            10000, // 1x voting power for continuous vesting
+            10000, // 1x voting power
             10 ** 18, // provides the highest resolution possible for continuous vesting
             _maxDelayTime,
             _salt,

@@ -27,7 +27,7 @@ contract ContinuousVestingMerkleInitializable is Initializable, ContinuousVestin
     }
 
     function NAME() external pure override returns (string memory) {
-        return "ContinuousVestingMerkle";
+        return "ContinuousVestingMerkleInitializable";
     }
 
     function VERSION() external pure override returns (uint256) {
@@ -56,7 +56,7 @@ contract ContinuousVestingMerkleInitializable is Initializable, ContinuousVestin
         // effects
         uint256 claimedAmount = super._executeClaim(beneficiary, totalAmount);
         // interactions
-        super._settleClaim(beneficiary, claimedAmount);
+        _settleClaim(beneficiary, claimedAmount);
     }
 
     function setMerkleRoot(bytes32 _merkleRoot) external onlyOwner {
