@@ -3,7 +3,6 @@ pragma solidity ^0.8.21;
 
 import {ERC20, IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {Script} from "forge-std/Script.sol";
-import {console} from "forge-std/Console.sol";
 import {ContinuousVestingMerkleDistributorImplementation} from
     "../../contracts/claim/factory/ContinuousVestingMerkleDistributorImplementation.sol";
 import {ContinuousVestingMerkleDistributorFactory} from
