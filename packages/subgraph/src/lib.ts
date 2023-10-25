@@ -340,7 +340,6 @@ export function getOrCreateContinuousVesting(distributorId: string, block: ether
 
 	return continuousVesting
 }
-
 export function getOrCreateMerkleSet(distributorId: string, block: ethereum.Block): MerkleSet | null {
 	log.info('Trying to add merkle set info to distributor {}', [distributorId])
 	const id = `${distributorId}-merkleSet`

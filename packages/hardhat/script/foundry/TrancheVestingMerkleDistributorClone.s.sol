@@ -1,0 +1,42 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.21;
+
+import {ERC20, IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {Script} from "forge-std/Script.sol";
+import {console} from "forge-std/Console.sol";
+import {TrancheVestingMerkleDistributorImplementation} from
+    "../../contracts/claim/factory/TrancheVestingMerkleDistributorImplementation.sol";
+import {TrancheVestingMerkleDistributorFactory} from
+    "../../contracts/claim/factory/TrancheVestingMerkleDistributorFactory.sol";
+import {Tranche} from "../../contracts/interfaces/ITrancheVesting.sol";
+
+// you can run this script with dynamic clone args like this:
+// forge script script/foundry/TrancheVestingMerkleDistributorClone.s.sol:TrancheVestingMerkleDistributorCloneScript \
+// --sig "run(address,uint256,string,bytes32,uint160,bytes32)" \
+// 0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F 1000000000000000000000 "ipfs://" 0x00000000000000000000000000000000 0 0x00000000000000000000000000000000 -vvvv
+
+contract TrancheVestingMerkleDistributorCloneScript is Script {
+    function run(
+        address token,
+        uint256 total,
+        string calldata uri,
+        bytes32 merkleRoot,
+        uint160 maxDelayTime,
+        bytes32 salt
+    ) public {
+        Tranche[] memory tranches = new Tranche[](1);
+        tranches[0] = Tranche(1, 10000);
+        TrancheVestingMerkleDistributorImplementation implementation;
+        TrancheVestingMerkleDistributorImplementation clone;
+        TrancheVestingMerkleDistributorFactory factory;
+        // uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
+        uint256 deployerPrivateKey = 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
+        vm.startBroadcast(deployerPrivateKey);
+        implementation = new TrancheVestingMerkleDistributorImplementation();
+        factory = new TrancheVestingMerkleDistributorFactory(address(implementation));
+        clone = factory.deployDistributor(
+            IERC20(token), total, uri, tranches, merkleRoot, maxDelayTime, vm.addr(deployerPrivateKey), salt
+        );
+        vm.stopBroadcast();
+    }
+}
