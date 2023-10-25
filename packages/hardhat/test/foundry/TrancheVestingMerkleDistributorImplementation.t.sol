@@ -6,9 +6,8 @@ import "../../contracts/claim/factory/TrancheVestingMerkleDistributorImplementat
 
 contract TrancheVestingMerkleDistributorImplementationTest is Test {
     TrancheVestingMerkleDistributorImplementation implementation;
-    Tranche[] tranches = [
-        Tranche({ time: 1, vestedFraction: 10000 })
-    ];
+    Tranche[] tranches = [Tranche({time: 1, vestedFraction: 10000})];
+
     function setUp() public {
         implementation = new TrancheVestingMerkleDistributorImplementation();
     }
