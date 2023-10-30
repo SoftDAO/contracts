@@ -23,7 +23,7 @@ contract ContinuousVestingMerkleDistributorCloneScript is Script {
         uint256 end,
         bytes32 merkleRoot,
         uint160 maxDelayTime,
-        bytes32 salt
+        uint16 nonce
     ) public {
         ContinuousVestingMerkleDistributorImplementation implementation;
         ContinuousVestingMerkleDistributorImplementation clone;
@@ -33,7 +33,7 @@ contract ContinuousVestingMerkleDistributorCloneScript is Script {
         implementation = new ContinuousVestingMerkleDistributorImplementation();
         factory = new ContinuousVestingMerkleDistributorFactory(address(implementation));
         clone = factory.deployDistributor(
-            IERC20(token), total, uri, start, cliff, end, merkleRoot, maxDelayTime, vm.addr(deployerPrivateKey), salt
+            IERC20(token), total, uri, start, cliff, end, merkleRoot, maxDelayTime, vm.addr(deployerPrivateKey), nonce
         );
         vm.stopBroadcast();
     }

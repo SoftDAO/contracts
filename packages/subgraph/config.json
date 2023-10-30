@@ -171,6 +171,12 @@
         "Address": "0x7C10E9Da7e6F675C6F5B6eA515E6260828153903",
         "BlockNumber": 9884537
       }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x73B7b7177D9fD88Ca6708d42D8f400D0a3e13ddB",
+        "BlockNumber": 9957204
+      }
     ]
   },
   "goerliOptimism": {

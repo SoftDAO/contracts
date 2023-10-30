@@ -16,6 +16,32 @@ contract ContinuousVestingMerkleDistributorFactory {
         i_implementation = implementation;
     }
 
+    function _getSalt(
+        IERC20 _token, // the token being claimed
+        uint256 _total, // the total claimable by all users
+        string memory _uri, // information on the sale (e.g. merkle proofs)
+        uint256 _start, // vesting clock starts at this time
+        uint256 _cliff, // claims open at this time
+        uint256 _end, // vesting clock ends and this time
+        bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
+        uint160 _maxDelayTime, // the maximum delay time for the fair queue
+        address _owner,
+        uint16 nonce
+    ) private pure returns (bytes32) {
+        return keccak256(abi.encode(
+            _token,
+            _total,
+            _uri,
+            _start,
+            _cliff,
+            _end,
+            _merkleRoot,
+            _maxDelayTime,
+            _owner,
+            nonce
+        ));
+    }
+
     function deployDistributor(
         IERC20 _token, // the token being claimed
         uint256 _total, // the total claimable by all users
@@ -26,8 +52,21 @@ contract ContinuousVestingMerkleDistributorFactory {
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
-        bytes32 salt
+        uint16 nonce
     ) public returns (ContinuousVestingMerkleDistributorImplementation distributor) {
+        bytes32 salt = _getSalt(
+            _token,
+            _total,
+            _uri,
+            _start,
+            _cliff,
+            _end,
+            _merkleRoot,
+            _maxDelayTime,
+            _owner,
+            nonce
+        );
+
         distributor =
             ContinuousVestingMerkleDistributorImplementation(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
@@ -43,7 +82,31 @@ contract ContinuousVestingMerkleDistributorFactory {
         return i_implementation;
     }
 
-    function predictDistributorAddress(bytes32 salt) public view returns (address) {
+    function predictDistributorAddress(
+        IERC20 _token, // the token being claimed
+        uint256 _total, // the total claimable by all users
+        string memory _uri, // information on the sale (e.g. merkle proofs)
+        uint256 _start, // vesting clock starts at this time
+        uint256 _cliff, // claims open at this time
+        uint256 _end, // vesting clock ends and this time
+        bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
+        uint160 _maxDelayTime, // the maximum delay time for the fair queue
+        address _owner,
+        uint16 nonce
+    ) public view returns (address) {
+        bytes32 salt = _getSalt(
+            _token,
+            _total,
+            _uri,
+            _start,
+            _cliff,
+            _end,
+            _merkleRoot,
+            _maxDelayTime,
+            _owner,
+            nonce
+        );
+
         return Clones.predictDeterministicAddress(i_implementation, salt, address(this));
     }
 }
