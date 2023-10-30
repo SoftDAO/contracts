@@ -4,17 +4,17 @@ pragma solidity ^0.8.21;
 import "forge-std/Test.sol";
 
 import "../../contracts/claim/factory/ContinuousVestingMerkleDistributorFactory.sol";
-import "../../contracts/claim/factory/ContinuousVestingMerkleDistributorImplementation.sol";
+import "../../contracts/claim/factory/ContinuousVestingMerkleDistributor.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract ContinuousVestingMerkleDistributorFactoryTest is Test {
-    ContinuousVestingMerkleDistributorImplementation implementation;
-    ContinuousVestingMerkleDistributorImplementation clone;
+    ContinuousVestingMerkleDistributor implementation;
+    ContinuousVestingMerkleDistributor clone;
     ContinuousVestingMerkleDistributorFactory factory;
     ERC20 token = new ERC20("Test", "TEST");
 
     function setUp() public {
-        implementation = new ContinuousVestingMerkleDistributorImplementation();
+        implementation = new ContinuousVestingMerkleDistributor();
         factory = new ContinuousVestingMerkleDistributorFactory(address(implementation));
     }
 
@@ -56,7 +56,7 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
             address(this),
             nonce
         );
-        ContinuousVestingMerkleDistributorImplementation nextClone = factory.deployDistributor(
+        ContinuousVestingMerkleDistributor nextClone = factory.deployDistributor(
             IERC20(token),
             1000,
             "uri",

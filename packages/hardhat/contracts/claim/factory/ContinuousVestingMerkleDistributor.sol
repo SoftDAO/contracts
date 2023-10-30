@@ -7,7 +7,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./ContinuousVestingInitializable.sol";
 import "./MerkleSetInitializable.sol";
 
-contract ContinuousVestingMerkleDistributorImplementation is Initializable, ContinuousVestingInitializable, MerkleSetInitializable {
+contract ContinuousVestingMerkleDistributor is Initializable, ContinuousVestingInitializable, MerkleSetInitializable {
     constructor() {
         _disableInitializers();
     }

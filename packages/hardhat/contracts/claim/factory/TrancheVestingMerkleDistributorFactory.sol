@@ -4,7 +4,7 @@ pragma solidity 0.8.21;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
-import {TrancheVestingMerkleDistributorImplementation, Tranche} from "./TrancheVestingMerkleDistributorImplementation.sol";
+import {TrancheVestingMerkleDistributor, Tranche} from "./TrancheVestingMerkleDistributor.sol";
 
 contract TrancheVestingMerkleDistributorFactory {
     address private immutable i_implementation;
@@ -47,7 +47,7 @@ contract TrancheVestingMerkleDistributorFactory {
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
         uint16 _nonce
-    ) public returns (TrancheVestingMerkleDistributorImplementation distributor) {
+    ) public returns (TrancheVestingMerkleDistributor distributor) {
         // TODO: compute salt here by hashing the args into a bytestring
         bytes32 salt = _getSalt(
             _token,
@@ -61,7 +61,7 @@ contract TrancheVestingMerkleDistributorFactory {
         );
 
         distributor =
-            TrancheVestingMerkleDistributorImplementation(Clones.cloneDeterministic(i_implementation, salt));
+            TrancheVestingMerkleDistributor(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
 
         emit DistributorDeployed(address(distributor));
@@ -95,7 +95,7 @@ contract TrancheVestingMerkleDistributorFactory {
             _owner,
             _nonce
         );
-        
+
         return Clones.predictDeterministicAddress(i_implementation, salt, address(this));
     }
 }

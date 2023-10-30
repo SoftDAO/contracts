@@ -2,14 +2,14 @@
 pragma solidity ^0.8.21;
 
 import {Script} from "forge-std/Script.sol";
-import {ContinuousVestingMerkleDistributorImplementation} from "../../contracts/claim/factory/ContinuousVestingMerkleDistributorImplementation.sol";
+import {ContinuousVestingMerkleDistributor} from "../../contracts/claim/factory/ContinuousVestingMerkleDistributor.sol";
 
-contract ContinuousVestingMerkleDistributorImplementationScript is Script {
+contract ContinuousVestingMerkleDistributorScript is Script {
     function run() public {
-        ContinuousVestingMerkleDistributorImplementation implementation;
+        ContinuousVestingMerkleDistributor implementation;
         uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
-        implementation = new ContinuousVestingMerkleDistributorImplementation();
+        implementation = new ContinuousVestingMerkleDistributor();
         vm.stopBroadcast();
     }
 }

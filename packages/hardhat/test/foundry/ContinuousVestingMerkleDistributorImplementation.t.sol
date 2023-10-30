@@ -2,13 +2,13 @@
 pragma solidity ^0.8.21;
 
 import "forge-std/Test.sol";
-import "../../contracts/claim/factory/ContinuousVestingMerkleDistributorImplementation.sol";
+import "../../contracts/claim/factory/ContinuousVestingMerkleDistributor.sol";
 
-contract ContinuousVestingMerkleDistributorImplementationTest is Test {
-    ContinuousVestingMerkleDistributorImplementation implementation;
+contract ContinuousVestingMerkleDistributorTest is Test {
+    ContinuousVestingMerkleDistributor implementation;
 
     function setUp() public {
-        implementation = new ContinuousVestingMerkleDistributorImplementation();
+        implementation = new ContinuousVestingMerkleDistributor();
     }
 
     function test_Initialize_fails_as_disabled() public {

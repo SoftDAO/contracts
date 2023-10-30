@@ -4,18 +4,18 @@ pragma solidity ^0.8.21;
 import "forge-std/Test.sol";
 
 import "../../contracts/claim/factory/TrancheVestingMerkleDistributorFactory.sol";
-import "../../contracts/claim/factory/TrancheVestingMerkleDistributorImplementation.sol";
+import "../../contracts/claim/factory/TrancheVestingMerkleDistributor.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract TrancheVestingMerkleDistributorFactoryTest is Test {
-    TrancheVestingMerkleDistributorImplementation implementation;
-    TrancheVestingMerkleDistributorImplementation clone;
+    TrancheVestingMerkleDistributor implementation;
+    TrancheVestingMerkleDistributor clone;
     TrancheVestingMerkleDistributorFactory factory;
     ERC20 token = new ERC20("Test", "TEST");
     Tranche[] tranches = [Tranche(1, 10000)];
 
     function setUp() public {
-        implementation = new TrancheVestingMerkleDistributorImplementation();
+        implementation = new TrancheVestingMerkleDistributor();
         factory = new TrancheVestingMerkleDistributorFactory(address(implementation));
     }
 
@@ -59,7 +59,7 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
             owner,
             nonce
         );
-        TrancheVestingMerkleDistributorImplementation nextClone =
+        TrancheVestingMerkleDistributor nextClone =
             factory.deployDistributor(
                 token,
                 total,

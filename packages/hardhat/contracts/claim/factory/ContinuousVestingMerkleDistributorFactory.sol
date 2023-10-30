@@ -4,7 +4,7 @@ pragma solidity 0.8.21;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
-import {ContinuousVestingMerkleDistributorImplementation} from "./ContinuousVestingMerkleDistributorImplementation.sol";
+import {ContinuousVestingMerkleDistributor} from "./ContinuousVestingMerkleDistributor.sol";
 
 contract ContinuousVestingMerkleDistributorFactory {
     address private immutable i_implementation;
@@ -53,7 +53,7 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
         uint16 nonce
-    ) public returns (ContinuousVestingMerkleDistributorImplementation distributor) {
+    ) public returns (ContinuousVestingMerkleDistributor distributor) {
         bytes32 salt = _getSalt(
             _token,
             _total,
@@ -68,7 +68,7 @@ contract ContinuousVestingMerkleDistributorFactory {
         );
 
         distributor =
-            ContinuousVestingMerkleDistributorImplementation(Clones.cloneDeterministic(i_implementation, salt));
+            ContinuousVestingMerkleDistributor(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
 
         emit DistributorDeployed(address(distributor));

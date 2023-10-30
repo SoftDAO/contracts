@@ -2,14 +2,14 @@
 pragma solidity ^0.8.21;
 
 import "forge-std/Test.sol";
-import "../../contracts/claim/factory/TrancheVestingMerkleDistributorImplementation.sol";
+import "../../contracts/claim/factory/TrancheVestingMerkleDistributor.sol";
 
-contract TrancheVestingMerkleDistributorImplementationTest is Test {
-    TrancheVestingMerkleDistributorImplementation implementation;
+contract TrancheVestingMerkleDistributorTest is Test {
+    TrancheVestingMerkleDistributor implementation;
     Tranche[] tranches = [Tranche({time: 1, vestedFraction: 10000})];
 
     function setUp() public {
-        implementation = new TrancheVestingMerkleDistributorImplementation();
+        implementation = new TrancheVestingMerkleDistributor();
     }
 
     function test_Initialize_fails_as_disabled() public {

@@ -3,8 +3,8 @@ pragma solidity ^0.8.21;
 
 import {ERC20, IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {Script} from "forge-std/Script.sol";
-import {TrancheVestingMerkleDistributorImplementation} from
-    "../../contracts/claim/factory/TrancheVestingMerkleDistributorImplementation.sol";
+import {TrancheVestingMerkleDistributor} from
+    "../../contracts/claim/factory/TrancheVestingMerkleDistributor.sol";
 import {TrancheVestingMerkleDistributorFactory} from
     "../../contracts/claim/factory/TrancheVestingMerkleDistributorFactory.sol";
 import {Tranche} from "../../contracts/interfaces/ITrancheVesting.sol";
@@ -28,12 +28,12 @@ contract TrancheVestingMerkleDistributorCloneScript is Script {
         // test/mainnets
         Tranche[] memory tranches = new Tranche[](1);
         tranches[0] = Tranche(1, 10000);
-        TrancheVestingMerkleDistributorImplementation implementation;
-        TrancheVestingMerkleDistributorImplementation clone;
+        TrancheVestingMerkleDistributor implementation;
+        TrancheVestingMerkleDistributor clone;
         TrancheVestingMerkleDistributorFactory factory;
         uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
-        implementation = new TrancheVestingMerkleDistributorImplementation();
+        implementation = new TrancheVestingMerkleDistributor();
         factory = new TrancheVestingMerkleDistributorFactory(address(implementation));
         clone = factory.deployDistributor(
             IERC20(token), total, uri, tranches, merkleRoot, maxDelayTime, vm.addr(deployerPrivateKey), nonce
