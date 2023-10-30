@@ -2,7 +2,6 @@
 pragma solidity ^0.8.21;
 
 import "forge-std/Test.sol";
-import "forge-std/console.sol";
 
 import "../../contracts/claim/factory/ContinuousVestingMerkleDistributorFactory.sol";
 import "../../contracts/claim/factory/ContinuousVestingMerkleDistributorImplementation.sol";
