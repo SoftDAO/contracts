@@ -69,6 +69,8 @@ contract TrancheVestingMerkleDistributorFactory {
 
         distributor.initialize(_token, _total, _uri, _tranches, _merkleRoot, _maxDelayTime, _owner);
 
+        nonce.increment();
+
         return distributor;
     }
     
