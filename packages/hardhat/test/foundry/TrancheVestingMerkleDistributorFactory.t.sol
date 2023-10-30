@@ -33,8 +33,7 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
             tranches,
             bytes32(0),
             0,
-            address(this),
-            nonce
+            address(this)
         );
 
         assertEq(clone.owner(), address(this));
@@ -56,8 +55,7 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
             tranches,
             merkleRoot,
             maxDelayTime,
-            owner,
-            nonce
+            owner
         );
         TrancheVestingMerkleDistributor nextClone =
             factory.deployDistributor(
@@ -67,8 +65,7 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
                 tranches,
                 merkleRoot,
                 maxDelayTime,
-                owner,
-                nonce
+                owner
             );
 
         assertEq(nextCloneAddress, address(nextClone));

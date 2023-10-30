@@ -20,8 +20,7 @@ contract TrancheVestingMerkleDistributorCloneScript is Script {
         uint256 total,
         string calldata uri,
         bytes32 merkleRoot,
-        uint160 maxDelayTime,
-        uint16 nonce
+        uint160 maxDelayTime
     ) public {
         // couldn't figure out how to set tranches from command line
         // be sure to set tranches here prior to running this script to deploy to 
@@ -36,7 +35,7 @@ contract TrancheVestingMerkleDistributorCloneScript is Script {
         implementation = new TrancheVestingMerkleDistributor();
         factory = new TrancheVestingMerkleDistributorFactory(address(implementation));
         clone = factory.deployDistributor(
-            IERC20(token), total, uri, tranches, merkleRoot, maxDelayTime, vm.addr(deployerPrivateKey), nonce
+            IERC20(token), total, uri, tranches, merkleRoot, maxDelayTime, vm.addr(deployerPrivateKey)
         );
         vm.stopBroadcast();
     }

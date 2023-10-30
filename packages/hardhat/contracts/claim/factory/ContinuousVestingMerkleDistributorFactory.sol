@@ -9,6 +9,7 @@ import {ContinuousVestingMerkleDistributor} from "./ContinuousVestingMerkleDistr
 
 contract ContinuousVestingMerkleDistributorFactory {
     using Counters for Counters.Counter;
+    
     address private immutable i_implementation;
     address[] public distributors;
     Counters.Counter public nonce;
