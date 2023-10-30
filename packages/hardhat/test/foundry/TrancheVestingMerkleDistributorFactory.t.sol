@@ -24,7 +24,7 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
     }
 
     function test_DeployDistributor() public {
-        bytes32 salt = bytes32(0);
+        uint16 nonce = 0;
 
         clone = factory.deployDistributor(
             IERC20(token),
@@ -34,7 +34,7 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
             bytes32(0),
             0,
             address(this),
-            salt
+            nonce
         );
 
         assertEq(clone.owner(), address(this));
@@ -42,18 +42,33 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
     }
 
     function test_PredictDistributorAddress() public {
-        bytes32 salt = bytes32("1");
-        address nextCloneAddress = factory.predictDistributorAddress(salt);
+        uint16 nonce = 1;
+        uint256 total = 1000;
+        string memory uri = "uri";
+        bytes32 merkleRoot = bytes32(0);
+        uint160 maxDelayTime = 0;
+        address owner = address(this);
+
+        address nextCloneAddress = factory.predictDistributorAddress(
+            token,
+            total,
+            uri,
+            tranches,
+            merkleRoot,
+            maxDelayTime,
+            owner,
+            nonce
+        );
         TrancheVestingMerkleDistributorImplementation nextClone =
             factory.deployDistributor(
-                IERC20(token),
-                1000,
-                "uri",
+                token,
+                total,
+                uri,
                 tranches,
-                bytes32(0),
-                0,
-                address(this),
-                salt
+                merkleRoot,
+                maxDelayTime,
+                owner,
+                nonce
             );
 
         assertEq(nextCloneAddress, address(nextClone));
