@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.16;
+pragma solidity 0.8.21;
 
 import { AdvancedDistributor, Distributor, IERC20 } from "./AdvancedDistributor.sol";
 import { IPriceTierVesting, PriceTier } from "../../interfaces/IPriceTierVesting.sol";

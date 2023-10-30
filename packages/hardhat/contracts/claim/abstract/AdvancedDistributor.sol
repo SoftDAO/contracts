@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.16;
+pragma solidity 0.8.21;
 
 import '@openzeppelin/contracts/access/Ownable.sol';
 import { ERC20Votes, ERC20Permit, ERC20 } from '@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol';
