@@ -34,8 +34,7 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
             1730419200,
             bytes32(0),
             0,
-            address(this),
-            nonce
+            address(this)
         );
 
         assertEq(clone.owner(), address(this));
@@ -43,7 +42,6 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
     }
 
     function test_PredictDistributorAddress() public {
-        uint16 nonce = 1;
         address nextCloneAddress = factory.predictDistributorAddress(
             IERC20(token),
             1000,
@@ -53,8 +51,7 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
             1730419200,
             bytes32(0),
             0,
-            address(this),
-            nonce
+            address(this)
         );
         ContinuousVestingMerkleDistributor nextClone = factory.deployDistributor(
             IERC20(token),
@@ -65,8 +62,7 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
             1730419200,
             bytes32(0),
             0,
-            address(this),
-            nonce
+            address(this)
         );
 
         assertEq(nextCloneAddress, address(nextClone));

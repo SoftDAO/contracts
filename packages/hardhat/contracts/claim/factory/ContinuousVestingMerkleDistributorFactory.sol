@@ -3,12 +3,15 @@ pragma solidity 0.8.21;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
+import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 
 import {ContinuousVestingMerkleDistributor} from "./ContinuousVestingMerkleDistributor.sol";
 
 contract ContinuousVestingMerkleDistributorFactory {
+    using Counters for Counters.Counter;
     address private immutable i_implementation;
     address[] public distributors;
+    Counters.Counter public nonce;
 
     event DistributorDeployed(address indexed distributor);
 
@@ -25,9 +28,8 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint256 _end, // vesting clock ends and this time
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner,
-        uint16 nonce
-    ) private pure returns (bytes32) {
+        address _owner
+    ) private view returns (bytes32) {
         return keccak256(abi.encode(
             _token,
             _total,
@@ -38,7 +40,7 @@ contract ContinuousVestingMerkleDistributorFactory {
             _merkleRoot,
             _maxDelayTime,
             _owner,
-            nonce
+            nonce.current()
         ));
     }
 
@@ -51,8 +53,7 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint256 _end, // vesting clock ends and this time
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner,
-        uint16 nonce
+        address _owner
     ) public returns (ContinuousVestingMerkleDistributor distributor) {
         bytes32 salt = _getSalt(
             _token,
@@ -63,8 +64,7 @@ contract ContinuousVestingMerkleDistributorFactory {
             _end,
             _merkleRoot,
             _maxDelayTime,
-            _owner,
-            nonce
+            _owner
         );
 
         distributor =
@@ -74,6 +74,8 @@ contract ContinuousVestingMerkleDistributorFactory {
         emit DistributorDeployed(address(distributor));
 
         distributor.initialize(_token, _total, _uri, _start, _cliff, _end, _merkleRoot, _maxDelayTime, _owner);
+
+        nonce.increment();
 
         return distributor;
     }
@@ -91,8 +93,7 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint256 _end, // vesting clock ends and this time
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner,
-        uint16 nonce
+        address _owner
     ) public view returns (address) {
         bytes32 salt = _getSalt(
             _token,
@@ -103,8 +104,7 @@ contract ContinuousVestingMerkleDistributorFactory {
             _end,
             _merkleRoot,
             _maxDelayTime,
-            _owner,
-            nonce
+            _owner
         );
 
         return Clones.predictDeterministicAddress(i_implementation, salt, address(this));
