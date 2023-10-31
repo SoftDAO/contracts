@@ -10,8 +10,8 @@ import {ContinuousVestingMerkleDistributorFactory} from
 
 // you can run this script with dynamic clone args like this:
 // forge script script/foundry/ContinuousVestingMerkleDistributorClone.s.sol \
-// --sig "run(address,uint256,string,uint256,uint256,uint256,bytes32,uint160,bytes32)" \
-// 0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F 1000000000000000000000 "ipfs://" 1 1 1001 0x00000000000000000000000000000000 0 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 0x00000000000000000000000000000000 -vvvv
+// --sig "run(address,uint256,string,uint256,uint256,uint256,bytes32,uint160)" \
+// 0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F 1000000000000000000000 "ipfs://" 1 1 1001 0x00000000000000000000000000000000 0 -vvvv
 
 contract ContinuousVestingMerkleDistributorCloneScript is Script {
     function run(

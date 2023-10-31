@@ -11,7 +11,7 @@ import {Tranche} from "../../contracts/interfaces/ITrancheVesting.sol";
 
 // you can run this script with dynamic clone args (except for the tranches, see below) like this:
 // forge script script/foundry/TrancheVestingMerkleDistributorClone.s.sol:TrancheVestingMerkleDistributorCloneScript \
-// --sig "run(address,uint256,string,bytes32,uint160,uint16)" \
+// --sig "run(address,uint256,string,bytes32,uint160)" \
 // 0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F 1000000000000000000000 "ipfs://" 0x00000000000000000000000000000000 0 0 -vvvv
 
 contract TrancheVestingMerkleDistributorCloneScript is Script {
