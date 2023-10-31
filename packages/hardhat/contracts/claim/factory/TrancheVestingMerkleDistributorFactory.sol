@@ -12,9 +12,9 @@ contract TrancheVestingMerkleDistributorFactory {
     
     address private immutable i_implementation;
     address[] public distributors;
-    Counters.Counter public nonce;
+    Counters.Counter nonce;
 
-    event DistributorDeployed(address indexed distributor);
+    event DistributorDeployed(address indexed distributor, uint256 nonce);
 
     constructor(address implementation) {
         i_implementation = implementation;
@@ -27,8 +27,9 @@ contract TrancheVestingMerkleDistributorFactory {
         Tranche[] memory _tranches,
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner
-    ) private view returns (bytes32) {
+        address _owner,
+        uint256 _nonce
+    ) private pure returns (bytes32) {
         return keccak256(abi.encode(
             _token,
             _total,
@@ -37,7 +38,7 @@ contract TrancheVestingMerkleDistributorFactory {
             _merkleRoot,
             _maxDelayTime,
             _owner,
-            nonce.current()
+            _nonce
         ));
     }
 
@@ -50,7 +51,8 @@ contract TrancheVestingMerkleDistributorFactory {
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner
     ) public returns (TrancheVestingMerkleDistributor distributor) {
-        // TODO: compute salt here by hashing the args into a bytestring
+        uint256 currentNonce = nonce.current();
+        
         bytes32 salt = _getSalt(
             _token,
             _total,
@@ -58,14 +60,15 @@ contract TrancheVestingMerkleDistributorFactory {
             _tranches,
             _merkleRoot,
             _maxDelayTime,
-            _owner
+            _owner,
+            currentNonce
         );
 
         distributor =
             TrancheVestingMerkleDistributor(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
 
-        emit DistributorDeployed(address(distributor));
+        emit DistributorDeployed(address(distributor), currentNonce);
 
         distributor.initialize(_token, _total, _uri, _tranches, _merkleRoot, _maxDelayTime, _owner);
 
@@ -85,7 +88,8 @@ contract TrancheVestingMerkleDistributorFactory {
         Tranche[] memory _tranches,
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner
+        address _owner,
+        uint256 _nonce
     ) public view returns (address) {
         bytes32 salt = _getSalt(
             _token,
@@ -94,9 +98,14 @@ contract TrancheVestingMerkleDistributorFactory {
             _tranches,
             _merkleRoot,
             _maxDelayTime,
-            _owner
+            _owner,
+            _nonce
         );
 
         return Clones.predictDeterministicAddress(i_implementation, salt, address(this));
+    }
+
+    function getNonce() public view returns (uint256) {
+        return nonce.current();
     }
 }

@@ -44,6 +44,7 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
         bytes32 merkleRoot = bytes32(0);
         uint160 maxDelayTime = 0;
         address owner = address(this);
+        uint256 currentNonce = factory.getNonce();
 
         address nextCloneAddress = factory.predictDistributorAddress(
             token,
@@ -52,7 +53,8 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
             tranches,
             merkleRoot,
             maxDelayTime,
-            owner
+            owner,
+            currentNonce
         );
         TrancheVestingMerkleDistributor nextClone =
             factory.deployDistributor(

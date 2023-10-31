@@ -14,7 +14,7 @@ contract ContinuousVestingMerkleDistributorFactory {
     address[] public distributors;
     Counters.Counter nonce;
 
-    event DistributorDeployed(address indexed distributor);
+    event DistributorDeployed(address indexed distributor,uint256 nonce);
 
     constructor(address implementation) {
         i_implementation = implementation;
@@ -29,8 +29,9 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint256 _end, // vesting clock ends and this time
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner
-    ) private view returns (bytes32) {
+        address _owner,
+        uint256 _nonce
+    ) private pure returns (bytes32) {
         return keccak256(abi.encode(
             _token,
             _total,
@@ -41,7 +42,7 @@ contract ContinuousVestingMerkleDistributorFactory {
             _merkleRoot,
             _maxDelayTime,
             _owner,
-            nonce.current()
+            _nonce
         ));
     }
 
@@ -56,6 +57,8 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner
     ) public returns (ContinuousVestingMerkleDistributor distributor) {
+        uint256 currentNonce = nonce.current();
+        
         bytes32 salt = _getSalt(
             _token,
             _total,
@@ -65,14 +68,15 @@ contract ContinuousVestingMerkleDistributorFactory {
             _end,
             _merkleRoot,
             _maxDelayTime,
-            _owner
+            _owner,
+            currentNonce
         );
 
         distributor =
             ContinuousVestingMerkleDistributor(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
 
-        emit DistributorDeployed(address(distributor));
+        emit DistributorDeployed(address(distributor), currentNonce);
 
         distributor.initialize(_token, _total, _uri, _start, _cliff, _end, _merkleRoot, _maxDelayTime, _owner);
 
@@ -94,7 +98,8 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint256 _end, // vesting clock ends and this time
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner
+        address _owner,
+        uint256 _nonce
     ) public view returns (address) {
         bytes32 salt = _getSalt(
             _token,
@@ -105,7 +110,8 @@ contract ContinuousVestingMerkleDistributorFactory {
             _end,
             _merkleRoot,
             _maxDelayTime,
-            _owner
+            _owner,
+            _nonce
         );
 
         return Clones.predictDeterministicAddress(i_implementation, salt, address(this));

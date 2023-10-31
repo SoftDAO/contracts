@@ -41,6 +41,7 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
     }
 
     function test_PredictDistributorAddress() public {
+        uint256 currentNonce = factory.getNonce();
         address nextCloneAddress = factory.predictDistributorAddress(
             IERC20(token),
             1000,
@@ -50,7 +51,8 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
             1730419200,
             bytes32(0),
             0,
-            address(this)
+            address(this),
+            currentNonce
         );
         ContinuousVestingMerkleDistributor nextClone = factory.deployDistributor(
             IERC20(token),
