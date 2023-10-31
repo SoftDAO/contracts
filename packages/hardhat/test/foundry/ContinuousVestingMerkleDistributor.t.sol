@@ -24,7 +24,8 @@ contract ContinuousVestingMerkleDistributorTest is Test {
             1730419200,
             bytes32(0),
             0,
-            address(this)
+            address(this),
+            0
         );
     }
 

@@ -10,8 +10,8 @@ import {ContinuousVestingMerkleDistributorFactory} from
 
 // you can run this script with dynamic clone args like this:
 // forge script script/foundry/ContinuousVestingMerkleDistributorClone.s.sol \
-// --sig "run(address,uint256,string,uint256,uint256,uint256,bytes32,uint160)" \
-// 0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F 1000000000000000000000 "ipfs://" 1 1 1001 0x00000000000000000000000000000000 0 -vvvv
+// --sig "run(address,uint256,string,uint256,uint256,uint256,bytes32,uint160,uint256)" \
+// 0x75DF62a7E0a37b0E00aEC2d8D7D477B3e689094F 1000000000000000000000 "ipfs://" 1 1 1001 0x00000000000000000000000000000000 0 0 -vvvv
 
 contract ContinuousVestingMerkleDistributorCloneScript is Script {
     function run(
@@ -22,7 +22,8 @@ contract ContinuousVestingMerkleDistributorCloneScript is Script {
         uint256 cliff,
         uint256 end,
         bytes32 merkleRoot,
-        uint160 maxDelayTime
+        uint160 maxDelayTime,
+        uint256 nonce
     ) public {
         ContinuousVestingMerkleDistributor implementation;
         ContinuousVestingMerkleDistributor clone;
@@ -32,7 +33,7 @@ contract ContinuousVestingMerkleDistributorCloneScript is Script {
         implementation = new ContinuousVestingMerkleDistributor();
         factory = new ContinuousVestingMerkleDistributorFactory(address(implementation));
         clone = factory.deployDistributor(
-            IERC20(token), total, uri, start, cliff, end, merkleRoot, maxDelayTime, vm.addr(deployerPrivateKey)
+            IERC20(token), total, uri, start, cliff, end, merkleRoot, maxDelayTime, vm.addr(deployerPrivateKey), nonce
         );
         vm.stopBroadcast();
     }

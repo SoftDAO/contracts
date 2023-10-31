@@ -3,18 +3,14 @@ pragma solidity 0.8.21;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
-import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 
 import {ContinuousVestingMerkleDistributor} from "./ContinuousVestingMerkleDistributor.sol";
 
 contract ContinuousVestingMerkleDistributorFactory {
-    using Counters for Counters.Counter;
-    
     address private immutable i_implementation;
     address[] public distributors;
-    Counters.Counter nonce;
 
-    event DistributorDeployed(address indexed distributor,uint256 nonce);
+    event DistributorDeployed(address indexed distributor);
 
     constructor(address implementation) {
         i_implementation = implementation;
@@ -55,10 +51,9 @@ contract ContinuousVestingMerkleDistributorFactory {
         uint256 _end, // vesting clock ends and this time
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner
-    ) public returns (ContinuousVestingMerkleDistributor distributor) {
-        uint256 currentNonce = nonce.current();
-        
+        address _owner,
+        uint256 _nonce
+    ) public returns (ContinuousVestingMerkleDistributor distributor) {    
         bytes32 salt = _getSalt(
             _token,
             _total,
@@ -69,18 +64,16 @@ contract ContinuousVestingMerkleDistributorFactory {
             _merkleRoot,
             _maxDelayTime,
             _owner,
-            currentNonce
+            _nonce
         );
 
         distributor =
             ContinuousVestingMerkleDistributor(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
 
-        emit DistributorDeployed(address(distributor), currentNonce);
+        emit DistributorDeployed(address(distributor));
 
         distributor.initialize(_token, _total, _uri, _start, _cliff, _end, _merkleRoot, _maxDelayTime, _owner);
-
-        nonce.increment();
 
         return distributor;
     }
@@ -115,9 +108,5 @@ contract ContinuousVestingMerkleDistributorFactory {
         );
 
         return Clones.predictDeterministicAddress(i_implementation, salt, address(this));
-    }
-
-    function getNonce() public view returns (uint256) {
-        return nonce.current();
     }
 }

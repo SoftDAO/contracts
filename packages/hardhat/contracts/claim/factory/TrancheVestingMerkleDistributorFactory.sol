@@ -8,13 +8,10 @@ import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 import {TrancheVestingMerkleDistributor, Tranche} from "./TrancheVestingMerkleDistributor.sol";
 
 contract TrancheVestingMerkleDistributorFactory {
-    using Counters for Counters.Counter;
-    
     address private immutable i_implementation;
     address[] public distributors;
-    Counters.Counter nonce;
 
-    event DistributorDeployed(address indexed distributor, uint256 nonce);
+    event DistributorDeployed(address indexed distributor);
 
     constructor(address implementation) {
         i_implementation = implementation;
@@ -49,10 +46,9 @@ contract TrancheVestingMerkleDistributorFactory {
         Tranche[] memory _tranches,
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
-        address _owner
+        address _owner,
+        uint256 _nonce
     ) public returns (TrancheVestingMerkleDistributor distributor) {
-        uint256 currentNonce = nonce.current();
-        
         bytes32 salt = _getSalt(
             _token,
             _total,
@@ -61,18 +57,16 @@ contract TrancheVestingMerkleDistributorFactory {
             _merkleRoot,
             _maxDelayTime,
             _owner,
-            currentNonce
+            _nonce
         );
 
         distributor =
             TrancheVestingMerkleDistributor(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
 
-        emit DistributorDeployed(address(distributor), currentNonce);
+        emit DistributorDeployed(address(distributor));
 
         distributor.initialize(_token, _total, _uri, _tranches, _merkleRoot, _maxDelayTime, _owner);
-
-        nonce.increment();
 
         return distributor;
     }
@@ -103,9 +97,5 @@ contract TrancheVestingMerkleDistributorFactory {
         );
 
         return Clones.predictDeterministicAddress(i_implementation, salt, address(this));
-    }
-
-    function getNonce() public view returns (uint256) {
-        return nonce.current();
     }
 }

@@ -23,7 +23,8 @@ contract TrancheVestingMerkleDistributorTest is Test {
             tranches,
             bytes32(0),
             0,
-            address(this)
+            address(this),
+            0
         );
     }
 
