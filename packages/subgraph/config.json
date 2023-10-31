@@ -168,14 +168,14 @@
     ],
     "ContinuousVestingMerkleDistributorFactory": [
       {
-        "Address": "0x3624e5D648503568aF16d0A6f33F1567f03DA23F",
-        "BlockNumber": 9963120
+        "Address": "0xAF4e2cD341eEfdeB0f4cD145deE0401974d2146f",
+        "BlockNumber": 9963542
       }
     ],
     "TrancheVestingMerkleDistributorFactory": [
       {
-        "Address": "0xA81e0e2ae9C718187D07a31aC8Daf2D871F0EA8a",
-        "BlockNumber": 9963109
+        "Address": "0x885504B11B1f1a31d0c7bcDb63207DE2436d65C3",
+        "BlockNumber": 9963535
       }
     ]
   },
