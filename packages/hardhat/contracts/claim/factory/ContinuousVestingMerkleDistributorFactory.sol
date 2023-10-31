@@ -12,7 +12,7 @@ contract ContinuousVestingMerkleDistributorFactory {
     
     address private immutable i_implementation;
     address[] public distributors;
-    Counters.Counter public nonce;
+    Counters.Counter nonce;
 
     event DistributorDeployed(address indexed distributor);
 
@@ -109,5 +109,9 @@ contract ContinuousVestingMerkleDistributorFactory {
         );
 
         return Clones.predictDeterministicAddress(i_implementation, salt, address(this));
+    }
+
+    function getNonce() public view returns (uint256) {
+        return nonce.current();
     }
 }

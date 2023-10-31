@@ -23,8 +23,6 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
     }
 
     function test_DeployDistributor() public {
-        uint16 nonce = 0;
-
         clone = factory.deployDistributor(
             IERC20(token),
             1000,
@@ -39,6 +37,7 @@ contract ContinuousVestingMerkleDistributorFactoryTest is Test {
 
         assertEq(clone.owner(), address(this));
         assertEq(clone.getSweepRecipient(), address(this));
+        assertEq(factory.getNonce(), 1);
     }
 
     function test_PredictDistributorAddress() public {
