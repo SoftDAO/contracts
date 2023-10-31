@@ -24,8 +24,6 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
     }
 
     function test_DeployDistributor() public {
-        uint16 nonce = 0;
-
         clone = factory.deployDistributor(
             IERC20(token),
             1000,
@@ -41,7 +39,6 @@ contract TrancheVestingMerkleDistributorFactoryTest is Test {
     }
 
     function test_PredictDistributorAddress() public {
-        uint16 nonce = 1;
         uint256 total = 1000;
         string memory uri = "uri";
         bytes32 merkleRoot = bytes32(0);
