@@ -11,10 +11,19 @@ optimizer_runs = 100
 
 [rpc_endpoints]
 goerli = '${GOERLI_RPC_URL}'
+fuji = '${FUJI_RPC_URL}'
+mumbai = '${MUMBAI_RPC_URL}'
 localhost = 'http://127.0.0.1:8545'
+bsc-testnet = '${RIALTO_RPC_URL}'
+optimism-goerli = '${OPTIMISM_GOERLI_RPC_URL}'
+arbitrum-goerli = '${ARBITRUM_GOERLI_RPC_URL}'
 
 [etherscan]
 goerli = { key = '${ETHERSCAN_API_KEY}' }
-
+fuji = { key = '${SNOWTRACE_API_KEY}' }
+mumbai = { key = '${POLYGONSCAN_API_KEY}' }
+bsc-testnet = { key = '${BSCSCAN_API_KEY}' }
+optimism-goerli = { key = '${OPTIMISM_API_KEY}'}
+arbitrum-goerli = { key = '${ARBISCAN_API_KEY}'}
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
