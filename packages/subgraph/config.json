@@ -39,6 +39,18 @@
         "Address": "0x71bE8339023d779f2f85893761729Bb27b97891d",
         "BlockNumber": 3195631
       }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xA67b71E9E68B29b107daEd47f526D118b590519a",
+        "BlockNumber": 52559517
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xC3BfE32951E24dba777309afa18D3d30a76945E6",
+        "BlockNumber": 52559204
+      }
     ]
   },
   "avalanche": {
@@ -116,6 +128,18 @@
       {
         "Address": "0x5CC400249c383a5a3eF5252B7C2b992106AE5EEf",
         "BlockNumber": 18257409
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xD74DF1aB45F541dfD3477c35a680043463c0f5B8",
+        "BlockNumber": 27351358
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x9D2b6490b463e4E15504AD438EA48AEEAf1c3ac8",
+        "BlockNumber": 27350831
       }
     ]
   },
@@ -197,6 +221,18 @@
       {
         "Address": "0xb64f3493384AcA9ceCCB80b73b50da572caa95E4",
         "BlockNumber": 3580794
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xbAd6eAA9aE5eC73280422418771503641944b703",
+        "BlockNumber": 16756800
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x62B708f0BC25AB14590c979Ca25B31953741bB2B",
+        "BlockNumber": 16755318
       }
     ]
   },
@@ -338,6 +374,18 @@
       {
         "Address": "0x7afd2700F8e915ed4D39897d0D284A54e6348Ad3",
         "BlockNumber": 31312720
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xAfb50dB4Ca828f66F005722ddeFC2081c28bDB9b",
+        "BlockNumber": 41933004
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x2D7E80BB925C09d7d4490Aa7aCc046e928163B00",
+        "BlockNumber": 41932775
       }
     ]
   },
