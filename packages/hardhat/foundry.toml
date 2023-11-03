@@ -17,6 +17,11 @@ localhost = 'http://127.0.0.1:8545'
 bsc-testnet = '${RIALTO_RPC_URL}'
 optimism-goerli = '${OPTIMISM_GOERLI_RPC_URL}'
 arbitrum-goerli = '${ARBITRUM_GOERLI_RPC_URL}'
+mainnet = '${MAINNET_RPC_URL}'
+polygon= '${POLYGON_RPC_URL}'
+arbitrum = '${ARBITRUM_RPC_URL}'
+optimism = '${OPTIMISM_RPC_URL}'
+gnosis = '${GNOSIS_RPC_URL}'
 
 [etherscan]
 goerli = { key = '${ETHERSCAN_API_KEY}' }
