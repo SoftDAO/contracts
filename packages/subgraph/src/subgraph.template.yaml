@@ -254,6 +254,74 @@ dataSources:
           handler: handleOwnershipTransferred
       file: ./src/utilities/registryMapping.ts
   {{/Registry.[0]}}
+  {{#ContinuousVestingMerkleDistributorFactory.[0]}}
+  - kind: ethereum/contract
+    name: ContinuousVestingMerkleDistributorFactory
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: ContinuousVestingMerkleDistributorFactory
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/distributor/v3.0/continuousVestingMerkleDistributorFactoryMapping.ts
+      entities:
+        - Distributor
+        - AdvancedDistributor
+        - ContinuousVesting
+      abis:
+        - name: AdvancedDistributor
+          file: ./abis/contracts/claim/abstract/AdvancedDistributor.json
+        - name: ContinuousVestingMerkleDistributorFactory
+          file: ./abis/contracts/claim/ContinuousVestingMerkleDistributorFactory.json
+        - name: IContinuousVesting
+          file: ./abis/contracts/interfaces/IContinuousVesting.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.json
+        - name: IERC20Metadata
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+        - name: IMerkleSet
+          file: ./abis/contracts/interfaces/IMerkleSet.json
+      eventHandlers:
+        - event: DistributorDeployed(indexed address)
+          handler: handleDistributorDeployed
+  {{/ContinuousVestingMerkleDistributorFactory.[0]}}
+  {{#TrancheVestingMerkleDistributorFactory.[0]}}
+  - kind: ethereum/contract
+    name: TrancheVestingMerkleDistributorFactory
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: TrancheVestingMerkleDistributorFactory
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/distributor/v3.0/trancheVestingMerkleDistributorFactoryMapping.ts
+      entities:
+        - Distributor
+        - AdvancedDistributor
+        - TrancheVesting
+      abis:
+        - name: AdvancedDistributor
+          file: ./abis/contracts/claim/abstract/AdvancedDistributor.json
+        - name: TrancheVestingMerkleDistributorFactory
+          file: ./abis/contracts/claim/TrancheVestingMerkleDistributorFactory.json
+        - name: ITrancheVesting
+          file: ./abis/contracts/interfaces/ITrancheVesting.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.json
+        - name: IERC20Metadata
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+        - name: IMerkleSet
+          file: ./abis/contracts/interfaces/IMerkleSet.json
+      eventHandlers:
+        - event: DistributorDeployed(indexed address)
+          handler: handleDistributorDeployed
+  {{/TrancheVestingMerkleDistributorFactory.[0]}}
 templates:
   - kind: ethereum/contract
     name: FlatPriceSale

@@ -9,6 +9,8 @@ require("@typechain/hardhat");
 // this allows hardhat to use ethers for tests
 require("@nomiclabs/hardhat-ethers");
 
+require("@nomicfoundation/hardhat-foundry");
+
 // allow upgradeable contracts in tests
 // require('@openzeppelin/hardhat-upgrades');
 
@@ -125,6 +127,16 @@ module.exports = {
   },
   solidity: {
     compilers: [
+      {
+        version: "0.8.21",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+          viaIR: true
+        },
+      },
       {
         version: "0.8.16",
         settings: {

@@ -30,6 +30,18 @@
     "Registry": {
       "address": "0xc70573B924C92618E6143F6ac4C2B1aD7ba8785b",
       "startBlock": 16242929
+    },
+    "ContinuousVestingMerkle": {
+      "address": "0x2A8a6739421f810a5A80a6E1B62F12e39E6860f4"
+    },
+    "GenericERC20": {
+      "address": "0x80190AB5C8Ccc5f1655a7E9Bd59554D683494Ac5"
+    },
+    "MyERC20Votes": {
+      "address": "0x0d809bA7409c4c67F8C11c0c13dc848E48b0d7DE"
+    },
+    "TrancheVestingMerkle": {
+      "address": "0x7430aF1190Aea59a5484F96208cdDFCd6F7199E1"
     }
   },
   "localhost": {
@@ -72,10 +84,16 @@
       "startBlock": 7972181
     },
     "ContinuousVestingMerkle": {
-      "address": "0x43c49387EAE2aA8979E9D471f2Ad8544AFaf9687"
+      "address": "0x636f193207F504827a9d4Ef29720e288c11752D9"
     },
     "Satellite": {
       "address": "0xa27fE80F7F75BE7C5a82B68C881e121B76dBc5A6"
+    },
+    "GenericERC20": {
+      "address": "0x7d89E6d526FFA0AC1dADB1c0527271b957d5A03b"
+    },
+    "TrancheVestingMerkle": {
+      "address": "0xE6C7f81DeCcA4987c387981650829286591aBfE5"
     }
   },
   "gnosis": {

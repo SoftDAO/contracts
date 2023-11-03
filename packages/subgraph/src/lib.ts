@@ -1,4 +1,4 @@
-import { Address, ethereum, BigInt, Bytes, log, Result, store } from "@graphprotocol/graph-ts";
+import { Address, ethereum, BigInt, Bytes, log, store } from "@graphprotocol/graph-ts";
 import { IDistributor } from "../generated/templates/Distributor/IDistributor";
 import { Distributor as DistributorTemplate, AdvancedDistributor as AdvancedDistributorTemplate, CrosschainDistributor, TrancheVesting as TrancheVestingTemplate, MerkleSet as MerkleSetTemplate } from '../generated/templates'
 import { IERC20Metadata } from '../generated/Registry/IERC20Metadata'
@@ -340,7 +340,6 @@ export function getOrCreateContinuousVesting(distributorId: string, block: ether
 
 	return continuousVesting
 }
-
 export function getOrCreateMerkleSet(distributorId: string, block: ethereum.Block): MerkleSet | null {
 	log.info('Trying to add merkle set info to distributor {}', [distributorId])
 	const id = `${distributorId}-merkleSet`

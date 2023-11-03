@@ -4,7 +4,6 @@ import { Address, Bytes, ethereum, log } from "@graphprotocol/graph-ts"
 import {currentInterfaces, legacyInterfaces} from '../../generated/interfaces'
 import { RegisteredAddress, Distributor } from "../../generated/schema"
 import { getOrCreateTrader } from "../trade/traderMapping"
-import { TypedMap } from "@graphprotocol/graph-ts"
 
 // workaround for assemblyscript limitations
 function includes(b: Bytes[], a: string): boolean {
