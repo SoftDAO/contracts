@@ -288,6 +288,18 @@
         "Address": "0xc70573B924C92618E6143F6ac4C2B1aD7ba8785b",
         "BlockNumber": 16242929
       }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x1cA6e9d2a989AA947ab49248Ac4DE4Fa2e6B4c68",
+        "BlockNumber": 18529452
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x68f84b0fE75d6B3c9B5355f2C5BaA146e56478DA",
+        "BlockNumber": 18529414
+      }
     ]
   },
   "matic": {
@@ -335,6 +347,18 @@
           "Branch": "update-polygon-contracts",
           "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
         }
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xCe74507ef2eDcAFAd94047C12fD92F6155644335",
+        "BlockNumber": 49631606
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x8D1Fa828E0B99f2CD9Bec6c51FF11E97B502db8A",
+        "BlockNumber": 49631536
       }
     ]
   },
@@ -413,6 +437,18 @@
       {
         "Address": "0x65caF259cC7e2c5309451534d6a6FacBe971b399",
         "BlockNumber": 72628723
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x17c14f6087C62666D28361697f4a9B4D39DC3Bc5",
+        "BlockNumber": 111856564
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x9c2D86d00aFDe6e616CADfBc0fe2D47C1d22b1c8",
+        "BlockNumber": 111857381
       }
     ]
   }
