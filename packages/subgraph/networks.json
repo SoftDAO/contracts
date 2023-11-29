@@ -94,6 +94,9 @@
     },
     "TrancheVestingMerkle": {
       "address": "0xE6C7f81DeCcA4987c387981650829286591aBfE5"
+    },
+    "MyERC20Votes": {
+      "address": "0x5342070B7AeB70Ea4A183b317abBee5FcCa115C3"
     }
   },
   "gnosis": {

@@ -30,12 +30,6 @@ function publishContract(contractName: string, networkName: string) {
     graphConfigObject[networkName][contractName].address = contractObject.address;
 
     fs.writeFileSync(graphConfigPath, JSON.stringify(graphConfigObject, null, 2));
-    if (!fs.existsSync(`${graphDir}/abis`)) fs.mkdirSync(`${graphDir}/abis`);
-    fs.writeFileSync(
-      `${graphDir}/abis/${networkName}_${contractName}.json`,
-      JSON.stringify(contractObject.abi, null, 2)
-    );
-
     return true;
   } catch (e) {
     console.log(
