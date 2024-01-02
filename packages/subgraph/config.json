@@ -92,6 +92,102 @@
       }
     ]
   },
+  "bsc": {
+    "SubgraphNetwork": "bsc",
+    "Registry": [
+      {
+        "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
+        "BlockNumber": 27037830,
+        "PublishedAt": "Mon, 03 Apr 2023 21:24:15 GMT",
+        "Git": {
+          "Branch": "bsc",
+          "Commit": "4e53d9535093e3becb27101940a44f2b249fcb00"
+        }
+      }
+    ],
+    "FlatPriceSale": [
+      {
+        "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
+        "BlockNumber": 27037983,
+        "PublishedAt": "Mon, 03 Apr 2023 21:32:16 GMT",
+        "Git": {
+          "Branch": "bsc",
+          "Commit": "4e53d9535093e3becb27101940a44f2b249fcb00"
+        }
+      }
+    ],
+    "FlatPriceSaleFactory": [
+      {
+        "Address": "0xA82d7ED01c31DD2A46681D18E3E213C9E9231605",
+        "BlockNumber": 27037985,
+        "PublishedAt": "Mon, 03 Apr 2023 21:32:16 GMT",
+        "Git": {
+          "Branch": "bsc",
+          "Commit": "4e53d9535093e3becb27101940a44f2b249fcb00"
+        }
+      }
+    ],
+    "Trader": [
+      {
+        "Address": "0x65caF259cC7e2c5309451534d6a6FacBe971b399",
+        "BlockNumber": 27521609,
+        "PublishedAt": "Thu, 20 Apr 2023 19:38:14 GMT",
+        "Git": {
+          "Branch": "bsc",
+          "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
+        }
+      }
+    ]
+  },
+  "bscTestnet": {
+    "SubgraphNetwork": "bsc-testnet",
+    "Registry": [
+      {
+        "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
+        "BlockNumber": 26602327
+      }
+    ],
+    "FlatPriceSale": [
+      {
+        "Address": "0xC61da7Db4981c8839b51B32d4c83cCdf47ca0b20",
+        "BlockNumber": 26603355
+      }
+    ],
+    "FlatPriceSaleFactory": [
+      {
+        "Address": "0xA82d7ED01c31DD2A46681D18E3E213C9E9231605",
+        "BlockNumber": 26603357
+      }
+    ],
+    "Trader": [
+      {
+        "Address": "0xf9d55F554175B8a18cDB167063383f5462442EAD",
+        "BlockNumber": 27010046
+      }
+    ],
+    "FakeChainlinkOracle": [
+      {
+        "Address": "0x245A9bD01ccF512D1374BE4F7A8Eb06dA21E6333",
+        "BlockNumber": 28632041,
+        "PublishedAt": "Tue, 04 Apr 2023 05:48:24 GMT",
+        "Git": {
+          "Branch": "bsc",
+          "Commit": "71f3d20251d3d1c156961c033a2240c19c4bd3e8"
+        }
+      }
+    ],
+    "GenericERC20": [
+      {
+        "Address": "0xeEDB0e8e589F9ADf6768fc006BaA1C6462f5e563",
+        "BlockNumber": 28632035,
+        "PublishedAt": "Tue, 04 Apr 2023 05:48:24 GMT",
+        "Git": {
+          "Branch": "bsc",
+          "Commit": "71f3d20251d3d1c156961c033a2240c19c4bd3e8"
+        }
+      }
+    ]
+  },
   "fuji": {
     "SubgraphNetwork": "fuji",
     "FlatPriceSaleFactory": [
