@@ -10,7 +10,7 @@
     "generate": "hardhat run script/generateAccount.ts",
     "lint": "eslint --config ./.eslintrc.json --ignore-path ./.eslintignore ./*.ts ./deploy/**/*.ts ./script/**/*.ts ./test/**/*.ts",
     "lint-staged": "eslint --config ./.eslintrc.json --ignore-path ./.eslintignore",
-    "publish": "GIT_BRANCH=\"$(git branch --show-current)\" GIT_COMMIT=\"$(git log -n 1 --pretty=%H)\" hardhat run script/publish.js && yarn generate-abi-interfaces",
+    "publish": "GIT_BRANCH=\"$(git branch --show-current)\" GIT_COMMIT=\"$(git log -n 1 --pretty=%H)\" hardhat run script/publish.js",
     "test": "npx hardhat jest",
     "verify": "hardhat etherscan-verify",
     "generate-merkle-root": "ts-node ./script/generate-merkle-root.ts",

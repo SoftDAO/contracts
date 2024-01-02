@@ -19,9 +19,9 @@ dataSources:
         - Distributor
       abis:
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
       eventHandlers:
         - event: InitializeDistributor(indexed address,uint256,string,uint256)
           handler: handleInitializeDistributor
@@ -43,7 +43,7 @@ dataSources:
         - Sale
       abis:
         - name: FlatPriceSaleFactory
-          file: ./abis/contracts/sale/v2/FlatPriceSaleFactory.json
+          file: ./abis/contracts/sale/v2/FlatPriceSaleFactory.sol/FlatPriceSaleFactory.json
       eventHandlers:
         - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
           handler: handleNewSale
@@ -64,7 +64,7 @@ dataSources:
         - SaleImplementation
       abis:
         - name: FlatPriceSale
-          file: ./abis/contracts/sale/v2/FlatPriceSale.json
+          file: ./abis/contracts/sale/v2/FlatPriceSale.sol/FlatPriceSale.json
       eventHandlers:
         - event: ImplementationConstructor(indexed address,uint256)
           handler: handleImplementationConstructor
@@ -88,11 +88,11 @@ dataSources:
         - Distributor
       abis:
         - name: SaleManager_v_1_3
-          file: ./abis/contracts/sale/v1.3/SaleManager.json
+          file: ./abis/contracts/sale/v1.3/SaleManager.sol/SaleManager_v_1_3.json
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
       eventHandlers:
         - event: NewSale(indexed bytes32,indexed bytes32,indexed address,address,uint256,uint256,uint256,uint256,uint256,uint256,string,uint256,uint8)
           handler: handleNewSale
@@ -131,11 +131,11 @@ dataSources:
         - Sale
       abis:
         - name: SaleManager_v_1_2
-          file: ./abis/contracts/sale/v1.2/SaleManager.json
+          file: ./abis/contracts/sale/v1.2/SaleManager.sol/SaleManager_v_1_2.json
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
       eventHandlers:
         - event: NewSale(indexed bytes32,indexed bytes32,indexed address,address,uint256,uint256,uint256,uint256,uint256,string,uint256,uint8)
           handler: handleNewSale
@@ -174,11 +174,11 @@ dataSources:
         - Sale
       abis:
         - name: SaleManager_v_1_0
-          file: ./abis/contracts/sale/v1.0/SaleManager.json
+          file: ./abis/contracts/sale/v1.0/SaleManager.sol/SaleManager_v_1_0.json
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
       eventHandlers:
         - event: NewSale(indexed bytes32,indexed bytes32,indexed address,uint256,uint256,uint256,uint256,uint256,string,string,uint256,uint8)
           handler: handleNewSale
@@ -218,27 +218,27 @@ dataSources:
         - CrosschainDistributor
       abis:
         - name: Registry
-          file: ./abis/contracts/utilities/Registry.json
+          file: ./abis/contracts/utilities/Registry.sol/Registry.json
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: AdvancedDistributor
-          file: ./abis/contracts/claim/abstract/AdvancedDistributor.json
+          file: ./abis/contracts/claim/abstract/AdvancedDistributor.sol/AdvancedDistributor.json
         - name: ITrancheVesting
-          file: ./abis/contracts/interfaces/ITrancheVesting.json
+          file: ./abis/contracts/interfaces/ITrancheVesting.sol/ITrancheVesting.json
         - name: IPriceTierVesting
-          file: ./abis/contracts/interfaces/IPriceTierVesting.json
+          file: ./abis/contracts/interfaces/IPriceTierVesting.sol/IPriceTierVesting.json
         - name: IContinuousVesting
-          file: ./abis/contracts/interfaces/IContinuousVesting.json
+          file: ./abis/contracts/interfaces/IContinuousVesting.sol/IContinuousVesting.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
         - name: IMerkleSet
-          file: ./abis/contracts/interfaces/IMerkleSet.json
+          file: ./abis/contracts/interfaces/IMerkleSet.sol/IMerkleSet.json
         - name: Trader
-          file: ./abis/contracts/trade/Trader.json
+          file: ./abis/contracts/trade/Trader.sol/Trader.json
         - name: CrosschainDistributor
-          file: ./abis/contracts/claim/abstract/CrosschainDistributor.json
+          file: ./abis/contracts/claim/abstract/CrosschainDistributor.sol/CrosschainDistributor.json
         - name: ERC20Votes
-          file: ./abis/contracts/token/ERC20Votes.json
+          file: ./abis/contracts/token/ERC20Votes.sol/MyERC20Votes.json
       eventHandlers:
         - event: DeployRegistry()
           handler: handleDeployRegistry
@@ -273,17 +273,17 @@ dataSources:
         - ContinuousVesting
       abis:
         - name: AdvancedDistributor
-          file: ./abis/contracts/claim/abstract/AdvancedDistributor.json
+          file: ./abis/contracts/claim/abstract/AdvancedDistributor.sol/AdvancedDistributor.json
         - name: ContinuousVestingMerkleDistributorFactory
-          file: ./abis/contracts/claim/ContinuousVestingMerkleDistributorFactory.json
+          file: ./abis/contracts/claim/factory/ContinuousVestingMerkleDistributorFactory.sol/ContinuousVestingMerkleDistributorFactory.json
         - name: IContinuousVesting
-          file: ./abis/contracts/interfaces/IContinuousVesting.json
+          file: ./abis/contracts/interfaces/IContinuousVesting.sol/IContinuousVesting.json
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
         - name: IMerkleSet
-          file: ./abis/contracts/interfaces/IMerkleSet.json
+          file: ./abis/contracts/interfaces/IMerkleSet.sol/IMerkleSet.json
       eventHandlers:
         - event: DistributorDeployed(indexed address)
           handler: handleDistributorDeployed
@@ -307,17 +307,17 @@ dataSources:
         - TrancheVesting
       abis:
         - name: AdvancedDistributor
-          file: ./abis/contracts/claim/abstract/AdvancedDistributor.json
+          file: ./abis/contracts/claim/abstract/AdvancedDistributor.sol/AdvancedDistributor.json
         - name: TrancheVestingMerkleDistributorFactory
-          file: ./abis/contracts/claim/TrancheVestingMerkleDistributorFactory.json
+          file: ./abis/contracts/claim/factory/TrancheVestingMerkleDistributorFactory.sol/TrancheVestingMerkleDistributorFactory.json
         - name: ITrancheVesting
-          file: ./abis/contracts/interfaces/ITrancheVesting.json
+          file: ./abis/contracts/interfaces/ITrancheVesting.sol/ITrancheVesting.json
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
         - name: IMerkleSet
-          file: ./abis/contracts/interfaces/IMerkleSet.json
+          file: ./abis/contracts/interfaces/IMerkleSet.sol/IMerkleSet.json
       eventHandlers:
         - event: DistributorDeployed(indexed address)
           handler: handleDistributorDeployed
@@ -339,13 +339,13 @@ templates:
         - Distributor
       abis:
         - name: FlatPriceSale
-          file: ./abis/contracts/sale/v2/FlatPriceSale.json
+          file: ./abis/contracts/sale/v2/FlatPriceSale.sol/FlatPriceSale.json
         - name: FlatPriceSaleFactory
-          file: ./abis/contracts/sale/v2/FlatPriceSaleFactory.json
+          file: ./abis/contracts/sale/v2/FlatPriceSaleFactory.sol/FlatPriceSaleFactory.json
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
       eventHandlers:
         - event: Buy(indexed address,indexed address,uint256,uint256,uint256)
           handler: handleBuy
@@ -380,7 +380,7 @@ templates:
   #       - Claim
   #     abis:
   #       - name: IDistributorPatched
-  #         file: ./abis/contracts/interfaces/IDistributorPatched.json
+  #         file: ./abis/contracts/interfaces/IDistributorPatched.sol/IDistributorPatched.json
   #     eventHandlers:
   #       - event: InitializeDistributionRecord(indexed address,uint256)
   #         handler: handleInitializeDistributionRecord
@@ -403,7 +403,7 @@ templates:
         - Claim
       abis:
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
       eventHandlers:
         - event: InitializeDistributionRecord(indexed address,uint256)
           handler: handleInitializeDistributionRecord
@@ -426,9 +426,9 @@ templates:
         - Claim
       abis:
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: AdvancedDistributor
-          file: ./abis/contracts/claim/abstract/AdvancedDistributor.json
+          file: ./abis/contracts/claim/abstract/AdvancedDistributor.sol/AdvancedDistributor.json
       eventHandlers:
         # (Note that basic Distributor events and MerkleSet events are handled elsewhere)
         # Ownable
@@ -467,7 +467,7 @@ templates:
         - TrancheVesting
       abis:
         - name: ITrancheVesting
-          file: ./abis/contracts/interfaces/ITrancheVesting.json
+          file: ./abis/contracts/interfaces/ITrancheVesting.sol/ITrancheVesting.json
       eventHandlers:
         - event: SetTranche(indexed uint256,uint128,uint128)
           handler: handleSetTranche
@@ -487,7 +487,7 @@ templates:
         - MerkleSet
       abis:
         - name: IMerkleSet
-          file: ./abis/contracts/interfaces/IMerkleSet.json
+          file: ./abis/contracts/interfaces/IMerkleSet.sol/IMerkleSet.json
       eventHandlers:
         - event: SetMerkleRoot(bytes32)
           handler: handleSetMerkleRoot
@@ -507,7 +507,7 @@ templates:
         - Trader
       abis:
         - name: Trader
-          file: ./abis/contracts/trade/Trader.json
+          file: ./abis/contracts/trade/Trader.sol/Trader.json
       eventHandlers:
         - event: SetConfig(address,uint256)
           handler: handleSetConfig
@@ -536,11 +536,11 @@ templates:
         - Claim
       abis:
         - name: CrosschainDistributor
-          file: ./abis/contracts/claim/abstract/CrosschainDistributor.json
+          file: ./abis/contracts/claim/abstract/CrosschainDistributor.sol/CrosschainDistributor.json
         - name: IDistributor
-          file: ./abis/contracts/interfaces/IDistributor.json
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
         - name: IERC20Metadata
-          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.json
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
       eventHandlers:
         - event: CrosschainClaim(indexed bytes32,indexed address,indexed address,uint32,uint256)
           handler: handleCrosschainClaim
