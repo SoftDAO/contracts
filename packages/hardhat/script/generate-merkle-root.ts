@@ -61,6 +61,7 @@ async function main() {
     // crude file type detection
     if (inputFile.endsWith('.csv')) {
         const lines = await csv({noheader:true, delimiter: delimiter}).fromFile(inputFile)
+
         accounts = lines.reduce((obj, line, index) => {
             if (!line) {
                 console.log('skipping empty line')
@@ -259,7 +260,14 @@ function buildAddressOnlyNode(obj: any, line: any, index: number) {
 
     obj[address] = {
         index: index,
-        address: address
+        address: address,
+        data: [
+            {
+                name: "address",
+                type: "address",
+                value: address
+            }
+        ]
     }
 
     return obj;
