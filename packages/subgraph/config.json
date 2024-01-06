@@ -127,6 +127,18 @@
         }
       }
     ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x3dE4D3205fFc0c96257b39E81870EA2ddA5ED142",
+        "BlockNumber": 27351358
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xC8f492F6E0B573BC92f463F93d88D0210DFf480d",
+        "BlockNumber": 27350831
+      }
+    ],
     "Trader": [
       {
         "Address": "0x65caF259cC7e2c5309451534d6a6FacBe971b399",

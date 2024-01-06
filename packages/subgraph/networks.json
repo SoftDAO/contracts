@@ -97,6 +97,12 @@
     },
     "MyERC20Votes": {
       "address": "0x5342070B7AeB70Ea4A183b317abBee5FcCa115C3"
+    },
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x6Df62c6066932fcB66dC5117C2CE9a64e82821CE"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x6544DF621978F860CB2da6b8987968679Cb2BFA1"
     }
   },
   "gnosis": {
@@ -120,6 +126,17 @@
   "optimism": {
     "Satellite": {
       "address": "0x9D9ce29Dc7812ccb63aB14EA987B52d9aF053Eb3"
+    }
+  },
+  "bsc": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x31184BEc8DA86A9A9041C835Ce020e2862b78138"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0xC8f492F6E0B573BC92f463F93d88D0210DFf480d"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0xa75A233eA0CE3155b50394011A298DB3466A8e94"
     }
   }
 }
