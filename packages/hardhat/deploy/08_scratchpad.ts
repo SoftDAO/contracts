@@ -15,7 +15,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 	// deploy a distributor factory
 	// await deploy("ContinuousVestingMerkleDistributorFactory", {
 	// 	from: deployer,
-	// 	args: ["0x31184BEc8DA86A9A9041C835Ce020e2862b78138"],
+	// 	args: ["0x31184BEc8DA86A9A9041C835Ce020e2862b78138"], <!---- address from distributor deploy
 	// 	log: true
 	// });
 
@@ -29,7 +29,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 	// deploy a distributor factory
 	// await deploy("ContinuousVestingMerkleDistributorFactory", {
 	// 	from: deployer,
-	// 	args: ["0xa75A233eA0CE3155b50394011A298DB3466A8e94"],
+	// 	args: ["0xa75A233eA0CE3155b50394011A298DB3466A8e94"], <!---- address from distributor deploy
 	// 	log: true
 	// });
 };
