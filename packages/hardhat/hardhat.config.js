@@ -93,6 +93,18 @@ module.exports = {
       accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
       chainId: 42161
     },
+    bsc: {
+      url: 'https://bsc-dataseed.binance.org/',
+      chainId: 56,
+      gasPrice: 20000000000,
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`]
+    },
+    bscTestnet: {
+      url: 'https://data-seed-prebsc-1-s3.binance.org:8545/',
+      chainId: 97,
+      gasPrice: 20000000000,
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`]
+    },
     gnosis: {
       url: `https://rpc.ankr.com/gnosis`,
       accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
@@ -103,9 +115,9 @@ module.exports = {
       accounts: [`${process.env.DEPLOYER_PRIVATE_KEY}`],
       chainId: 5,
       gas: 10000000,
-      gasPrice: 1000,
+      gasPrice: 400000,
       // try to prevent a timeout
-      timeout: 99999999,
+      timeout: 999999999,
       networkCheckTimeout: 99999999,
       timeoutBlocks:99999
     },
