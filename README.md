@@ -4,10 +4,6 @@ Follow the steps in these resources if you get stuck:
 - Getting started: https://book.getfoundry.sh/getting-started/installation
 - Internal foundry template directory: https://github.com/tokensoft/foundry
 
-You might need to do these things if forge lib is missing or outdated:
-- Clone our internal foundry template (`git clone git@github.com:tokensoft/foundry.git`)
-- Create foundry lib `cp -r ./foundry/lib ./tokensoft-contracts/packages/hardhat/lib`
-
 Examples
 - Deploying contracts: `forge create --rpc-url arbitrum --private-key <your ethereum private key> --verify --etherscan-api-key <your api key> contracts/claim/factory/ContinuousVestingMerkleDistributor.sol:ContinuousVestingMerkleDistributor`
 - Verifying contracts: `forge verify-contract <contract address> contracts/claim/factory/ContinuousVestingMerkleDistributorFactory.sol:ContinuousVestingMerkleDistributorFactory --constructor-args "00000000000000000000000081bA49a32491669851431ea0CCEdA767b1005db6" --etherscan-api-key <your api key> --optimizer-runs=100`
