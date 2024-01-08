@@ -24,10 +24,13 @@ export function handleInitializeDistributionRecord(event: InitializeDistribution
 }
 
 export function handleClaim(event: Claim): void {
-	const distributor = getDistributor(event.address);
+  const distributor = getDistributor(event.address);
   const distributionRecord = getOrCreateDistributionRecord(event.address, event.params.beneficiary, event.block);
   createClaim(event.transaction, distributionRecord, event.params.beneficiary, event.params.amount, distributor.uris[0], event.block);
   // update claimed amount
-  distributionRecord.claimed = distributionRecord.claimed + event.params.amount;
+  distributionRecord.claimed = distributionRecord.claimed.plus(event.params.amount);
   distributionRecord.save();
+
+  distributor.claimed = distributor.claimed.plus(event.params.amount);
+  distributor.save();
 }
