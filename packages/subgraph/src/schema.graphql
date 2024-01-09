@@ -117,6 +117,7 @@ type AdvancedDistributor @entity {
   id: ID! # `${address}-advanced`
   distributor: Distributor!
   owner: Account
+  sweepRecipient: Account
   voteFactor: BigInt
   createdAt: BigInt!
 }

@@ -168,9 +168,9 @@ export function getOrCreateAdvancedDistributor(distributorId: string, block: eth
 	// update the total
 	const distributorContract = IDistributor.bind(distributorAddress);
 	const totalResult = distributorContract.try_total();
-		if (!totalResult.reverted) {
-			distributor.total = totalResult.value;
-		}
+	if (!totalResult.reverted) {
+		distributor.total = totalResult.value;
+	}
 
 	// update the uri
 	const uriResult = distributorContract.try_uri();
@@ -194,6 +194,10 @@ export function getOrCreateAdvancedDistributor(distributorId: string, block: eth
 
 	const ownerResult = advancedDistributorContract.try_owner();
 	advancedDistributor.owner = ownerResult.reverted ? null : getOrCreateAccount(ownerResult.value, block).id;
+
+	// get sweep recipient
+	const sweepRecipient = advancedDistributorContract.try_getSweepRecipient();
+	advancedDistributor.sweepRecipient = sweepRecipient.reverted ? null : getOrCreateAccount(sweepRecipient.value, block).id;
 
 	// the address parameter here can be any value (not used at present)
 	const voteFactorResult = advancedDistributorContract.try_getVoteFactor(distributorAddress);

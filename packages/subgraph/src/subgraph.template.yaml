@@ -439,6 +439,8 @@ templates:
           handler: handleSweepToken
         - event: SweepNative(uint256)
           handler: handleSweepNative
+        - event: SetSweepRecipient(address)
+          handler: handleSweepRecipient
         # IAdjustable
         - event: Adjust(indexed address,int256)
           handler: handleAdjust
