@@ -1,7 +1,7 @@
 import { log } from '@graphprotocol/graph-ts'
-import { OwnershipTransferred, SweepToken, SweepNative, Adjust, SetToken, SetTotal, SetUri, SetVoteFactor } from "../../../generated/templates/AdvancedDistributor/AdvancedDistributor";
+import { OwnershipTransferred, SweepToken, SweepNative, Adjust, SetToken, SetTotal, SetUri, SetVoteFactor, SetSweepRecipient } from "../../../generated/templates/AdvancedDistributor/AdvancedDistributor";
 
-import { getDistributor, getAdvancedDistributor, getDistributionRecord, createAdjustment } from "../../lib";
+import { getDistributor, getAdvancedDistributor, getDistributionRecord, createAdjustment, getOrCreateAccount } from "../../lib";
 import { IDistributor } from '../../../generated/templates/Distributor/IDistributor';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -17,6 +17,13 @@ export function handleSweepToken(event: SweepToken): void {
 
 export function handleSweepNative(event: SweepNative): void {
 	// TODO
+}
+
+export function handleSweepRecipient(event: SetSweepRecipient): void {
+	const advancedDistributor = getAdvancedDistributor(event.address);
+	log.info('Updating distributor {} recipient to {}', [event.address.toHexString(), event.params.recipient.toHexString()])
+	advancedDistributor.sweepRecipient = getOrCreateAccount(event.params.recipient, event.block).id;
+	advancedDistributor.save();
 }
 
 export function handleAdjust(event: Adjust): void {
