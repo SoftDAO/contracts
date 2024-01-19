@@ -26,6 +26,50 @@ dataSources:
         - event: InitializeDistributor(indexed address,uint256,string,uint256)
           handler: handleInitializeDistributor
   {{/TrancheVestingSale_2_0.[0]}}
+  {{#FlatPriceSaleFactory_1_0.[0]}}
+     - kind: ethereum/contract
+         name: FlatPriceSaleFactory
+         network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: FlatPriceSaleFactory
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/sale/v2.0/flatPriceSaleFactoryMapping.ts
+      entities:
+        - Sale
+      abis:
+        - name: FlatPriceSaleFactory
+          file: ./abis/contracts/sale/v2/FlatPriceSaleFactory.sol/FlatPriceSaleFactory.json
+      eventHandlers:
+        - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
+          handler: handleNewSale
+  {{/FlatPriceSaleFactory_1_0.[0]}}
+  {{#FlatPriceSale_1_0.[0]}}
+     - kind: ethereum/contract
+         name: FlatPriceSaleImplementation
+         network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: FlatPriceSale
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - SaleImplementation
+      abis:
+        - name: FlatPriceSale
+          file: ./abis/contracts/sale/v2/FlatPriceSale.sol/FlatPriceSale.json
+      eventHandlers:
+        - event: ImplementationConstructor(indexed address,uint256)
+          handler: handleImplementationConstructor
+      file: ./src/sale/v2.0/saleImplementationMapping.ts
+  {{/FlatPriceSale_1_0.[0]}}
   {{#FlatPriceSaleFactory.[0]}}
   - kind: ethereum/contract
     name: FlatPriceSaleFactory
