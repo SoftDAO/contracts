@@ -1,6 +1,18 @@
 {
   "arbitrum": {
     "SubgraphNetwork": "arbitrum-one",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x21896f02b7B33A8da6eC42a01D8C450D7A868A35",
+        "BlockNumber": 174141617
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x0CaB80bCf2931DebDB1bd9137A3aF86C957b6e96",
+        "BlockNumber": 174141275
+      }
+    ],
     "Registry": [
       {
         "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
@@ -55,6 +67,18 @@
   },
   "avalanche": {
     "SubgraphNetwork": "avalanche",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x0cab80bcf2931debdb1bd9137a3af86c957b6e96",
+        "BlockNumber": 40834378
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x797c0d5bc32bc29438c0555ea61eb0318be40797",
+        "BlockNumber": 40834329
+      }
+    ],
     "FlatPriceSaleFactory": [
       {
         "Address": "0x9Ef415dE715c0a55AA867bcDEa00eAf914aD6cb7",
@@ -94,6 +118,18 @@
   },
   "bsc": {
     "SubgraphNetwork": "bsc",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x700A81a525E259f13233c8da11b1d4632f3fdF91",
+        "BlockNumber": 35561541
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x33f439DB3c004A0E6398FcCcf9f81d2637c226f9",
+        "BlockNumber": 35561501
+      }
+    ],
     "Registry": [
       {
         "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
@@ -152,7 +188,19 @@
     ]
   },
   "bscTestnet": {
-    "SubgraphNetwork": "bsc-testnet",
+    "SubgraphNetwork": "chapel",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x700A81a525E259f13233c8da11b1d4632f3fdF91",
+        "BlockNumber": 37166399
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x33f439db3c004a0e6398fcccf9f81d2637c226f9",
+        "BlockNumber": 37166297
+      }
+    ],
     "Registry": [
       {
         "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
@@ -202,6 +250,18 @@
   },
   "fuji": {
     "SubgraphNetwork": "fuji",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x0cab80bcf2931debdb1bd9137a3af86c957b6e96",
+        "BlockNumber": 29529132
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x797c0d5bc32bc29438c0555ea61eb0318be40797",
+        "BlockNumber": 29529092
+      }
+    ],
     "FlatPriceSaleFactory": [
       {
         "Address": "0xfE245D36F8b4079C62B74eD4FfE7B055DB1B5A2D",
@@ -262,6 +322,18 @@
   },
   "goerli": {
     "SubgraphNetwork": "goerli",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x3526D3C2d6481Ec6843B41533727EeaE4312D26C",
+        "BlockNumber": 10421840
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x99C9b22050E560E34d903a89388F4E41fCD61895",
+        "BlockNumber": 10421835
+      }
+    ],
     "FlatPriceSaleFactory": [
       {
         "Address": "0xF043A0488E4541D7c9a77a0f998e4687683399b0",
@@ -355,6 +427,18 @@
   },
   "mainnet": {
     "SubgraphNetwork": "mainnet",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x70e0e5a16c981eff0720f226a2e8ff418b5f3954",
+        "BlockNumber": 19085055
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x57c08f6827dc9a88b253830d73e0d8314b32e8d1",
+        "BlockNumber": 19085015
+      }
+    ],
     "TrancheVestingSale_2_0": [
       {
         "Address": "0x1F56f6A9aD23850Fb4dED9c32F25c28CD5d5c8aa",
@@ -412,6 +496,18 @@
   },
   "matic": {
     "SubgraphNetwork": "matic",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x48b8c957a91a5f2f5f751163b96c1ba7d8c1f1a7",
+        "BlockNumber": 52716422
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0xe12aa2502d536e6153a35341f897335e9b2e123f",
+        "BlockNumber": 52716380
+      }
+    ],
     "SaleManager_v_1_0": [
       {
         "Address": "0xe6fF4586e8c28D0B47426D980468622f1001D234",
@@ -472,6 +568,18 @@
   },
   "mumbai": {
     "SubgraphNetwork": "mumbai",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0xfad5031a6a40952c2820f17dac16f32896cd058e",
+        "BlockNumber": 45128635
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x662d39a9ac0c0cd9210e519aeda7f76e967e4492",
+        "BlockNumber": 45127681
+      }
+    ],
     "FlatPriceSaleFactory": [
       {
         "Address": "0x31b7625997603Ce07B349d6f0300B6CB5896959b",
@@ -523,6 +631,18 @@
   },
   "optimism": {
     "SubgraphNetwork": "optimism",
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x33f439DB3c004A0E6398FcCcf9f81d2637c226f9",
+        "BlockNumber": 115306849
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x21896f02b7B33A8da6eC42a01D8C450D7A868A35",
+        "BlockNumber": 115306723
+      }
+    ],
     "Registry": [
       {
         "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
