@@ -42,6 +42,12 @@
     },
     "TrancheVestingMerkle": {
       "address": "0x7430aF1190Aea59a5484F96208cdDFCd6F7199E1"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0xfAD5031a6a40952c2820f17dAc16F32896Cd058e"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x662d39a9Ac0c0Cd9210E519AedA7F76e967e4492"
     }
   },
   "localhost": {
@@ -103,6 +109,12 @@
     },
     "ContinuousVestingMerkleDistributorFactory": {
       "address": "0x6544DF621978F860CB2da6b8987968679Cb2BFA1"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x3526D3C2d6481Ec6843B41533727EeaE4312D26C"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x99C9b22050E560E34d903a89388F4E41fCD61895"
     }
   },
   "gnosis": {
@@ -116,16 +128,34 @@
   "arbitrum": {
     "CrosschainTrancheVestingMerkle": {
       "address": "0xE6B7aB9EBCfBF1A72E489ff00CdF9C6473ff6224"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x21896f02b7B33A8da6eC42a01D8C450D7A868A35"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x0CaB80bCf2931DebDB1bd9137A3aF86C957b6e96"
     }
   },
   "matic": {
     "Satellite": {
       "address": "0x83e8Cf4A51035665BAF97DdB0cf03b565AC76B44"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x48B8c957A91a5f2f5f751163B96C1BA7d8c1f1a7"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0xe12AA2502d536E6153a35341F897335E9B2e123F"
     }
   },
   "optimism": {
     "Satellite": {
       "address": "0x9D9ce29Dc7812ccb63aB14EA987B52d9aF053Eb3"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x33f439DB3c004A0E6398FcCcf9f81d2637c226f9"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x21896f02b7B33A8da6eC42a01D8C450D7A868A35"
     }
   },
   "bsc": {
@@ -137,6 +167,44 @@
     },
     "TrancheVestingMerkleDistributor": {
       "address": "0xa75A233eA0CE3155b50394011A298DB3466A8e94"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x700A81a525E259f13233c8da11b1d4632f3fdF91"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x33f439DB3c004A0E6398FcCcf9f81d2637c226f9"
+    }
+  },
+  "mainnet": {
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x70E0E5a16c981eFF0720f226A2E8ff418B5f3954"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x57c08f6827DC9A88b253830D73E0d8314b32E8D1"
+    }
+  },
+  "bscTestnet": {
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x700A81a525E259f13233c8da11b1d4632f3fdF91"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x33f439DB3c004A0E6398FcCcf9f81d2637c226f9"
+    }
+  },
+  "avalanche": {
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x0CaB80bCf2931DebDB1bd9137A3aF86C957b6e96"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x797C0d5bC32bc29438c0555EA61EB0318bE40797"
+    }
+  },
+  "fuji": {
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x0CaB80bCf2931DebDB1bd9137A3aF86C957b6e96"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x797C0d5bC32bc29438c0555EA61EB0318bE40797"
     }
   }
 }
