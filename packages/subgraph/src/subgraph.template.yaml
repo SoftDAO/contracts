@@ -407,6 +407,42 @@ templates:
           handler: handleSweepNative
         - event: RegisterDistributor(address)
           handler: handleRegisterDistributor
+  - kind: ethereum/contract
+    name: ContinuousVestingMerkleDistributor
+    network: {{SubgraphNetwork}}
+    source:
+      abi: ContinuousVestingMerkle
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/distributor/v3.0/continuousVestingMerkleDistributor.ts
+      entities:
+        - ContinuousVesting
+        - MerkleSet
+        - Distributor
+      abis:
+        - name: ContinuousVestingMerkle
+          file: ./abis/contracts/claim/ContinuousVestingMerkle.sol/ContinuousVestingMerkle.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
+        - name: IContinuousVesting
+          file: ./abis/contracts/interfaces/IContinuousVesting.sol/IContinuousVesting.json
+        - name: ContinuousVestingMerkleDistributor
+          file: ./abis/contracts/claim/ContinuousVestingMerkleDistributor.sol/ContinuousVestingMerkleDistributor.json
+        - name: ContinuousVestingMerkleDistributorFactory
+          file: ./abis/contracts/claim/factory/ContinuousVestingMerkleDistributorFactory.sol/ContinuousVestingMerkleDistributorFactory.json
+      eventHandlers:
+        - event: decreaseAllowance(address,uint256)
+          handler: handleDecreaseAllowance
+        - event: increaseAllowance(address,uint256)
+          handler: handleIncreaseAllowance
+        - event: setMerkleRoot(bytes32)
+          handler: handleSetMerkleRoot
+        - event: setUri(string)
+          handler: handleSetUri
+        - event: setVestingConfig(uint256,uint256,uint256)
+          handler: handleSetVestingConfig
   # We use a patched interface definition to handle older distributors with a slightly different InitializeDistributor signature
   # - kind: ethereum/contract
   #   name: Distributor
