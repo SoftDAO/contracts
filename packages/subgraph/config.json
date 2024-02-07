@@ -1,6 +1,7 @@
 {
   "arbitrum": {
     "SubgraphNetwork": "arbitrum-one",
+    "LowestStartBlock": 54948060,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x21896f02b7B33A8da6eC42a01D8C450D7A868A35",
@@ -34,6 +35,7 @@
   },
   "arbitrumGoerli": {
     "SubgraphNetwork": "arbitrum-goerli",
+    "LowestStartBlock": 1982862,
     "FlatPriceSale": [
       {
         "Address": "0x07537efBa62504425f879E9D60A25aB09D139161",
@@ -67,6 +69,7 @@
   },
   "avalanche": {
     "SubgraphNetwork": "avalanche",
+    "LowestStartBlock": 14288822,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x0cab80bcf2931debdb1bd9137a3af86c957b6e96",
@@ -118,6 +121,7 @@
   },
   "bsc": {
     "SubgraphNetwork": "bsc",
+    "LowestStartBlock": 27037983,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x700A81a525E259f13233c8da11b1d4632f3fdF91",
@@ -189,6 +193,7 @@
   },
   "bscTestnet": {
     "SubgraphNetwork": "chapel",
+    "LowestStartBlock": 26602327,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x700A81a525E259f13233c8da11b1d4632f3fdF91",
@@ -250,6 +255,7 @@
   },
   "fuji": {
     "SubgraphNetwork": "fuji",
+    "LowestStartBlock": 9797319,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x0cab80bcf2931debdb1bd9137a3af86c957b6e96",
@@ -322,6 +328,7 @@
   },
   "goerli": {
     "SubgraphNetwork": "goerli",
+    "LowestStartBlock": 7180529,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x3526D3C2d6481Ec6843B41533727EeaE4312D26C",
@@ -385,6 +392,7 @@
   },
   "goerliOptimism": {
     "SubgraphNetwork": "optimism-goerli",
+    "LowestStartBlock": 16755318,
     "FlatPriceSale": [
       {
         "Address": "0xb41169Cc124298Be20e2Ca956cC46E266ab5E203",
@@ -427,6 +435,7 @@
   },
   "mainnet": {
     "SubgraphNetwork": "mainnet",
+    "LowestStartBlock": 14699410,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x70e0e5a16c981eff0720f226a2e8ff418b5f3954",
@@ -496,6 +505,7 @@
   },
   "matic": {
     "SubgraphNetwork": "matic",
+    "LowestStartBlock": 26645783,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x48b8c957a91a5f2f5f751163b96c1ba7d8c1f1a7",
@@ -568,6 +578,7 @@
   },
   "mumbai": {
     "SubgraphNetwork": "mumbai",
+    "LowestStartBlock": 27393431,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0xfad5031a6a40952c2820f17dac16f32896cd058e",
@@ -631,6 +642,7 @@
   },
   "optimism": {
     "SubgraphNetwork": "optimism",
+    "LowestStartBlock": 69959643,
     "FlatPriceSaleFactory_v_2_1": [
       {
         "Address": "0x33f439DB3c004A0E6398FcCcf9f81d2637c226f9",
