@@ -318,8 +318,6 @@ export function getOrCreateContinuousVesting(distributorId: string, block: ether
 
 	let continuousVesting = ContinuousVesting.load(id);
 
-	// TODO: handle vesting updates?
-
 	if (!continuousVesting) {
 		continuousVesting = new ContinuousVesting(id);
 		continuousVesting.createdAt = block.timestamp;

@@ -48,7 +48,7 @@
     "deploy:gnosis-satsuma": "graph deploy sales-gnosis --version-label ${VERSION_LABEL} --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key ${SATSUMA_DEPLOY_KEY} --ipfs https://ipfs.satsuma.xyz",
     "deploy:goerli": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-goerli",
     "deploy:goerli-next": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-goerli-next",
-    "deploy:goerli-satsuma": "graph deploy sales-goerli --version-label ${VERSION_LABEL} --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key ${SATSUMA_DEPLOY_KEY} --ipfs https://ipfs.satsuma.xyz",
+    "deploy:goerli-satsuma": "graph deploy sales-goerli --version-label 1.0.6 --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key yhzQqyMyzL7D48 --ipfs https://ipfs.satsuma.xyz",
     "deploy:localhost": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 tokensoft/sales-localhost",
     "deploy:mainnet": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-mainnet",
     "deploy:mainnet-next": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-mainnet-next",
