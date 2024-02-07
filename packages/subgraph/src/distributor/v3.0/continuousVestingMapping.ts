@@ -1,5 +1,5 @@
 import { log } from "@graphprotocol/graph-ts";
-import { SetContinuousVesting } from '../../../generated/templates/ContinuousVestingMerkle/IContinuousVesting'
+import { SetContinuousVesting } from '../../../generated/templates/IContinuousVesting/IContinuousVesting'
 import { ContinuousVesting } from '../../../generated/schema';
 
 export function handleSetContinuousVesting(event: SetContinuousVesting): void {
@@ -11,7 +11,5 @@ export function handleSetContinuousVesting(event: SetContinuousVesting): void {
 		continuousVesting.end = event.params.end
 		continuousVesting.cliff = event.params.cliff
 		continuousVesting.save()
-  } else {
-    log.info('No continuous vesting found for address - {}', [event.address.toHexString()])
   }
 }

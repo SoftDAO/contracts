@@ -366,6 +366,26 @@ dataSources:
         - event: DistributorDeployed(indexed address)
           handler: handleDistributorDeployed
   {{/TrancheVestingMerkleDistributorFactory.[0]}}
+  # Temporary solution until we have a IContinuousVesting template working
+  - kind: ethereum/contract
+    name: ContinuousVestingMerkleDistributor
+    network: {{SubgraphNetwork}}
+    source:
+      abi: ContinuousVestingMerkleDistributor
+      startBlock: {{LowestStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/distributor/v3.0/continuousVestingMapping.ts
+      entities:
+        - ContinuousVesting
+      abis:
+        - name: ContinuousVestingMerkleDistributor
+          file: ./abis/contracts/claim/factory/ContinuousVestingMerkleDistributor.sol/ContinuousVestingMerkleDistributor.json
+      eventHandlers:
+        - event: SetContinuousVesting(uint256,uint256,uint256)
+          handler: handleSetContinuousVesting
 templates:
   - kind: ethereum/contract
     name: FlatPriceSale
@@ -497,24 +517,25 @@ templates:
         - event: SetVoteFactor(uint256)
           handler: handleSetVoteFactor
 
-  - kind: ethereum/contract
-    name: ContinuousVesting
-    network: {{SubgraphNetwork}}
-    source:
-      abi: IContinuousVesting
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ./src/distributor/v3.0/continuousVestingMapping.ts
-      entities:
-        - ContinuousVesting
-      abis:
-        - name: IContinuousVesting
-          file: ./abis/contracts/interfaces/IContinuousVesting.sol/IContinuousVesting.json
-      eventHandlers:
-        - event: SetContinuousVesting(uint256,uint256,uint256)
-          handler: handleSetContinuousVesting
+  # This configuration for ContinuousVesting is commented out because it is not working right now
+  # - kind: ethereum/contract
+  #   name: ContinuousVesting
+  #   network: {{SubgraphNetwork}}
+  #   source:
+  #     abi: IContinuousVesting
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.6
+  #     language: wasm/assemblyscript
+  #     file: ./src/distributor/v3.0/continuousVestingMapping.ts
+  #     entities:
+  #       - ContinuousVesting
+  #     abis:
+  #       - name: IContinuousVesting
+  #         file: ./abis/contracts/interfaces/IContinuousVesting.sol/IContinuousVesting.json
+  #     eventHandlers:
+  #       - event: SetContinuousVesting(uint256,uint256,uint256)
+  #         handler: handleSetContinuousVesting
 
   - kind: ethereum/contract
     name: TrancheVesting
