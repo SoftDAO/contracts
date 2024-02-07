@@ -11,6 +11,8 @@ require("@nomiclabs/hardhat-ethers");
 
 require("@nomicfoundation/hardhat-foundry");
 
+require("@nomiclabs/hardhat-etherscan");
+
 // allow upgradeable contracts in tests
 // require('@openzeppelin/hardhat-upgrades');
 
@@ -122,7 +124,7 @@ module.exports = {
       timeoutBlocks:99999
     },
     matic: {
-      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_POLYGON_API_KEY}`,
       accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
       chainId: 137,
     },
@@ -135,6 +137,16 @@ module.exports = {
       url: `https://opt-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
       accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
       chainId: 10,
+    },
+    avalanche: {
+      url: 'https://api.avax.network/ext/bc/C/rpc',
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
+      chainId: 43114,
+    },
+    fuji: {
+      url: 'https://api.avax-test.network/ext/bc/C/rpc',
+      accounts: [`${process.env.TS_DEPLOYER_PRIVATE_KEY}`],
+      chainId: 43113,
     }
   },
   solidity: {
