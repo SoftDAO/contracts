@@ -113,7 +113,7 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
   }
 
   // get the number of tokens currently claimable by a specific use
-  function getClaimableAmount(address beneficiary) public view virtual returns (uint256) {
+  function getClaimableAmount(address beneficiary, bytes data) public view virtual returns (uint256) {
     require(records[beneficiary].initialized, 'Distributor: claim not initialized');
 
     DistributionRecord memory record = records[beneficiary];
