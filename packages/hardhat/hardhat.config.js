@@ -19,6 +19,8 @@ require("@nomiclabs/hardhat-etherscan");
 // this allows hardhat to use jest for tests
 require("hardhat-jest");
 
+require("solidity-docgen");
+
 const selectedNetwork = process.env.HARDHAT_NETWORK || process.env.NETWORK || "localhost";
 
 function getApiKey(network) {

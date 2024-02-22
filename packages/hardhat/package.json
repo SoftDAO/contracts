@@ -63,6 +63,7 @@
     "envfile": "^6.18.0",
     "jest": "^29.6.1",
     "qrcode": "^1.5.1",
+    "solidity-docgen": "^0.6.0-beta.36",
     "ts-jest": "^29.1.1"
   },
   "workspaces": {
