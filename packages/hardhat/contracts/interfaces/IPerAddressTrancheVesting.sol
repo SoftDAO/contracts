@@ -8,7 +8,7 @@ struct Tranche {
 	uint128 vestedFraction; // fraction of tokens unlockable as basis points (e.g. 100% of vested tokens is the fraction denominator, defaulting to 10000)
 }
 
-interface IPerUserTrancheVesting {
+interface IPerAddressTrancheVesting {
 	event SetTranche(uint256 indexed index, uint128 time, uint128 VestedFraction);
 
 	function getTranche(uint256 i) external view returns (Tranche memory);
