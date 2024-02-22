@@ -117,6 +117,6 @@
   },
   "devDependencies": {
     "handlebars-cmd": "^0.1.4",
-    "node-jq": "^2.3.4"
+    "node-jq": "2.3.5"
   }
 }
