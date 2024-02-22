@@ -110,6 +110,8 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
 
         DistributionRecord memory record = records[beneficiary];
 
+        // Pass in start, end, cliff from record
+        // uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp, record.start, record.end, record.cliff)) / fractionDenominator;
         uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp)) / fractionDenominator;
         return record.claimed >= claimable
             ? 0 // no more tokens to claim
