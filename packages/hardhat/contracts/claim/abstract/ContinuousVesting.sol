@@ -24,20 +24,23 @@ abstract contract ContinuousVesting is AdvancedDistributor, IContinuousVesting {
 		// use a large fraction denominator to provide the highest resolution on continuous vesting.
 		AdvancedDistributor(_token, _total, _uri, _voteFactor, 10**18, _maxDelayTime, _salt)
 	{
-		require(_start <= _cliff, "vesting cliff before start");
-		require(_cliff <= _end, "vesting end before cliff");
-		require(_end <= 4102444800, "vesting ends after 4102444800 (Jan 1 2100)");
+		// require(_start <= _cliff, "vesting cliff before start");
+		// require(_cliff <= _end, "vesting end before cliff");
+		// require(_end <= 4102444800, "vesting ends after 4102444800 (Jan 1 2100)");
 
-		start = _start;
-		cliff = _cliff;
-		end = _end;
+		// start = _start;
+		// cliff = _cliff;
+		// end = _end;
 
-		emit SetContinuousVesting(start, cliff, end);
+		// No longer need to initialize start, end, and cliff
+		// emit SetContinuousVesting(start, cliff, end);
+		emit SetContinuousVesting();
 	}
 
 	function getVestedFraction(
 		address beneficiary,
-		uint256 time // time is in seconds past the epoch (e.g. block.timestamp)
+		uint256 time // time is in seconds past the epoch (e.g. block.timestamp),
+		// start, cliff, end
 	) public view override returns (uint256) {
 		uint256 delayedTime = time- getFairDelayTime(beneficiary);
 		// no tokens are vested
@@ -63,6 +66,7 @@ abstract contract ContinuousVesting is AdvancedDistributor, IContinuousVesting {
 			uint256
 		)
 	{
+		// We probably need to update this so that it takes in an address
 		return (start, cliff, end);
 	}
 
@@ -75,6 +79,7 @@ abstract contract ContinuousVesting is AdvancedDistributor, IContinuousVesting {
 		start = _start;
 		cliff = _cliff;
 		end = _end;
+		// We probably don't need this function anymore, as it'll be per address
 		emit SetContinuousVesting(start, cliff, end);
 	}
 }
