@@ -1,8 +1,8 @@
-require("@nomiclabs/hardhat-etherscan");
+// require("@nomiclabs/hardhat-etherscan");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
-	const { deploy } = deployments;
-	const { deployer } = await getNamedAccounts();
+	// const { deploy } = deployments;
+	// const { deployer } = await getNamedAccounts();
 
 	// Sale v2.1
 	// await deploy("FlatPriceSale_v_2_1", {
