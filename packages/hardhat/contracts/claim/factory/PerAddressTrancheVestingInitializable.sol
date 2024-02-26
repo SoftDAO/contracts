@@ -6,8 +6,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "./PerAddressAdvancedDistributorInitializable.sol";
 import {IPerAddressTrancheVesting, Tranche} from "../../interfaces/IPerAddressTrancheVesting.sol";
+import { TrancheVesting } from '../GeneratePeriodicTranches.sol';
 
-abstract contract PerAddressTrancheVestingInitializable is Initializable, PerAddressAdvancedDistributorInitializable, IPerAddressTrancheVesting {
+abstract contract PerAddressTrancheVestingInitializable is Initializable, PerAddressAdvancedDistributorInitializable, IPerAddressTrancheVesting, TrancheVesting {
 
     function __TrancheVesting_init(
         IERC20 _token,
@@ -38,7 +39,7 @@ abstract contract PerAddressTrancheVestingInitializable is Initializable, PerAdd
     function getVestedFraction(address beneficiary, uint256 time, uint256 start, uint256 end, uint256 cliff) public view override returns (uint256) {
 
         // tranches = calculate the the tranche from start, end, cliff from record, record.start, record.end, record.cliff,
-        Tranche[] tranches = [];
+        Tranche[] memory tranches = generateTranches(start, end, cliff);
         uint256 delay = getFairDelayTime(beneficiary);
         for (uint256 i = tranches.length; i != 0;) {
             unchecked {
@@ -51,54 +52,5 @@ abstract contract PerAddressTrancheVestingInitializable is Initializable, PerAdd
         }
 
         return 0;
-    }
-
-    // Get a single tranche
-    function getTranche(uint256 i) public view returns (Tranche memory) {
-        // return tranches[i];
-    }
-
-    // TODO: get tranche for address
-    function getTranches() public view returns (Tranche[] memory) {
-        // return tranches;
-    }
-
-    /**
-     * @dev Tranches can be updated at any time. The quantity of tokens a user can claim is based on the
-     * claimable quantity at the time of the claim and the quantity of tokens already claimed by the user.
-     */
-    function _setTranches(Tranche[] memory _tranches) private {
-        require(_tranches.length != 0, "tranches required");
-
-        // delete tranches;
-
-        uint128 lastTime = 0;
-        uint128 lastVestedFraction = 0;
-
-        for (uint256 i = 0; i < _tranches.length;) {
-            require(_tranches[i].vestedFraction != 0, "tranche vested fraction == 0");
-            require(_tranches[i].time > lastTime, "tranche time must increase");
-            require(_tranches[i].vestedFraction > lastVestedFraction, "tranche vested fraction must increase");
-            lastTime = _tranches[i].time;
-            lastVestedFraction = _tranches[i].vestedFraction;
-            tranches.push(_tranches[i]);
-
-            emit SetTranche(i, lastTime, lastVestedFraction);
-
-            unchecked {
-                ++i;
-            }
-        }
-
-        require(lastTime <= 4102444800, "vesting ends after 4102444800 (Jan 1 2100)");
-        require(lastVestedFraction == fractionDenominator, "last tranche must vest all tokens");
-    }
-
-    /**
-     * @notice Set the vesting tranches. Tranches must be sorted by time and vested fraction must monotonically increase.
-     * The last tranche must vest all tokens (vestedFraction == fractionDenominator)
-     */
-    function setTranches(Tranche[] memory _tranches) external onlyOwner {
-        _setTranches(_tranches);
     }
 }

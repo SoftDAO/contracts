@@ -1,50 +1,50 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+pragma solidity ^0.8.0;
 
 contract TrancheVesting {
+
     struct Tranche {
-        uint256 time;
-        uint256 vestedFraction;
-        uint256 date;
+        uint128 time; // Timestamp upon which the tranche vests
+        uint128 vestedFraction; // Fraction of tokens unlockable as basis points
     }
 
-    function generatePeriodicTranches(uint256 startTime, uint256 cliffTime, uint256 endTime, string memory units) external pure returns (Tranche[] memory) {
-        uint256 totalTranches = getDifference(startTime, endTime, units);
+    // Generate an array of tranches based on input parameters
+    function generateTranches(uint256 start, uint256 end, uint256 cliff) public pure returns (Tranche[] memory) {
+        require(end > start, "End must be greater than start");
+        require(cliff >= start && cliff <= end, "Cliff must be between start and end");
 
-        Tranche[] memory tranches = new Tranche[](totalTranches);
+        uint256 vestingStart = cliff > start ? cliff : start;
+        uint256 vestingDuration = end - vestingStart;
 
-        uint256 currentIndex = 0;
+        // Calculate the number of periods as months between vestingStart and end
+        // 30.44 days per month, is this accurate? 
+        uint256 secondsPerMonth = 30.44 days;
+        uint256 periods = vestingDuration / secondsPerMonth;
 
-        for (uint256 i = 0; i < totalTranches; i++) {
-            uint256 trancheStartTime = addToDateTime(startTime, i, units);
+        // Ensure there is at least one period
+        if (periods == 0) {
+            periods = 1;
+        }
 
-            if (trancheStartTime < cliffTime) {
-                continue;
+        Tranche[] memory tranches = new Tranche[](periods);
+        uint256 periodDuration = vestingDuration / periods;
+        uint256 totalVestedFraction = 0;
+
+        for (uint256 i = 0; i < periods; i++) {
+            uint256 trancheTime = vestingStart + (periodDuration * (i + 1));
+            // What value should we use instead of 10,000? 
+            uint256 fractionPerPeriod = (i + 1) * (10000 / periods);
+            uint128 vestedFraction = uint128(fractionPerPeriod - totalVestedFraction);
+            totalVestedFraction += vestedFraction;
+
+            // Adjust the last tranche to ensure total vested fraction equals 10000
+            if (i == periods - 1 && totalVestedFraction != 10000) {
+                vestedFraction += (10000 - uint128(totalVestedFraction));
             }
 
-            uint256 vestedFraction = ((i + 1) * (100 / totalTranches)) * 100;
-
-            tranches[currentIndex] = Tranche({
-                time: trancheStartTime,
-                vestedFraction: vestedFraction,
-                date: trancheStartTime
-            });
-
-            currentIndex++;
+            tranches[i] = Tranche(uint128(trancheTime), vestedFraction);
         }
 
         return tranches;
-    }
-
-    // Function to calculate the difference between two timestamps
-    function getDifference(uint256 startTime, uint256 endTime, string memory units) internal pure returns (uint256) {
-        // Implementation of getDifference based on units
-        // You need to implement this function according to your requirements
-    }
-
-    // Function to add time to a given timestamp
-    function addToDateTime(uint256 timestamp, uint256 amount, string memory units) internal pure returns (uint256) {
-        // Implementation of addToDateTime based on units
-        // You need to implement this function according to your requirements
     }
 }
