@@ -55,14 +55,17 @@ contract PerAddressTrancheVestingMerkleDistributor is
         uint256 index, // the beneficiary's index in the merkle root
         address beneficiary, // the address that will receive tokens
         uint256 totalAmount, // the total claimable by this beneficiary
-        bytes32[] calldata merkleProof
+        bytes32[] calldata merkleProof,
+        uint256 start, // the start time of the vesting
+        uint256 end, // the end time of the vesting
+        uint256 cliff // the cliff time of the vesting
     )
         external
         validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount)), merkleProof)
         nonReentrant
     {
         // effects
-        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount);
+        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, start, end, cliff);
         // interactions
         _settleClaim(beneficiary, claimedAmount);
     }
