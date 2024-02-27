@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity 0.8.21;
 
-contract TrancheVesting {
+contract PeriodicTranches {
 
     struct Tranche {
         uint128 time; // Timestamp upon which the tranche vests

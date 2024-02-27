@@ -103,13 +103,13 @@ abstract contract PerAddressAdvancedDistributorInitializable is
         _reconcileVotingPower(beneficiary);
     }
 
-    function _executeClaim(address beneficiary, uint256 totalAmount)
+    function _executeClaim(address beneficiary, uint256 totalAmount, uint256 start, uint256 end, uint256 cliff)
         internal
         virtual
         override
         returns (uint256 _claimed)
     {
-        _claimed = super._executeClaim(beneficiary, totalAmount);
+        _claimed = super._executeClaim(beneficiary, totalAmount, start, end, cliff);
         _reconcileVotingPower(beneficiary);
     }
 

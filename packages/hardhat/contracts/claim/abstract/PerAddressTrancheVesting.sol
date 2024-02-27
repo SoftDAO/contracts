@@ -4,14 +4,14 @@ pragma solidity 0.8.21;
 import { PerAddressAdvancedDistributor } from './PerAddressAdvancedDistributor.sol';
 import { IPerAddressTrancheVesting, Tranche } from '../../interfaces/IPerAddressTrancheVesting.sol';
 import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
-import { TrancheVesting } from '../GeneratePeriodicTranches.sol';
+import { PeriodicTranches } from '../PeriodicTranches.sol';
 import "hardhat/console.sol";
 
 /**
  * @title TrancheVesting
  * @notice Distributes funds to beneficiaries over time in tranches.
  */
-abstract contract PerAddressTrancheVesting is PerAddressAdvancedDistributor, IPerAddressTrancheVesting, TrancheVesting {
+abstract contract PerAddressTrancheVesting is PerAddressAdvancedDistributor, IPerAddressTrancheVesting, PeriodicTranches {
   // time and vested fraction must monotonically increase in the tranche array
 
   constructor(

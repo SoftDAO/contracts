@@ -6,9 +6,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "./PerAddressAdvancedDistributorInitializable.sol";
 import {IPerAddressTrancheVesting, Tranche} from "../../interfaces/IPerAddressTrancheVesting.sol";
-import { TrancheVesting } from '../GeneratePeriodicTranches.sol';
+import { PeriodicTranches } from '../PeriodicTranches.sol';
 
-abstract contract PerAddressTrancheVestingInitializable is Initializable, PerAddressAdvancedDistributorInitializable, IPerAddressTrancheVesting, TrancheVesting {
+abstract contract PerAddressTrancheVestingInitializable is Initializable, PerAddressAdvancedDistributorInitializable, IPerAddressTrancheVesting, PeriodicTranches {
 
     function __TrancheVesting_init(
         IERC20 _token,

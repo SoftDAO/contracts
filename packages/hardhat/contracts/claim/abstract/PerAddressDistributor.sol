@@ -76,17 +76,12 @@ abstract contract PerAddressDistributor is IPerAddressDistributor, ReentrancyGua
     uint120 totalAmount = uint120(_totalAmount);
 
     // effects
-    if (records[beneficiary].total != totalAmount) {
-      // re-initialize if the total has been updated
+    if (records[beneficiary].total != totalAmount || records[beneficiary].start != _start || records[beneficiary].end != _end || records[beneficiary].cliff != _cliff) {
       _initializeDistributionRecord(beneficiary, totalAmount, _start, _end, _cliff);
     }
-    if(records[beneficiary].start != _start || records[beneficiary].end != _end || records[beneficiary].cliff != _cliff) {
-        _initializeDistributionRecord(beneficiary, totalAmount, _start, _end, _cliff);
-    }
-    
+
     uint120 claimableAmount = uint120(getClaimableAmount(beneficiary));
     require(claimableAmount > 0, 'Distributor: no more tokens claimable right now');
-
 
     records[beneficiary].claimed += claimableAmount;
     claimed += claimableAmount;
