@@ -90,7 +90,7 @@ contract TrancheVestingSale_2_0 is TrancheVesting {
     uint256 totalClaimableAmount = getTotalClaimableAmount(beneficiary);
 
     // effects
-    uint256 claimedAmount = super._executeClaim(beneficiary, totalClaimableAmount);
+    uint256 claimedAmount = super._executeClaim(beneficiary, totalClaimableAmount, "");
     
     // interactions
     _settleClaim(beneficiary, claimedAmount);
@@ -109,8 +109,8 @@ contract TrancheVestingSale_2_0 is TrancheVesting {
   }
 
   // get the number of tokens currently claimable by a specific user
-  function getClaimableAmount(address beneficiary) public view override returns (uint256) {
-    if (records[beneficiary].initialized) return super.getClaimableAmount(beneficiary);
+  function getClaimableAmount(address beneficiary, bytes calldata data) public view override returns (uint256) {
+    if (records[beneficiary].initialized) return super.getClaimableAmount(beneficiary, data);
 
     // we can get the claimable amount prior to initialization
     return

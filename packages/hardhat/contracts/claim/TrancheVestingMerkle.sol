@@ -59,7 +59,7 @@ contract TrancheVestingMerkle is TrancheVesting, MerkleSet {
     nonReentrant
   {
     // effects
-    uint256 claimedAmount = _executeClaim(beneficiary, totalAmount);
+    uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, "");
     // interactions
     _settleClaim(beneficiary, claimedAmount);
   }
