@@ -59,8 +59,9 @@ contract PerUserTrancheVestingMerkle is PerUserTrancheVesting, MerkleSet {
     validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount, tranches)), merkleProof)
     nonReentrant
   {
+    bytes memory data = abi.encode(tranches);
     // effects
-    uint256 claimedAmount = _executeClaim(beneficiary, totalAmount);
+    uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, data);
     // interactions
     _settleClaim(beneficiary, claimedAmount);
   }

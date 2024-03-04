@@ -65,7 +65,8 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
    */
   function _executeClaim(
     address beneficiary,
-    uint256 _totalAmount
+    uint256 _totalAmount,
+    bytes calldata data
   ) internal virtual returns (uint256) {
     uint120 totalAmount = uint120(_totalAmount);
 
@@ -75,7 +76,7 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
       _initializeDistributionRecord(beneficiary, totalAmount);
     }
     
-    uint120 claimableAmount = uint120(getClaimableAmount(beneficiary));
+    uint120 claimableAmount = uint120(getClaimableAmount(beneficiary, data));
     require(claimableAmount > 0, 'Distributor: no more tokens claimable right now');
 
     records[beneficiary].claimed += claimableAmount;
@@ -105,7 +106,8 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
   // Get tokens vested as fraction of fractionDenominator
   function getVestedFraction(
     address beneficiary,
-    uint256 time
+    uint256 time,
+    bytes data
   ) public view virtual returns (uint256);
 
   function getFractionDenominator() public view returns (uint256) {
@@ -118,7 +120,7 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
 
     DistributionRecord memory record = records[beneficiary];
 
-    uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp)) /
+    uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp, data)) /
       fractionDenominator;
     return
       record.claimed >= claimable

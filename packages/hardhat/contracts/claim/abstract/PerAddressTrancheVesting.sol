@@ -4,7 +4,6 @@ pragma solidity 0.8.21;
 import { AdvancedDistributor } from './AdvancedDistributor.sol';
 import { ITrancheVesting, Tranche } from '../../interfaces/ITrancheVesting.sol';
 import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
-import "hardhat/console.sol";
 
 /**
  * @title PerUserTrancheVesting

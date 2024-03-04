@@ -60,7 +60,7 @@ contract ContinuousVestingMerkleDistributor is Initializable, ContinuousVestingI
         nonReentrant
     {
         // effects
-        uint256 claimedAmount = super._executeClaim(beneficiary, totalAmount);
+        uint256 claimedAmount = super._executeClaim(beneficiary, totalAmount, "");
         // interactions
         _settleClaim(beneficiary, claimedAmount);
     }
