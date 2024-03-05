@@ -63,7 +63,7 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
      * @dev This function does not check permissions: caller must verify the claim is valid!
      * this function should not call any untrusted external contracts to avoid reentrancy
      */
-    function _executeClaim(address beneficiary, uint256 _totalAmount, bytes data) internal virtual returns (uint256) {
+    function _executeClaim(address beneficiary, uint256 _totalAmount, bytes memory data) internal virtual returns (uint256) {
         uint120 totalAmount = uint120(_totalAmount);
 
         // effects
@@ -98,14 +98,14 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
     }
 
     // Get tokens vested as fraction of fractionDenominator
-    function getVestedFraction(address beneficiary, uint256 time) public view virtual returns (uint256);
+    function getVestedFraction(address beneficiary, uint256 time, bytes memory data) public view virtual returns (uint256);
 
     function getFractionDenominator() public view returns (uint256) {
         return fractionDenominator;
     }
 
     // get the number of tokens currently claimable by a specific use
-    function getClaimableAmount(address beneficiary, bytes calldata data) public view virtual returns (uint256) {
+    function getClaimableAmount(address beneficiary, bytes memory data) public view virtual returns (uint256) {
         require(records[beneficiary].initialized, "Distributor: claim not initialized");
 
         DistributionRecord memory record = records[beneficiary];

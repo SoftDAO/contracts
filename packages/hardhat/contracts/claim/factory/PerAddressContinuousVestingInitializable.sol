@@ -5,9 +5,8 @@ import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "./AdvancedDistributorInitializable.sol";
-import {IContinuousVesting} from "../../interfaces/IContinuousVesting.sol";
 
-abstract contract ContinuousVestingInitializable is Initializable, AdvancedDistributorInitializable, IContinuousVesting {
+abstract contract PerAddressContinuousVestingInitializable is Initializable, AdvancedDistributorInitializable {
     function __ContinuousVesting_init(
         IERC20 _token,
         uint256 _total,

@@ -63,7 +63,7 @@ contract ContinuousVestingMerkle is ContinuousVesting, MerkleSet {
     nonReentrant
   {
     // effects
-    uint256 claimedAmount = super._executeClaim(beneficiary, totalAmount, "");
+    uint256 claimedAmount = super._executeClaim(beneficiary, totalAmount, new bytes(0));
     // interactions
     super._settleClaim(beneficiary, claimedAmount);
   }

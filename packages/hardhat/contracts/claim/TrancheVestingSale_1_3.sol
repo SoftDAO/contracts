@@ -92,7 +92,7 @@ contract TrancheVestingSale_1_3 is TrancheVesting {
     uint256 totalClaimableAmount = getTotalClaimableAmount(beneficiary);
 
     // effects
-    uint256 claimedAmount = super._executeClaim(beneficiary, totalClaimableAmount, "");
+    uint256 claimedAmount = super._executeClaim(beneficiary, totalClaimableAmount, new bytes(0));
     
     // interactions
     super._settleClaim(beneficiary, claimedAmount);

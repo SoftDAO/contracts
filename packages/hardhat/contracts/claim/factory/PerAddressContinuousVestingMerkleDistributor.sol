@@ -4,14 +4,10 @@ pragma solidity 0.8.21;
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import "./TrancheVestingInitializable.sol";
+import "./ContinuousVestingInitializable.sol";
 import "./MerkleSetInitializable.sol";
 
-contract TrancheVestingMerkleDistributor is
-    Initializable,
-    TrancheVestingInitializable,
-    MerkleSetInitializable
-{
+contract PerAddressContinuousVestingMerkleDistributor is Initializable, ContinuousVestingInitializable, MerkleSetInitializable {
     constructor() {
         _disableInitializers();
     }
@@ -20,12 +16,16 @@ contract TrancheVestingMerkleDistributor is
         IERC20 _token, // the token being claimed
         uint256 _total, // the total claimable by all users
         string memory _uri, // information on the sale (e.g. merkle proofs)
-        Tranche[] memory _tranches,
+        uint256 _start, // vesting clock starts at this time
+        uint256 _cliff, // claims open at this time
+        uint256 _end, // vesting clock ends and this time
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner
     ) public initializer {
-        __TrancheVesting_init(_token, _total, _uri, _tranches, _maxDelayTime, uint160(uint256(_merkleRoot)), _owner);
+        __ContinuousVesting_init(
+            _token, _total, _uri, _start, _cliff, _end, _maxDelayTime, uint160(uint256(_merkleRoot)), _owner
+        );
 
         __MerkleSet_init(_merkleRoot);
 
@@ -33,7 +33,7 @@ contract TrancheVestingMerkleDistributor is
     }
 
     function NAME() external pure override returns (string memory) {
-        return "TrancheVestingMerkleDistributor";
+        return "ContinuousVestingMerkleInitializable";
     }
 
     function VERSION() external pure override returns (uint256) {
@@ -60,7 +60,7 @@ contract TrancheVestingMerkleDistributor is
         nonReentrant
     {
         // effects
-        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, new bytes(0));
+        uint256 claimedAmount = super._executeClaim(beneficiary, totalAmount, new bytes(0));
         // interactions
         _settleClaim(beneficiary, claimedAmount);
     }

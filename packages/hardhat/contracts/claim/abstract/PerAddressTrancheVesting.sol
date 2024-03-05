@@ -2,14 +2,14 @@
 pragma solidity 0.8.21;
 
 import { AdvancedDistributor } from './AdvancedDistributor.sol';
-import { ITrancheVesting, Tranche } from '../../interfaces/ITrancheVesting.sol';
+import { Tranche } from '../../interfaces/ITrancheVesting.sol';
 import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
 /**
  * @title PerUserTrancheVesting
  * @notice Distributes funds to beneficiaries over time in tranches.
  */
-abstract contract PerUserTrancheVesting is AdvancedDistributor, ITrancheVesting {
+abstract contract PerAddressTrancheVesting is AdvancedDistributor {
   constructor(
     IERC20 _token,
     uint256 _total,
@@ -28,9 +28,9 @@ abstract contract PerUserTrancheVesting is AdvancedDistributor, ITrancheVesting 
   function getVestedFraction(
     address beneficiary,
     uint256 time,
-    bytes data
+    bytes calldata data
   ) public view override returns (uint256) {
-    tranches = abi.decode(data, (Tranche[]));
+    Tranche[] memory tranches = abi.decode(data, (Tranche[]));
 
     uint256 delay = getFairDelayTime(beneficiary);
     for (uint256 i = tranches.length; i != 0; ) {

@@ -3,10 +3,10 @@ pragma solidity 0.8.21;
 
 import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
-import { TrancheVesting, Tranche } from './abstract/TrancheVesting.sol';
+import { PerAddressTrancheVesting, Tranche } from './abstract/PerAddressTrancheVesting.sol';
 import { MerkleSet } from './abstract/MerkleSet.sol';
 
-contract PerUserTrancheVestingMerkle is PerUserTrancheVesting, MerkleSet {
+contract PerAddressTrancheVestingMerkle is PerAddressTrancheVesting, MerkleSet {
   constructor(
     IERC20 _token,
     uint256 _total,
@@ -16,7 +16,7 @@ contract PerUserTrancheVestingMerkle is PerUserTrancheVesting, MerkleSet {
     bytes32 _merkleRoot,
     uint160 _maxDelayTime // the maximum delay time for the fair queue
   )
-    TrancheVesting(
+    PerAddressTrancheVesting(
       _token,
       _total,
       _uri,

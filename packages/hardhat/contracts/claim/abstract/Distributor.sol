@@ -66,7 +66,7 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
   function _executeClaim(
     address beneficiary,
     uint256 _totalAmount,
-    bytes calldata data
+    bytes memory data
   ) internal virtual returns (uint256) {
     uint120 totalAmount = uint120(_totalAmount);
 
@@ -107,7 +107,7 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
   function getVestedFraction(
     address beneficiary,
     uint256 time,
-    bytes data
+    bytes memory data
   ) public view virtual returns (uint256);
 
   function getFractionDenominator() public view returns (uint256) {
@@ -115,7 +115,7 @@ abstract contract Distributor is IDistributor, ReentrancyGuard {
   }
 
   // get the number of tokens currently claimable by a specific use
-  function getClaimableAmount(address beneficiary, bytes data) public view virtual returns (uint256) {
+  function getClaimableAmount(address beneficiary, bytes memory data) public view virtual returns (uint256) {
     require(records[beneficiary].initialized, 'Distributor: claim not initialized');
 
     DistributionRecord memory record = records[beneficiary];
