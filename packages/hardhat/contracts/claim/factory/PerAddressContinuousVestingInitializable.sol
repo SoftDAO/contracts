@@ -5,9 +5,8 @@ import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "./AdvancedDistributorInitializable.sol";
-import {IContinuousVesting} from "../../interfaces/IContinuousVesting.sol";
 
-abstract contract ContinuousVestingInitializable is Initializable, AdvancedDistributorInitializable, IContinuousVesting {
+abstract contract PerAddressContinuousVestingInitializable is Initializable, AdvancedDistributorInitializable {
     function __ContinuousVesting_init(
         IERC20 _token,
         uint256 _total,
@@ -31,7 +30,7 @@ abstract contract ContinuousVestingInitializable is Initializable, AdvancedDistr
     function getVestedFraction(
         address beneficiary,
         uint256 time, // time is in seconds past the epoch (e.g. block.timestamp)
-        bytes calldata data
+        bytes memory data
     ) public view override returns (uint256) {
         (uint256 start, uint256 cliff, uint256 end) = abi.decode(data, (uint256, uint256, uint256));
 

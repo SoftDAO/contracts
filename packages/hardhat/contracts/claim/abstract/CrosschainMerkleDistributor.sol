@@ -74,7 +74,7 @@ abstract contract CrosschainMerkleDistributor is CrosschainDistributor, MerkleSe
     _verifyMembership(_getLeaf(beneficiary, totalAmount, beneficiaryDomain), proof);
 
     // effects
-    uint256 claimedAmount =  _executeClaim(beneficiary, totalAmount);
+    uint256 claimedAmount =  _executeClaim(beneficiary, totalAmount, new bytes(0));
 
     // interactions
     // NOTE: xReceive is *NOT* payable (Connext does not handle native assets). 
@@ -100,7 +100,7 @@ abstract contract CrosschainMerkleDistributor is CrosschainDistributor, MerkleSe
   ) external payable {
     _verifyMembership(_getLeaf(_beneficiary, _total, domain), _proof);
     // effects
-    uint256 claimedAmount = _executeClaim(_beneficiary, _total);
+    uint256 claimedAmount = _executeClaim(_beneficiary, _total, new bytes(0));
 
     // interactions
     _settleClaim(_beneficiary, _beneficiary, domain, claimedAmount);
@@ -137,7 +137,7 @@ abstract contract CrosschainMerkleDistributor is CrosschainDistributor, MerkleSe
 
     // Validate the claim
     _verifyMembership(_getLeaf(_beneficiary, _total, _beneficiaryDomain), _proof);
-    uint256 claimedAmount = _executeClaim(_beneficiary, _total);
+    uint256 claimedAmount = _executeClaim(_beneficiary, _total, new bytes(0));
 
     _settleClaim(_beneficiary, _recipient, _recipientDomain, claimedAmount);
   }

@@ -3,25 +3,23 @@ pragma solidity 0.8.21;
 
 import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
-import { TrancheVesting, Tranche } from './abstract/TrancheVesting.sol';
+import { PerAddressTrancheVesting, Tranche } from './abstract/PerAddressTrancheVesting.sol';
 import { MerkleSet } from './abstract/MerkleSet.sol';
 
-contract PerUserTrancheVestingMerkle is PerUserTrancheVesting, MerkleSet {
+contract PerAddressTrancheVestingMerkle is PerAddressTrancheVesting, MerkleSet {
   constructor(
     IERC20 _token,
     uint256 _total,
     string memory _uri, // information on the sale (e.g. merkle proofs)
     uint256 _voteFactor,
-    Tranche[] memory _tranches,
     bytes32 _merkleRoot,
     uint160 _maxDelayTime // the maximum delay time for the fair queue
   )
-    TrancheVesting(
+    PerAddressTrancheVesting(
       _token,
       _total,
       _uri,
       _voteFactor,
-      _tranches,
       _maxDelayTime,
       uint160(uint256(_merkleRoot))
     )
@@ -56,7 +54,7 @@ contract PerUserTrancheVestingMerkle is PerUserTrancheVesting, MerkleSet {
     bytes32[] calldata merkleProof
   )
     external
-    validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount, tranches)), merkleProof)
+    validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount)), merkleProof)
     nonReentrant
   {
     bytes memory data = abi.encode(tranches);

@@ -100,7 +100,7 @@ contract PriceTierVestingSale_2_0 is PriceTierVesting {
     uint256 totalClaimableAmount = getTotalClaimableAmount(beneficiary);
 
     // effects
-    uint256 claimedAmount = super._executeClaim(beneficiary, totalClaimableAmount, "");
+    uint256 claimedAmount = super._executeClaim(beneficiary, totalClaimableAmount, new bytes(0));
 
     // interactions
     super._settleClaim(beneficiary, claimedAmount);
@@ -119,12 +119,12 @@ contract PriceTierVestingSale_2_0 is PriceTierVesting {
   }
 
   // get the number of tokens currently claimable by a specific user
-  function getClaimableAmount(address beneficiary, bytes calldata data) public view override returns (uint256) {
+  function getClaimableAmount(address beneficiary, bytes memory data) public view override returns (uint256) {
     if (records[beneficiary].initialized) return super.getClaimableAmount(beneficiary, data);
 
     // we can get the claimable amount prior to initialization
     return
-      (getPurchasedAmount(beneficiary) * getVestedFraction(beneficiary, block.timestamp)) /
+      (getPurchasedAmount(beneficiary) * getVestedFraction(beneficiary, block.timestamp, new bytes(0))) /
       fractionDenominator;
   }
 
