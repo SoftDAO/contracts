@@ -28,7 +28,7 @@ abstract contract PerAddressTrancheVesting is AdvancedDistributor {
   function getVestedFraction(
     address beneficiary,
     uint256 time,
-    bytes calldata data
+    bytes memory data
   ) public view override returns (uint256) {
     Tranche[] memory tranches = abi.decode(data, (Tranche[]));
 

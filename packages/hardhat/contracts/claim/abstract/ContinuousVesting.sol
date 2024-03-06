@@ -38,7 +38,7 @@ abstract contract ContinuousVesting is AdvancedDistributor, IContinuousVesting {
 	function getVestedFraction(
 		address beneficiary,
 		uint256 time, // time is in seconds past the epoch (e.g. block.timestamp)
-    bytes calldata /*data*/
+    bytes memory /*data*/
 	) public view override returns (uint256) {
 		uint256 delayedTime = time- getFairDelayTime(beneficiary);
 		// no tokens are vested

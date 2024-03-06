@@ -12,7 +12,6 @@ contract PerAddressTrancheVestingMerkle is PerAddressTrancheVesting, MerkleSet {
     uint256 _total,
     string memory _uri, // information on the sale (e.g. merkle proofs)
     uint256 _voteFactor,
-    Tranche[] memory _tranches,
     bytes32 _merkleRoot,
     uint160 _maxDelayTime // the maximum delay time for the fair queue
   )
@@ -21,7 +20,6 @@ contract PerAddressTrancheVestingMerkle is PerAddressTrancheVesting, MerkleSet {
       _total,
       _uri,
       _voteFactor,
-      _tranches,
       _maxDelayTime,
       uint160(uint256(_merkleRoot))
     )
@@ -56,7 +54,7 @@ contract PerAddressTrancheVestingMerkle is PerAddressTrancheVesting, MerkleSet {
     bytes32[] calldata merkleProof
   )
     external
-    validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount, tranches)), merkleProof)
+    validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount)), merkleProof)
     nonReentrant
   {
     bytes memory data = abi.encode(tranches);
