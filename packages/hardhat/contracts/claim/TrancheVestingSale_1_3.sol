@@ -111,12 +111,12 @@ contract TrancheVestingSale_1_3 is TrancheVesting {
   }
 
   // get the number of tokens currently claimable by a specific user
-  function getClaimableAmount(address beneficiary, bytes calldata data) public view override returns (uint256) {
+  function getClaimableAmount(address beneficiary, bytes memory data) public view override returns (uint256) {
     if (records[beneficiary].initialized) return super.getClaimableAmount(beneficiary, data);
 
     // we can get the claimable amount prior to initialization
     return
-      (getPurchasedAmount(beneficiary) * getVestedFraction(beneficiary, block.timestamp)) /
+      (getPurchasedAmount(beneficiary) * getVestedFraction(beneficiary, block.timestamp, new bytes(0))) /
       fractionDenominator;
   }
 

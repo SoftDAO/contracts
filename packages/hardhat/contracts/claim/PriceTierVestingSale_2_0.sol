@@ -124,7 +124,7 @@ contract PriceTierVestingSale_2_0 is PriceTierVesting {
 
     // we can get the claimable amount prior to initialization
     return
-      (getPurchasedAmount(beneficiary) * getVestedFraction(beneficiary, block.timestamp)) /
+      (getPurchasedAmount(beneficiary) * getVestedFraction(beneficiary, block.timestamp, new bytes(0))) /
       fractionDenominator;
   }
 

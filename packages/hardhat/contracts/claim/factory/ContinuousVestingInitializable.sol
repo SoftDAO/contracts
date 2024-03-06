@@ -46,7 +46,8 @@ abstract contract ContinuousVestingInitializable is Initializable, AdvancedDistr
 
     function getVestedFraction(
         address beneficiary,
-        uint256 time // time is in seconds past the epoch (e.g. block.timestamp)
+        uint256 time, // time is in seconds past the epoch (e.g. block.timestamp)
+        bytes memory // data
     ) public view override returns (uint256) {
         uint256 delayedTime = time - getFairDelayTime(beneficiary);
         // no tokens are vested
