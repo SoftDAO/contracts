@@ -27,7 +27,7 @@ contract PerAddressTrancheVestingMerkle is PerAddressTrancheVesting, MerkleSet {
   {}
 
   function NAME() external pure override returns (string memory) {
-    return 'TrancheVestingMerkle';
+    return 'PerAddressTrancheVestingMerkle';
   }
 
   function VERSION() external pure override returns (uint256) {
