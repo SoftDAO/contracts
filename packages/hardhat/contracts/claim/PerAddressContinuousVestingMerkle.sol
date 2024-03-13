@@ -36,7 +36,7 @@ contract PerAddressContinuousVestingMerkle is PerAddressContinuousVesting, Merkl
   }
 
   function VERSION() external pure override returns (uint256) {
-    return 3;
+    return 4;
   }
 
   function initializeDistributionRecord(

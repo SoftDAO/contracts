@@ -31,7 +31,7 @@ contract PerAddressTrancheVestingMerkle is PerAddressTrancheVesting, MerkleSet {
   }
 
   function VERSION() external pure override returns (uint256) {
-    return 3;
+    return 4;
   }
 
   function initializeDistributionRecord(
