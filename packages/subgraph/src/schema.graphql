@@ -38,6 +38,7 @@ type Sale @entity {
   escrowNativeBalance: BigInt!
   
 
+
   # payment info
   baseCurrency: String!
   paymentMethods: [PaymentMethod!]!
