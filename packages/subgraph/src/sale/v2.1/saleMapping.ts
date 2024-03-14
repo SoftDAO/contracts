@@ -39,7 +39,7 @@ export function handleSetPaymentTokenInfo(event: SetPaymentTokenInfo): void {
   }
 
   const paymentMethod = getOrCreateTokenPaymentMethod(
-    event.params.token,
+    event.params.token, 
     event.params.paymentTokenInfo.decimals,
     event.params.paymentTokenInfo.oracle,
     event.block
@@ -109,7 +109,7 @@ export function handleBuy(event: Buy): void {
 
   // The buy event uses token == address(0) to signify a native purchase
   let paymentMethod: PaymentMethod;
-  const isNative = event.params.token.toHexString() == '0x0000000000000000000000000000000000000000'
+  const isNative  = event.params.token.toHexString() == '0x0000000000000000000000000000000000000000'
   if (isNative) {
     // native payment
     const nativeOracle = saleContract.nativeTokenPriceOracle();
@@ -139,7 +139,7 @@ export function handleBuy(event: Buy): void {
     // fallback for 0 value transactions
     price = BigInt.fromI32(0);
   }
-
+  
   // Create a new purchase
   const id = event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
   let purchase = new Purchase(id);
@@ -159,9 +159,6 @@ export function handleBuy(event: Buy): void {
   // update the sale metrics
   sale.purchaseTotal = sale.purchaseTotal.plus(purchase.baseCurrencyValue);
   sale.purchaseCount = sale.purchaseCount.plus(BigInt.fromI32(1));
-  if (isNative) {
-    sale.escrowNativeBalance = sale.escrowNativeBalance.plus(purchase.spent);
-  }
   sale.save();
 
   // update the payment method metrics
@@ -182,7 +179,7 @@ export function handleBuy(event: Buy): void {
 }
 
 export function handleSweepToken(event: SweepToken): void {
-  // TODO: handle sweeps
+// TODO: handle sweeps
 }
 
 export function handleSweepNative(event: SweepNative): void {
