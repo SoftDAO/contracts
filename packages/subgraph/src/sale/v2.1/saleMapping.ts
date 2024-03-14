@@ -191,6 +191,7 @@ export function handleSweepNative(event: SweepNative): void {
   const sale = Sale.load(saleId);
   if (!sale) {
     log.error('missing sale {}', [saleId]);
+
     return;
     // throw new Error('no sale to update: ' + saleId);
   }

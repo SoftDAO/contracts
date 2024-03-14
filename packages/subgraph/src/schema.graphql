@@ -36,6 +36,7 @@ type Sale @entity {
   maxQueueTime: BigInt!
   uris: [String!]!
   escrowNativeBalance: BigInt!
+  
 
   # payment info
   baseCurrency: String!
