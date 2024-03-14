@@ -160,6 +160,7 @@ export function handleBuy(event: Buy): void {
   sale.purchaseTotal = sale.purchaseTotal.plus(purchase.baseCurrencyValue);
   sale.purchaseCount = sale.purchaseCount.plus(BigInt.fromI32(1));
   if (isNative) {
+
     sale.escrowNativeBalance = sale.escrowNativeBalance.plus(purchase.spent);
   }
   sale.save();
