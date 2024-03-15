@@ -8,10 +8,6 @@ import { MerkleSet } from './abstract/MerkleSet.sol';
 
 contract PerAddressContinuousVestingMerkle is PerAddressContinuousVesting, MerkleSet {
 
-  uint256 private start;
-  uint256 private cliff;
-  uint256 private end;
-
   constructor(
     IERC20 _token, // the token being claimed
     uint256 _total, // the total claimable by all users
@@ -43,10 +39,13 @@ contract PerAddressContinuousVestingMerkle is PerAddressContinuousVesting, Merkl
     uint256 index, // the beneficiary's index in the merkle root
     address beneficiary, // the address that will receive tokens
     uint256 amount, // the total claimable by this beneficiary
+    uint256 start, // the start of the vesting period
+    uint256 cliff, // cliff time
+    uint256 end, // the end of the vesting period
     bytes32[] calldata merkleProof
   )
     external
-    validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, amount)), merkleProof)
+    validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, amount, start, cliff, end)), merkleProof)
   {
     _initializeDistributionRecord(beneficiary, amount);
   }
@@ -55,10 +54,13 @@ contract PerAddressContinuousVestingMerkle is PerAddressContinuousVesting, Merkl
     uint256 index, // the beneficiary's index in the merkle root
     address beneficiary, // the address that will receive tokens
     uint256 totalAmount, // the total claimable by this beneficiary
+    uint256 start, // the start of the vesting period
+    uint256 cliff, // cliff time
+    uint256 end, // the end of the vesting period
     bytes32[] calldata merkleProof
   )
     external
-    validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount)), merkleProof)
+    validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount, start, cliff, end)), merkleProof)
     nonReentrant
   {
     // effects
@@ -70,20 +72,4 @@ contract PerAddressContinuousVestingMerkle is PerAddressContinuousVesting, Merkl
   function setMerkleRoot(bytes32 _merkleRoot) external onlyOwner {
     _setMerkleRoot(_merkleRoot);
   }
-  
-  function getVestingConfig() external view override returns (uint256, uint256, uint256) {
-    return (start, cliff, end);
-  }
-
-  function setVestingConfig(
-    uint256 _start,
-    uint256 _cliff,
-    uint256 _end
-  ) external override onlyOwner {
-    start = _start;
-    cliff = _cliff;
-    end = _end;
-    emit SetContinuousVesting(start, cliff, end);
-  }
-
 }

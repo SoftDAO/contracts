@@ -30,19 +30,22 @@ contract PerAddressContinuousVestingMerkleDistributor is Initializable, PerAddre
     }
 
     function NAME() external pure override returns (string memory) {
-        return "ContinuousVestingMerkleInitializable";
+        return "PerAddressContinuousVestingInitializableMerkleDistributor";
     }
 
     function VERSION() external pure override returns (uint256) {
-        return 3;
+        return 4;
     }
 
     function initializeDistributionRecord(
         uint256 index, // the beneficiary's index in the merkle root
         address beneficiary, // the address that will receive tokens
         uint256 amount, // the total claimable by this beneficiary
+        uint256 start, // the start of the vesting period
+        uint256 cliff, // cliff time
+        uint256 end, // the end of the vesting period
         bytes32[] calldata merkleProof
-    ) external validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, amount)), merkleProof) {
+    ) external validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, amount, start, cliff, end)), merkleProof) {
         _initializeDistributionRecord(beneficiary, amount);
     }
 
@@ -50,10 +53,13 @@ contract PerAddressContinuousVestingMerkleDistributor is Initializable, PerAddre
         uint256 index, // the beneficiary's index in the merkle root
         address beneficiary, // the address that will receive tokens
         uint256 totalAmount, // the total claimable by this beneficiary
+        uint256 start, // the start of the vesting period
+        uint256 cliff, // cliff time
+        uint256 end, // the end of the vesting period
         bytes32[] calldata merkleProof
     )
         external
-        validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount)), merkleProof)
+        validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount, start, cliff, end)), merkleProof)
         nonReentrant
     {
         // effects
