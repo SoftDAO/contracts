@@ -117,6 +117,17 @@
       "address": "0x99C9b22050E560E34d903a89388F4E41fCD61895"
     }
   },
+  "sepolia": {
+    "FlatPriceSaleFactory": {
+      "address": "0x7b8A7196991fFd1d08ba4b93df7f241767Dfc44d"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0x5Bc44bCfa7f922096A7B5526ee0266f801FfE9a7"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x724391bC965Ed86dDDAE9CB11BC85Db2fd5557B5"
+    }
+  },
   "gnosis": {
     "Registry": {
       "address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D"

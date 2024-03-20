@@ -5,9 +5,1242 @@
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
-  31337: {
-    ContinuousVestingMerkleDistributor: {
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  11155111: {
+    FlatPriceSale: {
+      address: "0xf8C640003A2CA24272eB05a5493e84c62Efc3d9a",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_feeBips",
+              type: "uint256",
+            },
+            {
+              internalType: "address payable",
+              name: "_feeRecipient",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "buyer",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "baseCurrencyValue",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenValue",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenFee",
+              type: "uint256",
+            },
+          ],
+          name: "Buy",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address payable",
+              name: "feeRecipient",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "feeBips",
+              type: "uint256",
+            },
+          ],
+          name: "ImplementationConstructor",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "address payable",
+                  name: "recipient",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "merkleRoot",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "saleMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "userMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "purchaseMinimum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxQueueTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "URI",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct Config",
+              name: "config",
+              type: "tuple",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "baseCurrency",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+              name: "nativeOracle",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "nativePaymentsEnabled",
+              type: "bool",
+            },
+          ],
+          name: "Initialize",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "distributor",
+              type: "address",
+            },
+          ],
+          name: "RegisterDistributor",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "contract IERC20Upgradeable",
+              name: "token",
+              type: "address",
+            },
+            {
+              components: [
+                {
+                  internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+                  name: "oracle",
+                  type: "address",
+                },
+                {
+                  internalType: "uint8",
+                  name: "decimals",
+                  type: "uint8",
+                },
+              ],
+              indexed: false,
+              internalType: "struct PaymentTokenInfo",
+              name: "paymentTokenInfo",
+              type: "tuple",
+            },
+          ],
+          name: "SetPaymentTokenInfo",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "SweepNative",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "SweepToken",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "address payable",
+                  name: "recipient",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "merkleRoot",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "saleMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "userMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "purchaseMinimum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxQueueTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "URI",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct Config",
+              name: "config",
+              type: "tuple",
+            },
+          ],
+          name: "Update",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "BASE_CURRENCY_DECIMALS",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "baseCurrency",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "data",
+              type: "bytes",
+            },
+            {
+              internalType: "bytes32[]",
+              name: "proof",
+              type: "bytes32[]",
+            },
+          ],
+          name: "buyWithNative",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "contract IERC20Upgradeable",
+              name: "token",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "quantity",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "data",
+              type: "bytes",
+            },
+            {
+              internalType: "bytes32[]",
+              name: "proof",
+              type: "bytes32[]",
+            },
+          ],
+          name: "buyWithToken",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "user",
+              type: "address",
+            },
+          ],
+          name: "buyerTotal",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "config",
+          outputs: [
+            {
+              internalType: "address payable",
+              name: "recipient",
+              type: "address",
+            },
+            {
+              internalType: "bytes32",
+              name: "merkleRoot",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "saleMaximum",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "userMaximum",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "purchaseMinimum",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "startTime",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "endTime",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "maxQueueTime",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "URI",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "merkleRoot",
+              type: "bytes32",
+            },
+          ],
+          name: "generatePseudorandomValue",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "buyer",
+              type: "address",
+            },
+          ],
+          name: "getFairQueueTime",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+              name: "oracle",
+              type: "address",
+            },
+          ],
+          name: "getOraclePrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "contract IERC20Upgradeable",
+              name: "token",
+              type: "address",
+            },
+          ],
+          name: "getPaymentToken",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+                  name: "oracle",
+                  type: "address",
+                },
+                {
+                  internalType: "uint8",
+                  name: "decimals",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct PaymentTokenInfo",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+            {
+              components: [
+                {
+                  internalType: "address payable",
+                  name: "recipient",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "merkleRoot",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "saleMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "userMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "purchaseMinimum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxQueueTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "URI",
+                  type: "string",
+                },
+              ],
+              internalType: "struct Config",
+              name: "_config",
+              type: "tuple",
+            },
+            {
+              internalType: "string",
+              name: "_baseCurrency",
+              type: "string",
+            },
+            {
+              internalType: "bool",
+              name: "_nativePaymentsEnabled",
+              type: "bool",
+            },
+            {
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+              name: "_nativeTokenPriceOracle",
+              type: "address",
+            },
+            {
+              internalType: "contract IERC20Upgradeable[]",
+              name: "tokens",
+              type: "address[]",
+            },
+            {
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck[]",
+              name: "oracles",
+              type: "address[]",
+            },
+            {
+              internalType: "uint8[]",
+              name: "decimals",
+              type: "uint8[]",
+            },
+          ],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "isOpen",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "isOver",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "root",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "bytes",
+              name: "data",
+              type: "bytes",
+            },
+            {
+              internalType: "bytes32[]",
+              name: "proof",
+              type: "bytes32[]",
+            },
+          ],
+          name: "isValidMerkleProof",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "metrics",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "purchaseCount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "buyerCount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "purchaseTotal",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nativeTokenPriceOracle",
+          outputs: [
+            {
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "contract IERC20Upgradeable",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "paymentTokens",
+          outputs: [
+            {
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+              name: "oracle",
+              type: "address",
+            },
+            {
+              internalType: "uint8",
+              name: "decimals",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "dest",
+              type: "address",
+            },
+          ],
+          name: "payments",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_distributor",
+              type: "address",
+            },
+          ],
+          name: "registerDistributor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "sweepNative",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "contract IERC20Upgradeable",
+              name: "token",
+              type: "address",
+            },
+          ],
+          name: "sweepToken",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenQuantity",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenDecimals",
+              type: "uint256",
+            },
+            {
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+              name: "oracle",
+              type: "address",
+            },
+          ],
+          name: "tokensToBaseCurrency",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "total",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "address payable",
+                  name: "recipient",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "merkleRoot",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "saleMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "userMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "purchaseMinimum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxQueueTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "URI",
+                  type: "string",
+                },
+              ],
+              internalType: "struct Config",
+              name: "_config",
+              type: "tuple",
+            },
+          ],
+          name: "update",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address payable",
+              name: "payee",
+              type: "address",
+            },
+          ],
+          name: "withdrawPayments",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        buyWithNative: "contracts/sale/v2/Sale.sol",
+        buyWithToken: "contracts/sale/v2/Sale.sol",
+        buyerTotal: "contracts/sale/v2/Sale.sol",
+        isOpen: "contracts/sale/v2/Sale.sol",
+        isOver: "contracts/sale/v2/Sale.sol",
+        isValidMerkleProof: "contracts/sale/v2/Sale.sol",
+        owner: "contracts/sale/v2/Sale.sol",
+        renounceOwnership: "contracts/sale/v2/Sale.sol",
+        total: "contracts/sale/v2/Sale.sol",
+        transferOwnership: "contracts/sale/v2/Sale.sol",
+        payments:
+          "@openzeppelin/contracts-upgradeable/security/PullPaymentUpgradeable.sol",
+        withdrawPayments:
+          "@openzeppelin/contracts-upgradeable/security/PullPaymentUpgradeable.sol",
+      },
+    },
+    FlatPriceSaleFactory: {
+      address: "0x7b8A7196991fFd1d08ba4b93df7f241767Dfc44d",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_implementation",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "implementation",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "contract FlatPriceSale",
+              name: "clone",
+              type: "address",
+            },
+            {
+              components: [
+                {
+                  internalType: "address payable",
+                  name: "recipient",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "merkleRoot",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "saleMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "userMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "purchaseMinimum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxQueueTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "URI",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct Config",
+              name: "config",
+              type: "tuple",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "baseCurrency",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+              name: "nativeOracle",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "nativePaymentsEnabled",
+              type: "bool",
+            },
+          ],
+          name: "NewSale",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "implementation",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+            {
+              components: [
+                {
+                  internalType: "address payable",
+                  name: "recipient",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "merkleRoot",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "saleMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "userMaximum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "purchaseMinimum",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxQueueTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "URI",
+                  type: "string",
+                },
+              ],
+              internalType: "struct Config",
+              name: "_config",
+              type: "tuple",
+            },
+            {
+              internalType: "string",
+              name: "_baseCurrency",
+              type: "string",
+            },
+            {
+              internalType: "bool",
+              name: "_nativePaymentsEnabled",
+              type: "bool",
+            },
+            {
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck",
+              name: "_nativeTokenPriceOracle",
+              type: "address",
+            },
+            {
+              internalType: "contract IERC20Upgradeable[]",
+              name: "tokens",
+              type: "address[]",
+            },
+            {
+              internalType: "contract IOracleOrL2OracleWithSequencerCheck[]",
+              name: "oracles",
+              type: "address[]",
+            },
+            {
+              internalType: "uint8[]",
+              name: "decimals",
+              type: "uint8[]",
+            },
+          ],
+          name: "newSale",
+          outputs: [
+            {
+              internalType: "contract FlatPriceSale",
+              name: "sale",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    TrancheVestingMerkleDistributor: {
+      address: "0xab276a23b467CfDc86f59C1aF3103E526ebc38a2",
       abi: [
         {
           inputs: [],
@@ -236,31 +1469,6 @@ const deployedContracts = {
           inputs: [
             {
               indexed: false,
-              internalType: "uint256",
-              name: "start",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "cliff",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "end",
-              type: "uint256",
-            },
-          ],
-          name: "SetContinuousVesting",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
               internalType: "uint160",
               name: "maxDelayTime",
               type: "uint160",
@@ -319,6 +1527,31 @@ const deployedContracts = {
             },
           ],
           name: "SetTotal",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint128",
+              name: "time",
+              type: "uint128",
+            },
+            {
+              indexed: false,
+              internalType: "uint128",
+              name: "VestedFraction",
+              type: "uint128",
+            },
+          ],
+          name: "SetTranche",
           type: "event",
         },
         {
@@ -966,6 +2199,62 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          name: "getTranche",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getTranches",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "beneficiary",
               type: "address",
@@ -978,29 +2267,6 @@ const deployedContracts = {
           ],
           name: "getVestedFraction",
           outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getVestingConfig",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
             {
               internalType: "uint256",
               name: "",
@@ -1090,19 +2356,21 @@ const deployedContracts = {
               type: "string",
             },
             {
-              internalType: "uint256",
-              name: "_start",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_cliff",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_end",
-              type: "uint256",
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "_tranches",
+              type: "tuple[]",
             },
             {
               internalType: "bytes32",
@@ -1348,12 +2616,24 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "string",
-              name: "_uri",
-              type: "string",
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "_tranches",
+              type: "tuple[]",
             },
           ],
-          name: "setUri",
+          name: "setTranches",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -1361,22 +2641,12 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
-              name: "_start",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_cliff",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_end",
-              type: "uint256",
+              internalType: "string",
+              name: "_uri",
+              type: "string",
             },
           ],
-          name: "setVestingConfig",
+          name: "setUri",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -1578,97 +2848,86 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        CLOCK_MODE:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+        CLOCK_MODE: "contracts/claim/factory/TrancheVestingInitializable.sol",
         DOMAIN_SEPARATOR:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        NAME: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        VERSION: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        adjust: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        allowance: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        approve: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        balanceOf: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        checkpoints:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        claimed: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        clock: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        decimals: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        NAME: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        VERSION: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        adjust: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        allowance: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        approve: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        balanceOf: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        checkpoints: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        claimed: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        clock: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        decimals: "contracts/claim/factory/TrancheVestingInitializable.sol",
         decreaseAllowance:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        delegate: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        delegate: "contracts/claim/factory/TrancheVestingInitializable.sol",
         delegateBySig:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        delegates: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        delegates: "contracts/claim/factory/TrancheVestingInitializable.sol",
         distancePerSecond:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        eip712Domain:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        eip712Domain: "contracts/claim/factory/TrancheVestingInitializable.sol",
         getClaimableAmount:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getDistributionRecord:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getFairDelayTime:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getFractionDenominator:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getPastTotalSupply:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        getPastVotes:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        getPastVotes: "contracts/claim/factory/TrancheVestingInitializable.sol",
         getSweepRecipient:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getTotalVotes:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        getTranche: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        getTranches: "contracts/claim/factory/TrancheVestingInitializable.sol",
         getVestedFraction:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        getVestingConfig:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getVoteFactor:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        getVotes: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        getVotes: "contracts/claim/factory/TrancheVestingInitializable.sol",
         increaseAllowance:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        maxDelayTime:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        name: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        nonces: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        maxDelayTime: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        name: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        nonces: "contracts/claim/factory/TrancheVestingInitializable.sol",
         numCheckpoints:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        owner: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        permit: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        randomValue:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        owner: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        permit: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        randomValue: "contracts/claim/factory/TrancheVestingInitializable.sol",
         renounceOwnership:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         setSweepRecipient:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        setToken: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        setTotal: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        setUri: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        setVestingConfig:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        setToken: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        setTotal: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        setTranches: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        setUri: "contracts/claim/factory/TrancheVestingInitializable.sol",
         setVoteFactor:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        sweepNative:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        sweepToken:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        symbol: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        token: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        total: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        totalSupply:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        transfer: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        transferFrom:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        sweepNative: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        sweepToken: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        symbol: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        token: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        total: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        totalSupply: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        transfer: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        transferFrom: "contracts/claim/factory/TrancheVestingInitializable.sol",
         transferOwnership:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        uri: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        uri: "contracts/claim/factory/TrancheVestingInitializable.sol",
         getMerkleRoot: "contracts/claim/factory/MerkleSetInitializable.sol",
       },
     },
-    ContinuousVestingMerkleDistributorFactory: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    TrancheVestingMerkleDistributorFactory: {
+      address: "0x5Bc44bCfa7f922096A7B5526ee0266f801FfE9a7",
       abi: [
         {
           inputs: [
@@ -1712,19 +2971,21 @@ const deployedContracts = {
               type: "string",
             },
             {
-              internalType: "uint256",
-              name: "_start",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_cliff",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_end",
-              type: "uint256",
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "_tranches",
+              type: "tuple[]",
             },
             {
               internalType: "bytes32",
@@ -1750,7 +3011,7 @@ const deployedContracts = {
           name: "deployDistributor",
           outputs: [
             {
-              internalType: "contract ContinuousVestingMerkleDistributor",
+              internalType: "contract TrancheVestingMerkleDistributor",
               name: "distributor",
               type: "address",
             },
@@ -1808,19 +3069,21 @@ const deployedContracts = {
               type: "string",
             },
             {
-              internalType: "uint256",
-              name: "_start",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_cliff",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_end",
-              type: "uint256",
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "_tranches",
+              type: "tuple[]",
             },
             {
               internalType: "bytes32",
