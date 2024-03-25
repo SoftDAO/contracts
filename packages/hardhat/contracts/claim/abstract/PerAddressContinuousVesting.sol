@@ -2,10 +2,9 @@
 pragma solidity 0.8.21;
 
 import { Distributor, AdvancedDistributor } from "./AdvancedDistributor.sol";
-import { IContinuousVesting } from "../../interfaces/IContinuousVesting.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-abstract contract PerAddressContinuousVesting is AdvancedDistributor, IContinuousVesting {
+abstract contract PerAddressContinuousVesting is AdvancedDistributor {
 	constructor(
 		IERC20 _token,
 		uint256 _total,

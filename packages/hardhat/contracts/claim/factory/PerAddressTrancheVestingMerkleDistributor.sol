@@ -67,18 +67,4 @@ contract PerAddressTrancheVestingMerkleDistributor is
     function setMerkleRoot(bytes32 _merkleRoot) external onlyOwner {
         _setMerkleRoot(_merkleRoot);
     }
-
-    // ITrancheVesting interface stub implementations
-    function getTranche(uint256) external pure override returns (Tranche memory) {
-        revert("Operation not supported");
-    }
-
-    function getTranches() external pure override returns (Tranche[] memory) {
-        revert("Operation not supported");
-    }
-
-    function setTranches(Tranche[] memory) external pure override {
-        revert("Operation not supported");
-    }
-
 }
