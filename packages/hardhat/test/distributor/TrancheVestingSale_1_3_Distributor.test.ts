@@ -662,7 +662,7 @@ describe("TrancheVestingSale_1_3", function () {
 
   it("Handles negative adjustments to a user's total claimable amount", async () => {
     const buyer = buyer4
-    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
+    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "")
     
     // adjust a buyer's allocation downward
     await fullyVestedDistributor.initializeDistributionRecord(buyer.address)
@@ -671,7 +671,7 @@ describe("TrancheVestingSale_1_3", function () {
       -10000n
     )
 
-    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
+    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "")
     expect(newAllocation).toEqual(initialAllocation.sub(10000n))
 
     // claim
@@ -690,7 +690,7 @@ describe("TrancheVestingSale_1_3", function () {
 
   it("Handles positive adjustments to a user's total claimable amount", async () => {
     const buyer = buyer5
-    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
+    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "")
     
     // adjust a buyer's allocation upward
     await fullyVestedDistributor.initializeDistributionRecord(buyer.address)
@@ -700,7 +700,7 @@ describe("TrancheVestingSale_1_3", function () {
       )
       
       
-    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address)
+    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "")
     expect(newAllocation).toEqual(initialAllocation.add(10000n))
     
     // transfer additional tokens to the distributor

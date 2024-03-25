@@ -35,7 +35,8 @@ abstract contract TrancheVesting is AdvancedDistributor, ITrancheVesting {
 	*/
   function getVestedFraction(
     address beneficiary,
-    uint256 time
+    uint256 time,
+    bytes memory /*data*/
   ) public view override returns (uint256) {
     uint256 delay = getFairDelayTime(beneficiary);
     for (uint256 i = tranches.length; i != 0; ) {
