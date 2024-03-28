@@ -62,6 +62,7 @@ const keyToGetter = (k: string) => `
 	  return value!.toString()
   }`
 
+	// @ts-ignore
 const objectToAssemblyScriptClass = (name, obj: { [k: string]: string }): string => {
 	// workaround for AssemblyScript, which does not support untyped objects: https://www.assemblyscript.org/concepts.html
 	return (
@@ -84,7 +85,7 @@ export const ${name} = new ${name}Class
 
 
 
-const getFilepaths = (inputDirectory): string[] => {
+const getFilepaths = (inputDirectory: any): string[] => {
 
 	const files: string[] = []
 	const dirs: string[] = []

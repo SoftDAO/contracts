@@ -34,6 +34,9 @@ function getApiKey(network) {
     case "goerli": {
       return process.env.ETHERSCAN_API_KEY;
     }
+    case "sepolia": {
+      return process.env.ETHERSCAN_API_KEY;
+    }
     case "optimism":
     case "goerliOptimism":{
       // optimism.etherscan.io: create an account at https://optimistic.etherscan.io/myapikey

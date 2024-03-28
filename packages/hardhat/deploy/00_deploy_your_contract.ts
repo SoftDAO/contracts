@@ -25,41 +25,41 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   // THIS IS A SAMPE ON HOW OT DEPLOY A CONTRACT USING `yarn deploy` COMMAND
   // YOU CAN DEPLOY YOUR OWN CONTRACTS BY MODIFYING THIS FILE
 
-  await deploy("ContinuousVestingMerkleDistributor", {
+  await deploy("FlatPriceSale", {
     from: deployer,
     // Contract constructor arguments
-    args: [],
-    log: true,
+		args: [0, "0x0000000000000000000000000000000000000000"],
+  log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
 
   // Get the deployed contract to interact with it after deploying.
-  const ContinuousVestingMerkleDistributorContract = await hre.ethers.getContract<Contract>(
-    "ContinuousVestingMerkleDistributor",
+  const FlatPriceSaleContract = await hre.ethers.getContract<Contract>(
+    "FlatPriceSale",
     deployer,
   );
-  console.log("👋 Initial greeting:", ContinuousVestingMerkleDistributorContract.target);
+  console.log("👋 Initial greeting:", FlatPriceSaleContract.target);
 
-  await deploy("ContinuousVestingMerkleDistributorFactory", {
+  await deploy("FlatPriceSaleFactory", {
     from: deployer,
     // Contract constructor arguments
-    args: [ContinuousVestingMerkleDistributorContract.target],
+    args: [FlatPriceSaleContract.target],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
 
-  const continuousVestingMerkleDistributorFactoryContract = await hre.ethers.getContract<Contract>(
-    "ContinuousVestingMerkleDistributorFactory",
+  const flatPriceSaleContractFactory = await hre.ethers.getContract<Contract>(
+    "FlatPriceSaleFactory",
     deployer,
   );
 
   console.log(
-    "deployed continuousVestingMerkleDistributorFactoryContract",
-    continuousVestingMerkleDistributorFactoryContract.target,
+    "deployed FlatPriceSaleFactoryContract",
+    flatPriceSaleContractFactory.target,
   );
 }
 
