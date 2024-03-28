@@ -62,6 +62,12 @@
     },
     "MyERC20Votes": {
       "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+    },
+    "FlatPriceSale": {
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    },
+    "FlatPriceSaleFactory": {
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     }
   },
   "goerli": {
@@ -126,6 +132,9 @@
     },
     "ContinuousVestingMerkleDistributorFactory": {
       "address": "0x724391bC965Ed86dDDAE9CB11BC85Db2fd5557B5"
+    },
+    "FlatPriceSale": {
+      "address": "0x9F8AA0cB482d67c53EA620Ba01be32f6A4d4ded3"
     }
   },
   "gnosis": {
