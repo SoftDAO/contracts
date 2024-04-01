@@ -2,6 +2,28 @@ specVersion: 0.0.3
 schema:
   file: ./src/schema.graphql
 dataSources:
+  {{#PriceTierVestingSale_2_0.[0]}}
+  - kind: ethereum/contract
+    name: PriceTierVestingSale_2_0
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: PriceTierVestingSale_2_0
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/sale/v2.0/priceTierVestingSaleMapping.ts
+      entities:
+        - Sale
+      abis:
+        - name: PriceTierVestingSale_2_0
+          file: ./abis/contracts/sale/v2/PriceTierVestingSale.sol/PriceTierVestingSale_2_0.json
+      eventHandlers:
+        - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
+          handler: handleNewSale
+  {{/PriceTierVestingSale_2_0.[0]}}
   {{#TrancheVestingSale_2_0.[0]}}
   - kind: ethereum/contract
     name: TrancheVestingSale_2_0
@@ -47,6 +69,8 @@ dataSources:
       eventHandlers:
         - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
           handler: handleNewSale
+        - event: claim(address)
+          handler: handleClaim
   {{/FlatPriceSaleFactory_v_2_1.[0]}}
   {{#FlatPriceSale_v_2_1.[0]}}
   - kind: ethereum/contract
