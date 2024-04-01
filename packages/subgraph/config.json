@@ -712,6 +712,24 @@
         "Address": "0x5Bc44bCfa7f922096A7B5526ee0266f801FfE9a7",
         "BlockNumber": 5517394
       }
+    ],
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x64be0B781AB94c728a3Ee9459c683823d993fe9F",
+        "BlockNumber": 5578877
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x9960A249816c863865f35F80DAFCD10168973E98",
+        "BlockNumber": 5578561
+      }
+    ],
+    "GenericERC20": [
+      {
+        "Address": "0x914cEF6E710E805bA1353bb8e6eBa2e81ab9A89b",
+        "BlockNumber": 5579450
+      }
     ]
   }
 
