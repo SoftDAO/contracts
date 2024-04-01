@@ -144,8 +144,6 @@ type PriceTier @entity {
   price: BigInt!
   vestedFraction: BigInt!
   oracle: String!
-  start: BigInt!
-  end: BigInt!
   createdAt: BigInt!
 }
 
