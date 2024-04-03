@@ -135,6 +135,21 @@
     },
     "FlatPriceSale": {
       "address": "0x9F8AA0cB482d67c53EA620Ba01be32f6A4d4ded3"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x64be0B781AB94c728a3Ee9459c683823d993fe9F"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x9960A249816c863865f35F80DAFCD10168973E98"
+    },
+    "GenericERC20": {
+      "address": "0x914cEF6E710E805bA1353bb8e6eBa2e81ab9A89b"
+    },
+    "PriceTierVesting": {
+      "address": "0x9768901bd58559b93C8D81beEf8a2783Fc8351EF"
+    },
+    "PriceTierVestingMerkle": {
+      "address": "0x18726B51836E972C209c88d8836070D46E217Efe"
     }
   },
   "gnosis": {
