@@ -224,9 +224,9 @@ The contracts are licensed under the MIT license. Use them however you like - we
 # Deployed Smart Contracts
 
 ## Base sepolia
-- [0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30](https://basescan.org/address/0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30)
-- [0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9](https://basescan.org/address/0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9)
-- [0xab276a23b467CfDc86f59C1aF3103E526ebc38a2](https://basescan.org/address/0xab276a23b467CfDc86f59C1aF3103E526ebc38a2)
+- [0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30](https://sepolia.basescan.org/address/0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30)
+- [0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9](https://sepolia.basescan.org/address/0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9)
+- [0xab276a23b467CfDc86f59C1aF3103E526ebc38a2](https://sepolia.basescan.org/address/0xab276a23b467CfDc86f59C1aF3103E526ebc38a2)
 
 ## Base mainnet
 - [0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5](https://basescan.org/address/0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5)
