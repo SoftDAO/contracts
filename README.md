@@ -223,6 +223,17 @@ The contracts are licensed under the MIT license. Use them however you like - we
 
 # Deployed Smart Contracts
 
+## Base sepolia
+- [0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30](https://basescan.org/address/0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30)
+- [0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9](https://basescan.org/address/0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9)
+- [0xab276a23b467CfDc86f59C1aF3103E526ebc38a2](https://basescan.org/address/0xab276a23b467CfDc86f59C1aF3103E526ebc38a2)
+
+## Base mainnet
+- [0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5](https://basescan.org/address/0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5)
+- [0x904C250B5B1b45274d2d7909b9394bEdA143DD5C](https://basescan.org/address/0x904C250B5B1b45274d2d7909b9394bEdA143DD5C)
+- [0x5103ED418004b03a796a41c97BdaaC8FfB5aa264](https://basescan.org/address/0x5103ED418004b03a796a41c97BdaaC8FfB5aa264)
+
+
 ## Avalanche
 - [0x9Ef415dE715c0a55AA867bcDEa00eAf914aD6cb7](https://snowtrace.io/address/0x9Ef415dE715c0a55AA867bcDEa00eAf914aD6cb7)
 - [0x92DcF0aFD197E73345c893b856B93ee68CB61809](https://snowtrace.io/address/0x92DcF0aFD197E73345c893b856B93ee68CB61809)

@@ -37,6 +37,12 @@ function getApiKey(network) {
     case "sepolia": {
       return process.env.ETHERSCAN_API_KEY;
     }
+    case "baseSepolia": {
+      return process.env.BASESCAN_API_KEY;
+    }
+    case "base": {
+      return process.env.BASESCAN_API_KEY;
+    }
     case "optimism":
     case "goerliOptimism":{
       // optimism.etherscan.io: create an account at https://optimistic.etherscan.io/myapikey
@@ -69,6 +75,12 @@ function getApiKey(network) {
       // API keys aren't supported yet
       return ''
       // return assertEnv('BASESCAN_API_KEY')
+    }
+    case "base": {
+      return process.env.BASESCAN_API_KEY;
+    }
+    case "baseSepolia": {
+      return process.env.BASESCAN_API_KEY;
     }
     case "localhost": {
       return undefined;
@@ -225,6 +237,16 @@ const config: HardhatUserConfig = {
   // configuration for harhdat-verify plugin
   etherscan: {
     apiKey: getApiKey(selectedNetwork),
+    customChains: [
+      {
+        network: "baseSepolia",
+        chainId: 84532,
+        urls: {
+          apiURL: "https://api-sepolia.basescan.org/api",
+          browserURL: "https://sepolia.basescan.org",
+        },
+      },
+    ],
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
   verify: {
