@@ -150,6 +150,9 @@
     },
     "PriceTierVestingMerkle": {
       "address": "0x18726B51836E972C209c88d8836070D46E217Efe"
+    },
+    "ERC20": {
+      "address": "0x43054cDD872976562eCc0aA7a100657b267fBea7"
     }
   },
   "gnosis": {
@@ -240,6 +243,52 @@
     },
     "FlatPriceSale_v_2_1": {
       "address": "0x797C0d5bC32bc29438c0555EA61EB0318bE40797"
+    }
+  },
+  "base": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x4959353534a8ecF0b698A9D3115FbCe393f3435C"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x904C250B5B1b45274d2d7909b9394bEdA143DD5C"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0x638E9F037F8B45F9B1b20bEB890225e1e8d29B95"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264"
+    },
+    "GenericERC20": {
+      "address": "0x85F9ba6938916C37d4Ece9C2156A329B7750882F"
+    }
+  },
+  "baseSepolia": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x724391bC965Ed86dDDAE9CB11BC85Db2fd5557B5"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x2C71e4cfa6DAe45aaA78f497Ab4BD5F0fb256fd3"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0xebd46b42b7e72B6D5f2aB8A81Cf4f3bEF9B4cB17"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0xab276a23b467CfDc86f59C1aF3103E526ebc38a2"
+    },
+    "GenericERC20": {
+      "address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8"
     }
   }
 }
