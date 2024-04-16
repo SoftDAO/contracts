@@ -150,6 +150,9 @@
     },
     "PriceTierVestingMerkle": {
       "address": "0x18726B51836E972C209c88d8836070D46E217Efe"
+    },
+    "ERC20": {
+      "address": "0x43054cDD872976562eCc0aA7a100657b267fBea7"
     }
   },
   "gnosis": {
@@ -260,6 +263,9 @@
     },
     "TrancheVestingMerkleDistributorFactory": {
       "address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264"
+    },
+    "GenericERC20": {
+      "address": "0x85F9ba6938916C37d4Ece9C2156A329B7750882F"
     }
   },
   "baseSepolia": {
@@ -280,6 +286,9 @@
     },
     "TrancheVestingMerkleDistributorFactory": {
       "address": "0xab276a23b467CfDc86f59C1aF3103E526ebc38a2"
+    },
+    "GenericERC20": {
+      "address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8"
     }
   }
 }
