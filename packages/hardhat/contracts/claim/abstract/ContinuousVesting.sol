@@ -32,12 +32,15 @@ abstract contract ContinuousVesting is AdvancedDistributor, IContinuousVesting {
 		cliff = _cliff;
 		end = _end;
 
+		// No longer need to initialize start, end, and cliff
+		// emit SetContinuousVesting(start, cliff, end);
 		emit SetContinuousVesting(start, cliff, end);
 	}
 
 	function getVestedFraction(
 		address beneficiary,
-		uint256 time // time is in seconds past the epoch (e.g. block.timestamp)
+		uint256 time // time is in seconds past the epoch (e.g. block.timestamp),
+		// start, cliff, end
 	) public view override returns (uint256) {
 		uint256 delayedTime = time- getFairDelayTime(beneficiary);
 		// no tokens are vested
@@ -75,6 +78,7 @@ abstract contract ContinuousVesting is AdvancedDistributor, IContinuousVesting {
 		start = _start;
 		cliff = _cliff;
 		end = _end;
+		// We probably don't need this function anymore, as it'll be per address
 		emit SetContinuousVesting(start, cliff, end);
 	}
 }

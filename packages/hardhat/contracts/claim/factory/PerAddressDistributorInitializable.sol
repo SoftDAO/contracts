@@ -6,16 +6,16 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-import {IDistributor, DistributionRecord} from "../../interfaces/IDistributor.sol";
+import {IPerAddressDistributor, PerAddressDistributionRecord} from "../../interfaces/IPerAddressDistributor.sol";
 
 /**
  * @title Distributor
  * @notice Distributes funds to beneficiaries and tracks distribution status
  */
-abstract contract DistributorInitializable is Initializable, IDistributor, ReentrancyGuard {
+abstract contract PerAddressDistributorInitializable is Initializable, IPerAddressDistributor, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    mapping(address => DistributionRecord) internal records; // track distribution records per user
+    mapping(address => PerAddressDistributionRecord) internal records; // track distribution records per user
     IERC20 public token; // the token being claimed
     uint256 public total; // total tokens allocated for claims
     uint256 public claimed; // tokens already claimed
@@ -47,15 +47,19 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
      *
      * @param beneficiary The address of the beneficiary
      * @param _totalAmount The total amount of tokens to be distributed to the beneficiary
+     * @param _start The start time of the vesting schedule
+     * @param _end The end time of the vesting schedule
+     * @param _cliff The cliff time of the vesting schedule
      */
-    function _initializeDistributionRecord(address beneficiary, uint256 _totalAmount) internal virtual {
+    function _initializeDistributionRecord(address beneficiary, uint256 _totalAmount, uint256 _start, uint256 _end, uint256 _cliff) internal virtual {
         // Checks
         require(_totalAmount <= type(uint120).max, "Distributor: totalAmount > type(uint120).max");
+        // TODO: add checks for start, end, cliff
         uint120 totalAmount = uint120(_totalAmount);
 
         // Effects - note that the existing claimed quantity is re-used during re-initialization
-        records[beneficiary] = DistributionRecord(true, totalAmount, records[beneficiary].claimed);
-        emit InitializeDistributionRecord(beneficiary, totalAmount);
+        records[beneficiary] = PerAddressDistributionRecord(true, totalAmount, records[beneficiary].claimed, _start, _end, _cliff);
+        emit InitializeDistributionRecord(beneficiary, totalAmount, _start, _end, _cliff);
     }
 
     /**
@@ -63,13 +67,16 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
      * @dev This function does not check permissions: caller must verify the claim is valid!
      * this function should not call any untrusted external contracts to avoid reentrancy
      */
-    function _executeClaim(address beneficiary, uint256 _totalAmount) internal virtual returns (uint256) {
+    function _executeClaim(address beneficiary, uint256 _totalAmount, uint256 _start, uint256 _end, uint256 _cliff) internal virtual returns (uint256) {
         uint120 totalAmount = uint120(_totalAmount);
 
         // effects
         if (records[beneficiary].total != totalAmount) {
             // re-initialize if the total has been updated
-            _initializeDistributionRecord(beneficiary, totalAmount);
+            _initializeDistributionRecord(beneficiary, totalAmount, _start, _end, _cliff);
+        }
+        if(records[beneficiary].start != _start || records[beneficiary].end != _end || records[beneficiary].cliff != _cliff) {
+            _initializeDistributionRecord(beneficiary, totalAmount, _start, _end, _cliff);
         }
 
         uint120 claimableAmount = uint120(getClaimableAmount(beneficiary));
@@ -93,12 +100,12 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
     }
 
     /// @notice return a distribution record
-    function getDistributionRecord(address beneficiary) external view virtual returns (DistributionRecord memory) {
+    function getDistributionRecord(address beneficiary) external view virtual returns (PerAddressDistributionRecord memory) {
         return records[beneficiary];
     }
 
     // Get tokens vested as fraction of fractionDenominator
-    function getVestedFraction(address beneficiary, uint256 time) public view virtual returns (uint256);
+    function getVestedFraction(address beneficiary, uint256 time, uint256 start, uint256 end, uint256 cliff) public view virtual returns (uint256);
 
     function getFractionDenominator() public view returns (uint256) {
         return fractionDenominator;
@@ -108,11 +115,11 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
     function getClaimableAmount(address beneficiary) public view virtual returns (uint256) {
         require(records[beneficiary].initialized, "Distributor: claim not initialized");
 
-        DistributionRecord memory record = records[beneficiary];
+        PerAddressDistributionRecord memory record = records[beneficiary];
 
         // Pass in start, end, cliff from record
-        // uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp, record.start, record.end, record.cliff)) / fractionDenominator;
-        uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp)) / fractionDenominator;
+        uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp, record.start, record.end, record.cliff)) / fractionDenominator;
+        // uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp)) / fractionDenominator;
         return record.claimed >= claimable
             ? 0 // no more tokens to claim
             : claimable - record.claimed; // claim all available tokens
