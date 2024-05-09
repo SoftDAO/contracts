@@ -1,10 +1,12 @@
 const { BN, expectRevert, ether, time } = require('@openzeppelin/test-environment');
 const { expect } = require('chai');
 const { ERC20Mock } = require('@openzeppelin/contracts/mocks');
+const { artifacts } = require('hardhat');
+const { contract } = require('@openzeppelin/test-environment');
 
 const StakingContract = artifacts.require('StakingContract');
 
-contract('StakingContract', ([deployer, user1, user2]) => {
+contract('StakingContract', ([deployer, user1, user2]: [string, string, string]) => {  
   let stakingContract, softToken, nftContract, feeSwitchContract;
   const stakingAmount = ether('100');
   const unstakeAmount = ether('50');
@@ -12,7 +14,7 @@ contract('StakingContract', ([deployer, user1, user2]) => {
   beforeEach(async () => {
     softToken = await ERC20Mock.new('Soft Token', 'SOFT', deployer, ether('1000000'));
     nftContract = await ERC721Mock.new('NFT Token', 'NFT');
-    feeSwitchContract = await FeeSwitchContract.new(); // You'll need to create a FeeSwitchContract for testing
+    feeSwitchContract = await FeeSwitchContract.new(); 
     stakingContract = await StakingContract.new(
       softToken.address,
       nftContract.address,
