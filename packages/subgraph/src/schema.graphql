@@ -35,6 +35,9 @@ type Sale @entity {
   purchases: [Purchase!] @derivedFrom(field: "sale")
   maxQueueTime: BigInt!
   uris: [String!]!
+  escrowNativeBalance: BigInt!
+  
+
 
   # payment info
   baseCurrency: String!
