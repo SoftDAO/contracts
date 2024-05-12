@@ -43,10 +43,11 @@ contract StakingContract {
     NFTContract public nftContract;
     FeeSwitchContract public feeSwitchContract;
 
-    constructor(address _softToken) {
-        softToken = IERC20(_softToken);
-        nftContract = new NFTContract();
-        feeSwitchContract = new FeeSwitchContract();
+
+
+    struct StakedToken {
+    uint256 amount;
+    uint256 stakingTime;
     }
 
     mapping(address => StakedToken) public stakedTokens;
@@ -55,11 +56,11 @@ contract StakingContract {
     event Unstaked(address indexed user, uint256 amount);
     event NFTMinted(address indexed user);
     event FeesAdjusted(address indexed user, uint256 newFeeLevel);
-
-    constructor(address _softToken, address _nftContract, address _feeSwitchContract) {
+    
+    constructor(address _softToken) {
         softToken = IERC20(_softToken);
-        nftContract = IERC721(_nftContract);
-        feeSwitchContract = _feeSwitchContract;
+        nftContract = new NFTContract();
+        feeSwitchContract = new FeeSwitchContract();
     }
 
     function stake(uint256 amount) external {
@@ -129,7 +130,7 @@ contract StakingContract {
         }
 
         // Call the Fee Switch contract's function to update fees
-        (bool success, ) = feeSwitchContract.call(abi.encodeWithSignature("updateFees(address,uint256)", user, newFeeLevel));
+        (bool success, ) = address(feeSwitchContract).call(abi.encodeWithSignature("updateFees(address,uint256)", user, newFeeLevel));
         require(success, "Failed to update fees in Fee Switch contract");
 
         emit FeesAdjusted(user, newFeeLevel);

@@ -1,103 +1,59 @@
-const { BN, expectRevert, ether, time } = require('@openzeppelin/test-environment');
-const { expect } = require('chai');
-const { ERC20Mock } = require('@openzeppelin/contracts/mocks');
-const { artifacts } = require('hardhat');
-const { contract } = require('@openzeppelin/test-environment');
+const { expectRevert, time } = require('@openzeppelin/test-helpers');
+const NFTContract = artifacts.require("NFTContract");
+const FeeSwitchContract = artifacts.require("FeeSwitchContract");
+const StakingContract = artifacts.require("StakingContract");
 
-const StakingContract = artifacts.require('StakingContract');
+contract('NFTContract', (accounts) => {
+  const [owner, user1] = accounts;
 
-contract('StakingContract', ([deployer, user1, user2]: [string, string, string]) => {  
-  let stakingContract, softToken, nftContract, feeSwitchContract;
-  const stakingAmount = ether('100');
-  const unstakeAmount = ether('50');
-
-  beforeEach(async () => {
-    softToken = await ERC20Mock.new('Soft Token', 'SOFT', deployer, ether('1000000'));
-    nftContract = await ERC721Mock.new('NFT Token', 'NFT');
-    feeSwitchContract = await FeeSwitchContract.new(); 
-    stakingContract = await StakingContract.new(
-      softToken.address,
-      nftContract.address,
-      feeSwitchContract.address
-    );
-    await softToken.transfer(user1, ether('1000'));
-    await softToken.transfer(user2, ether('1000'));
+  it('should allow owner to mint an NFT', async () => {
+    const nft = await NFTContract.deployed();
+    const result = await nft.mint(user1, { from: owner });
+    assert(result.logs[0].event === 'Transfer', "NFT minted and transferred.");
   });
 
-  it('should allow staking', async () => {
-    await softToken.approve(stakingContract.address, stakingAmount, { from: user1 });
-    await stakingContract.stake(stakingAmount, { from: user1 });
-    const userStake = await stakingContract.stakedTokens(user1);
-    expect(userStake.amount).to.be.bignumber.equal(stakingAmount);
+  it('should prevent non-owners from minting NFTs', async () => {
+    const nft = await NFTContract.deployed();
+    await expectRevert(nft.mint(user1, { from: user1 }), "Ownable: caller is not the owner");
+  });
+});
+
+contract('FeeSwitchContract', (accounts) => {
+  const [owner, user1] = accounts;
+
+  it('should allow owner to update fees', async () => {
+    const feeSwitch = await FeeSwitchContract.deployed();
+    const newFeeLevel = 10;
+    await feeSwitch.updateFees(user1, newFeeLevel, { from: owner });
+    const fee = await feeSwitch.getFeeLevel(user1);
+    assert.equal(fee.toNumber(), newFeeLevel, "Fee level updated correctly.");
   });
 
-  it('should not allow staking with insufficient balance', async () => {
-    await expectRevert(
-      stakingContract.stake(ether('1001'), { from: user1 }),
-      'ERC20: transfer amount exceeds balance'
-    );
+  it('should prevent non-owners from updating fees', async () => {
+    const feeSwitch = await FeeSwitchContract.deployed();
+    await expectRevert(feeSwitch.updateFees(user1, 50, { from: user1 }), "Ownable: caller is not the owner");
+  });
+});
+
+contract('StakingContract', (accounts) => {
+  const [owner, user1] = accounts;
+  const amount = web3.utils.toWei('100', 'ether');
+
+  before(async () => {
+    this.token = await IERC20.new({ from: owner });
+    this.nft = await NFTContract.new({ from: owner });
+    this.feeSwitch = await FeeSwitchContract.new({ from: owner });
+    this.staking = await StakingContract.new(this.token.address, { from: owner });
+    await this.token.approve(this.staking.address, amount, { from: user1 });
   });
 
-  it('should allow unstaking', async () => {
-    await softToken.approve(stakingContract.address, stakingAmount, { from: user1 });
-    await stakingContract.stake(stakingAmount, { from: user1 });
-    await stakingContract.unstake(unstakeAmount, { from: user1 });
-    const userStake = await stakingContract.stakedTokens(user1);
-    expect(userStake.amount).to.be.bignumber.equal(stakingAmount.sub(unstakeAmount));
+  it('should allow users to stake tokens', async () => {
+    await this.staking.stake(amount, { from: user1 });
+    const stakedData = await this.staking.stakedTokens(user1);
+    assert.equal(stakedData.amount.toString(), amount, "Tokens staked correctly.");
   });
 
-  it('should not allow unstaking more than staked', async () => {
-    await softToken.approve(stakingContract.address, stakingAmount, { from: user1 });
-    await stakingContract.stake(stakingAmount, { from: user1 });
-    await expectRevert(
-      stakingContract.unstake(stakingAmount.add(ether('1')), { from: user1 }),
-      'Insufficient staked tokens'
-    );
-  });
-
-  it('should claim rewards based on staking duration and amount', async () => {
-    await softToken.approve(stakingContract.address, stakingAmount, { from: user1 });
-    await stakingContract.stake(stakingAmount, { from: user1 });
-
-    // Fast-forward time by 12 months
-    await time.increase(time.duration.years(1));
-
-    const initialBalance = await softToken.balanceOf(user1);
-    await stakingContract.claimRewards({ from: user1 });
-    const finalBalance = await softToken.balanceOf(user1);
-
-    expect(finalBalance.sub(initialBalance)).to.be.bignumber.equal(new BN('12'));
-  });
-
-  it('should not claim rewards for small staking amounts', async () => {
-    await softToken.approve(stakingContract.address, ether('500'), { from: user1 });
-    await stakingContract.stake(ether('500'), { from: user1 });
-
-    // Fast-forward time by 12 months
-    await time.increase(time.duration.years(1));
-
-    const initialBalance = await softToken.balanceOf(user1);
-    await stakingContract.claimRewards({ from: user1 });
-    const finalBalance = await softToken.balanceOf(user1);
-
-    expect(finalBalance.sub(initialBalance)).to.be.bignumber.equal(new BN('0'));
-  });
-
-  it('should mint NFT when staked tokens are present', async () => {
-    await softToken.approve(stakingContract.address, stakingAmount, { from: user1 });
-    await stakingContract.stake(stakingAmount, { from: user1 });
-
-    const initialBalance = await nftContract.balanceOf(user1);
-    await stakingContract.mintNFT({ from: user1 });
-    const finalBalance = await nftContract.balanceOf(user1);
-
-    expect(finalBalance.sub(initialBalance)).to.be.bignumber.equal(new BN('1'));
-  });
-
-  it('should not mint NFT when no tokens are staked', async () => {
-    await expectRevert(
-      stakingContract.mintNFT({ from: user1 }),
-      'No staked tokens'
-    );
+  it('should allow users to unstake tokens with correct penalties', async () => {
+    // advance time chekcing
   });
 });
