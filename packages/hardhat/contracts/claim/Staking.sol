@@ -56,9 +56,10 @@ contract StakingContract {
     event Unstaked(address indexed user, uint256 amount);
     event NFTMinted(address indexed user);
     event FeesAdjusted(address indexed user, uint256 newFeeLevel);
-    
-    constructor(address _softToken) {
-        softToken = IERC20(_softToken);
+
+    constructor() {
+    // constructor(address _softToken) {
+        // softToken = IERC20(_softToken);
         nftContract = new NFTContract();
         feeSwitchContract = new FeeSwitchContract();
     }
