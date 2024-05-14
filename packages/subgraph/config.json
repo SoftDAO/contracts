@@ -787,6 +787,33 @@
         "BlockNumber": 12988458
       }
     ]
+  },
+  "polygonAmoy": {
+    "SubgraphNetwork": "polygon-amoy",
+    "LowestStartBlock": 7001055,
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5",
+        "BlockNumber": 7001059
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x89a415207b07a739b93d4fc70a2eab67c0effaa8",
+        "BlockNumber": 7001056
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x904c250b5b1b45274d2d7909b9394beda143dd5c",
+        "BlockNumber": 7001233
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264",
+        "BlockNumber": 7001339
+      }
+    ]
   }
-
 }

@@ -82,6 +82,9 @@ function getApiKey(network) {
     case "baseSepolia": {
       return process.env.BASESCAN_API_KEY;
     }
+    case "polygonAmoy": {
+      return "NUG1WM1RMEG2VK8D1TY19ZATMWSTMW4UGT";
+    }
     case "localhost": {
       return undefined;
     }

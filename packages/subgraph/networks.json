@@ -290,5 +290,38 @@
     "GenericERC20": {
       "address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8"
     }
+  },
+  "polygonAmoy": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x4959353534a8ecF0b698A9D3115FbCe393f3435C"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x904C250B5B1b45274d2d7909b9394bEdA143DD5C"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0x638E9F037F8B45F9B1b20bEB890225e1e8d29B95"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264"
+    },
+    "GenericERC20": {
+      "address": "0x99464d188Ceb88200eb09461Db8b5900D0B0F487"
+    }
+  },
+  "binance": {
+    "GenericERC20": {
+      "address": "0xf8C640003A2CA24272eB05a5493e84c62Efc3d9a"
+    }
+  },
+  "polygon": {
+    "GenericERC20": {
+      "address": "0x99464d188Ceb88200eb09461Db8b5900D0B0F487"
+    }
   }
 }
