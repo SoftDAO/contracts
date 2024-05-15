@@ -69,7 +69,7 @@
     "deploy:mumbai": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-mumbai",
     "deploy:mumbai-next": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-mumbai-next",
     "deploy:mumbai-satsuma": "graph deploy sales-mumbai --version-label ${VERSION_LABEL} --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key ${SATSUMA_DEPLOY_KEY} --ipfs https://ipfs.satsuma.xyz",
-    "deploy:polygon-amoy": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-polygon-amoy",
+    "deploy:polygon-amoy": "yarn auth && graph deploy example-subgraph-name --version-label v0.0.1-new-version --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key APCHEMY_SUBGRAPH_DEPLOY_KEY --ipfs https://ipfs.satsuma.xyz",
     "deploy:optimism": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-optimism",
     "deploy:optimism-next": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-optimism-next",
     "deploy:optimism-satsuma": "graph deploy sales-optimism --version-label ${VERSION_LABEL} --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key ${SATSUMA_DEPLOY_KEY} --ipfs https://ipfs.satsuma.xyz",

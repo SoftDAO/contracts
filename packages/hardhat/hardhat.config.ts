@@ -83,7 +83,7 @@ function getApiKey(network) {
       return process.env.BASESCAN_API_KEY;
     }
     case "polygonAmoy": {
-      return "NUG1WM1RMEG2VK8D1TY19ZATMWSTMW4UGT";
+      return process.env.POLYGONSCAN_API_KEY;
     }
     case "localhost": {
       return undefined;
