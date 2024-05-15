@@ -254,6 +254,14 @@ The contracts are licensed under the MIT license. Use them however you like - we
 - [0x07537efBa62504425f879E9D60A25aB09D139161](https://polygonscan.com/address/0x07537efBa62504425f879E9D60A25aB09D139161)
 - [0xf9d55F554175B8a18cDB167063383f5462442EAD](https://polygonscan.com/address/0xf9d55F554175B8a18cDB167063383f5462442EAD)
 
+## Polygon Amoy
+- [0x89a415207b07a739b93d4fc70a2eab67c0effaa8](https://amoy.polygonscan.com/address/0x89a415207b07a739b93d4fc70a2eab67c0effaa8)
+- [0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5](https://amoy.polygonscan.com/address/0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5)
+- [0x4959353534a8ecf0b698a9d3115fbce393f3435c](https://amoy.polygonscan.com/address/0x4959353534a8ecf0b698a9d3115fbce393f3435c)
+- [0x904c250b5b1b45274d2d7909b9394beda143dd5c](https://amoy.polygonscan.com/address/0x904c250b5b1b45274d2d7909b9394beda143dd5c)
+- [0x5103ED418004b03a796a41c97BdaaC8FfB5aa264](https://amoy.polygonscan.com/address/0x5103ED418004b03a796a41c97BdaaC8FfB5aa264)
+- [0x638E9F037F8B45F9B1b20bEB890225e1e8d29B95](https://amoy.polygonscan.com/address/0x638E9F037F8B45F9B1b20bEB890225e1e8d29B95)
+
 ## Ethereum Goerli
 - [0x55ee754b2cf0ccb70b808c47321ca1ad7ef0e118](https://goerli.etherscan.io/address/0x55ee754b2cf0ccb70b808c47321ca1ad7ef0e118)
 - [0xB7488893AF633EFdAEB95F496B7D2FF2C50f1A9A](https://goerli.etherscan.io/address/0xB7488893AF633EFdAEB95F496B7D2FF2C50f1A9A)
