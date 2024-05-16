@@ -82,6 +82,9 @@ function getApiKey(network) {
     case "baseSepolia": {
       return process.env.BASESCAN_API_KEY;
     }
+    case "polygonAmoy": {
+      return process.env.POLYGONSCAN_API_KEY;
+    }
     case "localhost": {
       return undefined;
     }
