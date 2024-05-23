@@ -83,8 +83,17 @@ contract StakingContract {
 
     function redeem() external {
         require(nftRedeemable[msg.sender], "User is not eligible to redeem NFTs");
-        uint256 numNFTs = (block.timestamp - stakedTokens[msg.sender].stakingTime) / 30 days;
-        numNFTs = numNFTs <= 12 ? numNFTs : 12;
+        require(stakedTokens[msg.sender].amount >= 1000, "Insufficient staked tokens for NFT rewards");
+        
+        uint256 monthsStaked = (block.timestamp - stakedTokens[msg.sender].stakingTime) / 30 days;
+        uint256 numNFTs;
+        
+        if (monthsStaked >= 12) {
+            numNFTs = 12;
+        } else {
+            numNFTs = monthsStaked;
+        }
+        
         softMfersContract.redeem(msg.sender, numNFTs);
         nftRedeemable[msg.sender] = false;
         emit NFTMinted(msg.sender, numNFTs);
