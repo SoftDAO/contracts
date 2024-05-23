@@ -2,23 +2,10 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
-
-contract NFTContract is ERC721, Ownable {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIdCounter;
-
-    constructor() ERC721("StakingNFT", "SNFT") {}
-
-    function mint(address to) public onlyOwner returns (uint256) {
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
-        return tokenId;
-    }
+interface ISoftMfers {
+    function redeem(address receiver, uint256 amount) external;
 }
 
 contract FeeSwitchContract is Ownable {
@@ -37,31 +24,29 @@ contract FeeSwitchContract is Ownable {
     }
 }
 
-
 contract StakingContract {
     IERC20 public softToken;
-    NFTContract public nftContract;
+    ISoftMfers public softMfersContract;
     FeeSwitchContract public feeSwitchContract;
 
-
-
     struct StakedToken {
-    uint256 amount;
-    uint256 stakingTime;
+        uint256 amount;
+        uint256 stakingTime;
     }
 
     mapping(address => StakedToken) public stakedTokens;
+    mapping(address => bool) public nftRedeemable;
 
     event Staked(address indexed user, uint256 amount);
     event Unstaked(address indexed user, uint256 amount);
-    event NFTMinted(address indexed user);
+    event NFTMinted(address indexed user, uint256 numNFTs);
+    event NFTRedeemable(address indexed user);
     event FeesAdjusted(address indexed user, uint256 newFeeLevel);
 
-    constructor() {
-    // constructor(address _softToken) {
-        // softToken = IERC20(_softToken);
-        nftContract = new NFTContract();
-        feeSwitchContract = new FeeSwitchContract();
+    constructor(address _softToken, address _softMfersAddress, address _feeSwitchAddress) {
+        softToken = IERC20(_softToken);
+        softMfersContract = ISoftMfers(_softMfersAddress);
+        feeSwitchContract = FeeSwitchContract(_feeSwitchAddress);
     }
 
     function stake(uint256 amount) external {
@@ -78,7 +63,7 @@ contract StakingContract {
         require(stakedTokens[msg.sender].amount >= amount, "Insufficient staked tokens");
         uint256 stakingDuration = block.timestamp - stakedTokens[msg.sender].stakingTime;
         uint256 monthsStaked = stakingDuration / 30 days;
-        
+
         uint256 penalty;
         if (monthsStaked < 1 && stakedTokens[msg.sender].amount >= 2500) {
             penalty = amount * 1000 / 10000; // 10% penalty for early withdrawal
@@ -87,7 +72,7 @@ contract StakingContract {
         } else if (monthsStaked < 3 && stakedTokens[msg.sender].amount >= 50000) {
             penalty = amount * 200 / 10000; // 2% penalty for early withdrawal
         }
-        
+
         uint256 withdrawAmount = amount - penalty;
         stakedTokens[msg.sender].amount -= amount;
         softToken.transfer(msg.sender, withdrawAmount);
@@ -96,14 +81,20 @@ contract StakingContract {
         adjustFees(msg.sender);
     }
 
+    function redeem() external {
+        require(nftRedeemable[msg.sender], "User is not eligible to redeem NFTs");
+        uint256 numNFTs = (block.timestamp - stakedTokens[msg.sender].stakingTime) / 30 days;
+        numNFTs = numNFTs <= 12 ? numNFTs : 12;
+        softMfersContract.redeem(msg.sender, numNFTs);
+        nftRedeemable[msg.sender] = false;
+        emit NFTMinted(msg.sender, numNFTs);
+    }
+
     function notifyNFTContract(address user) internal {
         uint256 monthsStaked = (block.timestamp - stakedTokens[user].stakingTime) / 30 days;
         if (stakedTokens[user].amount >= 1000 && monthsStaked >= 1) {
-            uint256 numNFTs = monthsStaked <= 12 ? monthsStaked : 12;
-            for (uint256 i = 0; i < numNFTs; i++) {
-                nftContract.mint(user);
-            }
-            emit NFTMinted(user);
+            nftRedeemable[user] = true;
+            emit NFTRedeemable(user);
         }
     }
 
@@ -130,10 +121,7 @@ contract StakingContract {
             newFeeLevel = 100;
         }
 
-        // Call the Fee Switch contract's function to update fees
-        (bool success, ) = address(feeSwitchContract).call(abi.encodeWithSignature("updateFees(address,uint256)", user, newFeeLevel));
-        require(success, "Failed to update fees in Fee Switch contract");
-
+        feeSwitchContract.updateFees(user, newFeeLevel);
         emit FeesAdjusted(user, newFeeLevel);
     }
 }

@@ -1,34 +1,70 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
-import { ethers } from "hardhat";
 
-const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+/**
+ * Deploys a contract named "YourContract" using the deployer account and
+ * constructor arguments set to the deployer address
+ *
+ * @param hre HardhatRuntimeEnvironment object.
+ */
+const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+  /*
+    On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
+
+    When deploying to live networks (e.g `yarn deploy --network goerli`), the deployer account
+    should have sufficient balance to pay for the gas fees for contract creation.
+
+    You can generate a random account with yarn generate which will fill DEPLOYER_PRIVATE_KEY
+    with a random private key in the .env file (then used on hardhat.config.ts)
+    You can run the yarn account command to check your balance in every network.
+  */
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  // Deploy SoftToken contract
-  // await deploy("ERC20", {
-  //   from: deployer,
-  //   args: ["SoftToken", "SOFT", 18, ethers.utils.parseEther("1000000")],
-  //   log: true,
-  //   autoMine: true,
-  // });
+  // THIS IS A SAMPE ON HOW OT DEPLOY A CONTRACT USING yarn deploy COMMAND
+  // YOU CAN DEPLOY YOUR OWN CONTRACTS BY MODIFYING THIS FILE
 
-  // const softToken = await hre.ethers.getContract<Contract>("ERC20", deployer);
-  // console.log("SoftToken deployed at:", softToken.address);
-
-  // Deploy StakingContract
   await deploy("StakingContract", {
     from: deployer,
-    args: [],
-    log: true,
+    // Contract constructor arguments
+  args: [],
+  log: true,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
 
-  const stakingContract = await hre.ethers.getContract<Contract>("StakingContract", deployer);
-  console.log("Staking Contract deployed at:", stakingContract.address);
-};
+  // Get the deployed contract to interact with it after deploying.
+  const stakingContract = await hre.ethers.getContract<Contract>(
+    "StakingContract",
+    deployer,
+  );
+  console.log("👋 Initial greeting:", stakingContract.target);
 
-export default deployContracts;
-deployContracts.tags = ["StakingContract"];
+  await deploy("StakingContractrFactory", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [stakingContract.target],
+    log: true,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  const StakingContractrFactory = await hre.ethers.getContract<Contract>(
+    "StakingContractrFactory",
+    deployer,
+  );
+
+  console.log(
+    "deployed StakingContractrFactory",
+    StakingContractrFactory.target,
+  );
+}
+
+export default deployYourContract;
+
+// Tags are useful if you have multiple deploy files and only want to run one of them.
+// e.g. yarn deploy --tags YourContract
+deployYourContract.tags = ["00", "deploy"];
