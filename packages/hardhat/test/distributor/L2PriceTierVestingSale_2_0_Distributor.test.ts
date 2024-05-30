@@ -545,12 +545,12 @@ describe("PriceTierVestingSale_2_0", function () {
     await btcOracle.setAnswer(5000000000001n);
     let currentlyClaimable = buyerTotal;
     // this value should be available before initialization
-    expect(await distributor.getClaimableAmount(buyer.address)).toEqual(currentlyClaimable);
+    expect(await distributor.getClaimableAmount(buyer.address, "0x")).toEqual(currentlyClaimable);
 
     // only half of the tokens should be claimable
     await btcOracle.setAnswer(2500000000001n);
     currentlyClaimable = buyerTotal / 2n;
-    expect(await distributor.getClaimableAmount(buyer.address)).toEqual(currentlyClaimable);
+    expect(await distributor.getClaimableAmount(buyer.address, "0x")).toEqual(currentlyClaimable);
 
     await distributor.initializeDistributionRecord(buyer.address);
     let distributionRecord = await distributor.getDistributionRecord(buyer.address);
@@ -861,13 +861,13 @@ describe("PriceTierVestingSale_2_0", function () {
 
   it("Handles negative adjustments to a user's total claimable amount", async () => {
     const buyer = buyer4;
-    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address);
+    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "0x");
 
     // adjust a buyer's allocation downward
     await fullyVestedDistributor.initializeDistributionRecord(buyer.address);
     await fullyVestedDistributor.adjust(buyer.address, -10000n);
 
-    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address);
+    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "0x");
     expect(newAllocation).toEqual(initialAllocation - 10000n);
 
     // claim
@@ -886,13 +886,13 @@ describe("PriceTierVestingSale_2_0", function () {
 
   it("Handles positive adjustments to a user's total claimable amount", async () => {
     const buyer = buyer5;
-    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address);
+    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "0x");
 
     // adjust a buyer's allocation upward
     await fullyVestedDistributor.initializeDistributionRecord(buyer.address);
     await fullyVestedDistributor.adjust(buyer.address, 10000n);
 
-    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address);
+    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "0x");
     expect(newAllocation).toEqual(initialAllocation + 10000n);
 
     // transfer additional tokens to the distributor
