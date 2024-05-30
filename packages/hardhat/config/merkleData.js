@@ -13,9 +13,7 @@ const simpleProofsArray = [
     index: 1,
     account: "0x8Cf384fe1810ce413CBc3A8d20a752E5a48aaDc0",
     amount: 5000000000000000000000,
-    merkleProof: [
-      "0x60c928dce63da75777e33948201751a726c783a7ff46c2eab1fab21673159300",
-    ],
+    merkleProof: ["0x60c928dce63da75777e33948201751a726c783a7ff46c2eab1fab21673159300"],
   },
   {
     index: 2,
@@ -40,8 +38,7 @@ const simpleProofsArray = [
 ];
 
 const balancedTree = {
-  merkleRoot:
-    "0xe117ba62b4a23109e269a2f3706c12627adc8245a6aa786804b20fa150508177",
+  merkleRoot: "0xe117ba62b4a23109e269a2f3706c12627adc8245a6aa786804b20fa150508177",
   totalDistributionAmount: "30000000000000000000000",
   "0xa4673B9e26aF90eeCe783f55eA85188c391A481C": {
     index: 0,

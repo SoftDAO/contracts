@@ -6,13 +6,13 @@ const addresses = {
 };
 
 const merkleRoots = {
-  public: '0x0000000000000000000000000000000000000000000000000000000000000000',
-  tokensoftDevs: '0xb613dab8b7189ee0286275425d0d77df7cbb7550ba579c1a70def1b1acb931a2'
+  public: "0x0000000000000000000000000000000000000000000000000000000000000000",
+  tokensoftDevs: "0xb613dab8b7189ee0286275425d0d77df7cbb7550ba579c1a70def1b1acb931a2",
 };
 
 const campaignCIDs = {
   basicSale: "Qma51yJyJBKgxLVc9feg4b9RSuMq1ynrfqs5vEZkZyC4Zi",
-  tokensoftDevsOnlySale: "Qma51yJyJBKgxLVc9feg4b9RSuMq1ynrfqs5vEZkZyC4Zi"
+  tokensoftDevsOnlySale: "Qma51yJyJBKgxLVc9feg4b9RSuMq1ynrfqs5vEZkZyC4Zi",
 };
 
 const dateTimestamps = {
@@ -28,11 +28,10 @@ const uints = {
 };
 
 const merkleData = {
-  rootZero: ethers.constants.HashZero, // 0x0
+  rootZero: ethers.ZeroHash, // 0x0
   balancedTree,
   simpleClaimTree: {
-    merkleRoot:
-      "0x080658a34ceaef57f8ed16606943f19b652009929c038cc578fb0ccebbc75fdc",
+    merkleRoot: "0x080658a34ceaef57f8ed16606943f19b652009929c038cc578fb0ccebbc75fdc",
     proofs: simpleProofsArray,
   },
 };
@@ -43,5 +42,5 @@ module.exports = {
   dateTimestamps,
   uints,
   merkleData,
-  merkleRoots
+  merkleRoots,
 };
