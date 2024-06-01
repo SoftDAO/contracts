@@ -19,10 +19,16 @@ import "hardhat-jest"; // Typescript
 const { vars } = require("hardhat/config");
 
 // Add the following variables to the configuration variables.
-const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY");
-const EVM_PRIVATE_KEY_1 = vars.get("EVM_PRIVATE_KEY_1");
-const EVM_PRIVATE_KEY_2 = vars.get("EVM_PRIVATE_KEY_2");
-const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
+const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY", "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF");
+const EVM_PRIVATE_KEY_1 = vars.get(
+  "EVM_PRIVATE_KEY_1",
+  "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+);
+const EVM_PRIVATE_KEY_2 = vars.get(
+  "EVM_PRIVATE_KEY_2",
+  "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+);
+const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY", "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW");
 
 const config: HardhatUserConfig = {
   solidity: {
