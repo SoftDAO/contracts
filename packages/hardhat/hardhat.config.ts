@@ -46,6 +46,10 @@ const config: HardhatUserConfig = {
       url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [EVM_PRIVATE_KEY_1, EVM_PRIVATE_KEY_2],
     },
+    baseSepolia: {
+      url: `https://base-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [EVM_PRIVATE_KEY_1, EVM_PRIVATE_KEY_2]
+    },
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
