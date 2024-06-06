@@ -815,5 +815,61 @@
         "BlockNumber": 7001339
       }
     ]
+  },
+  "zkSync": {
+    "SubgraphNetwork": "zkSync",
+    "LowestStartBlock": 35809299,
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083",
+        "BlockNumber": 35887357
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F",
+        "BlockNumber": 35887345
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x870C1744173498905c9a1Da624CcC9852513f90D",
+        "BlockNumber": 35887266
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xc6B19D47a336d3382f57EdD768233076a27C28c2",
+        "BlockNumber": 35887164
+      }
+    ]
+  },
+  "zkSyncTestnet": {
+    "SubgraphNetwork": "zkSync",
+    "LowestStartBlock": 35809299,
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083",
+        "BlockNumber": 2690994
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F",
+        "BlockNumber": 2690990
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xf38756A27593CEd6b4bF3807b44a88908b3d8ccC",
+        "BlockNumber": 2691083
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x5B8a021F311BDAbE7DcA7bEf84DBF3D1FFa80846",
+        "BlockNumber": 2691107
+      }
+    ]
   }
 }

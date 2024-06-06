@@ -314,6 +314,52 @@
       "address": "0x99464d188Ceb88200eb09461Db8b5900D0B0F487"
     }
   },
+  "zkSync": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0xfb563bAAaB145Bd393b36a2a76E92A1712F41f8C"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x870C1744173498905c9a1Da624CcC9852513f90D"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0xB63DC17fA834AA961aE88b6005e507Ddb60B2c53"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0xc6B19D47a336d3382f57EdD768233076a27C28c2"
+    },
+    "GenericERC20": {
+      "address": "0xD6daA1F7876BAF991C4655956116472B835317dd"
+    }
+  },
+  "zkSyncTestnet": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0xd1515bB65096d67895287bC180521007bc71900F"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0xf38756A27593CEd6b4bF3807b44a88908b3d8ccC"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0x5CD85a2C91ba4420E0247c3bB7CEe1299EA150c8"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0x5B8a021F311BDAbE7DcA7bEf84DBF3D1FFa80846"
+    },
+    "GenericERC20": {
+      "address": "0xCa785532ad49f974E41171fA4Ea8E4B5381aE0bD"
+    }
+  },
   "binance": {
     "GenericERC20": {
       "address": "0xf8C640003A2CA24272eB05a5493e84c62Efc3d9a"
