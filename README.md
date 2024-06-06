@@ -237,6 +237,27 @@ if (registeredAddress.interfaceIds.includes(knownInterfaces.IDistributor)) {
 
 ## Deployed Smart Contracts
 
+
+### zkSync Mainnet
+
+- [0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F](https://explorer.zksync.io/address/0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F)
+- [0xfb563bAAaB145Bd393b36a2a76E92A1712F41f8C](https://explorer.zksync.io/address/0xfb563bAAaB145Bd393b36a2a76E92A1712F41f8C)
+- [0x870C1744173498905c9a1Da624CcC9852513f90D](https://explorer.zksync.io/address/0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083)
+- [0xB63DC17fA834AA961aE88b6005e507Ddb60B2c53](https://explorer.zksync.io/address/0xB63DC17fA834AA961aE88b6005e507Ddb60B2c53)
+- [0xc6B19D47a336d3382f57EdD768233076a27C28c2](https://explorer.zksync.io/address/0xc6B19D47a336d3382f57EdD768233076a27C28c2)
+- [0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083](https://explorer.zksync.io/address/0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083)
+
+### zkSync sepolia
+
+- [0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F](https://sepolia.explorer.zksync.io/address/0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F#contract)
+- [0xd1515bB65096d67895287bC180521007bc71900F](https://sepolia.explorer.zksync.io/address/0xd1515bB65096d67895287bC180521007bc71900F#contract)
+- [0xf38756A27593CEd6b4bF3807b44a88908b3d8ccC](https://sepolia.explorer.zksync.io/address/0xf38756A27593CEd6b4bF3807b44a88908b3d8ccC#contract)
+- [0x5CD85a2C91ba4420E0247c3bB7CEe1299EA150c8](https://sepolia.explorer.zksync.io/address/0x5CD85a2C91ba4420E0247c3bB7CEe1299EA150c8#contract)
+- [0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083](https://sepolia.explorer.zksync.io/address/0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083#contract)
+- [0x5B8a021F311BDAbE7DcA7bEf84DBF3D1FFa80846](https://sepolia.explorer.zksync.io/address/0x5B8a021F311BDAbE7DcA7bEf84DBF3D1FFa80846#contract)
+
+
+
 ### Base sepolia
 
 - [0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30](https://sepolia.basescan.org/address/0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30)
