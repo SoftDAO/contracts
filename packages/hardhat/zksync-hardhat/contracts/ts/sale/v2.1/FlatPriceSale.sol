@@ -213,35 +213,31 @@ contract FlatPriceSale_v_2_1 is Sale, PullPaymentUpgradeable {
   - otherwise: this is a private sale, users must submit a merkle proof that their address is included in the merkle root
   */
 	modifier canAccessSale(bytes calldata data, bytes32[] calldata proof) {
-		// make sure the buyer is an EOA
-		// TODO: Review this check for meta-transactions
-		require((_msgSender() == tx.origin), "Must buy with an EOA");
+			// If the merkle root is non-zero this is a private sale and requires a valid proof
+			if (config.merkleRoot == bytes32(0)) {
+					// this is a public sale
+					// IMPORTANT: data is only validated if the merkle root is checked! Public sales do not check any merkle roots!
+					require(data.length == 0, "data not permitted on public sale");
+			} else {
+					// this is a private sale
+					require(
+							this.isValidMerkleProof(config.merkleRoot, _msgSender(), data, proof) == true,
+							"bad merkle proof for sale"
+					);
+			}
 
-		// If the merkle root is non-zero this is a private sale and requires a valid proof
-		if (config.merkleRoot == bytes32(0)) {
-			// this is a public sale
-			// IMPORTANT: data is only validated if the merkle root is checked! Public sales do not check any merkle roots!
-			require(data.length == 0, "data not permitted on public sale");
-		} else {
-			// this is a private sale
+			// Require the sale to be open
+			require(block.timestamp > config.startTime, "sale has not started yet");
+			require(block.timestamp < config.endTime, "sale has ended");
+			require(metrics.purchaseTotal < config.saleMaximum, "sale buy limit reached");
+
+			// Reduce congestion by randomly assigning each user a delay time in a virtual queue based on comparing their address and a random value
+			// if config.maxQueueTime == 0 the delay is 0
 			require(
-				this.isValidMerkleProof(config.merkleRoot, _msgSender(), data, proof) == true,
-				"bad merkle proof for sale"
+					block.timestamp - config.startTime > getFairQueueTime(_msgSender()),
+					"not your turn yet"
 			);
-		}
-
-		// Require the sale to be open
-		require(block.timestamp > config.startTime, "sale has not started yet");
-		require(block.timestamp < config.endTime, "sale has ended");
-		require(metrics.purchaseTotal < config.saleMaximum, "sale buy limit reached");
-
-		// Reduce congestion by randomly assigning each user a delay time in a virtual queue based on comparing their address and a random value
-		// if config.maxQueueTime == 0 the delay is 0
-		require(
-			block.timestamp - config.startTime > getFairQueueTime(_msgSender()),
-			"not your turn yet"
-		);
-		_;
+			_;
 	}
 
 	/**
