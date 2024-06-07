@@ -816,8 +816,8 @@
       }
     ]
   },
-  "zkSync": {
-    "SubgraphNetwork": "zkSync",
+  "zksync": {
+    "SubgraphNetwork": "zksync-era",
     "LowestStartBlock": 35809299,
     "FlatPriceSaleFactory_v_2_1": [
       {
@@ -845,7 +845,7 @@
     ]
   },
   "zkSyncTestnet": {
-    "SubgraphNetwork": "zkSync",
+    "SubgraphNetwork": "zksync-sepolia",
     "LowestStartBlock": 35809299,
     "FlatPriceSaleFactory_v_2_1": [
       {

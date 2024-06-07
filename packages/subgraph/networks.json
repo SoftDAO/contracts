@@ -314,7 +314,7 @@
       "address": "0x99464d188Ceb88200eb09461Db8b5900D0B0F487"
     }
   },
-  "zkSync": {
+  "zksync": {
     "ContinuousVestingMerkleDistributor": {
       "address": "0xfb563bAAaB145Bd393b36a2a76E92A1712F41f8C"
     },
@@ -337,7 +337,7 @@
       "address": "0xD6daA1F7876BAF991C4655956116472B835317dd"
     }
   },
-  "zkSyncTestnet": {
+  "zksyncTestnet": {
     "ContinuousVestingMerkleDistributor": {
       "address": "0xd1515bB65096d67895287bC180521007bc71900F"
     },
