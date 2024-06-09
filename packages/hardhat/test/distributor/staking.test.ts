@@ -1,53 +1,57 @@
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
-import { GenericERC20, StakingContract } from "../../typechain-types";
-import StakingContractDefinition from '../../artifacts/contracts/claim/Staking.sol/StakingContract.json'
-import { ethers } from 'hardhat';
+import { GenericERC20, StakingContract, SoftMfersMock } from "../../typechain-types";
+import { ethers } from "hardhat";
 
 jest.setTimeout(30000);
 
-type StakingConfig = {
-  softTokenAddress: string;
-  softMfersContractAddress: string;
-  stakingContractAddress: string;
-};
-
 let deployer: SignerWithAddress;
 let user1: SignerWithAddress;
-let user2: SignerWithAddress;
-let softToken: GenericERC20;
 let stakingContract: StakingContract;
-let softMfersContract: GenericERC20;
-
-// staking config
-const config: StakingConfig = {
-  softTokenAddress: "0xb170aE616bB78Ea5f1CC04b7c6c5931b1db7723b",
-  softMfersContractAddress: "0x9bb3270be42b56117a14cae88c63415420913e53",
-  stakingContractAddress: "0x667805DFb4BE4324B41FBF445EFc58eE70b98409",
-};
+let softMfersContract: SoftMfersMock;
+let token: GenericERC20;
+let tokenAddress: string;
+let softMfersContractAddress: string;
+let stakingContractAddress: string;
 
 describe("StakingContract", function () {
   beforeAll(async () => {
-    [deployer, user1, user2] = await ethers.getSigners();
+    [deployer, user1] = await ethers.getSigners();
 
-    softToken = await ethers.getContractAt("GenericERC20", config.softTokenAddress);
-    softMfersContract = await ethers.getContractAt("GenericERC20", config.softMfersContractAddress);
-    stakingContract = await ethers.getContractAt("StakingContract", config.stakingContractAddress);
+    const GenericERC20Factory = await ethers.getContractFactory("GenericERC20", deployer);
+    token = (await GenericERC20Factory.deploy(
+      "Neue Crypto Token",
+      "NCT",
+      18,
+      // 1B tokens
+      (10n ** 9n * 10n ** 18n).toString(),
+    )) as GenericERC20;
+    tokenAddress = await token.getAddress();
+    await token.transfer(user1.address, 500);
+
+    const SoftMfersMockFactory = await ethers.getContractFactory("SoftMfersMock", deployer);
+    softMfersContract = await SoftMfersMockFactory.deploy();
+    softMfersContractAddress = await softMfersContract.getAddress();
+
+    const StakingContracyFactory = await ethers.getContractFactory("StakingContract", deployer);
+    stakingContract = await StakingContracyFactory.deploy(tokenAddress, softMfersContractAddress);
+    stakingContractAddress = await stakingContract.getAddress();
   });
 
   it("should allow users to stake tokens", async () => {
-    // const stakeAmount = ethers.parseEther("1000");
-    // await softToken.connect(user1).approve(config.stakingContractAddress, stakeAmount);
-    // await stakingContract.connect(user1).stake(stakeAmount, config.softTokenAddress);
+    const stakeAmount = 500;
+    await token.connect(user1).approve(stakingContractAddress, stakeAmount);
+    await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
 
-    // expect(await stakingContract.stakedTokens(user1.address)).toEqual(stakeAmount);
+    const [stakedAmount] = await stakingContract.stakedTokens(user1.address);
+    expect(stakedAmount).toEqual(BigInt(stakeAmount));
   });
 
   it("should allow users to unstake tokens", async () => {
-    // const stakeAmount = ethers.parseEther("1000");
-    // await stakingContract.connect(user1).unstake(stakeAmount, config.softTokenAddress);
+    const stakeAmount = 500;
+    await stakingContract.connect(user1).unstake(stakeAmount, tokenAddress);
 
-    // expect(await softToken.balanceOf(user1.address)).toEqual(stakeAmount);
-    // expect(await stakingContract.stakedTokens(user1.address)).toEqual(0);
+    expect(await token.balanceOf(user1.address)).toEqual(BigInt(stakeAmount));
+    const [stakedAmount] = await stakingContract.stakedTokens(user1.address);
+    expect(stakedAmount).toEqual(BigInt(0));
   });
-
 });
