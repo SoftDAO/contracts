@@ -133,7 +133,7 @@ contract StakingContract is Ownable, Pausable {
             stakingDuration) / (30 days);
 
         uint256 penalty;
-        if (monthsStaked < 1 && stakedTokens[msg.sender].amount >= 2500e18) {
+        if (monthsStaked < 1) {
             penalty = (amount * 1000) / 10000; // 10% penalty for early withdrawal
         } else if (
             monthsStaked < 2 && stakedTokens[msg.sender].amount >= 10000e18
