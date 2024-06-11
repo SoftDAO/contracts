@@ -161,6 +161,10 @@ contract StakingContract is Ownable, Pausable {
             return stakedTokens[user].pendingFeeLevel;
         }
 
+        if (stakedTokens[user].earnedFeeLevel == 0) {
+            return 100;
+        }
+
         return stakedTokens[user].earnedFeeLevel;
     }
 
