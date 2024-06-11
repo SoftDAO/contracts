@@ -187,7 +187,7 @@ contract StakingContract is Ownable, Pausable {
     function getPenaltyAmount(address user) public view returns (uint256) {
         uint256 amount = stakedTokens[user].amount;
 
-        if (amount >= 75000e18) {
+        if (amount >= 50000e18) {
             return (amount * 200) / 10000; // 2%
         } else if (amount >= 10000e18) {
             return (amount * 500) / 10000; // 5%
