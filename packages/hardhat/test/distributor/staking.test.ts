@@ -22,14 +22,46 @@ let stakingContractAddress: string;
 // 75000 90 Days	2%
 const spec = [
   {
-    maximumAmount: BigInt(10000e18) - BigInt(1),
-    maximumPenaltyPeriod: 86400 * 30 - 1,
-    expectedPenalty: 0.1,
+    name: "base",
+    maximumAmount: BigInt(5000e18) - BigInt(1),
+    maximumPenaltyPeriod: 86400 * 15 - 60,
+    expectedPenalty: 10,
+    expectedFeeLevelAfterPenaltyPeriodElapses: 85n,
   },
   {
+    name: "over 5000",
+    maximumAmount: BigInt(10000e18) - BigInt(1),
+    maximumPenaltyPeriod: 86400 * 30 - 60,
+    expectedPenalty: 10,
+    expectedFeeLevelAfterPenaltyPeriodElapses: 75n,
+  },
+  {
+    name: "over 10000",
     maximumAmount: BigInt(25000e18) - BigInt(1),
-    maximumPenaltyPeriod: 86400 * 30 - 1,
-    expectedPenalty: 0.05,
+    maximumPenaltyPeriod: 86400 * 30 - 60,
+    expectedPenalty: 5,
+    expectedFeeLevelAfterPenaltyPeriodElapses: 65n,
+  },
+  {
+    name: "over 25000",
+    maximumAmount: BigInt(50000e18) - BigInt(1),
+    maximumPenaltyPeriod: 86400 * 45 - 60,
+    expectedPenalty: 5,
+    expectedFeeLevelAfterPenaltyPeriodElapses: 50n,
+  },
+  {
+    name: "over 50000",
+    maximumAmount: BigInt(75000e18) - BigInt(1e18), // 1e18 because precision is lossed somehow
+    maximumPenaltyPeriod: 86400 * 60 - 60,
+    expectedPenalty: 2,
+    expectedFeeLevelAfterPenaltyPeriodElapses: 25n,
+  },
+  {
+    name: "over 75000",
+    maximumAmount: BigInt(10000000e18),
+    maximumPenaltyPeriod: 86400 * 90 - 60,
+    expectedPenalty: 2,
+    expectedFeeLevelAfterPenaltyPeriodElapses: 10n,
   },
 ];
 
@@ -46,7 +78,6 @@ describe("StakingContract", function () {
       (10n ** 9n * 10n ** 18n).toString(),
     )) as GenericERC20;
     tokenAddress = await token.getAddress();
-    await token.transfer(user1.address, 500);
 
     const SoftMfersMockFactory = await ethers.getContractFactory("SoftMfersMock", deployer);
     softMfersContract = await SoftMfersMockFactory.deploy();
@@ -59,6 +90,7 @@ describe("StakingContract", function () {
 
   it("should allow users to stake tokens", async () => {
     const stakeAmount = 500;
+    await token.transfer(user1.address, stakeAmount);
     await token.connect(user1).approve(stakingContractAddress, stakeAmount);
     await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
 
@@ -68,6 +100,7 @@ describe("StakingContract", function () {
 
   it("should incur penalty for withdrawal", async () => {
     const stakeAmount = 500;
+    await token.transfer(user1.address, stakeAmount);
     await token.connect(user1).approve(stakingContractAddress, stakeAmount);
     await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
 
@@ -81,6 +114,7 @@ describe("StakingContract", function () {
 
   it("should not incur penalty for withdrawal after penalty period passes", async () => {
     const stakeAmount = 500;
+    await token.transfer(user1.address, stakeAmount);
 
     await token.connect(user1).approve(stakingContractAddress, stakeAmount);
     await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
@@ -90,4 +124,39 @@ describe("StakingContract", function () {
     const [stakedAmount] = await stakingContract.stakedTokens(user1.address);
     expect(stakedAmount).toEqual(BigInt(0));
   });
+
+  for (const tier of spec) {
+    it(`should handle penalized unstaking for tier ${tier.name}`, async () => {
+      const stakeAmount = tier.maximumAmount;
+      await token.transfer(user1.address, stakeAmount);
+
+      await token.connect(user1).approve(stakingContractAddress, stakeAmount);
+      await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
+      const balance = await token.balanceOf(user1);
+      expect(balance).toEqual(BigInt(0));
+      await time.increase(tier.maximumPenaltyPeriod);
+      await stakingContract.connect(user1).unstake(stakeAmount, tokenAddress);
+      expect(await token.balanceOf(user1.address)).toEqual(
+        stakeAmount - BigInt((stakeAmount * BigInt(tier.expectedPenalty)) / BigInt(100)),
+      );
+      const [stakedAmount] = await stakingContract.stakedTokens(user1.address);
+      expect(stakedAmount).toEqual(BigInt(0));
+    });
+  }
+
+  for (const tier of spec) {
+    it(`should handle post-penalty fee level for tier ${tier.name}`, async () => {
+      const stakeAmount = tier.maximumAmount;
+      await token.transfer(user1.address, stakeAmount);
+
+      await token.connect(user1).approve(stakingContractAddress, stakeAmount);
+      await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
+      const initialFeeLevel = await stakingContract.getFeeLevel(user1);
+      expect(initialFeeLevel).toEqual(100n);
+      await time.increase(tier.maximumPenaltyPeriod + 60);
+      expect(await stakingContract.hasPenaltyPeriodElapsed(user1)).toEqual(true);
+      const feeLevel = await stakingContract.getFeeLevel(user1);
+      expect(feeLevel).toEqual(tier.expectedFeeLevelAfterPenaltyPeriodElapses);
+    });
+  }
 });
