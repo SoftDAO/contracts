@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/math/Math.sol";
 
 interface ISoftMfers {
     function redeem(address receiver, uint256 amount) external;
@@ -15,11 +16,10 @@ contract StakingContract is Ownable, Pausable {
 
     struct StakedToken {
         uint256 amount;
-        uint256 startTime;
-        uint256 totalStakingDuration;
-        uint256 stakingTime;
+        uint256 penaltyPeriodStartTime;
         uint256 nftsMinted;
-        uint256 feeLevel;
+        uint256 pendingFeeLevel;
+        uint256 earnedFeeLevel;
     }
 
     mapping(address => StakedToken) public stakedTokens;
@@ -38,42 +38,34 @@ contract StakingContract is Ownable, Pausable {
         return stakedTokens[user].amount;
     }
 
+    function getTotalFutureRedeemableNFTCount(address user) public view returns (uint256) {
+        uint256 amount = stakedTokens[user].amount;
+
+        if (amount >= 10000e18) {
+            return 12;
+        } else if (amount >= 5000e18) {
+            return 9;
+        } else if (amount >= 2500e18) {
+            return 6;
+        } else if (amount >= 1000e18) {
+            return 3;
+        }
+
+        return 0;
+    }
+
     function redeemNFTs() external {
-        uint256 totalSecondsStaked = stakedTokens[msg.sender]
-            .totalStakingDuration;
+        uint256 timeElapsedSincePeriodStart = block.timestamp - stakedTokens[msg.sender].penaltyPeriodStartTime;
+        uint256 monthsElapsedSincePeriodStart = timeElapsedSincePeriodStart / (30 days);
+        uint256 totalFutureRedeemableNFTCount = getTotalFutureRedeemableNFTCount(msg.sender);
+        uint256 nftsMinted = stakedTokens[msg.sender].nftsMinted;
+        uint256 redeemableNFTCount = Math.min(monthsElapsedSincePeriodStart, totalFutureRedeemableNFTCount) - nftsMinted;
 
-        if (stakedTokens[msg.sender].amount > 0) {
-            totalSecondsStaked +=
-                block.timestamp -
-                stakedTokens[msg.sender].stakingTime;
-        }
+        require(redeemableNFTCount > 0, "No new NFTs to redeem");
 
-        uint256 totalMonthsStaked = totalSecondsStaked / (30 days);
-        uint256 stakedAmount = stakedTokens[msg.sender].amount;
-        uint256 nftsToRedeem;
-
-        if (stakedAmount >= 1000e18 && stakedAmount < 2500e18) {
-            nftsToRedeem = totalMonthsStaked <= 3
-                ? totalMonthsStaked - stakedTokens[msg.sender].nftsMinted
-                : 3 - stakedTokens[msg.sender].nftsMinted;
-        } else if (stakedAmount >= 2500e18 && stakedAmount < 5000e18) {
-            nftsToRedeem = totalMonthsStaked <= 6
-                ? totalMonthsStaked - stakedTokens[msg.sender].nftsMinted
-                : 6 - stakedTokens[msg.sender].nftsMinted;
-        } else if (stakedAmount >= 5000e18 && stakedAmount < 10000e18) {
-            nftsToRedeem = totalMonthsStaked <= 9
-                ? totalMonthsStaked - stakedTokens[msg.sender].nftsMinted
-                : 9 - stakedTokens[msg.sender].nftsMinted;
-        } else if (stakedAmount >= 10000e18) {
-            nftsToRedeem = totalMonthsStaked <= 12
-                ? totalMonthsStaked - stakedTokens[msg.sender].nftsMinted
-                : 12 - stakedTokens[msg.sender].nftsMinted;
-        }
-
-        require(nftsToRedeem > 0, "No new NFTs to redeem");
-
-        stakedTokens[msg.sender].nftsMinted += nftsToRedeem;
-        softMfersContract.redeem(msg.sender, nftsToRedeem);
+        stakedTokens[msg.sender].nftsMinted += redeemableNFTCount;
+        softMfersContract.redeem(msg.sender, redeemableNFTCount);
+        emit NFTMinted(msg.sender, redeemableNFTCount);
     }
 
     function stake(
@@ -82,6 +74,10 @@ contract StakingContract is Ownable, Pausable {
     ) external whenNotPaused {
         require(amount > 0, "Amount must be greater than 0");
         require(tokenAddress != address(0), "Invalid token address");
+
+        if (hasPenaltyPeriodElapsed(msg.sender)) {
+            stakedTokens[msg.sender].earnedFeeLevel = stakedTokens[msg.sender].pendingFeeLevel;
+        }
 
         IERC20 token = IERC20(tokenAddress);
         uint256 userBalance = token.balanceOf(msg.sender);
@@ -99,20 +95,11 @@ contract StakingContract is Ownable, Pausable {
         );
         require(transferSuccess, "Token transfer failed");
 
-        if (stakedTokens[msg.sender].amount == 0) {
-            stakedTokens[msg.sender].startTime = block.timestamp;
-        } else {
-            stakedTokens[msg.sender].totalStakingDuration +=
-                block.timestamp -
-                stakedTokens[msg.sender].stakingTime;
-        }
-
         stakedTokens[msg.sender].amount += amount;
-        stakedTokens[msg.sender].stakingTime = block.timestamp;
+        stakedTokens[msg.sender].penaltyPeriodStartTime = block.timestamp;
+        stakedTokens[msg.sender].pendingFeeLevel = getPendingFeeLevel(msg.sender);
 
         emit Staked(msg.sender, amount);
-        notifyNFTContract(msg.sender);
-        adjustFees(msg.sender);
     }
 
     function unstake(
@@ -127,101 +114,82 @@ contract StakingContract is Ownable, Pausable {
             stakedTokens[msg.sender].amount >= amount,
             "Insufficient staked tokens"
         );
-        uint256 stakingDuration = block.timestamp -
-            stakedTokens[msg.sender].startTime;
-        uint256 monthsStaked = (stakedTokens[msg.sender].totalStakingDuration +
-            stakingDuration) / (30 days);
-
-        uint256 penalty;
-        if (monthsStaked < 1) {
-            penalty = (amount * 1000) / 10000; // 10% penalty for early withdrawal
-        } else if (
-            monthsStaked < 2 && stakedTokens[msg.sender].amount >= 10000e18
-        ) {
-            penalty = (amount * 500) / 10000; // 5% penalty for early withdrawal
-        } else if (
-            monthsStaked < 3 && stakedTokens[msg.sender].amount >= 50000e18
-        ) {
-            penalty = (amount * 200) / 10000; // 2% penalty for early withdrawal
-        }
+        uint256 penalty = hasPenaltyPeriodElapsed(msg.sender) ? 0 : getPenaltyAmount(msg.sender);
 
         uint256 withdrawAmount = amount - penalty;
         stakedTokens[msg.sender].amount -= amount;
-        stakedTokens[msg.sender].totalStakingDuration += stakingDuration;
-        stakedTokens[msg.sender].startTime = block.timestamp;
+        stakedTokens[msg.sender].penaltyPeriodStartTime = block.timestamp;
+
+        // users who unstake will lose their earned fee level
+        stakedTokens[msg.sender].earnedFeeLevel = 100;
+        stakedTokens[msg.sender].pendingFeeLevel = getPendingFeeLevel(msg.sender);
+
         token.transfer(msg.sender, withdrawAmount);
-        token.transfer(address(this), penalty);
+        // token.transfer(address(this), penalty);
         emit Unstaked(msg.sender, amount);
-        adjustFees(msg.sender);
     }
 
-    function notifyNFTContract(address user) internal {
-        uint256 totalSecondsStaked = stakedTokens[user].totalStakingDuration;
-        if (stakedTokens[user].amount > 0) {
-            totalSecondsStaked +=
-                block.timestamp -
-                stakedTokens[user].stakingTime;
-        }
+    function hasPenaltyPeriodElapsed(address user) public view returns (bool) {
+        uint256 timeElapsedSincePeriodStart = block.timestamp - stakedTokens[user].penaltyPeriodStartTime;
+        uint256 penaltyPeriodDuration = getPenaltyPeriodDuration(user);
 
-        uint256 totalMonthsStaked = totalSecondsStaked / (30 days);
-        uint256 stakedAmount = stakedTokens[user].amount;
-        uint256 numNFTsToMint;
-
-        if (stakedAmount >= 1000e18 && stakedAmount < 2500e18) {
-            numNFTsToMint = totalMonthsStaked <= 3
-                ? totalMonthsStaked - stakedTokens[user].nftsMinted
-                : 3 - stakedTokens[user].nftsMinted;
-        } else if (stakedAmount >= 2500e18 && stakedAmount < 5000e18) {
-            numNFTsToMint = totalMonthsStaked <= 6
-                ? totalMonthsStaked - stakedTokens[user].nftsMinted
-                : 6 - stakedTokens[user].nftsMinted;
-        } else if (stakedAmount >= 5000e18 && stakedAmount < 10000e18) {
-            numNFTsToMint = totalMonthsStaked <= 9
-                ? totalMonthsStaked - stakedTokens[user].nftsMinted
-                : 9 - stakedTokens[user].nftsMinted;
-        } else if (stakedAmount >= 10000e18) {
-            numNFTsToMint = totalMonthsStaked <= 12
-                ? totalMonthsStaked - stakedTokens[user].nftsMinted
-                : 12 - stakedTokens[user].nftsMinted;
-        }
-
-        if (numNFTsToMint > 0) {
-            softMfersContract.redeem(user, numNFTsToMint);
-            stakedTokens[user].nftsMinted += numNFTsToMint;
-            emit NFTMinted(user, numNFTsToMint);
-        }
+        return timeElapsedSincePeriodStart >= penaltyPeriodDuration;
     }
 
-    function adjustFees(address user) internal {
-        uint256 newFeeLevel;
-        uint256 stakedAmount = stakedTokens[user].amount;
-        uint256 stakingDuration = stakedTokens[user].totalStakingDuration +
-            (block.timestamp - stakedTokens[user].startTime);
+    function getPendingFeeLevel(address user) public view returns (uint256) {
+        uint256 amount = stakedTokens[user].amount;
 
-        if (stakedAmount >= 100000e18 && stakingDuration >= 120 days) {
-            newFeeLevel = 0;
-        } else if (stakedAmount >= 75000e18 && stakingDuration >= 90 days) {
-            newFeeLevel = 10;
-        } else if (stakedAmount >= 50000e18 && stakingDuration >= 60 days) {
-            newFeeLevel = 25;
-        } else if (stakedAmount >= 25000e18 && stakingDuration >= 45 days) {
-            newFeeLevel = 50;
-        } else if (stakedAmount >= 10000e18 && stakingDuration >= 30 days) {
-            newFeeLevel = 65;
-        } else if (stakedAmount >= 5000e18 && stakingDuration >= 30 days) {
-            newFeeLevel = 75;
-        } else if (stakedAmount >= 2500e18 && stakingDuration >= 15 days) {
-            newFeeLevel = 85;
-        } else {
-            newFeeLevel = 100;
+        if (amount >= 75000e18) {
+            return 10;
+        } else if (amount >= 50000e18) {
+            return 25;
+        } else if (amount >= 25000e18) {
+            return 50;
+        } else if (amount >= 10000e18) {
+            return 65;
+        } else if (amount >= 5000e18) {
+            return 75;
+        } else if (amount >= 2500e18) {
+            return 85;
         }
 
-        stakedTokens[user].feeLevel = newFeeLevel;
-        emit FeesAdjusted(user, newFeeLevel);
+        return 100;
     }
 
     function getFeeLevel(address user) public view returns (uint256) {
-        return stakedTokens[user].feeLevel;
+        if (hasPenaltyPeriodElapsed(user)) {
+            return stakedTokens[user].pendingFeeLevel;
+        }
+
+        return stakedTokens[user].earnedFeeLevel;
+    }
+
+    function getPenaltyPeriodDuration(address user) public view returns (uint256) {
+        uint256 amount = stakedTokens[user].amount;
+
+        if (amount >= 75000e18) {
+            return 90 days;
+        } else if (amount >= 50000e18) {
+            return 60 days;
+        } else if (amount >= 25000e18) {
+            return 45 days;
+        } else if (amount >= 5000e18) {
+            return 30 days;
+        } else {
+            return 15 days;
+        }
+    }
+
+    function getPenaltyAmount(address user) public view returns (uint256) {
+        uint256 amount = stakedTokens[user].amount;
+
+        if (amount >= 75000e18) {
+            return (amount * 200) / 10000; // 2%
+        } else if (amount >= 10000e18) {
+            return (amount * 500) / 10000; // 5%
+        }
+
+        return (amount * 1000) / 10000; // 10%
     }
 
     function pause() external onlyOwner {

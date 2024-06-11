@@ -71,7 +71,7 @@ describe("StakingContract", function () {
     await token.connect(user1).approve(stakingContractAddress, stakeAmount);
     await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
 
-    await time.increase(86400 * 30 - 30);
+    await time.increase(86400 * 15 - 30);
     await stakingContract.connect(user1).unstake(stakeAmount, tokenAddress);
 
     expect(await token.balanceOf(user1.address)).toEqual(BigInt(stakeAmount * 0.9));
