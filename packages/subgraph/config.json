@@ -821,26 +821,26 @@
     "LowestStartBlock": 35809299,
     "FlatPriceSaleFactory_v_2_1": [
       {
-        "Address": "0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083",
-        "BlockNumber": 35887357
+        "Address": "0xe5F510E963f3b2e884122Fb6E3b21A8984282813",
+        "BlockNumber": 36425423
       }
     ],
     "FlatPriceSale_v_2_1": [
       {
-        "Address": "0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F",
-        "BlockNumber": 35887345
+        "Address": "0x485B932DF4b72b5846cf11c84cFdC1E267F04137",
+        "BlockNumber": 36425411
       }
     ],
     "ContinuousVestingMerkleDistributorFactory": [
       {
-        "Address": "0x870C1744173498905c9a1Da624CcC9852513f90D",
-        "BlockNumber": 35887266
+        "Address": "0x840E0299fccf0B44C99B932143Ac210D34aEbbf7",
+        "BlockNumber": 36427884
       }
     ],
     "TrancheVestingMerkleDistributorFactory": [
       {
-        "Address": "0xc6B19D47a336d3382f57EdD768233076a27C28c2",
-        "BlockNumber": 35887164
+        "Address": "0x16b5450ab5185Ec377dBcB0421c35C323Ed63cdc",
+        "BlockNumber": 36429634
       }
     ]
   },
