@@ -168,6 +168,26 @@ contract StakingContract is Ownable, Pausable {
         return stakedTokens[user].earnedFeeLevel;
     }
 
+    function getRedeemableNFTCount(address user) public view returns (uint256) {
+        uint256 timeElapsedSincePeriodStart = block.timestamp - stakedTokens[user].penaltyPeriodStartTime;
+        uint256 monthsElapsedSincePeriodStart = timeElapsedSincePeriodStart / (30 days);
+        uint256 totalFutureRedeemableNFTCount = getTotalFutureRedeemableNFTCount(user);
+        uint256 nftsMinted = stakedTokens[user].nftsMinted;
+        uint256 redeemableNFTCount = Math.min(monthsElapsedSincePeriodStart, totalFutureRedeemableNFTCount) - nftsMinted;
+        return redeemableNFTCount;
+    }
+
+    function getTimeUntilNextRedeem(address user) public view returns (uint256) {
+        uint256 lastRedeemTime = stakedTokens[user].penaltyPeriodStartTime;
+        uint256 nextRedeemTime = lastRedeemTime + (30 days);
+
+        if (block.timestamp >= nextRedeemTime) {
+            return 0;
+        } else {
+            return nextRedeemTime - block.timestamp;
+        }
+    }
+
     function getPenaltyPeriodDuration(address user) public view returns (uint256) {
         uint256 amount = stakedTokens[user].amount;
 
