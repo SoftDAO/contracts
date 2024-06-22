@@ -10,6 +10,8 @@ const DeployStakingContractModule = buildModule(
       softTokenAddress,
       softMfersAddress
     ]);
+    
+
 
     return { stakingContract };
   }

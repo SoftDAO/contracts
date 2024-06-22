@@ -1,8 +1,8 @@
 import readline from "readline";
 import { ethers } from "hardhat";
 
-const SOFT_TOKEN_ADDRESS = "0xb170aE616bB78Ea5f1CC04b7c6c5931b1db7723b";
-const STAKING_CONTRACT_ADDRESS = "0xB5A919eB152C428D79B9f6f3F3B0B06Fd5E26aD7";
+const SOFT_TOKEN_ADDRESS = "0x7CA877f49Ff29c5464F073c75592315ecBa67282";
+const STAKING_CONTRACT_ADDRESS = "0xeFc2C5294A2913b31B294325153B1C8446145173";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -59,13 +59,13 @@ async function main() {
     try {
       const amount = await promptInput("Enter the amount of tokens to stake: ");
       console.log("Staking tokens...");
-  
-      const gasLimit = 300000; 
-      const gasPrice = ethers.parseUnits("10", "gwei"); 
+
+      const gasLimit = 300000;
+      const gasPrice = ethers.parseUnits("10", "gwei");
       console.log("Gas limit:", gasLimit);
       console.log("Gas price:", gasPrice.toString());
-      console.log(amount)
-      const tx = await stakingContract.stake(amount, SOFT_TOKEN_ADDRESS, { gasLimit, gasPrice });
+
+      const tx = await stakingContract.stake(amount, { gasLimit, gasPrice });
       await tx.wait();
       console.log("Tokens staked successfully!");
     } catch (error) {
@@ -77,14 +77,14 @@ async function main() {
         console.error("Error: Token transfer failed");
       } else {
         console.error("Error staking tokens:", error);
-      }  
+      }
     }
   }
 
   async function unstakeTokens() {
     try {
       const amount = await promptInput("Enter the amount of tokens to unstake: ");
-      const tx = await stakingContract.unstake(amount, SOFT_TOKEN_ADDRESS);
+      const tx = await stakingContract.unstake(amount);
       await tx.wait();
       console.log("Tokens unstaked successfully!");
     } catch (error) {
@@ -92,11 +92,24 @@ async function main() {
     }
   }
 
+
   async function getStakedBalance() {
     const stakedAmount = await stakingContract.getStakedAmount(signer.address);
     console.log("Staked amount for user", signer.address, "is:", stakedAmount.toString());
   }
 
+  async function sendTokens() {
+    try {
+      const recipientAddress = await promptInput("Enter the recipient address: ");
+      const amount = await promptInput("Enter the amount of tokens to send: ");
+
+      const tx = await softToken.transfer(recipientAddress, amount);
+      await tx.wait();
+      console.log("Tokens sent successfully!");
+    } catch (error) {
+      console.error("Error sending tokens:", error);
+    }
+  }
 
   async function promptInput(message) {
     return new Promise((resolve) => {
@@ -115,8 +128,8 @@ async function main() {
     console.log("5. Check contract ownership");
     console.log("6. Get staked balance");
     console.log("7. Redeem NFTs");
-    console.log("8. Exit");
-  
+    console.log("8. Send tokens");
+    console.log("9. Exit");
 
     const choice = await promptInput("Enter your choice: ");
     console.log();
@@ -144,6 +157,9 @@ async function main() {
         await redeemNFTs();
         break;
       case "8":
+        await sendTokens();
+        break;
+      case "9":
         rl.close();
         process.exit(0);
       default:

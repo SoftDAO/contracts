@@ -28,10 +28,17 @@ contract StakingContract is Ownable, Pausable {
     event Unstaked(address indexed user, uint256 amount);
     event NFTMinted(address indexed user, uint256 numNFTs);
     event FeesAdjusted(address indexed user, uint256 newFeeLevel);
+    event SoftTokenAddressUpdated(address indexed newAddress);
 
     constructor(address _softToken, address _softMfersAddress) {
         softToken = IERC20(_softToken);
         softMfersContract = ISoftMfers(_softMfersAddress);
+    }
+
+    function updateSoftTokenAddress(address _newSoftTokenAddress) external onlyOwner {
+        require(_newSoftTokenAddress != address(0), "Invalid token address");
+        softToken = IERC20(_newSoftTokenAddress);
+        emit SoftTokenAddressUpdated(_newSoftTokenAddress);
     }
 
     function getStakedAmount(address user) public view returns (uint256) {
@@ -68,31 +75,20 @@ contract StakingContract is Ownable, Pausable {
         emit NFTMinted(msg.sender, redeemableNFTCount);
     }
 
-    function stake(
-        uint256 amount,
-        address tokenAddress
-    ) external whenNotPaused {
+    function stake(uint256 amount) external whenNotPaused {
         require(amount > 0, "Amount must be greater than 0");
-        require(tokenAddress != address(0), "Invalid token address");
 
         if (hasPenaltyPeriodElapsed(msg.sender)) {
             stakedTokens[msg.sender].earnedFeeLevel = stakedTokens[msg.sender].pendingFeeLevel;
         }
 
-        IERC20 token = IERC20(tokenAddress);
-        uint256 userBalance = token.balanceOf(msg.sender);
-
-        // uint256 userBalance = softToken.balanceOf(msg.sender);
+        uint256 userBalance = softToken.balanceOf(msg.sender);
         require(userBalance >= amount, "Insufficient token balance");
 
-        uint256 userAllowance = token.allowance(msg.sender, address(this));
+        uint256 userAllowance = softToken.allowance(msg.sender, address(this));
         require(userAllowance >= amount, "Insufficient token allowance");
 
-        bool transferSuccess = token.transferFrom(
-            msg.sender,
-            address(this),
-            amount
-        );
+        bool transferSuccess = softToken.transferFrom(msg.sender, address(this), amount);
         require(transferSuccess, "Token transfer failed");
 
         stakedTokens[msg.sender].amount += amount;
@@ -102,30 +98,18 @@ contract StakingContract is Ownable, Pausable {
         emit Staked(msg.sender, amount);
     }
 
-    function unstake(
-        uint256 amount,
-        address tokenAddress
-    ) external whenNotPaused {
-        require(tokenAddress != address(0), "Invalid token address");
-
-        IERC20 token = IERC20(tokenAddress);
-
-        require(
-            stakedTokens[msg.sender].amount >= amount,
-            "Insufficient staked tokens"
-        );
+    function unstake(uint256 amount) external whenNotPaused {
+        require(stakedTokens[msg.sender].amount >= amount, "Insufficient staked tokens");
         uint256 penalty = hasPenaltyPeriodElapsed(msg.sender) ? 0 : getPenaltyAmount(msg.sender);
 
         uint256 withdrawAmount = amount - penalty;
         stakedTokens[msg.sender].amount -= amount;
         stakedTokens[msg.sender].penaltyPeriodStartTime = block.timestamp;
 
-        // users who unstake will lose their earned fee level
         stakedTokens[msg.sender].earnedFeeLevel = 100;
         stakedTokens[msg.sender].pendingFeeLevel = getPendingFeeLevel(msg.sender);
 
-        token.transfer(msg.sender, withdrawAmount);
-        // token.transfer(address(this), penalty);
+        softToken.transfer(msg.sender, withdrawAmount);
         emit Unstaked(msg.sender, amount);
     }
 

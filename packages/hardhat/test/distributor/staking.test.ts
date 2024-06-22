@@ -74,7 +74,6 @@ describe("StakingContract", function () {
       "Neue Crypto Token",
       "NCT",
       18,
-      // 1B tokens
       (10n ** 9n * 10n ** 18n).toString(),
     )) as GenericERC20;
     tokenAddress = await token.getAddress();
@@ -92,7 +91,7 @@ describe("StakingContract", function () {
     const stakeAmount = 500;
     await token.transfer(user1.address, stakeAmount);
     await token.connect(user1).approve(stakingContractAddress, stakeAmount);
-    await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
+    await stakingContract.connect(user1).stake(stakeAmount);
 
     const [stakedAmount] = await stakingContract.stakedTokens(user1.address);
     expect(stakedAmount).toEqual(BigInt(stakeAmount));
@@ -102,10 +101,10 @@ describe("StakingContract", function () {
     const stakeAmount = 500;
     await token.transfer(user1.address, stakeAmount);
     await token.connect(user1).approve(stakingContractAddress, stakeAmount);
-    await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
+    await stakingContract.connect(user1).stake(stakeAmount);
 
     await time.increase(86400 * 15 - 30);
-    await stakingContract.connect(user1).unstake(stakeAmount, tokenAddress);
+    await stakingContract.connect(user1).unstake(stakeAmount);
 
     expect(await token.balanceOf(user1.address)).toEqual(BigInt(stakeAmount * 0.9));
     const [stakedAmount] = await stakingContract.stakedTokens(user1.address);
@@ -117,9 +116,9 @@ describe("StakingContract", function () {
     await token.transfer(user1.address, stakeAmount);
 
     await token.connect(user1).approve(stakingContractAddress, stakeAmount);
-    await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
+    await stakingContract.connect(user1).stake(stakeAmount);
     await time.increase(86400 * 30);
-    await stakingContract.connect(user1).unstake(stakeAmount, tokenAddress);
+    await stakingContract.connect(user1).unstake(stakeAmount);
     expect(await token.balanceOf(user1.address)).toEqual(BigInt(stakeAmount));
     const [stakedAmount] = await stakingContract.stakedTokens(user1.address);
     expect(stakedAmount).toEqual(BigInt(0));
@@ -131,11 +130,11 @@ describe("StakingContract", function () {
       await token.transfer(user1.address, stakeAmount);
 
       await token.connect(user1).approve(stakingContractAddress, stakeAmount);
-      await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
+      await stakingContract.connect(user1).stake(stakeAmount);
       const balance = await token.balanceOf(user1);
       expect(balance).toEqual(BigInt(0));
       await time.increase(tier.maximumPenaltyPeriod);
-      await stakingContract.connect(user1).unstake(stakeAmount, tokenAddress);
+      await stakingContract.connect(user1).unstake(stakeAmount);
       expect(await token.balanceOf(user1.address)).toEqual(
         stakeAmount - BigInt((stakeAmount * BigInt(tier.expectedPenalty)) / BigInt(100)),
       );
@@ -150,7 +149,7 @@ describe("StakingContract", function () {
       await token.transfer(user1.address, stakeAmount);
 
       await token.connect(user1).approve(stakingContractAddress, stakeAmount);
-      await stakingContract.connect(user1).stake(stakeAmount, tokenAddress);
+      await stakingContract.connect(user1).stake(stakeAmount);
       const initialFeeLevel = await stakingContract.getFeeLevel(user1);
       expect(initialFeeLevel).toEqual(100n);
       await time.increase(tier.maximumPenaltyPeriod + 60);
