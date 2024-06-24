@@ -13,6 +13,7 @@ interface ISoftMfers {
 contract StakingContract is Ownable2StepUpgradeable, PausableUpgradeable {
     IERC20 public softToken;
     ISoftMfers public softMfersContract;
+    bool private initialized;
 
     struct StakedToken {
         uint256 amount;
@@ -30,9 +31,12 @@ contract StakingContract is Ownable2StepUpgradeable, PausableUpgradeable {
     event FeesAdjusted(address indexed user, uint256 newFeeLevel);
     event SoftTokenAddressUpdated(address indexed newAddress);
 
-    constructor(address _softToken, address _softMfersAddress, address owner) Ownable2StepUpgradeable(owner) {
+    function initialize(address _softToken, address _softMfersAddress) public initializer {
+        require(!initialized, "Contract instance has already been initialized");
+        initialized = true;
         softToken = IERC20(_softToken);
         softMfersContract = ISoftMfers(_softMfersAddress);
+        __Ownable2Step_init();
     }
 
     function updateSoftTokenAddress(address _newSoftTokenAddress) external onlyOwner {
