@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
@@ -10,7 +10,7 @@ interface ISoftMfers {
     function redeem(address receiver, uint256 amount) external;
 }
 
-contract StakingContract is Ownable, Pausable {
+contract StakingContract is Ownable2StepUpgradeable, Pausable {
     IERC20 public softToken;
     ISoftMfers public softMfersContract;
 
