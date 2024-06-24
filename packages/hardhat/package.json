@@ -52,7 +52,7 @@
   "dependencies": {
     "@chainlink/contracts": "^0.6.1",
     "@openzeppelin/contracts": "^4.8.1",
-    "@openzeppelin/contracts-upgradeable": "4.7.3",
+    "@openzeppelin/contracts-upgradeable": "^4.9.6",
     "hardhat-jest": "^1.0.8"
   },
   "workspaces": {
