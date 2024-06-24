@@ -3,14 +3,14 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
 interface ISoftMfers {
     function redeem(address receiver, uint256 amount) external;
 }
 
-contract StakingContract is Ownable2StepUpgradeable, Pausable {
+contract StakingContract is Ownable2StepUpgradeable, PausableUpgradeable {
     IERC20 public softToken;
     ISoftMfers public softMfersContract;
 
@@ -30,7 +30,7 @@ contract StakingContract is Ownable2StepUpgradeable, Pausable {
     event FeesAdjusted(address indexed user, uint256 newFeeLevel);
     event SoftTokenAddressUpdated(address indexed newAddress);
 
-    constructor(address _softToken, address _softMfersAddress) {
+    constructor(address _softToken, address _softMfersAddress, address owner) Ownable2StepUpgradeable(owner) {
         softToken = IERC20(_softToken);
         softMfersContract = ISoftMfers(_softMfersAddress);
     }

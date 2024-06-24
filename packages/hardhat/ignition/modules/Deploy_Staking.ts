@@ -3,12 +3,19 @@ import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 const DeployStakingContractModule = buildModule(
   "DeployStakingContractModule",
   (m) => {
-    const softTokenAddress = m.getParameter("softTokenAddress", "0x7CA877f49Ff29c5464F073c75592315ecBa67282");
-    const softMfersAddress = m.getParameter("softMfersAddress", "0x9Bb3270BE42B56117a14CaE88C63415420913E53");
+    // on base network
+    const softTokenAddress = m.getParameter("softTokenAddress", "0x04D1963C76EB1BEc59d0eEb249Ed86F736B82993");
+
+    // set this later
+    const softMfersAddress = m.getParameter("softMfersAddress", "0x0000000000000000000000000000000000000000");
+
+    // base network ledger wallet
+    const owner = m.getParameter("owner", "0x510898f396B2FB1d7E82f233C0224b641075B08d")
 
     const stakingContract = m.contract("StakingContract", [
       softTokenAddress,
-      softMfersAddress
+      softMfersAddress,
+      owner
     ]);
     
 
