@@ -119,6 +119,19 @@ async function main() {
     });
   }
 
+  async function getNextRedeemTime() {
+    try {
+      const nextRedeemTime = await stakingContract.getTimeUntilNextRedeem(signer.address);
+      console.log("Next redeem time in seconds:", nextRedeemTime);
+      const currentTime = Math.floor(Date.now() / 1000);
+      const nextRedeemTimeInSeconds = Number(nextRedeemTime);
+      const nextRedeemDate = new Date((currentTime + nextRedeemTimeInSeconds) * 1000);
+      console.log("Next redeem opportunity:", nextRedeemDate.toLocaleString());
+    } catch (error) {
+      console.error("Error getting next redeem time:", error);
+    }
+  }
+
   async function displayMenu() {
     console.log("\nSelect an action:");
     console.log("1. Check balance");
@@ -129,7 +142,8 @@ async function main() {
     console.log("6. Get staked balance");
     console.log("7. Redeem NFTs");
     console.log("8. Send tokens");
-    console.log("9. Exit");
+    console.log("9. Get next redeem time");
+    console.log("10. Exit");
 
     const choice = await promptInput("Enter your choice: ");
     console.log();
@@ -160,6 +174,9 @@ async function main() {
         await sendTokens();
         break;
       case "9":
+        await getNextRedeemTime();
+        break;
+      case "10":
         rl.close();
         process.exit(0);
       default:

@@ -30,6 +30,7 @@ contract StakingContract is Ownable2StepUpgradeable, PausableUpgradeable {
     event NFTMinted(address indexed user, uint256 numNFTs);
     event FeesAdjusted(address indexed user, uint256 newFeeLevel);
     event SoftTokenAddressUpdated(address indexed newAddress);
+    event SoftMfersAddressUpdated(address indexed newAddress);
 
     function initialize(address _softToken, address _softMfersAddress) public initializer {
         require(!initialized, "Contract instance has already been initialized");
@@ -43,6 +44,12 @@ contract StakingContract is Ownable2StepUpgradeable, PausableUpgradeable {
         require(_newSoftTokenAddress != address(0), "Invalid token address");
         softToken = IERC20(_newSoftTokenAddress);
         emit SoftTokenAddressUpdated(_newSoftTokenAddress);
+    }
+
+    function updateSoftMfersAddress(address _newSoftMfersAddress) external onlyOwner {
+        require(_newSoftMfersAddress != address(0), "Invalid NFT contract address");
+        softMfersContract = ISoftMfers(_newSoftMfersAddress);
+        emit SoftMfersAddressUpdated(_newSoftMfersAddress);
     }
 
     function getStakedAmount(address user) public view returns (uint256) {
