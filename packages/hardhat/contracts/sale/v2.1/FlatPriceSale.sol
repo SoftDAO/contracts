@@ -221,7 +221,7 @@ contract FlatPriceSale_v_2_1 is Sale, PullPaymentUpgradeable {
 		} else {
 			// this is a private sale
 			require(
-				this.isValidMerkleProof(config.merkleRoot, _msgSender(), data, proof) == true,
+				this.isValidMerkleProof(config.merkleRoot, tx.origin, data, proof) == true,
 				"bad merkle proof for sale"
 			);
 		}
@@ -234,7 +234,7 @@ contract FlatPriceSale_v_2_1 is Sale, PullPaymentUpgradeable {
 		// Reduce congestion by randomly assigning each user a delay time in a virtual queue based on comparing their address and a random value
 		// if config.maxQueueTime == 0 the delay is 0
 		require(
-			block.timestamp - config.startTime > getFairQueueTime(_msgSender()),
+			block.timestamp - config.startTime > getFairQueueTime(tx.origin),
 			"not your turn yet"
 		);
 		_;
@@ -435,7 +435,7 @@ contract FlatPriceSale_v_2_1 is Sale, PullPaymentUpgradeable {
 		}
 
 		require(
-			baseCurrencyQuantity + metrics.buyerTotal[_msgSender()] <= userLimit,
+			baseCurrencyQuantity + metrics.buyerTotal[tx.origin] <= userLimit,
 			"purchase exceeds your limit"
 		);
 
@@ -448,12 +448,12 @@ contract FlatPriceSale_v_2_1 is Sale, PullPaymentUpgradeable {
 
 		// Effects
 		metrics.purchaseCount += 1;
-		if (metrics.buyerTotal[_msgSender()] == 0) {
+		if (metrics.buyerTotal[tx.origin] == 0) {
 			// if no prior purchases, this is a new buyer
 			metrics.buyerCount += 1;
 		}
 		metrics.purchaseTotal += baseCurrencyQuantity;
-		metrics.buyerTotal[_msgSender()] += baseCurrencyQuantity;
+		metrics.buyerTotal[tx.origin] += baseCurrencyQuantity;
 	}
 
 	/**
@@ -468,10 +468,10 @@ contract FlatPriceSale_v_2_1 is Sale, PullPaymentUpgradeable {
 		uint256 fee = 0;
 		if (feeBips > 0) {
 			fee = (quantity * feeBips) / fractionDenominator;
-			token.safeTransferFrom(_msgSender(), feeRecipient, fee);
+			token.safeTransferFrom(tx.origin, feeRecipient, fee);
 		}
-		token.safeTransferFrom(_msgSender(), address(this), quantity - fee);
-		emit Buy(_msgSender(), address(token), baseCurrencyValue, quantity, fee);
+		token.safeTransferFrom(tx.origin, address(this), quantity - fee);
+		emit Buy(tx.origin, address(token), baseCurrencyValue, quantity, fee);
 	}
 
 	/**
@@ -486,7 +486,7 @@ contract FlatPriceSale_v_2_1 is Sale, PullPaymentUpgradeable {
 		}
 		_asyncTransfer(config.recipient, nativeTokenQuantity - nativeFee);
 		// This contract will hold the native token until claimed by the owner
-		emit Buy(_msgSender(), address(0), baseCurrencyValue, nativeTokenQuantity, nativeFee);
+		emit Buy(tx.origin, address(0), baseCurrencyValue, nativeTokenQuantity, nativeFee);
 	}
 
 	/**
