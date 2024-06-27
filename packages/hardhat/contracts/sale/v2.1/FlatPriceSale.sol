@@ -213,10 +213,6 @@ contract FlatPriceSale_v_2_1 is Sale, PullPaymentUpgradeable {
   - otherwise: this is a private sale, users must submit a merkle proof that their address is included in the merkle root
   */
 	modifier canAccessSale(bytes calldata data, bytes32[] calldata proof) {
-		// make sure the buyer is an EOA
-		// TODO: Review this check for meta-transactions
-		require((_msgSender() == tx.origin), "Must buy with an EOA");
-
 		// If the merkle root is non-zero this is a private sale and requires a valid proof
 		if (config.merkleRoot == bytes32(0)) {
 			// this is a public sale
