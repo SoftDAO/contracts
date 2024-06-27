@@ -73,6 +73,8 @@ dataSources:
       abis:
         - name: FlatPriceSale_v_2_1
           file: ./abis/contracts/sale/v2.1/FlatPriceSale.sol/FlatPriceSale_v_2_1.json
+        - name: FlatPriceSale
+          file: ./abis/contracts/sale/v2.1/FlatPriceSale.sol/FlatPriceSale_v_2_1.json
       eventHandlers:
         - event: ImplementationConstructor(indexed address,uint256)
           handler: handleImplementationConstructor
