@@ -4,12 +4,10 @@ pragma solidity =0.8.21;
 import "@openzeppelin/contracts/proxy/Clones.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./FlatPriceSale.sol";
-import "../../config/INetworkConfig.sol";
 
 contract FlatPriceSaleFactory_v_3 is Ownable {
 	address public implementation;
 	string public constant VERSION = "3.0";
-	INetworkConfig networkConfig;
 
 	event NewSale(
 		address indexed implementation,
@@ -20,17 +18,12 @@ contract FlatPriceSaleFactory_v_3 is Ownable {
 		bool nativePaymentsEnabled
 	);
 
-	constructor(address _implementation, address _networkConfig) {
+	constructor(address _implementation) {
 		implementation = _implementation;
-		networkConfig = INetworkConfig(_networkConfig);
 	}
 
 	function upgradeFutureSales(address _implementation) external onlyOwner() {
 		implementation = _implementation;
-	}
-
-	function updateNetworkConfig(address _networkConfig) external onlyOwner() {
-		networkConfig = INetworkConfig(_networkConfig);
 	}
 
 	function newSale(
