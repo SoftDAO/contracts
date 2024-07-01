@@ -848,5 +848,20 @@
         "BlockNumber": 7001339
       }
     ]
+  },
+  "baseSepolia": {
+    "SubgraphNetwork": "base-sepolia",
+    "FlatPriceSale_v_3": [
+      {
+        "Address": "0x26862632E12D1926B15AAE44C2695cd3c4e17d50",
+        "BlockNumber": "12034350"
+      }
+    ],
+    "FlatPriceSaleFactory_v_3": [
+      {
+        "Address": "0x6C0c22386422E7669566112de5560d264134aC66",
+        "BlockNumber": "12034357"
+      }
+    ]
   }
 }
