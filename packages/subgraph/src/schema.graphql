@@ -4,7 +4,8 @@
 type SaleImplementation @entity {
   id: ID! # Address
   feeRecipient: Account
-  feeBips: BigInt!
+  feeBips: BigInt
+  networkConfig: String
   saleCount: BigInt!
   purchaseCount: BigInt!
   sales: [Sale!] @derivedFrom(field: "implementation")
@@ -43,9 +44,6 @@ type Sale @entity {
   # Metrics
   purchaseCount: BigInt!
   purchaseTotal: BigInt!  # Denominated in base currency with 8 decimals
-  
-  # Fee Collection Proxy
-  feeCollectionProxyAddress: String
 }
 
 type PaymentMethod @entity {

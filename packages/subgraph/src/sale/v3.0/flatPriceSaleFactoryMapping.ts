@@ -1,6 +1,6 @@
 
 import { BigInt } from "@graphprotocol/graph-ts";
-import { NewSale } from "../../../generated/FlatPriceSaleFactory_v_2_1/FlatPriceSaleFactoryV2_v_2_1";
+import { NewSale } from "../../../generated/FlatPriceSaleFactory_v_3/FlatPriceSaleFactory_v_3";
 import { getOrCreateAccount, getOrCreateNativePaymentMethod } from "../../lib";
 import {SaleImplementation, Sale} from "../../../generated/schema";
 import { FlatPriceSale } from '../../../generated/templates'
@@ -45,8 +45,6 @@ export function handleNewSale(event: NewSale): void {
   sale.purchaseTotal = BigInt.fromI32(0);
 
   sale.createdAt = event.block.timestamp;
-
-  sale.feeCollectionProxyAddress = event.params.feeCollectionProxy.toHexString();
 
   sale.save();
 }
