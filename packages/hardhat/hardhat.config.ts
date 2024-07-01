@@ -29,6 +29,7 @@ const EVM_PRIVATE_KEY_2 = vars.get(
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
 );
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY", "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW");
+const BASE_SEPOLIA_API_KEY = vars.get("BASE_SEPOLIA_API_KEY", "E3X4WTYQKAWFW5DW4G8AAN4E761PSJH2N6");
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -41,14 +42,24 @@ const config: HardhatUserConfig = {
       viaIR: true,
     },
   },
+  sourcify: {
+    enabled: false
+  },
   networks: {
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [EVM_PRIVATE_KEY_1, EVM_PRIVATE_KEY_2],
     },
+    baseSepolia: {
+      url: `https://base-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [EVM_PRIVATE_KEY_1, EVM_PRIVATE_KEY_2]
+    },
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
+    apiKey: {
+      mainnet: ETHERSCAN_API_KEY,
+      baseSepolia: BASE_SEPOLIA_API_KEY,
+  }
   },
 };
 
