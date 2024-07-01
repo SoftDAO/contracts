@@ -123,7 +123,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 	// the base currency being used, e.g. 'USD'
 	string public baseCurrency;
 
-	string public constant VERSION = "2.2";
+	string public constant VERSION = "3.0";
 
 	// <native token>/<base currency> price, e.g. ETH/USD price
 	IOracleOrL2OracleWithSequencerCheck public nativeTokenPriceOracle;
