@@ -1,7 +1,7 @@
 import {
   ImplementationConstructor,
   FlatPriceSale as FlatPriceSaleContract
-} from "../../../generated/FlatPriceSaleImplementation/FlatPriceSale";
+} from "../../../generated/templates/FlatPriceSale/FlatPriceSale";
 
 import {
   SaleImplementation

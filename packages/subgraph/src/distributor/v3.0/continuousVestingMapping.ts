@@ -1,5 +1,5 @@
 import { log } from "@graphprotocol/graph-ts";
-import { SetContinuousVesting } from '../../../generated/templates/IContinuousVesting/IContinuousVesting'
+import { SetContinuousVesting } from '../../../generated/ContinuousVestingMerkleDistributorFactory/IContinuousVesting'
 import { ContinuousVesting } from '../../../generated/schema';
 
 export function handleSetContinuousVesting(event: SetContinuousVesting): void {
