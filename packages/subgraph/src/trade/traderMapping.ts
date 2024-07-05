@@ -1,7 +1,7 @@
 import { Trader, Trade, CrossChainTrade } from "../../generated/schema"
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { SetConfig, HashflowTradeSingleHop, HashflowTradeXChain, SetSweepRecipient } from '../../generated/templates/Trader/Trader'
-import { OwnershipTransferred } from "../../generated/Registry/Registry";
+import { OwnershipTransferred } from "../../generated/templates/Trader/Trader";
 import { Trader as TraderTemplate } from "../../generated/templates"
 
 /**

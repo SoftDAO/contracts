@@ -322,10 +322,10 @@
       "address": "0x840E0299fccf0B44C99B932143Ac210D34aEbbf7"
     },
     "FlatPriceSaleFactory_v_2_1": {
-      "address": "0xe5F510E963f3b2e884122Fb6E3b21A8984282813"
+      "address": "0x1C44a48e8eD9Fd431A87f4f2AF91CFa5319978aa"
     },
     "FlatPriceSale_v_2_1": {
-      "address": "0x485B932DF4b72b5846cf11c84cFdC1E267F04137"
+      "address": "0x32B0aa453d76126F7A962539F32a478c471D6E1B"
     },
     "TrancheVestingMerkleDistributor": {
       "address": "0xaA90E88795cDE3b813dE653e7A48338cA4049930"
@@ -339,25 +339,25 @@
   },
   "zksyncTestnet": {
     "ContinuousVestingMerkleDistributor": {
-      "address": "0xd1515bB65096d67895287bC180521007bc71900F"
+      "address": "0x4bc1763de361D99eFA4ccc5645121B2e4F8cFf5f"
     },
     "ContinuousVestingMerkleDistributorFactory": {
-      "address": "0xf38756A27593CEd6b4bF3807b44a88908b3d8ccC"
+      "address": "0x18380CD98C86301A922596e176eC9535EFE01A56"
     },
     "FlatPriceSaleFactory_v_2_1": {
-      "address": "0xEaC172D6Fd56933F894176eE32Dd95b0a4abb083"
+      "address": "0xBb0bd6B70Bf62C90FABbF7Ec64439C35C42D3d35"
     },
     "FlatPriceSale_v_2_1": {
-      "address": "0x3551BA6B7b3edfF8b1c82b87D1De606270Aec24F"
+      "address": "0x60A437f560ae7D1bd063e0bd9189ee1F21c910B0"
     },
     "TrancheVestingMerkleDistributor": {
-      "address": "0x5CD85a2C91ba4420E0247c3bB7CEe1299EA150c8"
+      "address": "0x840E0299fccf0B44C99B932143Ac210D34aEbbf7"
     },
     "TrancheVestingMerkleDistributorFactory": {
-      "address": "0x5B8a021F311BDAbE7DcA7bEf84DBF3D1FFa80846"
+      "address": "0xaA90E88795cDE3b813dE653e7A48338cA4049930"
     },
     "GenericERC20": {
-      "address": "0xCa785532ad49f974E41171fA4Ea8E4B5381aE0bD"
+      "address": "0x485B932DF4b72b5846cf11c84cFdC1E267F04137"
     }
   },
   "binance": {
