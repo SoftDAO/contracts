@@ -43,8 +43,9 @@ contract PerAddressTrancheVestingMerkleDistributor is
         uint256 index, // the beneficiary's index in the merkle root
         address beneficiary, // the address that will receive tokens
         uint256 amount, // the total claimable by this beneficiary
+        Tranche[] calldata tranches, // the tranches for the beneficiary (users can have different vesting schedules)
         bytes32[] calldata merkleProof
-    ) external validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, amount)), merkleProof) {
+    ) external validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, amount, abi.encode(tranches))), merkleProof) {
         _initializeDistributionRecord(beneficiary, amount);
     }
 
@@ -52,14 +53,16 @@ contract PerAddressTrancheVestingMerkleDistributor is
         uint256 index, // the beneficiary's index in the merkle root
         address beneficiary, // the address that will receive tokens
         uint256 totalAmount, // the total claimable by this beneficiary
+        Tranche[] calldata tranches, // the tranches for the beneficiary (users can have different vesting schedules)
         bytes32[] calldata merkleProof
     )
         external
-        validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount)), merkleProof)
+        validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount, abi.encode(tranches))), merkleProof)
         nonReentrant
     {
+        bytes memory data = abi.encode(tranches);
         // effects
-        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, new bytes(0));
+        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, data);
         // interactions
         _settleClaim(beneficiary, claimedAmount);
     }
