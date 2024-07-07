@@ -3,4 +3,5 @@ pragma solidity =0.8.21;
 
 interface INetworkConfig {
 	function getFeeRecipient() external view returns (address payable);
+	function getStakingAddress() external view returns (address);
 }
