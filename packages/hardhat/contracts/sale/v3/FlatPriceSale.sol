@@ -7,6 +7,9 @@ import "@openzeppelin/contracts-upgradeable/security/PullPaymentUpgradeable.sol"
 import "./Sale.sol";
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 import "../../config/INetworkConfig.sol";
+import "../../claim/Staking.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+
 /**
 Allow qualified users to participate in a sale according to sale rules.
 
@@ -489,11 +492,14 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		IERC20Upgradeable token,
 		uint256 quantity,
 		bytes calldata data,
-		bytes32[] calldata proof,
-		uint256 feeLevel,
-		uint256 /* feeLevelExpiresAt */, // will be used in later versions
-		bytes calldata /* signature */ // ECDSA signature that will be used in later versions
+		bytes32[] calldata proof
 	) external override canAccessSale(data, proof) validPaymentToken(token) nonReentrant {
+		StakingContract staking = StakingContract(networkConfig.getStakingAddress());
+		uint256 feeLevel = staking.getFeeLevel(_msgSender());
+		if (feeLevel == 0) {
+			feeLevel = 100;
+		}
+
 		// convert to base currency from native tokens
 		PaymentTokenInfo memory tokenInfo = paymentTokens[token];
 		uint256 baseCurrencyValue = tokensToBaseCurrency(
@@ -512,10 +518,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
    */
 	function buyWithNative(
 		bytes calldata data,
-		bytes32[] calldata proof,
-		uint256 feeLevel,
-		uint256 /* feeLevelExpiresAt */, // will be used in later versions
-		bytes calldata /* signature */ // ECDSA signature that will be used in later versions
+		bytes32[] calldata proof
 	) external
 		payable
 		override
@@ -523,6 +526,12 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		areNativePaymentsEnabled
 		nonReentrant
 	{
+		StakingContract staking = StakingContract(networkConfig.getStakingAddress());
+		uint256 feeLevel = staking.getFeeLevel(_msgSender());
+		if (feeLevel == 0) {
+			feeLevel = 100;
+		}
+
 		// convert to base currency from native tokens
 		uint256 baseCurrencyValue = tokensToBaseCurrency(
 			msg.value,

@@ -47,18 +47,12 @@ abstract contract Sale is ReentrancyGuardUpgradeable, OwnableUpgradeable {
 		IERC20Upgradeable token,
 		uint256 quantity,
 		bytes calldata data,
-		bytes32[] calldata proof,
-		uint256 feeLevel,
-		uint256 feeLevelExpiresAt,
-		bytes calldata signature
+		bytes32[] calldata proof
 	) external virtual {}
 
 	function buyWithNative(
 		bytes calldata data,
-		bytes32[] calldata proof,
-		uint256 feeLevel,
-		uint256 feeLevelExpiresAt,
-		bytes calldata signature
+		bytes32[] calldata proof
 	) external payable virtual {}
 
 	function isOpen() public view virtual returns (bool) {}
