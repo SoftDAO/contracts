@@ -440,12 +440,20 @@
       {
         "Address": "0x70e0e5a16c981eff0720f226a2e8ff418b5f3954",
         "BlockNumber": 19085055
+      },
+      {
+        "Address": "0xA464d007Ddc98cE0407584aaEF1c5a80e057e142",
+        "BlockNumber": 20264021
       }
     ],
     "FlatPriceSale_v_2_1": [
       {
         "Address": "0x57c08f6827dc9a88b253830d73e0d8314b32e8d1",
         "BlockNumber": 19085015
+      },
+      {
+        "Address": "0xF77c58392b9F30fB15F36373C527AC16176Ea543",
+        "BlockNumber": 20264016
       }
     ],
     "TrancheVestingSale_2_0": [
@@ -717,12 +725,20 @@
       {
         "Address": "0x64be0B781AB94c728a3Ee9459c683823d993fe9F",
         "BlockNumber": 5578877
+      },
+      {
+        "Address": "0xA464d007Ddc98cE0407584aaEF1c5a80e057e142",
+        "BlockNumber": 6278787
       }
     ],
     "FlatPriceSale_v_2_1": [
       {
         "Address": "0x9960A249816c863865f35F80DAFCD10168973E98",
         "BlockNumber": 5578561
+      },
+      {
+        "Address": "0xF77c58392b9F30fB15F36373C527AC16176Ea543",
+        "BlockNumber": 6278778
       }
     ],
     "GenericERC20": [
@@ -751,12 +767,21 @@
       {
         "Address": "0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30",
         "BlockNumber": 8496341
+      },
+      {
+        "Address": "0x4271Bc10592149F40F3C129b7E77dcfA5A429aB2",
+        "BlockNumber": 12394208
       }
     ],
+
     "FlatPriceSale_v_2_1": [
       {
         "Address": "0x2C71e4cfa6DAe45aaA78f497Ab4BD5F0fb256fd3",
         "BlockNumber": 8496073
+      },
+      {
+        "Address": "0x46FfcFdDE76C88f68f7e4035A422B6f328393f33",
+        "BlockNumber": 12394202
       }
     ]
   },
@@ -779,12 +804,20 @@
       {
         "Address": "0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5",
         "BlockNumber": 12988487
+      },
+      {
+        "Address": "0x6F09bd6Df57e952b39a4415De9b9D9756EF6988a",
+        "BlockNumber": 16839971
       }
     ],
     "FlatPriceSale_v_2_1": [
       {
         "Address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8",
         "BlockNumber": 12988458
+      },
+      {
+        "Address": "0x51d15Ae4783Ad01b027656d3035485dc649f02a2",
+        "BlockNumber": 16839965
       }
     ]
   },
