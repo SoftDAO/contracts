@@ -26,12 +26,16 @@ dataSources:
         - event: InitializeDistributor(indexed address,uint256,string,uint256)
           handler: handleInitializeDistributor
   {{/TrancheVestingSale_2_0.[0]}}
-  {{#FlatPriceSaleFactory_v_2_1.[0]}}
+  {{#each FlatPriceSaleFactory_v_2_1}}
   - kind: ethereum/contract
+    {{#if @index}}
+    name: FlatPriceSaleFactory_v_2_1_{{@index}}
+    {{else}}
     name: FlatPriceSaleFactory_v_2_1
+    {{/if}}
     network: {{../SubgraphNetwork}}
     source:
-      address: '{{Address}}'
+      address: '{{this.Address}}'
       abi: FlatPriceSaleFactory_v_2_1
       startBlock: {{BlockNumber}}
     mapping:
@@ -47,10 +51,14 @@ dataSources:
       eventHandlers:
         - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
           handler: handleNewSale
-  {{/FlatPriceSaleFactory_v_2_1.[0]}}
-  {{#FlatPriceSale_v_2_1.[0]}}
+  {{/each}}
+  {{#each FlatPriceSale_v_2_1}}
   - kind: ethereum/contract
+    {{#if @index}}
+    name: FlatPriceSale_v_2_1_{{@index}}
+    {{else}}
     name: FlatPriceSale_v_2_1
+    {{/if}}
     network: {{../SubgraphNetwork}}
     source:
       address: '{{Address}}'
@@ -69,7 +77,7 @@ dataSources:
         - event: ImplementationConstructor(indexed address,uint256)
           handler: handleImplementationConstructor
       file: ./src/sale/v2.1/saleImplementationMapping.ts
-  {{/FlatPriceSale_v_2_1.[0]}}
+  {{/each}}
   {{#FlatPriceSaleFactory.[0]}}
   - kind: ethereum/contract
     name: FlatPriceSaleFactory
