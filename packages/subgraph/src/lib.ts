@@ -4,6 +4,7 @@ import { Distributor as DistributorTemplate, AdvancedDistributor as AdvancedDist
 import { IERC20Metadata } from '../generated/ContinuousVestingMerkleDistributorFactory/IERC20Metadata'
 import { ITrancheVesting } from '../generated/TrancheVestingMerkleDistributorFactory/ITrancheVesting'
 import { IContinuousVesting } from '../generated/ContinuousVestingMerkleDistributorFactory/IContinuousVesting'
+import { IPriceTierVesting } from '../generated/Registry/IPriceTierVesting'
 import { IMerkleSet } from '../generated/ContinuousVestingMerkleDistributorFactory/IMerkleSet'
 import {
 	Account, Adjustment, AdvancedDistributor, Claim, ContinuousVesting, DistributionRecord, Distributor, MerkleSet, PaymentMethod, RegisteredAddress, Registry, Sale, SaleImplementation, Tranche, PriceTier, TrancheVesting } from "../generated/schema";
@@ -266,6 +267,49 @@ export function getOrCreateTrancheVesting(distributorId: string, block: ethereum
 	}
 
 	return trancheVesting
+}
+
+export function getOrCreatePriceTiers(distributorId: string, block: ethereum.Block): PriceTier[] | null {
+	log.info('Trying to add price tier vesting info to distributor {}', [distributorId])
+	const distributorAddress: Address = Address.fromString(distributorId)
+	const distributorContract = IPriceTierVesting.bind(distributorAddress)
+
+	const priceTiersResult = distributorContract.try_getPriceTiers()
+
+	if (priceTiersResult.reverted) {
+		log.error('Could not call distributor.getPriceTiers() on distributor {}, is it mis-registered as tranche vesting?', [distributorId])
+		return null
+	}
+
+	const oracleResult = distributorContract.try_getOracle()
+
+	if (oracleResult.reverted) {
+		log.error('Could not call distributor.getPriceTiers() on distributor {}, is it mis-registered as tranche vesting?', [distributorId])
+		return null
+	}
+
+	const priceTiers: PriceTier[] = []
+
+	for (let i = 0; i < priceTiersResult.value.length; i++) {
+		const priceTier = priceTiersResult.value[i]
+		const tierId = `${distributorId}-priceTierVesting-${priceTier.price}`
+		let t = PriceTier.load(tierId)
+
+		if (!t) {
+			t = new PriceTier(tierId)
+			t.distributor = distributorId
+			t.price = priceTier.price
+			t.oracle = oracleResult.value.toHexString()
+			t.vestedFraction = priceTier.vestedFraction
+			t.createdAt = block.timestamp
+			t.save()
+		}
+
+		priceTiers.push(t)
+	}
+
+	// TODO: handle vesting updates?
+	return priceTiers
 }
 
 export function getOrCreateContinuousVesting(distributorId: string, block: ethereum.Block): ContinuousVesting | null {

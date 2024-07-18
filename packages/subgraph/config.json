@@ -317,8 +317,8 @@
       }
     ]
   },
-  "gnosis": {
-    "SubgraphNetwork": "gnosis",
+  "xdai": {
+    "SubgraphNetwork": "xdai",
     "Registry" : [
       {
         "Address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D",
