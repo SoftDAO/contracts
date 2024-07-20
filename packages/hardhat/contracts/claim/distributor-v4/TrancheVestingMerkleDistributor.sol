@@ -117,6 +117,7 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         _setMerkleRoot(_merkleRoot);
     }
 
+    // TODO: reduce duplication between other contracts
     function tokensToBaseCurrency(
         uint256 tokenQuantity,
         uint256 tokenDecimals,
@@ -125,6 +126,7 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         return (tokenQuantity * getOraclePrice(oracle)) / (10**tokenDecimals);
     }
 
+    // TODO: reduce duplication between other contracts
     // Get a positive token price from a chainlink oracle
     function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle) public view returns (uint256) {
         (

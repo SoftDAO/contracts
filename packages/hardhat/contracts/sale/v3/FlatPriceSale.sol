@@ -314,6 +314,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		return paymentTokens[token];
 	}
 
+	// TODO: reduce duplication between other contracts
 	// Get a positive token price from a chainlink oracle
 	function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle) public view returns (uint256) {
 		(
@@ -390,6 +391,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 	//   PaymentTokenInfo info = paymentTokens[token];
 	//   return quantity * getOraclePrice(info.oracle) / (10 ** info.decimals);
 	// }
+	// TODO: reduce duplication between other contracts
 	function tokensToBaseCurrency(
 		uint256 tokenQuantity,
 		uint256 tokenDecimals,
