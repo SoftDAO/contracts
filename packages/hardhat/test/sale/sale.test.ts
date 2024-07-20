@@ -47,10 +47,15 @@ describe("FlatPriceSale V3", function () {
     await stakingContract.initialize(tokenAddress, softMfersContractAddress);
     stakingContractAddress = await stakingContract.getAddress();
 
+    const OracleMockFactory = await ethers.getContractFactory("OracleMock", deployer);
+    const oracleMock = await OracleMockFactory.deploy();
+    await oracleMock.waitForDeployment();
+    const oracleMockAddress = await oracleMock.getAddress();
+
     const NetworkConfigFactory = await ethers.getContractFactory("NetworkConfig", deployer);
     const networkConfig = await NetworkConfigFactory.deploy();
     await networkConfig.waitForDeployment();
-    networkConfig.initialize(user2.address, stakingContractAddress);
+    networkConfig.initialize(user2.address, stakingContractAddress, oracleMockAddress, 100);
     const networkConfigAddress = await networkConfig.getAddress();
 
     const FlatPriceSaleFactory = await ethers.getContractFactory("FlatPriceSale_v_3", deployer);
@@ -60,11 +65,6 @@ describe("FlatPriceSale V3", function () {
     const FlatPriceSaleFactoryFactory = await ethers.getContractFactory("FlatPriceSaleFactory_v_3", deployer);
     const flatPriceSaleFactory = await FlatPriceSaleFactoryFactory.deploy(flatPriceSaleImplementation);
     await flatPriceSaleFactory.waitForDeployment();
-
-    const OracleMockFactory = await ethers.getContractFactory("OracleMock", deployer);
-    const oracleMock = await OracleMockFactory.deploy();
-    await oracleMock.waitForDeployment();
-    const oracleMockAddress = await oracleMock.getAddress();
 
     const saleStartTime = Math.floor(Date.now() / 1000);
 
