@@ -1142,7 +1142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphprotocol/graph-cli@npm:^0.46.1":
+"@graphprotocol/graph-cli@npm:0.46.1":
   version: 0.46.1
   resolution: "@graphprotocol/graph-cli@npm:0.46.1"
   dependencies:
@@ -1178,7 +1178,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphprotocol/graph-ts@npm:^0.29.3":
+"@graphprotocol/graph-ts@npm:0.29.3":
   version: 0.29.3
   resolution: "@graphprotocol/graph-ts@npm:0.29.3"
   dependencies:
@@ -2908,8 +2908,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@se-2/subgraph@workspace:packages/subgraph"
   dependencies:
-    "@graphprotocol/graph-cli": ^0.46.1
-    "@graphprotocol/graph-ts": ^0.29.3
+    "@graphprotocol/graph-cli": 0.46.1
+    "@graphprotocol/graph-ts": 0.29.3
     handlebars-cmd: ^0.1.4
     node-jq: ^2.3.4
     ts-node: ^10.9.1

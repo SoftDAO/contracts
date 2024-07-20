@@ -4,7 +4,8 @@
 type SaleImplementation @entity {
   id: ID! # Address
   feeRecipient: Account
-  feeBips: BigInt!
+  feeBips: BigInt
+  networkConfig: String
   saleCount: BigInt!
   purchaseCount: BigInt!
   sales: [Sale!] @derivedFrom(field: "implementation")
