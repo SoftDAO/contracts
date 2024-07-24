@@ -63,8 +63,9 @@ contract PerAddressContinuousVestingMerkle is PerAddressContinuousVesting, Merkl
     validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount, start, cliff, end)), merkleProof)
     nonReentrant
   {
+    bytes memory data = abi.encode(start, cliff, end);
     // effects
-    uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, new bytes(0));
+    uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, data);
     // interactions
     _settleClaim(beneficiary, claimedAmount);
   }
