@@ -6,7 +6,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-import {StakingContract} from "../Staking.sol";
+import {IFeeLevelJudge} from "../IFeeLevelJudge.sol";
 import "../factory/ContinuousVestingInitializable.sol";
 import "../factory/MerkleSetInitializable.sol";
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
@@ -33,6 +33,8 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
+        address _feeOrSupplyHolder,
+        bool _autoPull,
         INetworkConfig _networkConfig
     ) public initializer {
         __ContinuousVesting_init(
@@ -45,14 +47,35 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
 
         networkConfig = _networkConfig;
 
-        StakingContract staking = StakingContract(networkConfig.getStakingAddress());
-        uint256 feeLevel = staking.getFeeLevel(_msgSender());
+        IFeeLevelJudge feeLevelJudge = IFeeLevelJudge(networkConfig.getStakingAddress());
+        uint256 feeLevel = feeLevelJudge.getFeeLevel(_msgSender());
         if (feeLevel == 0) {
             feeLevel = 100;
         }
 
-        // TODO: use a distinct parameter for explicitly designating payer
-        _token.transferFrom(_owner, address(this), (_total * feeLevel) / feeFractionDenominator);
+        // TODO: reduce duplication with other contracts
+        uint256 feeAmount = (_total * feeLevel) / feeFractionDenominator;
+        if (_autoPull) {
+            require(
+                _total + feeAmount == _token.allowance(_feeOrSupplyHolder, address(this)),
+                string.concat(
+                    string.concat(Strings.toString(feeAmount), " "),
+                    string.concat(
+                        string.concat(
+                            Strings.toString(_token.allowance(_feeOrSupplyHolder, address(this))),
+                            " "
+                        ),
+                        Strings.toHexString(uint256(uint160(_feeOrSupplyHolder)))
+                    )
+                )
+            );
+            _token.transferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount);
+
+            _token.approve(address(this), feeAmount);
+            _token.transferFrom(address(this), networkConfig.getFeeRecipient(), feeAmount);
+        } else {
+            _token.transferFrom(_feeOrSupplyHolder, address(this), feeAmount);
+        }
     }
 
     function NAME() external pure override returns (string memory) {
@@ -76,19 +99,15 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
         uint256 index, // the beneficiary's index in the merkle root
         address beneficiary, // the address that will receive tokens
         uint256 totalAmount, // the total claimable by this beneficiary
-        bytes32[] calldata merkleProof
+        bytes32[] calldata merkleProof,
+        address payable platformFlatRateFeeRecipient,
+        uint256 platformFlatRateFeeAmount
     )
         external
         payable
         validMerkleProof(keccak256(abi.encodePacked(index, beneficiary, totalAmount)), merkleProof)
         nonReentrant
     {
-        StakingContract staking = StakingContract(networkConfig.getStakingAddress());
-        uint256 feeLevel = staking.getFeeLevel(_msgSender());
-        if (feeLevel == 0) {
-            feeLevel = 100;
-        }
-
         IOracleOrL2OracleWithSequencerCheck nativeTokenPriceOracle = IOracleOrL2OracleWithSequencerCheck(networkConfig.getNativeTokenPriceOracleAddress());
 
         uint256 baseCurrencyValue = tokensToBaseCurrency(
@@ -97,14 +116,11 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
             nativeTokenPriceOracle
         );
 
-        uint256 feeMinimumExpandedAmount = 
-            (networkConfig.getFlatRateFeeAmount() * feeLevel) / feeFractionDenominator;
+        require(baseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
 
-        require(baseCurrencyValue >= feeMinimumExpandedAmount, "fee payment below minimum");
+        uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
 
-        uint256 feeAmountInWei = ((feeMinimumExpandedAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
-
-        networkConfig.getFeeRecipient().sendValue(feeAmountInWei);
+        platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
         payable(_msgSender()).sendValue(msg.value - feeAmountInWei);
 
         // effects

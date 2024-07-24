@@ -26,6 +26,8 @@ contract TrancheVestingMerkleDistributorFactory_v_4_0 {
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
+        address _feeOrSupplyHolder,
+        bool _autoPull,
         INetworkConfig _networkConfig,
         uint256 _nonce
     ) private pure returns (bytes32) {
@@ -37,6 +39,8 @@ contract TrancheVestingMerkleDistributorFactory_v_4_0 {
             _merkleRoot,
             _maxDelayTime,
             _owner,
+            _feeOrSupplyHolder,
+            _autoPull,
             _networkConfig,
             _nonce
         ));
@@ -50,6 +54,8 @@ contract TrancheVestingMerkleDistributorFactory_v_4_0 {
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
+        address _feeOrSupplyHolder,
+        bool _autoPull,
         INetworkConfig _networkConfig,
         uint256 _nonce
     ) public returns (TrancheVestingMerkleDistributor_v_4_0 distributor) {
@@ -61,6 +67,8 @@ contract TrancheVestingMerkleDistributorFactory_v_4_0 {
             _merkleRoot,
             _maxDelayTime,
             _owner,
+            _feeOrSupplyHolder,
+            _autoPull,
             _networkConfig,
             _nonce
         );
@@ -71,7 +79,7 @@ contract TrancheVestingMerkleDistributorFactory_v_4_0 {
 
         emit DistributorDeployed(address(distributor));
 
-        distributor.initialize(_token, _total, _uri, _tranches, _merkleRoot, _maxDelayTime, _owner, _networkConfig);
+        distributor.initialize(_token, _total, _uri, _tranches, _merkleRoot, _maxDelayTime, _owner, _feeOrSupplyHolder, _autoPull, _networkConfig);
 
         return distributor;
     }
@@ -88,6 +96,8 @@ contract TrancheVestingMerkleDistributorFactory_v_4_0 {
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
+        address _feeOrSupplyHolder,
+        bool _autoPull,
         INetworkConfig _networkConfig,
         uint256 _nonce
     ) public view returns (address) {
@@ -99,6 +109,8 @@ contract TrancheVestingMerkleDistributorFactory_v_4_0 {
             _merkleRoot,
             _maxDelayTime,
             _owner,
+            _feeOrSupplyHolder,
+            _autoPull,
             _networkConfig,
             _nonce
         );

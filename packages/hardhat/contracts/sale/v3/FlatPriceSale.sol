@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+pragma solidity ^0.8.21;
 // pragma abicoder v2;
 
 import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PullPaymentUpgradeable.sol";
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import "./Sale.sol";
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 import "../../config/INetworkConfig.sol";
-import "../../claim/Staking.sol";
+import {IFeeLevelJudge} from "../../claim/IFeeLevelJudge.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
@@ -87,6 +88,7 @@ struct PaymentTokenInfo {
 }
 
 contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
+	using Address for address payable;
 	using SafeERC20Upgradeable for IERC20Upgradeable;
 
 	event ImplementationConstructor(INetworkConfig networkConfig);
@@ -494,13 +496,22 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		IERC20Upgradeable token,
 		uint256 quantity,
 		bytes calldata data,
-		bytes32[] calldata proof
-	) external override canAccessSale(data, proof) validPaymentToken(token) nonReentrant {
-		StakingContract staking = StakingContract(networkConfig.getStakingAddress());
-		uint256 feeLevel = staking.getFeeLevel(_msgSender());
-		if (feeLevel == 0) {
-			feeLevel = 100;
-		}
+		bytes32[] calldata proof,
+		address payable platformFlatRateFeeRecipient,
+		uint256 platformFlatRateFeeAmount
+	) external payable override canAccessSale(data, proof) validPaymentToken(token) nonReentrant {
+		uint256 nativeBaseCurrencyValue = tokensToBaseCurrency(
+			msg.value,
+			NATIVE_TOKEN_DECIMALS,
+			nativeTokenPriceOracle
+		);
+
+		require(nativeBaseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
+
+		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
+
+		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
+		payable(_msgSender()).sendValue(msg.value - feeAmountInWei);
 
 		// convert to base currency from native tokens
 		PaymentTokenInfo memory tokenInfo = paymentTokens[token];
@@ -509,6 +520,13 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 			tokenInfo.decimals,
 			tokenInfo.oracle
 		);
+
+		IFeeLevelJudge feeLevelJudge = IFeeLevelJudge(networkConfig.getStakingAddress());
+		uint256 feeLevel = feeLevelJudge.getFeeLevel(_msgSender());
+		if (feeLevel == 0) {
+			feeLevel = 100;
+		}
+
 		// Checks and Effects
 		_execute(baseCurrencyValue, data);
 		// Interactions
@@ -520,7 +538,9 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
    */
 	function buyWithNative(
 		bytes calldata data,
-		bytes32[] calldata proof
+		bytes32[] calldata proof,
+		address payable platformFlatRateFeeRecipient,
+		uint256 platformFlatRateFeeAmount
 	) external
 		payable
 		override
@@ -528,22 +548,28 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		areNativePaymentsEnabled
 		nonReentrant
 	{
-		StakingContract staking = StakingContract(networkConfig.getStakingAddress());
-		uint256 feeLevel = staking.getFeeLevel(_msgSender());
-		if (feeLevel == 0) {
-			feeLevel = 100;
-		}
-
 		// convert to base currency from native tokens
 		uint256 baseCurrencyValue = tokensToBaseCurrency(
 			msg.value,
 			NATIVE_TOKEN_DECIMALS,
 			nativeTokenPriceOracle
 		);
+
+		require(baseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
+
+		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
+
+		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
+
+		IFeeLevelJudge feeLevelJudge = IFeeLevelJudge(networkConfig.getStakingAddress());
+		uint256 feeLevel = feeLevelJudge.getFeeLevel(_msgSender());
+		if (feeLevel == 0) {
+			feeLevel = 100;
+		}
 		// Checks and Effects
-		_execute(baseCurrencyValue, data);
+		_execute(baseCurrencyValue - platformFlatRateFeeAmount, data);
 		// Interactions
-		_settleNativeToken(baseCurrencyValue, msg.value, feeLevel);
+		_settleNativeToken(baseCurrencyValue - platformFlatRateFeeAmount, msg.value - feeAmountInWei, feeLevel);
 	}
 
 	/**

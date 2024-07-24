@@ -21,8 +21,6 @@ contract NetworkConfig is OwnableUpgradeable, INetworkConfig {
 		__Ownable_init();
 	}
 
-	// TODO: include setters
-
 	function getFeeRecipient() external view returns (address payable) {
 		return feeRecipient;
 	}
@@ -33,9 +31,5 @@ contract NetworkConfig is OwnableUpgradeable, INetworkConfig {
 
 	function getNativeTokenPriceOracleAddress() external view returns (address) {
 		return nativeTokenPriceOracleAddress;
-	}
-
-	function getFlatRateFeeAmount() external view returns (uint256) {
-		return flatRateFeeAmount;
 	}
 }
