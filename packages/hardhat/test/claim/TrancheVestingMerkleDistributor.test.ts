@@ -2,10 +2,10 @@ import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
 import hre from "hardhat";
 import {
   GenericERC20,
-  TrancheVestingMerkleDistributorFactory,
-  TrancheVestingMerkleDistributor,
-  TrancheVestingMerkleDistributorFactory__factory,
-  TrancheVestingMerkleDistributor__factory,
+  TrancheVestingMerkleDistributorFactory_v_4_0,
+  TrancheVestingMerkleDistributor_v_4_0,
+  TrancheVestingMerkleDistributorFactory_v_4_0__factory,
+  TrancheVestingMerkleDistributor_v_4_0__factory,
 } from "../../typechain-types";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { EventLog } from "ethers";
@@ -17,15 +17,14 @@ jest.setTimeout(30000);
 let deployer: SignerWithAddress; // 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
 let eligible1: SignerWithAddress; // 0x70997970c51812dc3a010c7d01b50e0d17dc79c8
 let eligible2: SignerWithAddress; // 0x90F79bf6EB2c4f870365E785982E1f101E93b906
-// let ineligible: SignerWithAddress; // 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
 let token: GenericERC20;
-let DistributorFactoryFactory: TrancheVestingMerkleDistributorFactory__factory;
-let distributorFactory: TrancheVestingMerkleDistributorFactory;
-let DistributorFactory: TrancheVestingMerkleDistributor__factory;
+let DistributorFactoryFactory: TrancheVestingMerkleDistributorFactory_v_4_0__factory;
+let distributorFactory: TrancheVestingMerkleDistributorFactory_v_4_0;
+let DistributorFactory: TrancheVestingMerkleDistributor_v_4_0__factory;
 let distributorAddress: string;
 // let unvestedDistributor: TrancheVestingMerkleDistributor;
 // let partiallyVestedDistributor: TrancheVestingMerkle;
-let fullyVestedDistributor: TrancheVestingMerkleDistributor;
+let fullyVestedDistributor: TrancheVestingMerkleDistributor_v_4_0;
 // let unvestedTimes: [bigint, bigint, bigint];
 // let partiallyVestedTimes: [bigint, bigint, bigint];
 // let fullyVestedTimes: [bigint, bigint, bigint];
@@ -117,17 +116,11 @@ describe("TrancheVestingMerkle", function () {
       18,
       (10n ** 9n * 10n ** 18n).toString(),
     )) as GenericERC20;
-    const tokenAddress = await token.getAddress();
 
-    const SoftMfersMockFactory = await ethers.getContractFactory("SoftMfersMock", deployer);
-    const softMfersContract = await SoftMfersMockFactory.deploy();
-    const softMfersContractAddress = await softMfersContract.getAddress();
-
-    const StakingContracyFactory = await ethers.getContractFactory("StakingContract", deployer);
-    const stakingContract = await StakingContracyFactory.deploy();
-    await stakingContract.waitForDeployment();
-    await stakingContract.initialize(tokenAddress, softMfersContractAddress);
-    const stakingContractAddress = await stakingContract.getAddress();
+    const FeeLevelJudgeStubFactory = await ethers.getContractFactory("FeeLevelJudgeStub", deployer);
+    const feeLevelJudgeContract = await FeeLevelJudgeStubFactory.deploy(100);
+    await feeLevelJudgeContract.waitForDeployment();
+    const feeLevelJudgeContractAddress = await feeLevelJudgeContract.getAddress();
 
     const OracleMockFactory = await ethers.getContractFactory("OracleMock", deployer);
     const oracleMock = await OracleMockFactory.deploy();
@@ -137,12 +130,12 @@ describe("TrancheVestingMerkle", function () {
     const NetworkConfigFactory = await ethers.getContractFactory("NetworkConfig", deployer);
     const networkConfig = await NetworkConfigFactory.deploy();
     await networkConfig.waitForDeployment();
-    await networkConfig.initialize(eligible2.address, stakingContractAddress, oracleMockAddress, 10 ** 8);
+    await networkConfig.initialize(eligible2.address, feeLevelJudgeContractAddress, oracleMockAddress, 10 ** 8);
     const networkConfigAddress = await networkConfig.getAddress();
 
-    DistributorFactoryFactory = await ethers.getContractFactory("TrancheVestingMerkleDistributorFactory");
+    DistributorFactoryFactory = await ethers.getContractFactory("TrancheVestingMerkleDistributorFactory_v_4_0");
 
-    DistributorFactory = await ethers.getContractFactory("TrancheVestingMerkleDistributor", deployer);
+    DistributorFactory = await ethers.getContractFactory("TrancheVestingMerkleDistributor_v_4_0", deployer);
     const distributorImplementation = await DistributorFactory.deploy();
     const distributorImplementationAddress = await distributorImplementation.getAddress();
     distributorFactory = await DistributorFactoryFactory.deploy(distributorImplementationAddress);
@@ -164,13 +157,15 @@ describe("TrancheVestingMerkle", function () {
       config.proof.merkleRoot,
       0,
       eligible1.address,
+      eligible1.address,
+      true,
       networkConfigAddress,
       0,
     );
 
     const feeAmount = config.total / 100n;
-    await token.transfer(eligible1.address, feeAmount);
-    await (await token.connect(eligible1).approve(distributorAddress, feeAmount)).wait();
+    await (await token.transfer(eligible1.address, config.total + feeAmount)).wait();
+    await (await token.connect(eligible1).approve(distributorAddress, config.total + feeAmount)).wait();
 
     const deploymentResponse = await distributorFactory.deployDistributor(
       token.target,
@@ -180,6 +175,8 @@ describe("TrancheVestingMerkle", function () {
       config.proof.merkleRoot,
       0,
       eligible1.address,
+      eligible1.address,
+      true,
       networkConfigAddress,
       0,
     );
@@ -194,21 +191,33 @@ describe("TrancheVestingMerkle", function () {
 
     expect(loggedDistributorAddress).toEqual(distributorAddress);
 
-    fullyVestedDistributor = TrancheVestingMerkleDistributor__factory.connect(distributorAddress, eligible1);
+    fullyVestedDistributor = TrancheVestingMerkleDistributor_v_4_0__factory.connect(distributorAddress, eligible1);
 
     // transfer tokens to the distributors
     await token.transfer(fullyVestedDistributor.target, await fullyVestedDistributor.total());
   });
 
   it("can handle a claim", async () => {
+    const eligible2Balance = await ethers.provider.getBalance(eligible2.address);
+
     const {
       data: [{ value: index }, { value: beneficiary }, { value: amount }],
       proof,
     } = config.proof.claims[eligible1.address];
 
-    const claimResponse = await fullyVestedDistributor.claim(index, beneficiary, amount, proof, {
-      value: ethers.parseEther("0.00034"),
-    });
+    const feeAmountInWei = 339362676892795n; // 1 USD according to oracle mock
+    const feeAmountInUSD = 10n ** 8n;
+    const claimResponse = await fullyVestedDistributor.claim(
+      index,
+      beneficiary,
+      amount,
+      proof,
+      eligible2.address,
+      feeAmountInUSD,
+      {
+        value: ethers.parseEther("0.00034") + feeAmountInWei,
+      },
+    );
 
     await claimResponse.wait();
 
@@ -217,7 +226,10 @@ describe("TrancheVestingMerkle", function () {
     expect(distributionRecord.total).toEqual(BigInt(config.proof.claims[eligible1.address].data[2].value));
     expect(distributionRecord.initialized).toEqual(true);
 
-    expect(await ethers.provider.getBalance(distributorAddress)).toEqual(0n);
-    expect(await ethers.provider.getBalance(eligible2.address)).toEqual(10000000003393626768927n);
+    expect({
+      eligible2BalanceDiff: (await ethers.provider.getBalance(eligible2.address)) - eligible2Balance,
+    }).toEqual({
+      eligible2BalanceDiff: feeAmountInWei,
+    });
   });
 });

@@ -9,15 +9,13 @@ contract NetworkConfig is OwnableUpgradeable, INetworkConfig {
 	address public stakingAddress;
 	bool private initialized;
 	address public nativeTokenPriceOracleAddress;
-	uint256 flatRateFeeAmount;
 
-	function initialize(address payable _feeRecipient, address _stakingAddress, address _nativeTokenPriceOracleAddress, uint256 _flatRateFeeAmount) public initializer {
+	function initialize(address payable _feeRecipient, address _stakingAddress, address _nativeTokenPriceOracleAddress) public initializer {
 		require(!initialized, "Contract instance has already been initialized");
 		initialized = true;
 		feeRecipient = _feeRecipient;
 		stakingAddress = _stakingAddress;
 		nativeTokenPriceOracleAddress = _nativeTokenPriceOracleAddress;
-		flatRateFeeAmount = _flatRateFeeAmount;
 		__Ownable_init();
 	}
 
