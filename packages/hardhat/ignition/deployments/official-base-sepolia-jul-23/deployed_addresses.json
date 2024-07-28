@@ -1,0 +1,13 @@
+{
+  "FeeLevelJudgeStub#FeeLevelJudgeStub": "0xe2cA8f744381C5A59099D62f47194F63FaD7D25C",
+  "NetworkConfigProxyModule#NetworkConfig": "0xC3C35d11564D286b86B6758D6455d76fBA22f5EC",
+  "SuiteDistributorFactoryV4Module#ContinuousVestingMerkleDistributor_v_4_0": "0x4a1c8992D8eB93d8898b2E5A53b5D67FBDEd96F4",
+  "SuiteDistributorFactoryV4Module#TrancheVestingMerkleDistributor_v_4_0": "0x24c494d14933376fD90476B1B46e27a6c3B750b6",
+  "NetworkConfigProxyModule#TransparentUpgradeableProxy": "0x978F764573e4a33CdfB955CB3BD81353c655Be38",
+  "SuiteDistributorFactoryV4Module#ContinuousVestingMerkleDistributorFactory_v_4_0": "0x6c63Ab19BABEa0B2413241C0d9e86e6FfCEaAdD7",
+  "SuiteDistributorFactoryV4Module#TrancheVestingMerkleDistributorFactory_v_4_0": "0x95911e4eD4E2B265196cDd203ce1D637122d3E87",
+  "NetworkConfigProxyModule#ProxyAdmin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "NetworkConfigModule#NetworkConfig": "0x978F764573e4a33CdfB955CB3BD81353c655Be38",
+  "FlatPriceSaleFactoryV3Module#FlatPriceSale_v_3": "0x66F6a29c264a11c41A647711646D96A4B1cb7118",
+  "FlatPriceSaleFactoryV3Module#FlatPriceSaleFactory_v_3": "0x408eC3b7fd7808e7F0Dfc9C2fA24335aCc686367"
+}
