@@ -751,6 +751,30 @@
   "baseSepolia": {
     "SubgraphNetwork": "base-sepolia",
     "LowestStartBlock": 5517393,
+    "ContinuousVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0x4a1c8992D8eB93d8898b2E5A53b5D67FBDEd96F4",
+        "BlockNumber": 0
+      }
+    ],
+    "TrancheVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0x24c494d14933376fD90476B1B46e27a6c3B750b6",
+        "BlockNumber": 0
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x6c63Ab19BABEa0B2413241C0d9e86e6FfCEaAdD7",
+        "BlockNumber": 13007908
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x95911e4eD4E2B265196cDd203ce1D637122d3E87",
+        "BlockNumber": 13007909
+      }
+    ],
     "ContinuousVestingMerkleDistributorFactory": [
       {
         "Address": "0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9",
@@ -773,7 +797,6 @@
         "BlockNumber": 12394208
       }
     ],
-
     "FlatPriceSale_v_2_1": [
       {
         "Address": "0x2C71e4cfa6DAe45aaA78f497Ab4BD5F0fb256fd3",
@@ -782,6 +805,18 @@
       {
         "Address": "0x46FfcFdDE76C88f68f7e4035A422B6f328393f33",
         "BlockNumber": 12394202
+      }
+    ],
+    "FlatPriceSale_v_3": [
+      {
+        "Address": "0x66F6a29c264a11c41A647711646D96A4B1cb7118",
+        "BlockNumber": "13007915"
+      }
+    ],
+    "FlatPriceSaleFactory_v_3": [
+      {
+        "Address": "0x408eC3b7fd7808e7F0Dfc9C2fA24335aCc686367",
+        "BlockNumber": "13007923"
       }
     ]
   },
@@ -846,21 +881,6 @@
       {
         "Address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264",
         "BlockNumber": 7001339
-      }
-    ]
-  },
-  "baseSepolia": {
-    "SubgraphNetwork": "base-sepolia",
-    "FlatPriceSale_v_3": [
-      {
-        "Address": "0x26862632E12D1926B15AAE44C2695cd3c4e17d50",
-        "BlockNumber": "12034350"
-      }
-    ],
-    "FlatPriceSaleFactory_v_3": [
-      {
-        "Address": "0x6C0c22386422E7669566112de5560d264134aC66",
-        "BlockNumber": "12034357"
       }
     ]
   }
