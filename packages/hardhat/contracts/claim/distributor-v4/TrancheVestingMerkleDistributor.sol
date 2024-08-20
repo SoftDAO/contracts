@@ -60,6 +60,7 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         if (_autoPull) {
             require(_token.transferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount), "transfer failed: reason unknown");
 
+            _token.approve(address(this), 0);
             _token.approve(address(this), feeAmount);
             require(_token.transferFrom(address(this), networkConfig.getFeeRecipient(), feeAmount), "transfer failed: reason unknown");
         } else {
