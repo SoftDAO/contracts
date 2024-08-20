@@ -39,6 +39,8 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         bool _autoPull,
         INetworkConfig _networkConfig
     ) public initializer {
+        __ReentrancyGuard_Init();
+
         __TrancheVesting_init(_token, _total, _uri, _tranches, _maxDelayTime, uint160(uint256(_merkleRoot)), _owner);
 
         __MerkleSet_init(_merkleRoot);

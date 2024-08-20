@@ -37,6 +37,8 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
         bool _autoPull,
         INetworkConfig _networkConfig
     ) public initializer {
+        __ReentrancyGuard_Init();
+
         __ContinuousVesting_init(
             _token, _total, _uri, _start, _cliff, _end, _maxDelayTime, uint160(uint256(_merkleRoot)), _owner
         );
