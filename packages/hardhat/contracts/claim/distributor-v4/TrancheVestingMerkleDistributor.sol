@@ -71,12 +71,12 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
                     )
                 )
             );
-            _token.transferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount);
+            require(_token.transferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount), "transfer failed: reason unknown");
 
             _token.approve(address(this), feeAmount);
-            _token.transferFrom(address(this), networkConfig.getFeeRecipient(), feeAmount);
+            require(_token.transferFrom(address(this), networkConfig.getFeeRecipient(), feeAmount), "transfer failed: reason unknown");
         } else {
-            _token.transferFrom(_feeOrSupplyHolder, address(this), feeAmount);
+            require(_token.transferFrom(_feeOrSupplyHolder, address(this), feeAmount), "transfer failed: reason unknown");
         }
     }
 
