@@ -155,7 +155,7 @@
       "address": "0x43054cDD872976562eCc0aA7a100657b267fBea7"
     }
   },
-  "gnosis": {
+  "xdai": {
     "Registry": {
       "address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D"
     },
@@ -312,6 +312,52 @@
     },
     "GenericERC20": {
       "address": "0x99464d188Ceb88200eb09461Db8b5900D0B0F487"
+    }
+  },
+  "zksync": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x18380CD98C86301A922596e176eC9535EFE01A56"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x840E0299fccf0B44C99B932143Ac210D34aEbbf7"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x1C44a48e8eD9Fd431A87f4f2AF91CFa5319978aa"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x32B0aa453d76126F7A962539F32a478c471D6E1B"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0xaA90E88795cDE3b813dE653e7A48338cA4049930"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0x16b5450ab5185Ec377dBcB0421c35C323Ed63cdc"
+    },
+    "GenericERC20": {
+      "address": "0xC96D8047B0B812c10e798cB249402a15c5c0753F"
+    }
+  },
+  "zksyncTestnet": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x4bc1763de361D99eFA4ccc5645121B2e4F8cFf5f"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x18380CD98C86301A922596e176eC9535EFE01A56"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0xBb0bd6B70Bf62C90FABbF7Ec64439C35C42D3d35"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x60A437f560ae7D1bd063e0bd9189ee1F21c910B0"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0x840E0299fccf0B44C99B932143Ac210D34aEbbf7"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0xaA90E88795cDE3b813dE653e7A48338cA4049930"
+    },
+    "GenericERC20": {
+      "address": "0x485B932DF4b72b5846cf11c84cFdC1E267F04137"
     }
   },
   "binance": {

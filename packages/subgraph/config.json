@@ -317,8 +317,8 @@
       }
     ]
   },
-  "gnosis": {
-    "SubgraphNetwork": "gnosis",
+  "xdai": {
+    "SubgraphNetwork": "xdai",
     "Registry" : [
       {
         "Address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D",
@@ -813,6 +813,62 @@
       {
         "Address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264",
         "BlockNumber": 7001339
+      }
+    ]
+  },
+  "zksync": {
+    "SubgraphNetwork": "zksync-era",
+    "LowestStartBlock": 36000000,
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0x1C44a48e8eD9Fd431A87f4f2AF91CFa5319978aa",
+        "BlockNumber": 36425423
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x32B0aa453d76126F7A962539F32a478c471D6E1B",
+        "BlockNumber": 36425411
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x840E0299fccf0B44C99B932143Ac210D34aEbbf7",
+        "BlockNumber": 36427884
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x16b5450ab5185Ec377dBcB0421c35C323Ed63cdc",
+        "BlockNumber": 36429634
+      }
+    ]
+  },
+  "zksyncTestnet": {
+    "SubgraphNetwork": "zksync-era-sepolia",
+    "LowestStartBlock": 2900000,
+    "FlatPriceSaleFactory_v_2_1": [
+      {
+        "Address": "0xBb0bd6B70Bf62C90FABbF7Ec64439C35C42D3d35",
+        "BlockNumber": 2953584
+      }
+    ],
+    "FlatPriceSale_v_2_1": [
+      {
+        "Address": "0x60A437f560ae7D1bd063e0bd9189ee1F21c910B0",
+        "BlockNumber": 2953582
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory": [
+      {
+        "Address": "0x18380CD98C86301A922596e176eC9535EFE01A56",
+        "BlockNumber": 2953592
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory": [
+      {
+        "Address": "0xaA90E88795cDE3b813dE653e7A48338cA4049930",
+        "BlockNumber": 2953605
       }
     ]
   }

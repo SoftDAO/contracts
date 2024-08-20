@@ -1,11 +1,11 @@
 import { Address, ethereum, BigInt, Bytes, log, store } from "@graphprotocol/graph-ts";
 import { IDistributor } from "../generated/templates/Distributor/IDistributor";
 import { Distributor as DistributorTemplate, AdvancedDistributor as AdvancedDistributorTemplate, CrosschainDistributor, TrancheVesting as TrancheVestingTemplate, MerkleSet as MerkleSetTemplate } from '../generated/templates'
-import { IERC20Metadata } from '../generated/Registry/IERC20Metadata'
-import { ITrancheVesting } from '../generated/Registry/ITrancheVesting'
-import { IContinuousVesting } from '../generated/Registry/IContinuousVesting'
+import { IERC20Metadata } from '../generated/ContinuousVestingMerkleDistributorFactory/IERC20Metadata'
+import { ITrancheVesting } from '../generated/TrancheVestingMerkleDistributorFactory/ITrancheVesting'
+import { IContinuousVesting } from '../generated/ContinuousVestingMerkleDistributorFactory/IContinuousVesting'
 import { IPriceTierVesting } from '../generated/Registry/IPriceTierVesting'
-import { IMerkleSet } from '../generated/Registry/IMerkleSet'
+import { IMerkleSet } from '../generated/ContinuousVestingMerkleDistributorFactory/IMerkleSet'
 import {
 	Account, Adjustment, AdvancedDistributor, Claim, ContinuousVesting, DistributionRecord, Distributor, MerkleSet, PaymentMethod, RegisteredAddress, Registry, Sale, SaleImplementation, Tranche, PriceTier, TrancheVesting } from "../generated/schema";
 import { AdvancedDistributor as AdvancedDistributorContract } from "../generated/templates/AdvancedDistributor/AdvancedDistributor";
