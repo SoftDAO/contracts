@@ -174,6 +174,8 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		// initialize the PullPayment escrow contract
 		__PullPayment_init();
 
+		__ReentrancyGuard_Init();
+
 		// validate the new sale
 		require(tokens.length == oracles.length, "token and oracle lengths !=");
 		require(tokens.length == decimals.length, "token and decimals lengths !=");
