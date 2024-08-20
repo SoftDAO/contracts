@@ -58,19 +58,6 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
         // TODO: reduce duplication with other contracts
         uint256 feeAmount = (_total * feeLevel) / feeFractionDenominator;
         if (_autoPull) {
-            require(
-                _total + feeAmount == _token.allowance(_feeOrSupplyHolder, address(this)),
-                string.concat(
-                    string.concat(Strings.toString(feeAmount), " "),
-                    string.concat(
-                        string.concat(
-                            Strings.toString(_token.allowance(_feeOrSupplyHolder, address(this))),
-                            " "
-                        ),
-                        Strings.toHexString(uint256(uint160(_feeOrSupplyHolder)))
-                    )
-                )
-            );
             require(_token.transferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount), "transfer failed: reason unknown");
 
             _token.approve(address(this), feeAmount);
