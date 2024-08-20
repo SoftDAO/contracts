@@ -14,7 +14,8 @@ abstract contract Sale is ReentrancyGuardUpgradeable, OwnableUpgradeable {
 		address indexed token,
 		uint256 baseCurrencyValue,
 		uint256 tokenValue,
-		uint256 tokenFee
+		uint256 protocolTokenFee,
+		uint256 platformTokenFee
 	);
 
 	/**

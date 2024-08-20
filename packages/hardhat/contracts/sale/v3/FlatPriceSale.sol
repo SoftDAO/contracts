@@ -469,24 +469,25 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		uint256 baseCurrencyValue,
 		IERC20Upgradeable token,
 		uint256 quantity,
-		uint256 feeLevel
+		uint256 feeLevel,
+		uint256 platformFlatRateFeeAmount
 	) internal {
 		uint256 fee = (quantity * feeLevel) / fractionDenominator;
 		token.safeTransferFrom(_msgSender(), networkConfig.getFeeRecipient(), fee);
 		token.safeTransferFrom(_msgSender(), address(this), quantity - fee);
-		emit Buy(_msgSender(), address(token), baseCurrencyValue, quantity, fee);
+		emit Buy(_msgSender(), address(token), baseCurrencyValue, quantity, fee, platformFlatRateFeeAmount);
 	}
 
 	/**
   Settle payment made with native token
   Important: this function has no checks! Only call if the purchase is valid!
   */
-	function _settleNativeToken(uint256 baseCurrencyValue, uint256 nativeTokenQuantity, uint256 feeLevel) internal {
+	function _settleNativeToken(uint256 baseCurrencyValue, uint256 nativeTokenQuantity, uint256 feeLevel, uint256 platformFlatRateFeeAmount) internal {
 		uint256 nativeFee = (nativeTokenQuantity * feeLevel) / fractionDenominator;
 		_asyncTransfer(networkConfig.getFeeRecipient(), nativeFee);
 		_asyncTransfer(config.recipient, nativeTokenQuantity - nativeFee);
 		// This contract will hold the native token until claimed by the owner
-		emit Buy(_msgSender(), address(0), baseCurrencyValue, nativeTokenQuantity, nativeFee);
+		emit Buy(_msgSender(), address(0), baseCurrencyValue, nativeTokenQuantity, nativeFee, platformFlatRateFeeAmount);
 	}
 
 	/**
@@ -511,7 +512,6 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
 
 		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
-		payable(_msgSender()).sendValue(msg.value - feeAmountInWei);
 
 		// convert to base currency from native tokens
 		PaymentTokenInfo memory tokenInfo = paymentTokens[token];
@@ -528,9 +528,9 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		}
 
 		// Checks and Effects
-		_execute(baseCurrencyValue, data);
+		_execute(baseCurrencyValue + platformFlatRateFeeAmount, data);
 		// Interactions
-		_settlePaymentToken(baseCurrencyValue, token, quantity, feeLevel);
+		_settlePaymentToken(baseCurrencyValue + platformFlatRateFeeAmount, token, quantity, feeLevel, platformFlatRateFeeAmount);
 	}
 
 	/**
@@ -567,9 +567,9 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 			feeLevel = 100;
 		}
 		// Checks and Effects
-		_execute(baseCurrencyValue - platformFlatRateFeeAmount, data);
+		_execute(baseCurrencyValue, data);
 		// Interactions
-		_settleNativeToken(baseCurrencyValue - platformFlatRateFeeAmount, msg.value - feeAmountInWei, feeLevel);
+		_settleNativeToken(baseCurrencyValue, msg.value, feeLevel, platformFlatRateFeeAmount);
 	}
 
 	/**
