@@ -77,15 +77,18 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
         uint256 _nonce
     ) public payable returns (ContinuousVestingMerkleDistributor_v_4_0 distributor) {
         IOracleOrL2OracleWithSequencerCheck nativeTokenPriceOracle = IOracleOrL2OracleWithSequencerCheck(_networkConfig.getNativeTokenPriceOracleAddress());
+        uint256 nativeTokenPriceOracleHeartbeat = _networkConfig.getNativeTokenPriceOracleHeartbeat();
+
         uint256 nativeBaseCurrencyValue = tokensToBaseCurrency(
             msg.value,
             NATIVE_TOKEN_DECIMALS,
-            nativeTokenPriceOracle
+            nativeTokenPriceOracle,
+            nativeTokenPriceOracleHeartbeat
         );
 
         require(nativeBaseCurrencyValue >= _platformFlatRateFeeAmount, "fee payment below minimum");
 
-        uint256 feeAmountInWei = ((_platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
+        uint256 feeAmountInWei = ((_platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle, nativeTokenPriceOracleHeartbeat));
 
         _platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
         payable(msg.sender).sendValue(msg.value - feeAmountInWei);
@@ -164,16 +167,17 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
     function tokensToBaseCurrency(
         uint256 tokenQuantity,
         uint256 tokenDecimals,
-        IOracleOrL2OracleWithSequencerCheck oracle
+        IOracleOrL2OracleWithSequencerCheck oracle,
+        uint256 heartbeat
     ) public view returns (uint256 value) {
-        return (tokenQuantity * getOraclePrice(oracle)) / (10**tokenDecimals);
+        return (tokenQuantity * getOraclePrice(oracle, heartbeat)) / (10**tokenDecimals);
     }
 
-    function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle) public view returns (uint256) {
+    function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle, uint256 heartbeat) public view returns (uint256) {
         (
             uint80 roundID,
             int256 _price,
-            /* uint256 startedAt */,
+            uint256 updatedAt,
             uint256 timeStamp,
             uint80 answeredInRound
         ) = oracle.latestRoundData();
@@ -182,6 +186,7 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
         require(answeredInRound > 0, "answer == 0");
         require(timeStamp > 0, "round not complete");
         require(answeredInRound >= roundID, "stale price");
+        require(updatedAt < block.timestamp - heartbeat, "stale price");
 
         return uint256(_price);
     }

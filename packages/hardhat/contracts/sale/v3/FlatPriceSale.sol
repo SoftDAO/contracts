@@ -84,6 +84,7 @@ struct Metrics {
 
 struct PaymentTokenInfo {
 	IOracleOrL2OracleWithSequencerCheck oracle;
+	uint256 heartbeat;
 	uint8 decimals;
 }
 
@@ -133,6 +134,9 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 	// <native token>/<base currency> price, e.g. ETH/USD price
 	IOracleOrL2OracleWithSequencerCheck public nativeTokenPriceOracle;
 
+	// heartbeat value for oracle
+	uint256 nativeTokenPriceOracleHeartbeat;
+
 	// whether native payments are enabled (set during intialization)
 	bool nativePaymentsEnabled;
 
@@ -167,14 +171,16 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		string calldata _baseCurrency,
 		bool _nativePaymentsEnabled,
 		IOracleOrL2OracleWithSequencerCheck _nativeTokenPriceOracle,
+		uint256 _nativeTokenPriceOracleHeartbeat,
 		IERC20Upgradeable[] calldata tokens,
 		IOracleOrL2OracleWithSequencerCheck[] calldata oracles,
+		uint256[] calldata oracleHeartbeats,
 		uint8[] calldata decimals
 	) public initializer validUpdate(_config) {
 		// initialize the PullPayment escrow contract
 		__PullPayment_init();
 
-		__ReentrancyGuard_Init();
+		__ReentrancyGuard_init();
 
 		// validate the new sale
 		require(tokens.length == oracles.length, "token and oracle lengths !=");
@@ -187,6 +193,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		// save payment config
 		baseCurrency = _baseCurrency;
 		nativeTokenPriceOracle = _nativeTokenPriceOracle;
+		nativeTokenPriceOracleHeartbeat = _nativeTokenPriceOracleHeartbeat;
 		nativePaymentsEnabled = _nativePaymentsEnabled;
 		emit Initialize(config, baseCurrency, nativeTokenPriceOracle, _nativePaymentsEnabled);
 
@@ -195,7 +202,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 			require(address(tokens[i]) != address(0), "payment token == 0");
 			require(address(oracles[i]) != address(0), "token oracle == 0");
 			// save the payment token info
-			paymentTokens[tokens[i]] = PaymentTokenInfo({ oracle: oracles[i], decimals: decimals[i] });
+			paymentTokens[tokens[i]] = PaymentTokenInfo({ oracle: oracles[i], heartbeat: oracleHeartbeats[i], decimals: decimals[i] });
 
 			emit SetPaymentTokenInfo(tokens[i], paymentTokens[tokens[i]]);
 		}
@@ -320,11 +327,11 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 
 	// TODO: reduce duplication between other contracts
 	// Get a positive token price from a chainlink oracle
-	function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle) public view returns (uint256) {
+  function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle, uint256 heartbeat) public view returns (uint256) {
 		(
 			uint80 roundID,
 			int256 _price,
-			/* uint256 startedAt */,
+			uint256 updatedAt,
 			uint256 timeStamp,
 			uint80 answeredInRound
 		) = oracle.latestRoundData();
@@ -333,6 +340,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		require(answeredInRound > 0, "answer == 0");
 		require(timeStamp > 0, "round not complete");
 		require(answeredInRound >= roundID, "stale price");
+		require(updatedAt < block.timestamp - heartbeat, "stale price");
 
 		return uint256(_price);
 	}
@@ -399,9 +407,10 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 	function tokensToBaseCurrency(
 		uint256 tokenQuantity,
 		uint256 tokenDecimals,
-		IOracleOrL2OracleWithSequencerCheck oracle
+		IOracleOrL2OracleWithSequencerCheck oracle,
+		uint256 heartbeat
 	) public view returns (uint256 value) {
-		return (tokenQuantity * getOraclePrice(oracle)) / (10**tokenDecimals);
+		return (tokenQuantity * getOraclePrice(oracle, heartbeat)) / (10**tokenDecimals);
 	}
 
 	function total() external view override returns (uint256) {
@@ -506,12 +515,13 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		uint256 nativeBaseCurrencyValue = tokensToBaseCurrency(
 			msg.value,
 			NATIVE_TOKEN_DECIMALS,
-			nativeTokenPriceOracle
+			nativeTokenPriceOracle,
+			nativeTokenPriceOracleHeartbeat
 		);
 
 		require(nativeBaseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
 
-		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
+		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle, nativeTokenPriceOracleHeartbeat));
 
 		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
 
@@ -520,7 +530,8 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		uint256 baseCurrencyValue = tokensToBaseCurrency(
 			quantity,
 			tokenInfo.decimals,
-			tokenInfo.oracle
+			tokenInfo.oracle,
+			tokenInfo.heartbeat
 		);
 
 		IFeeLevelJudge feeLevelJudge = IFeeLevelJudge(networkConfig.getStakingAddress());
@@ -554,12 +565,13 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		uint256 baseCurrencyValue = tokensToBaseCurrency(
 			msg.value,
 			NATIVE_TOKEN_DECIMALS,
-			nativeTokenPriceOracle
+			nativeTokenPriceOracle,
+			nativeTokenPriceOracleHeartbeat
 		);
 
 		require(baseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
 
-		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
+		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle, nativeTokenPriceOracleHeartbeat));
 
 		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
 

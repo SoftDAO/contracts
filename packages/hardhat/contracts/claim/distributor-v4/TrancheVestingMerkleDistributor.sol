@@ -39,8 +39,6 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         bool _autoPull,
         INetworkConfig _networkConfig
     ) public initializer {
-        __ReentrancyGuard_Init();
-
         __TrancheVesting_init(_token, _total, _uri, _tranches, _maxDelayTime, uint160(uint256(_merkleRoot)), _owner);
 
         __MerkleSet_init(_merkleRoot);
@@ -99,16 +97,18 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         nonReentrant
     {
         IOracleOrL2OracleWithSequencerCheck nativeTokenPriceOracle = IOracleOrL2OracleWithSequencerCheck(networkConfig.getNativeTokenPriceOracleAddress());
+        uint256 nativeTokenPriceOracleHeartbeat = networkConfig.getNativeTokenPriceOracleHeartbeat();
 
         uint256 baseCurrencyValue = tokensToBaseCurrency(
             msg.value,
             NATIVE_TOKEN_DECIMALS,
-            nativeTokenPriceOracle
+            nativeTokenPriceOracle,
+            nativeTokenPriceOracleHeartbeat
         );
 
         require(baseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
 
-        uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
+        uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle, nativeTokenPriceOracleHeartbeat));
 
         platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
         payable(_msgSender()).sendValue(msg.value - feeAmountInWei);
@@ -127,18 +127,19 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
     function tokensToBaseCurrency(
         uint256 tokenQuantity,
         uint256 tokenDecimals,
-        IOracleOrL2OracleWithSequencerCheck oracle
+        IOracleOrL2OracleWithSequencerCheck oracle,
+        uint256 heartbeat
     ) public view returns (uint256 value) {
-        return (tokenQuantity * getOraclePrice(oracle)) / (10**tokenDecimals);
+        return (tokenQuantity * getOraclePrice(oracle, heartbeat)) / (10**tokenDecimals);
     }
 
     // TODO: reduce duplication between other contracts
     // Get a positive token price from a chainlink oracle
-    function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle) public view returns (uint256) {
+    function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle, uint256 heartbeat) public view returns (uint256) {
         (
             uint80 roundID,
             int256 _price,
-            /* uint256 startedAt */,
+            uint256 updatedAt,
             uint256 timeStamp,
             uint80 answeredInRound
         ) = oracle.latestRoundData();
@@ -147,6 +148,7 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         require(answeredInRound > 0, "answer == 0");
         require(timeStamp > 0, "round not complete");
         require(answeredInRound >= roundID, "stale price");
+        require(updatedAt < block.timestamp - heartbeat, "stale price");
 
         return uint256(_price);
     }

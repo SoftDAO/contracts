@@ -32,8 +32,10 @@ contract FlatPriceSaleFactory_v_3 is Ownable {
 		string calldata _baseCurrency,
 		bool _nativePaymentsEnabled,
 		IOracleOrL2OracleWithSequencerCheck _nativeTokenPriceOracle,
+		uint256 _nativeTokenPriceOracleHeartbeat,
 		IERC20Upgradeable[] calldata tokens,
 		IOracleOrL2OracleWithSequencerCheck[] calldata oracles,
+		uint256[] calldata oracleHeartbeats,
 		uint8[] calldata decimals
 	) external returns (FlatPriceSale_v_3 sale) {
 		sale = FlatPriceSale_v_3(Clones.clone(address(implementation)));
@@ -53,8 +55,10 @@ contract FlatPriceSaleFactory_v_3 is Ownable {
 			_baseCurrency,
 			_nativePaymentsEnabled,
 			_nativeTokenPriceOracle,
+			_nativeTokenPriceOracleHeartbeat,
 			tokens,
 			oracles,
+			oracleHeartbeats,
 			decimals
 		);
 	}

@@ -4,6 +4,7 @@ pragma solidity 0.8.21;
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import { SafeERC20 } from '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 import {IFeeLevelJudge} from "../IFeeLevelJudge.sol";
@@ -14,6 +15,8 @@ import "../../config/INetworkConfig.sol";
 
 contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVestingInitializable, MerkleSetInitializable {
     using Address for address payable;
+    using SafeERC20 for IERC20;
+
     uint256 internal constant NATIVE_TOKEN_DECIMALS = 18;
     INetworkConfig networkConfig;
     // denominator used to determine size of fee bips
@@ -37,8 +40,6 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
         bool _autoPull,
         INetworkConfig _networkConfig
     ) public initializer {
-        __ReentrancyGuard_Init();
-
         __ContinuousVesting_init(
             _token, _total, _uri, _start, _cliff, _end, _maxDelayTime, uint160(uint256(_merkleRoot)), _owner
         );
@@ -58,13 +59,13 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
         // TODO: reduce duplication with other contracts
         uint256 feeAmount = (_total * feeLevel) / feeFractionDenominator;
         if (_autoPull) {
-            require(_token.transferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount), "transfer failed: reason unknown");
+            _token.safeTransferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount);
 
             _token.approve(address(this), 0);
             _token.approve(address(this), feeAmount);
-            require(_token.transferFrom(address(this), networkConfig.getFeeRecipient(), feeAmount), "transfer failed: reason unknown");
+            _token.safeTransferFrom(address(this), networkConfig.getFeeRecipient(), feeAmount);
         } else {
-            require(_token.transferFrom(_feeOrSupplyHolder, address(this), feeAmount), "transfer failed: reason unknown");
+            _token.safeTransferFrom(_feeOrSupplyHolder, address(this), feeAmount);
         }
     }
 
@@ -99,16 +100,18 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
         nonReentrant
     {
         IOracleOrL2OracleWithSequencerCheck nativeTokenPriceOracle = IOracleOrL2OracleWithSequencerCheck(networkConfig.getNativeTokenPriceOracleAddress());
+        uint256 nativeTokenPriceOracleHeartbeat = networkConfig.getNativeTokenPriceOracleHeartbeat();
 
         uint256 baseCurrencyValue = tokensToBaseCurrency(
             msg.value,
             NATIVE_TOKEN_DECIMALS,
-            nativeTokenPriceOracle
+            nativeTokenPriceOracle,
+            nativeTokenPriceOracleHeartbeat
         );
 
         require(baseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
 
-        uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle));
+        uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle, nativeTokenPriceOracleHeartbeat));
 
         platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
         payable(_msgSender()).sendValue(msg.value - feeAmountInWei);
@@ -127,18 +130,19 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
     function tokensToBaseCurrency(
         uint256 tokenQuantity,
         uint256 tokenDecimals,
-        IOracleOrL2OracleWithSequencerCheck oracle
+        IOracleOrL2OracleWithSequencerCheck oracle,
+        uint256 heartbeat
     ) public view returns (uint256 value) {
-        return (tokenQuantity * getOraclePrice(oracle)) / (10**tokenDecimals);
+        return (tokenQuantity * getOraclePrice(oracle, heartbeat)) / (10**tokenDecimals);
     }
 
     // TODO: reduce duplication between other contracts
     // Get a positive token price from a chainlink oracle
-    function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle) public view returns (uint256) {
+    function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle, uint256 heartbeat) public view returns (uint256) {
         (
             uint80 roundID,
             int256 _price,
-            /* uint256 startedAt */,
+            uint256 updatedAt,
             uint256 timeStamp,
             uint80 answeredInRound
         ) = oracle.latestRoundData();
@@ -147,6 +151,7 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
         require(answeredInRound > 0, "answer == 0");
         require(timeStamp > 0, "round not complete");
         require(answeredInRound >= roundID, "stale price");
+        require(updatedAt < block.timestamp - heartbeat, "stale price");
 
         return uint256(_price);
     }
