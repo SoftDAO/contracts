@@ -331,14 +331,14 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		(
 			uint80 roundID,
 			int256 _price,
+			uint256 startedAt,
 			uint256 updatedAt,
-			uint256 timeStamp,
 			uint80 answeredInRound
 		) = oracle.latestRoundData();
 
 		require(_price > 0, "negative price");
 		require(answeredInRound > 0, "answer == 0");
-		require(timeStamp > 0, "round not complete");
+		require(updatedAt > 0, "round not complete");
 		require(answeredInRound >= roundID, "stale price");
 		require(updatedAt < block.timestamp - heartbeat, "stale price");
 

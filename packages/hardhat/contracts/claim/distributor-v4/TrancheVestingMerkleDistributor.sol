@@ -4,6 +4,7 @@ pragma solidity ^0.8.21;
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import { SafeERC20 } from '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 import {IFeeLevelJudge} from "../IFeeLevelJudge.sol";
@@ -19,6 +20,8 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
     MerkleSetInitializable
 {
     using Address for address payable;
+    using SafeERC20 for IERC20;
+    
     uint256 internal constant NATIVE_TOKEN_DECIMALS = 18; // number of decimals for ETH
     INetworkConfig networkConfig;
     // denominator used to determine size of fee bips
@@ -56,13 +59,13 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         // TODO: reduce duplication with other contracts
         uint256 feeAmount = (_total * feeLevel) / feeFractionDenominator;
         if (_autoPull) {
-            require(_token.transferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount), "transfer failed: reason unknown");
+            _token.safeTransferFrom(_feeOrSupplyHolder, address(this), _total + feeAmount);
 
             _token.approve(address(this), 0);
             _token.approve(address(this), feeAmount);
-            require(_token.transferFrom(address(this), networkConfig.getFeeRecipient(), feeAmount), "transfer failed: reason unknown");
+            _token.safeTransferFrom(address(this), networkConfig.getFeeRecipient(), feeAmount);
         } else {
-            require(_token.transferFrom(_feeOrSupplyHolder, address(this), feeAmount), "transfer failed: reason unknown");
+            _token.safeTransferFrom(_feeOrSupplyHolder, address(this), feeAmount);
         }
     }
 
@@ -139,14 +142,14 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
         (
             uint80 roundID,
             int256 _price,
+            uint256 startedAt,
             uint256 updatedAt,
-            uint256 timeStamp,
             uint80 answeredInRound
         ) = oracle.latestRoundData();
 
         require(_price > 0, "negative price");
         require(answeredInRound > 0, "answer == 0");
-        require(timeStamp > 0, "round not complete");
+        require(updatedAt > 0, "round not complete");
         require(answeredInRound >= roundID, "stale price");
         require(updatedAt < block.timestamp - heartbeat, "stale price");
 
