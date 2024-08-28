@@ -7,6 +7,7 @@ import "hardhat-jest"; // Typescript
 // Add the following variables to the configuration variables.
 const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY");
 const EVM_PRIVATE_KEY_1 = vars.get("EVM_PRIVATE_KEY_1");
+const EVM_PRIVATE_KEY_2 = vars.get("EVM_PRIVATE_KEY_2");
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 const BASESCAN_API_KEY = vars.get("BASESCAN_API_KEY");
 const COREDAO_BLOCK_EXPLORER_API_KEY = vars.get("COREDAO_BLOCK_EXPLORER_API_KEY");

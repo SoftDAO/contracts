@@ -135,7 +135,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 	IOracleOrL2OracleWithSequencerCheck public nativeTokenPriceOracle;
 
 	// heartbeat value for oracle
-	uint256 nativeTokenPriceOracleHeartbeat;
+	uint256 public nativeTokenPriceOracleHeartbeat;
 
 	// whether native payments are enabled (set during intialization)
 	bool nativePaymentsEnabled;

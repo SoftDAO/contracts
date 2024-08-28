@@ -15,6 +15,7 @@ contract FlatPriceSaleFactory_v_3 is Ownable {
 		Config config,
 		string baseCurrency,
 		IOracleOrL2OracleWithSequencerCheck nativeOracle,
+		uint256 nativeOracleHeartbeat,
 		bool nativePaymentsEnabled
 	);
 
@@ -46,6 +47,7 @@ contract FlatPriceSaleFactory_v_3 is Ownable {
 			_config,
 			_baseCurrency,
 			_nativeTokenPriceOracle,
+			_nativeTokenPriceOracleHeartbeat,
 			_nativePaymentsEnabled
 		);
 

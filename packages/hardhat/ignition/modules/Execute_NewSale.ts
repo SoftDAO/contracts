@@ -4,10 +4,18 @@ import { merkleRoots } from "../../config/index";
 export default buildModule("ExecuteNewSaleModule", m => {
   const deployer = m.getAccount(0);
   const recipient = m.getAccount(1);
-  const ethOracleAddress = "0x6090149792dAAeE9D1D568c9f9a6F6B46AA29eFD";
-  const usdcAddress = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
-  const usdcOracleAddress = "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6";
-  const FlatPriceSaleFactoryAddress = "0xaffd5144511fdb139e06733a7413c95a80a9c2ce";
+
+  /** Mainnet */
+  // const ethOracleAddress = "0x6090149792dAAeE9D1D568c9f9a6F6B46AA29eFD";
+  // const usdcAddress = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
+  // const usdcOracleAddress = "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6";
+  // const FlatPriceSaleFactoryAddress = "0xaffd5144511fdb139e06733a7413c95a80a9c2ce";
+
+  /** Base Sepolia */
+  const baseSepolia_ethOracleAddress = "0x4aDC67696bA383F43DD60A9e78F2C97Fbbfc7cb1";
+  const baseSepolia_usdcAddress = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
+  const baseSepolia_usdcOracleAddress = "0xd30e2101a97dcbAeBCBC04F14C3f624E67A35165";
+  const baseSepolia_FlatPriceSaleFactoryAddress = "0xAE085C6c5F2208C1959c0DB8515370fA54840A4b";
 
   const config = {
     // recipient of sale proceeds
@@ -30,9 +38,9 @@ export default buildModule("ExecuteNewSaleModule", m => {
     URI: "https://example.com",
   };
 
-  const flatPriceSaleFactory_v_2_1 = m.contractAt("FlatPriceSaleFactory_v_2_1", FlatPriceSaleFactoryAddress);
+  const flatPriceSaleFactory_v_3 = m.contractAt("FlatPriceSaleFactory_v_3", baseSepolia_FlatPriceSaleFactoryAddress);
 
-  m.call(flatPriceSaleFactory_v_2_1, "newSale", [
+  m.call(flatPriceSaleFactory_v_3, "newSale", [
     // the owner of the new sale (can later modify the sale)
     deployer,
     // the sale configuration
@@ -42,11 +50,15 @@ export default buildModule("ExecuteNewSaleModule", m => {
     // native payments enabled
     true,
     // native price oracle
-    ethOracleAddress,
+    baseSepolia_ethOracleAddress,
+    // native price oracle heartbeat
+    360000,
     // payment tokens
-    [usdcAddress],
+    [baseSepolia_usdcAddress],
     // payment token price oracles
-    [usdcOracleAddress],
+    [baseSepolia_usdcOracleAddress],
+    // payment token price oracle heartbeats
+    [360000],
     // payment token decimals
     [6],
   ]);
