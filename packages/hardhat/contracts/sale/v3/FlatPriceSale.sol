@@ -329,9 +329,9 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 	// Get a positive token price from a chainlink oracle
   function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle, uint256 heartbeat) public view returns (uint256) {
 		(
-			uint80 roundID,
+			,
 			int256 _price,
-			uint256 startedAt,
+			,
 			uint256 updatedAt,
 			uint80 answeredInRound
 		) = oracle.latestRoundData();
@@ -339,8 +339,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		require(_price > 0, "negative price");
 		require(answeredInRound > 0, "answer == 0");
 		require(updatedAt > 0, "round not complete");
-		require(answeredInRound >= roundID, "stale price");
-		require(updatedAt < block.timestamp - heartbeat, "stale price");
+		require(updatedAt > block.timestamp - heartbeat, "stale price due to heartbeat");
 
 		return uint256(_price);
 	}
@@ -496,7 +495,8 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 	function _settleNativeToken(uint256 baseCurrencyValue, uint256 nativeTokenQuantity, uint256 feeLevel, uint256 platformFlatRateFeeAmount) internal {
 		uint256 nativeFee = (nativeTokenQuantity * feeLevel) / fractionDenominator;
 		_asyncTransfer(networkConfig.getFeeRecipient(), nativeFee);
-		_asyncTransfer(config.recipient, nativeTokenQuantity - nativeFee);
+		_asyncTransfer(config.recipient, nativeTokenQuantity - nativeFee - platformFlatRateFeeAmount);
+
 		// This contract will hold the native token until claimed by the owner
 		emit Buy(_msgSender(), address(0), baseCurrencyValue, nativeTokenQuantity, nativeFee, platformFlatRateFeeAmount);
 	}
@@ -525,7 +525,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 
 		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
 
-		// convert to base currency from native tokens
+		// convert to base currency from payment tokens
 		PaymentTokenInfo memory tokenInfo = paymentTokens[token];
 		uint256 baseCurrencyValue = tokensToBaseCurrency(
 			quantity,
@@ -562,6 +562,10 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		nonReentrant
 	{
 		// convert to base currency from native tokens
+		// converts msg.value (which is how much ETH was sent by user) to USD
+		// Example: On September 1st, 2024
+		// 		0.005 * 2450**10e8 => ~$10 = how much in USD represents 
+		// 		msg.value
 		uint256 baseCurrencyValue = tokensToBaseCurrency(
 			msg.value,
 			NATIVE_TOKEN_DECIMALS,
@@ -571,6 +575,9 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 
 		require(baseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
 
+		// Example: On September 1st, 2024
+		// 		1/2450 * 10**18 = how much ETH (in wei) we need to represent 
+		// 		1 USD
 		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle, nativeTokenPriceOracleHeartbeat));
 
 		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
@@ -583,7 +590,7 @@ contract FlatPriceSale_v_3 is Sale, PullPaymentUpgradeable {
 		// Checks and Effects
 		_execute(baseCurrencyValue, data);
 		// Interactions
-		_settleNativeToken(baseCurrencyValue, msg.value, feeLevel, platformFlatRateFeeAmount);
+		_settleNativeToken(baseCurrencyValue, msg.value, feeLevel, feeAmountInWei);
 	}
 
 	/**

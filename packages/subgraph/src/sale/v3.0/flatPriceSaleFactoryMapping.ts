@@ -3,11 +3,11 @@ import { BigInt } from "@graphprotocol/graph-ts";
 import { NewSale } from "../../../generated/FlatPriceSaleFactory_v_3/FlatPriceSaleFactory_v_3";
 import { getOrCreateAccount, getOrCreateNativePaymentMethod } from "../../lib";
 import {SaleImplementation, Sale} from "../../../generated/schema";
-import { FlatPriceSale } from '../../../generated/templates'
+import { FlatPriceSale_v_3 } from '../../../generated/templates'
 
 // When the clone factory clones an existing implementation contract, save the  sale
 export function handleNewSale(event: NewSale): void {
-  FlatPriceSale.create(event.params.clone)
+  FlatPriceSale_v_3.create(event.params.clone)
 
   const implementationId = event.params.implementation.toHexString();
   const saleImplementation = SaleImplementation.load(implementationId);

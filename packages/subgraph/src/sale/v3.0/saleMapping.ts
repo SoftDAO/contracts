@@ -7,8 +7,8 @@ import {
   Buy,
   OwnershipTransferred,
   RegisterDistributor,
-  FlatPriceSale_v_2_1 as FlatPriceSaleContract
-} from "../../../generated/FlatPriceSale_v_2_1/FlatPriceSale_v_2_1";
+  FlatPriceSale_v_3 as FlatPriceSaleContract
+} from "../../../generated/FlatPriceSale_v_3/FlatPriceSale_v_3";
 
 import {
   SaleImplementation,
@@ -113,6 +113,7 @@ export function handleBuy(event: Buy): void {
   if (isNative) {
     // native payment
     const nativeOracle = saleContract.nativeTokenPriceOracle();
+    const nativeOracleHeartbeat = saleContract.nativeTokenPriceOracleHeartbeat();
     paymentMethod = getOrCreateNativePaymentMethod(nativeOracle, event.block);
   } else {
     // ERC20 payment
@@ -149,7 +150,8 @@ export function handleBuy(event: Buy): void {
   purchase.paymentMethod = paymentMethod.id;
   purchase.price = price;
   purchase.spent = event.params.tokenValue;
-  purchase.fee = event.params.tokenFee;
+  purchase.protocolTokenFee = event.params.protocolTokenFee;
+  purchase.platformTokenFee = event.params.platformTokenFee;
   purchase.transactionHash = event.transaction.hash.toHexString();
   purchase.createdAt = event.block.timestamp;
   // copy the uri at the time of purchase to this record (reference for purchased token price)
