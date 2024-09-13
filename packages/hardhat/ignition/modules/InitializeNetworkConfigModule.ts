@@ -13,6 +13,7 @@ export default buildModule("InitializeNetworkConfigModule", m => {
     feeLevelJudgeStub,
     vars.get("NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS"),
     vars.get("NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_HEARTBEAT"),
+    vars.get("NETWORK_CONFIG_ACCESS_AUTHORITY_ADDRESS"),
   ]);
 
   return { networkConfig };
