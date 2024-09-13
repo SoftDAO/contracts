@@ -89,7 +89,7 @@ struct PaymentTokenInfo {
 	uint8 decimals;
 }
 
-contract FlatPriceSale_v_3_1 is Sale, PullPaymentUpgradeable, AccessVerifier {
+contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 	using Address for address payable;
 	using SafeERC20Upgradeable for IERC20Upgradeable;
 

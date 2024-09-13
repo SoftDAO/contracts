@@ -5,13 +5,13 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./FlatPriceSale.sol";
 
-contract FlatPriceSaleFactory_v_3_1 is Ownable {
+contract FlatPriceSaleFactory_v_4_0 is Ownable {
 	address public implementation;
 	string public constant VERSION = "3.0";
 
 	event NewSale(
 		address indexed implementation,
-		FlatPriceSale_v_3_1 indexed clone,
+		FlatPriceSale_v_4_0 indexed clone,
 		Config config,
 		string baseCurrency,
 		IOracleOrL2OracleWithSequencerCheck nativeOracle,
@@ -38,8 +38,8 @@ contract FlatPriceSaleFactory_v_3_1 is Ownable {
 		IOracleOrL2OracleWithSequencerCheck[] calldata oracles,
 		uint256[] calldata oracleHeartbeats,
 		uint8[] calldata decimals
-	) external returns (FlatPriceSale_v_3_1 sale) {
-		sale = FlatPriceSale_v_3_1(Clones.clone(address(implementation)));
+	) external returns (FlatPriceSale_v_4_0 sale) {
+		sale = FlatPriceSale_v_4_0(Clones.clone(address(implementation)));
 
 		emit NewSale(
 			implementation,

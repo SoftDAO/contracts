@@ -13,7 +13,7 @@ import "../../utilities/AccessVerifier.sol";
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 import "../../config/INetworkConfig.sol";
 
-contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVestingInitializable, AccessVerifier {
+contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVestingInitializable, AccessVerifier {
     using Address for address payable;
     using SafeERC20 for IERC20;
 
@@ -72,7 +72,7 @@ contract ContinuousVestingMerkleDistributor_v_4_0 is Initializable, ContinuousVe
     }
 
     function VERSION() external pure override returns (uint256) {
-        return 4;
+        return 5;
     }
 
     modifier validSignature(uint256 totalAmount, uint64 expiresAt, bytes memory signature) {

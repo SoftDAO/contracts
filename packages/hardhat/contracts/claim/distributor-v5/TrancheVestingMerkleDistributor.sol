@@ -15,7 +15,7 @@ import "../factory/MerkleSetInitializable.sol";
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 import "../../config/INetworkConfig.sol";
 
-contract TrancheVestingMerkleDistributor_v_4_0 is
+contract TrancheVestingMerkleDistributor_v_5_0 is
     Initializable,
     TrancheVestingInitializable,
     AccessVerifier
@@ -73,7 +73,7 @@ contract TrancheVestingMerkleDistributor_v_4_0 is
     }
 
     function VERSION() external pure override returns (uint256) {
-        return 4;
+        return 5;
     }
 
     modifier validSignature(uint256 totalAmount, uint64 expiresAt, bytes memory signature) {

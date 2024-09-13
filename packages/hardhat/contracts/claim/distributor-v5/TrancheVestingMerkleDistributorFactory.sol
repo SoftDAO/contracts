@@ -6,10 +6,10 @@ import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
+import {TrancheVestingMerkleDistributor_v_5_0, Tranche} from "./TrancheVestingMerkleDistributor.sol";
 import {INetworkConfig} from "../../config/INetworkConfig.sol";
-import {ContinuousVestingMerkleDistributor_v_4_0} from "./ContinuousVestingMerkleDistributor.sol";
 
-contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
+contract TrancheVestingMerkleDistributorFactory_v_5_0 {
     using Address for address payable;
 
     address private immutable i_implementation;
@@ -27,9 +27,7 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
         IERC20 _token, // the token being claimed
         uint256 _total, // the total claimable by all users
         string memory _uri, // information on the sale (e.g. merkle proofs)
-        uint256 _start, // vesting clock starts at this time
-        uint256 _cliff, // claims open at this time
-        uint256 _end, // vesting clock ends and this time
+        Tranche[] memory _tranches,
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
@@ -44,9 +42,7 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
             _token,
             _total,
             _uri,
-            _start,
-            _cliff,
-            _end,
+            _tranches,
             _merkleRoot,
             _maxDelayTime,
             _owner,
@@ -63,9 +59,7 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
         IERC20 _token, // the token being claimed
         uint256 _total, // the total claimable by all users
         string memory _uri, // information on the sale (e.g. merkle proofs)
-        uint256 _start, // vesting clock starts at this time
-        uint256 _cliff, // claims open at this time
-        uint256 _end, // vesting clock ends and this time
+        Tranche[] memory _tranches,
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
@@ -75,7 +69,7 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
         address payable _platformFlatRateFeeRecipient,
         uint256 _platformFlatRateFeeAmount,
         uint256 _nonce
-    ) public payable returns (ContinuousVestingMerkleDistributor_v_4_0 distributor) {
+    ) public payable returns (TrancheVestingMerkleDistributor_v_5_0 distributor) {
         IOracleOrL2OracleWithSequencerCheck nativeTokenPriceOracle = IOracleOrL2OracleWithSequencerCheck(_networkConfig.getNativeTokenPriceOracleAddress());
         uint256 nativeTokenPriceOracleHeartbeat = _networkConfig.getNativeTokenPriceOracleHeartbeat();
 
@@ -97,9 +91,7 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
             _token,
             _total,
             _uri,
-            _start,
-            _cliff,
-            _end,
+            _tranches,
             _merkleRoot,
             _maxDelayTime,
             _owner,
@@ -112,16 +104,16 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
         );
 
         distributor =
-            ContinuousVestingMerkleDistributor_v_4_0(Clones.cloneDeterministic(i_implementation, salt));
+            TrancheVestingMerkleDistributor_v_5_0(Clones.cloneDeterministic(i_implementation, salt));
         distributors.push(address(distributor));
 
         emit DistributorDeployed(address(distributor));
 
-        distributor.initialize(_token, _total, _uri, _start, _cliff, _end, _merkleRoot, _maxDelayTime, _owner, _feeOrSupplyHolder, _autoPull, _networkConfig);
+        distributor.initialize(_token, _total, _uri, _tranches, _merkleRoot, _maxDelayTime, _owner, _feeOrSupplyHolder, _autoPull, _networkConfig);
 
         return distributor;
     }
-
+    
     function getImplementation() public view returns (address) {
         return i_implementation;
     }
@@ -130,9 +122,7 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
         IERC20 _token, // the token being claimed
         uint256 _total, // the total claimable by all users
         string memory _uri, // information on the sale (e.g. merkle proofs)
-        uint256 _start, // vesting clock starts at this time
-        uint256 _cliff, // claims open at this time
-        uint256 _end, // vesting clock ends and this time
+        Tranche[] memory _tranches,
         bytes32 _merkleRoot, // the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
@@ -147,9 +137,7 @@ contract ContinuousVestingMerkleDistributorFactory_v_4_0 {
             _token,
             _total,
             _uri,
-            _start,
-            _cliff,
-            _end,
+            _tranches,
             _merkleRoot,
             _maxDelayTime,
             _owner,
