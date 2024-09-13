@@ -6,4 +6,5 @@ interface INetworkConfig {
 	function getStakingAddress() external view returns (address);
 	function getNativeTokenPriceOracleAddress() external view returns (address);
 	function getNativeTokenPriceOracleHeartbeat() external view returns (uint256);
+	function getAccessAuthorityAddress() external view returns (address);
 }

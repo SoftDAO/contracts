@@ -10,14 +10,16 @@ contract NetworkConfig is OwnableUpgradeable, INetworkConfig {
 	bool private initialized;
 	address public nativeTokenPriceOracleAddress;
 	uint256 public nativeTokenPriceOracleHeartbeat;
+	address public accessAuthorityAddress;
 
-	function initialize(address payable _feeRecipient, address _stakingAddress, address _nativeTokenPriceOracleAddress, uint256 _nativeTokenPriceOracleHeartbeat) public initializer {
+	function initialize(address payable _feeRecipient, address _stakingAddress, address _nativeTokenPriceOracleAddress, uint256 _nativeTokenPriceOracleHeartbeat, address _accessAuthorityAddress) public initializer {
 		require(!initialized, "Contract instance has already been initialized");
 		initialized = true;
 		feeRecipient = _feeRecipient;
 		stakingAddress = _stakingAddress;
 		nativeTokenPriceOracleAddress = _nativeTokenPriceOracleAddress;
 		nativeTokenPriceOracleHeartbeat = _nativeTokenPriceOracleHeartbeat;
+		accessAuthorityAddress = _accessAuthorityAddress;
 		__Ownable_init();
 	}
 
@@ -35,5 +37,9 @@ contract NetworkConfig is OwnableUpgradeable, INetworkConfig {
 
 	function getNativeTokenPriceOracleHeartbeat() external view returns (uint256) {
 		return nativeTokenPriceOracleHeartbeat;
+	}
+
+	function getAccessAuthorityAddress() external view returns (address) {
+		return accessAuthorityAddress;
 	}
 }
