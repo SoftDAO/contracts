@@ -11,7 +11,7 @@ import InitializeNetworkConfigModule from "./InitializeNetworkConfigModule";
     - NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS
     - NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_HEARTBEAT
   Example:
-      npx hardhat vars set NETWORK_CONFIG_PROXY_ADMIN XXXXXXXXXX
+      npx hardhat vars set NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS 0x6bF14CB0A831078629D993FDeBcB182b21A8774C
 */
 
 export default buildModule("AllDeploymentSuiteModule", m => {

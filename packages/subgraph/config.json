@@ -319,7 +319,7 @@
   },
   "gnosis": {
     "SubgraphNetwork": "gnosis",
-    "Registry" : [
+    "Registry": [
       {
         "Address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D",
         "BlockNumber": 29461994
@@ -881,6 +881,86 @@
       {
         "Address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264",
         "BlockNumber": 7001339
+      }
+    ]
+  },
+  "scrollSepolia": {
+    "SubgraphNetwork": "scroll-sepolia",
+    "LowestStartBlock": 5517393,
+    "ContinuousVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0x466c845E4264716d9bD72DF066e0018e03833d7D",
+        "BlockNumber": 6615979
+      }
+    ],
+    "TrancheVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0x30D402e5cfAb6CA387706e88ac668fA5669eEb2A",
+        "BlockNumber": 6615979
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x70D09eF46260A6043D96Ec7ea40839AF12810f78",
+        "BlockNumber": 6615986
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x8a1278fa9B316EB48e8E015e6B7d983F4236c652",
+        "BlockNumber": 6615987
+      }
+    ],
+    "FlatPriceSale_v_3": [
+      {
+        "Address": "0xd437Fea8196dBA99263DED1bB5C9f47290B02Ef0",
+        "BlockNumber": 6615992
+      }
+    ],
+    "FlatPriceSaleFactory_v_3": [
+      {
+        "Address": "0x26417901893891AF50Ef2528014c9dc94D6C9a0f",
+        "BlockNumber": 6616054
+      }
+    ]
+  },
+  "scroll": {
+    "SubgraphNetwork": "scroll",
+    "LowestStartBlock": 9244414,
+    "ContinuousVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0xFe4e82EAf2260cb8bBcE7013A7D7D3314071E6a5",
+        "BlockNumber": 9344414
+      }
+    ],
+    "TrancheVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0x4c06CA5C00fd6D20F63a88f937264D90f65339F5",
+        "BlockNumber": 9344415
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x7769DFBF699E5F1fc95C393b7Ca9182E3c1B423f",
+        "BlockNumber": 9344420
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x376d18a652d0Ce5DC9F34Ae5bE1711656eFAA7a4",
+        "BlockNumber": 9344421
+      }
+    ],
+    "FlatPriceSale_v_3": [
+      {
+        "Address": "0x26f3e2ca9Fe78150331021ef8dD343cA97CDb6b6",
+        "BlockNumber": 9344428
+      }
+    ],
+    "FlatPriceSaleFactory_v_3": [
+      {
+        "Address": "0x8683361FC3D9dAda4a0adcd3383e65D9cE5A459c",
+        "BlockNumber": 9344435
       }
     ]
   }

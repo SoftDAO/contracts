@@ -23,6 +23,8 @@
     "prepare:polygon-amoy": "NETWORK=polygonAmoy yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
     "prepare:optimism": "NETWORK=optimism yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
     "prepare:optimism-goerli": "NETWORK=goerliOptimism yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
+    "prepare:scroll-sepolia": "NETWORK=scrollSepolia yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
+    "prepare:scroll": "NETWORK=scroll yarn active-config && handlebars active-config.json < src/subgraph.template.yaml > subgraph.yaml",
     "auth": "graph auth --product hosted-service ${GRAPH_HOSTED_SERVICE_ACCESS_TOKEN}",
     "codegen": "graph codegen",
     "build": "graph build",
@@ -126,7 +128,7 @@
     "clean-node": "rm -rf graph-node/data/"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.46.1",
+    "@graphprotocol/graph-cli": "^0.82.0",
     "@graphprotocol/graph-ts": "0.29.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"

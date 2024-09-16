@@ -11,6 +11,7 @@ const EVM_PRIVATE_KEY_2 = vars.get("EVM_PRIVATE_KEY_2");
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 const BASESCAN_API_KEY = vars.get("BASESCAN_API_KEY");
 const COREDAO_BLOCK_EXPLORER_API_KEY = vars.get("COREDAO_BLOCK_EXPLORER_API_KEY");
+const SCROLL_API_KEY = vars.get("SCROLL_API_KEY");
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -35,13 +36,21 @@ const config: HardhatUserConfig = {
       url: `https://base-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [EVM_PRIVATE_KEY_1],
     },
-    base: {
-      url: `https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
-      accounts: [EVM_PRIVATE_KEY_1],
+    scrollSepolia: {
+      url: `https://sepolia-rpc.scroll.io`,
+      accounts: [EVM_PRIVATE_KEY_1, EVM_PRIVATE_KEY_2],
     },
     mainnet: {
       url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [EVM_PRIVATE_KEY_1],
+    },
+    base: {
+      url: `https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [EVM_PRIVATE_KEY_1],
+    },
+    scroll: {
+      url: `https://scroll-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [EVM_PRIVATE_KEY_1, EVM_PRIVATE_KEY_2],
     },
     coredao: {
       url: "https://rpc.coredao.org/",
@@ -56,6 +65,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://api-sepolia.basescan.org/api",
           browserURL: "https://sepolia.basescan.org/",
+        },
+      },
+      {
+        network: "scrollSepolia",
+        chainId: 534351,
+        urls: {
+          apiURL: "https://api-sepolia.scrollscan.com/api",
+          browserURL: "https://sepolia.scrollscan.com",
         },
       },
       {
@@ -75,6 +92,14 @@ const config: HardhatUserConfig = {
         },
       },
       {
+        network: "scroll",
+        chainId: 534352,
+        urls: {
+          apiURL: "https://api.scrollscan.com/api",
+          browserURL: "https://scrollscan.com",
+        },
+      },
+      {
         network: "coredao",
         chainId: 1116,
         urls: {
@@ -86,8 +111,10 @@ const config: HardhatUserConfig = {
     apiKey: {
       mainnet: ETHERSCAN_API_KEY,
       base: BASESCAN_API_KEY,
-      baseSepolia: BASESCAN_API_KEY,
+      scroll: SCROLL_API_KEY,
       sepolia: ETHERSCAN_API_KEY,
+      baseSepolia: BASESCAN_API_KEY,
+      scrollSepolia: SCROLL_API_KEY,
       coredao: COREDAO_BLOCK_EXPLORER_API_KEY,
     },
   },
