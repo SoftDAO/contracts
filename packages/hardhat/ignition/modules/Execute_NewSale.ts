@@ -17,10 +17,17 @@ export default buildModule("ExecuteNewSaleModule", m => {
   const baseSepolia_FlatPriceSaleFactoryAddress_v2 = "0x934b7D8aAf0ab08cf8dbc45839C867038BC73487";
   const baseSepolia_FlatPriceSaleFactoryAddress_v3 = "0xe085d549c972555b0DD37f01869F235A5Cd0B720";
 
+  /** SCROLL */
+  const scroll_ethOracleAddress = "0x6bF14CB0A831078629D993FDeBcB182b21A8774C";
+  const scroll_usdcAddress = "0x0";
+  const scroll_usdcOracleAddress = "0x0";
+  const scroll_FlatPriceSaleFactoryAddress_v2 = "0x0";
+  const scroll_FlatPriceSaleFactoryAddress_v3 = "0x8683361FC3D9dAda4a0adcd3383e65D9cE5A459c";
+
   /**
    * UPDATE VARIABLES
    */
-  // const networkChosen = "baseSepolia";
+  const networkChosen: string = "scroll";
   const versionChosen: string = "v3";
   /**
    *
@@ -89,14 +96,43 @@ export default buildModule("ExecuteNewSaleModule", m => {
     [6],
   ];
 
+  const argsForV3_scroll = [
+    // the owner of the new sale (can later modify the sale)
+    deployer,
+    // the sale configuration
+    config,
+    // base currency
+    "USD",
+    // native payments enabled
+    true,
+    // native price oracle
+    scroll_ethOracleAddress,
+    // native price oracle heartbeat
+    360000,
+    // payment tokens
+    [],
+    // payment token price oracles
+    [],
+    // payment token price oracle heartbeats
+    [],
+    // payment token decimals
+    [],
+  ];
+
   let flatPriceSaleFactory;
   let args;
   if (versionChosen == "v2") {
     flatPriceSaleFactory = m.contractAt("FlatPriceSaleFactory_v_2_1", baseSepolia_FlatPriceSaleFactoryAddress_v2);
     args = argsForV2;
   } else if (versionChosen == "v3") {
-    flatPriceSaleFactory = m.contractAt("FlatPriceSaleFactory_v_3", baseSepolia_FlatPriceSaleFactoryAddress_v3);
-    args = argsForV3;
+    if (networkChosen == "baseSepolia") {
+      flatPriceSaleFactory = m.contractAt("FlatPriceSaleFactory_v_3", baseSepolia_FlatPriceSaleFactoryAddress_v3);
+      args = argsForV3;
+    } else {
+      // (networkChosen == "scroll")
+      flatPriceSaleFactory = m.contractAt("FlatPriceSaleFactory_v_3", scroll_FlatPriceSaleFactoryAddress_v3);
+      args = argsForV3_scroll;
+    }
   } else {
     throw new Error(`Invalid version: ${versionChosen}`);
   }

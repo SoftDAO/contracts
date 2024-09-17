@@ -509,6 +509,42 @@
         "Address": "0x68f84b0fE75d6B3c9B5355f2C5BaA146e56478DA",
         "BlockNumber": 18529414
       }
+    ],
+    "ContinuousVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0xa87c745DddB6BB6a67DA5766F354abc09Bb1555c",
+        "BlockNumber": 20772113
+      }
+    ],
+    "TrancheVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0x0EDD5e4824E327AB372C29e1477AbCad7A51CdB8",
+        "BlockNumber": 20772287
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0xB24b553Fb0754C11D7F5719B679f6EB324D2b75D",
+        "BlockNumber": 20772292
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x07d289D99C250002A0EF366Db54f3DADAA595763",
+        "BlockNumber": 20772292
+      }
+    ],
+    "FlatPriceSale_v_3": [
+      {
+        "Address": "0x5358832e91972eDaDD6cc9Ba10cd26D65cF939e3",
+        "BlockNumber": 20772297
+      }
+    ],
+    "FlatPriceSaleFactory_v_3": [
+      {
+        "Address": "0x407213837eC1e37F3968eF237975e051F3eA0A68",
+        "BlockNumber": 20772303
+      }
     ]
   },
   "matic": {
