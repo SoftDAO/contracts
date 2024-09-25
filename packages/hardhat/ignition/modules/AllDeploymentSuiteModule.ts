@@ -13,7 +13,7 @@ import InitializeNetworkConfigModule from "./InitializeNetworkConfigModule";
   Optional:
     - EVM_PRIVATE_KEY_1
   Example:
-      npx hardhat vars set EVM_PRIVATE_KEY_1 XXXXXXXXXX
+      npx hardhat vars set NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419
 */
 
 export default buildModule("AllDeploymentSuiteModule", m => {
