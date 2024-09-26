@@ -790,35 +790,47 @@
         "Address": "0x914cEF6E710E805bA1353bb8e6eBa2e81ab9A89b",
         "BlockNumber": 5579450
       }
+    ],
+    "ContinuousVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0xBd338F724164930284E353ddac5aF7A466C37b86",
+        "BlockNumber": 6757916
+      }
+    ],
+    "TrancheVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0xf69Fff6E0A39025925D6Ab71cBa7ac08f98d78c1",
+        "BlockNumber": 6758789
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0xf1e7A8DAAFAC863Bb41D09BB24f2ec92c7e0605e",
+        "BlockNumber": 6758795
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x438534048De5Fa461963038d09D358eB33913090",
+        "BlockNumber": 6758795
+      }
+    ],
+    "FlatPriceSale_v_3": [
+      {
+        "Address": "0x5F28A90926A2F1747A382199CfC30e38E52fee89",
+        "BlockNumber": 6758825
+      }
+    ],
+    "FlatPriceSaleFactory_v_3": [
+      {
+        "Address": "0x84Ad569A976A6c3c2F7a176d96586a974D902Cf1",
+        "BlockNumber": 6758830
+      }
     ]
   },
   "baseSepolia": {
     "SubgraphNetwork": "base-sepolia",
     "LowestStartBlock": 5517393,
-    "ContinuousVestingMerkleDistributor_v_4_0": [
-      {
-        "Address": "0x07d289D99C250002A0EF366Db54f3DADAA595763",
-        "BlockNumber": 14335565
-      }
-    ],
-    "TrancheVestingMerkleDistributor_v_4_0": [
-      {
-        "Address": "0x5358832e91972eDaDD6cc9Ba10cd26D65cF939e3",
-        "BlockNumber": 14335567
-      }
-    ],
-    "ContinuousVestingMerkleDistributorFactory_v_4_0": [
-      {
-        "Address": "0x407213837eC1e37F3968eF237975e051F3eA0A68",
-        "BlockNumber": 14335575
-      }
-    ],
-    "TrancheVestingMerkleDistributorFactory_v_4_0": [
-      {
-        "Address": "0xbF6A88eBF3b0ed9Bf6d954059103fbfF9Cd9FC37",
-        "BlockNumber": 14335577
-      }
-    ],
     "ContinuousVestingMerkleDistributorFactory": [
       {
         "Address": "0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9",
@@ -851,16 +863,40 @@
         "BlockNumber": 12394202
       }
     ],
+    "ContinuousVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0xb9Fec725FB53D208607c79b8b156988D79a42943",
+        "BlockNumber": 15733106
+      }
+    ],
+    "TrancheVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0x8a9eE9B8C0357ac6EB38e0213F0F2864d48F2962",
+        "BlockNumber": 15733107
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0xCBcC5c04a0584757eFd9491287b759E394C927b1",
+        "BlockNumber": 15733113
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x0ed244E1efa0df4442A641F1b9A902FD245164d7",
+        "BlockNumber": 15733114
+      }
+    ],
     "FlatPriceSale_v_3": [
       {
-        "Address": "0xfc70CAD5bCDc8405faB586Cea97231bfDd1C9f13",
-        "BlockNumber": "14335583"
+        "Address": "0x4982A330408607035920a7725829731a931c909f",
+        "BlockNumber": 15733120
       }
     ],
     "FlatPriceSaleFactory_v_3": [
       {
-        "Address": "0xbA8425b5f7D139095eDb8885E428f387E78c6B51",
-        "BlockNumber": "14335591"
+        "Address": "0x775EA5e53b4Fa63FB41e8fa14Ee8e234D130AE3e",
+        "BlockNumber": 15733127
       }
     ]
   },
@@ -898,6 +934,42 @@
         "Address": "0x51d15Ae4783Ad01b027656d3035485dc649f02a2",
         "BlockNumber": 16839965
       }
+    ],
+    "ContinuousVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0x0bA2270220dE49658635f69f2F24030dD26286D3",
+        "BlockNumber": 20222736
+      }
+    ],
+    "TrancheVestingMerkleDistributor_v_4_0": [
+      {
+        "Address": "0xB24b553Fb0754C11D7F5719B679f6EB324D2b75D",
+        "BlockNumber": 20222738
+      }
+    ],
+    "ContinuousVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x5358832e91972eDaDD6cc9Ba10cd26D65cF939e3",
+        "BlockNumber": 20222746
+      }
+    ],
+    "TrancheVestingMerkleDistributorFactory_v_4_0": [
+      {
+        "Address": "0x753354fcB478Bf13758fE049Aad3eD0c4A4b6E52",
+        "BlockNumber": 20222748
+      }
+    ],
+    "FlatPriceSale_v_3": [
+      {
+        "Address": "0x407213837eC1e37F3968eF237975e051F3eA0A68",
+        "BlockNumber": 20222755
+      }
+    ],
+    "FlatPriceSaleFactory_v_3": [
+      {
+        "Address": "0x550920bc0Df97afeF03E120b8b4817279acf9690",
+        "BlockNumber": 20222763
+      }
     ]
   },
   "polygonAmoy": {
@@ -933,38 +1005,38 @@
     "LowestStartBlock": 5517393,
     "ContinuousVestingMerkleDistributor_v_4_0": [
       {
-        "Address": "0x466c845E4264716d9bD72DF066e0018e03833d7D",
-        "BlockNumber": 6615979
+        "Address": "0x26f3e2ca9Fe78150331021ef8dD343cA97CDb6b6",
+        "BlockNumber": 6745461
       }
     ],
     "TrancheVestingMerkleDistributor_v_4_0": [
       {
-        "Address": "0x30D402e5cfAb6CA387706e88ac668fA5669eEb2A",
-        "BlockNumber": 6615979
+        "Address": "0xb6c54E1A407F44679D57bd381A993DDC0B79BD98",
+        "BlockNumber": 6746121
       }
     ],
     "ContinuousVestingMerkleDistributorFactory_v_4_0": [
       {
-        "Address": "0x70D09eF46260A6043D96Ec7ea40839AF12810f78",
-        "BlockNumber": 6615986
+        "Address": "0x72D8C9125eaC661a58dc140ba800B799Ce7e6653",
+        "BlockNumber": 6746288
       }
     ],
     "TrancheVestingMerkleDistributorFactory_v_4_0": [
       {
-        "Address": "0x8a1278fa9B316EB48e8E015e6B7d983F4236c652",
-        "BlockNumber": 6615987
+        "Address": "0x68Af82C30997CE801aC217488A8C98566199aD52",
+        "BlockNumber": 6746291
       }
     ],
     "FlatPriceSale_v_3": [
       {
-        "Address": "0xd437Fea8196dBA99263DED1bB5C9f47290B02Ef0",
-        "BlockNumber": 6615992
+        "Address": "0xD00ffF8cc3fcF83E19767B382e7E6FaBcc1dE5e0",
+        "BlockNumber": 6746296
       }
     ],
     "FlatPriceSaleFactory_v_3": [
       {
-        "Address": "0x26417901893891AF50Ef2528014c9dc94D6C9a0f",
-        "BlockNumber": 6616054
+        "Address": "0x7687dAF2B9dE9Fc5167E2350179b90C36235981B",
+        "BlockNumber": 6746305
       }
     ]
   },
