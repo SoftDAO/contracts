@@ -5,15 +5,11 @@ import FlatPriceSaleFactoryV3Module from "./FlatPriceSaleFactoryV3Module";
 import InitializeNetworkConfigModule from "./InitializeNetworkConfigModule";
 
 /*
-  Variables you need to set:
-    - NETWORK_CONFIG_PROXY_ADMIN (0x52c263698B5B11AaCAf0f74333DC921B26FFA5b7)
-    - NETWORK_CONFIG_FEE_RECIPIENT (0x52c263698B5B11AaCAf0f74333DC921B26FFA5b7)
-    - NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS (0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419)
-    - NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_HEARTBEAT (36000)
-  Optional:
-    - EVM_PRIVATE_KEY_1
-  Example:
-      npx hardhat vars set NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419
+  Update these variables in the ../parameters/ folder prior to running this module:
+    - NETWORK_CONFIG_PROXY_ADMIN
+    - NETWORK_CONFIG_FEE_RECIPIENT
+    - NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS
+    - NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_HEARTBEAT
 */
 
 export default buildModule("AllDeploymentSuiteModule", m => {

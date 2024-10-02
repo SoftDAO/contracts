@@ -38,7 +38,7 @@ const config: HardhatUserConfig = {
     },
     scrollSepolia: {
       url: `https://sepolia-rpc.scroll.io`,
-      accounts: [EVM_PRIVATE_KEY_1, EVM_PRIVATE_KEY_2],
+      accounts: [EVM_PRIVATE_KEY_1],
     },
     mainnet: {
       url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
@@ -50,7 +50,7 @@ const config: HardhatUserConfig = {
     },
     scroll: {
       url: `https://scroll-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
-      accounts: [EVM_PRIVATE_KEY_1, EVM_PRIVATE_KEY_2],
+      accounts: [EVM_PRIVATE_KEY_1],
     },
     coredao: {
       url: "https://rpc.coredao.org/",
