@@ -6,11 +6,13 @@ import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
+import "./IFeeLevelJudge.sol";
+
 interface ISoftMfers {
     function redeem(address receiver, uint256 amount) external;
 }
 
-contract StakingContract is Ownable2StepUpgradeable, PausableUpgradeable {
+contract StakingContract is Ownable2StepUpgradeable, PausableUpgradeable, IFeeLevelJudge {
     IERC20 public softToken;
     ISoftMfers public softMfersContract;
     bool private initialized;
@@ -151,7 +153,7 @@ contract StakingContract is Ownable2StepUpgradeable, PausableUpgradeable {
         return 100;
     }
 
-    function getFeeLevel(address user) public view returns (uint256) {
+    function getFeeLevel(address user) external view returns (uint256) {
         if (hasPenaltyPeriodElapsed(user)) {
             return stakedTokens[user].pendingFeeLevel;
         }

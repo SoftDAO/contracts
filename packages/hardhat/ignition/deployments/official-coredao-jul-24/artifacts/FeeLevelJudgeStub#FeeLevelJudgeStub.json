@@ -1,0 +1,41 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "FeeLevelJudgeStub",
+  "sourceName": "contracts/claim/FeeLevelJudgeStub.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_feeLevel",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "getFeeLevel",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x60803461005057601f6100f638819003918201601f19168301916001600160401b03831184841017610055578084926020946040528339810103126100505751600055604051608a908161006c8239f35b600080fd5b634e487b7160e01b600052604160045260246000fdfe6080806040526004361015601257600080fd5b600090813560e01c63b31c878114602857600080fd5b3460505760203660031901126050576004356001600160a01b03811603605057602091548152f35b5080fdfea2646970667358221220ebc30b4cd5bc3b445992383f0132a1d11f836c1581bc84a3f9549a8337dc327b64736f6c63430008150033",
+  "deployedBytecode": "0x6080806040526004361015601257600080fd5b600090813560e01c63b31c878114602857600080fd5b3460505760203660031901126050576004356001600160a01b03811603605057602091548152f35b5080fdfea2646970667358221220ebc30b4cd5bc3b445992383f0132a1d11f836c1581bc84a3f9549a8337dc327b64736f6c63430008150033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

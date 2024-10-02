@@ -26,12 +26,68 @@ dataSources:
         - event: InitializeDistributor(indexed address,uint256,string,uint256)
           handler: handleInitializeDistributor
   {{/TrancheVestingSale_2_0.[0]}}
-  {{#FlatPriceSaleFactory_v_2_1.[0]}}
+  {{#each FlatPriceSaleFactory_v_3}}
   - kind: ethereum/contract
-    name: FlatPriceSaleFactory_v_2_1
+    {{#if @index}}
+    name: FlatPriceSaleFactory_v_3_{{@index}}
+    {{else}}
+    name: FlatPriceSaleFactory_v_3
+    {{/if}}
     network: {{../SubgraphNetwork}}
     source:
       address: '{{Address}}'
+      abi: FlatPriceSaleFactory_v_3
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/sale/v3.0/flatPriceSaleFactoryMapping.ts
+      entities:
+        - Sale
+      abis:
+        - name: FlatPriceSaleFactory_v_3
+          file: ./abis/contracts/sale/v3/FlatPriceSaleFactory.sol/FlatPriceSaleFactory_v_3.json
+      eventHandlers:
+        - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,uint256,bool)
+          handler: handleNewSale
+  {{/each}}
+  {{#each FlatPriceSale_v_3}}
+  - kind: ethereum/contract
+    {{#if @index}}
+    name: FlatPriceSale_v_3_{{@index}}
+    {{else}}
+    name: FlatPriceSale_v_3
+    {{/if}}
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: FlatPriceSale_v_3
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - SaleImplementation
+      abis:
+        - name: FlatPriceSale_v_3
+          file: ./abis/contracts/sale/v3/FlatPriceSale.sol/FlatPriceSale_v_3.json
+      eventHandlers:
+        - event: ImplementationConstructor(address)
+          handler: handleImplementationConstructor
+      file: ./src/sale/v3.0/saleImplementationMapping.ts
+  {{/each}}
+  {{#each FlatPriceSaleFactory_v_2_1}}
+  - kind: ethereum/contract
+    {{#if @index}}
+    name: FlatPriceSaleFactory_v_2_1_{{@index}}
+    {{else}}
+    name: FlatPriceSaleFactory_v_2_1
+    {{/if}}
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{this.Address}}'
       abi: FlatPriceSaleFactory_v_2_1
       startBlock: {{BlockNumber}}
     mapping:
@@ -47,10 +103,14 @@ dataSources:
       eventHandlers:
         - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
           handler: handleNewSale
-  {{/FlatPriceSaleFactory_v_2_1.[0]}}
-  {{#FlatPriceSale_v_2_1.[0]}}
+  {{/each}}
+  {{#each FlatPriceSale_v_2_1}}
   - kind: ethereum/contract
+    {{#if @index}}
+    name: FlatPriceSale_v_2_1_{{@index}}
+    {{else}}
     name: FlatPriceSale_v_2_1
+    {{/if}}
     network: {{../SubgraphNetwork}}
     source:
       address: '{{Address}}'
@@ -65,11 +125,13 @@ dataSources:
       abis:
         - name: FlatPriceSale_v_2_1
           file: ./abis/contracts/sale/v2.1/FlatPriceSale.sol/FlatPriceSale_v_2_1.json
+        - name: FlatPriceSale
+          file: ./abis/contracts/sale/v2.1/FlatPriceSale.sol/FlatPriceSale_v_2_1.json
       eventHandlers:
         - event: ImplementationConstructor(indexed address,uint256)
           handler: handleImplementationConstructor
       file: ./src/sale/v2.1/saleImplementationMapping.ts
-  {{/FlatPriceSale_v_2_1.[0]}}
+  {{/each}}
   {{#FlatPriceSaleFactory.[0]}}
   - kind: ethereum/contract
     name: FlatPriceSaleFactory
@@ -332,6 +394,74 @@ dataSources:
         - event: DistributorDeployed(indexed address)
           handler: handleDistributorDeployed
   {{/ContinuousVestingMerkleDistributorFactory.[0]}}
+  {{#each ContinuousVestingMerkleDistributorFactory_v_4_0}}
+  - kind: ethereum/contract
+    name: ContinuousVestingMerkleDistributorFactory_v_4_0
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: ContinuousVestingMerkleDistributorFactory
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/distributor/v3.0/continuousVestingMerkleDistributorFactoryMapping.ts
+      entities:
+        - Distributor
+        - AdvancedDistributor
+        - ContinuousVesting
+      abis:
+        - name: AdvancedDistributor
+          file: ./abis/contracts/claim/abstract/AdvancedDistributor.sol/AdvancedDistributor.json
+        - name: ContinuousVestingMerkleDistributorFactory
+          file: ./abis/contracts/claim/factory/ContinuousVestingMerkleDistributorFactory.sol/ContinuousVestingMerkleDistributorFactory.json
+        - name: IContinuousVesting
+          file: ./abis/contracts/interfaces/IContinuousVesting.sol/IContinuousVesting.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
+        - name: IERC20Metadata
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
+        - name: IMerkleSet
+          file: ./abis/contracts/interfaces/IMerkleSet.sol/IMerkleSet.json
+      eventHandlers:
+        - event: DistributorDeployed(indexed address)
+          handler: handleDistributorDeployed
+  {{/each}}
+  {{#each TrancheVestingMerkleDistributorFactory_v_4_0}}
+  - kind: ethereum/contract
+    name: TrancheVestingMerkleDistributorFactory_v_4_0
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: TrancheVestingMerkleDistributorFactory
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/distributor/v3.0/trancheVestingMerkleDistributorFactoryMapping.ts
+      entities:
+        - Distributor
+        - AdvancedDistributor
+        - TrancheVesting
+      abis:
+        - name: AdvancedDistributor
+          file: ./abis/contracts/claim/abstract/AdvancedDistributor.sol/AdvancedDistributor.json
+        - name: TrancheVestingMerkleDistributorFactory
+          file: ./abis/contracts/claim/factory/TrancheVestingMerkleDistributorFactory.sol/TrancheVestingMerkleDistributorFactory.json
+        - name: ITrancheVesting
+          file: ./abis/contracts/interfaces/ITrancheVesting.sol/ITrancheVesting.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
+        - name: IERC20Metadata
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
+        - name: IMerkleSet
+          file: ./abis/contracts/interfaces/IMerkleSet.sol/IMerkleSet.json
+      eventHandlers:
+        - event: DistributorDeployed(indexed address)
+          handler: handleDistributorDeployed
+  {{/each}}
   {{#TrancheVestingMerkleDistributorFactory.[0]}}
   - kind: ethereum/contract
     name: TrancheVestingMerkleDistributorFactory
@@ -418,6 +548,46 @@ templates:
         - event: Initialize((address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
           handler: handleInitialize
         - event: SetPaymentTokenInfo(address,(address,uint8))
+          handler: handleSetPaymentTokenInfo
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: SweepToken(indexed address,uint256)
+          handler: handleSweepToken
+        - event: SweepNative(uint256)
+          handler: handleSweepNative
+        - event: RegisterDistributor(address)
+          handler: handleRegisterDistributor
+  - kind: ethereum/contract
+    name: FlatPriceSale_v_3
+    network: {{SubgraphNetwork}}
+    source:
+      abi: FlatPriceSale_v_3
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/sale/v3.0/saleMapping.ts
+      entities:
+        - Purchase
+        - Sale
+        - Distributor
+      abis:
+        - name: FlatPriceSale_v_3
+          file: ./abis/contracts/sale/v3/FlatPriceSale.sol/FlatPriceSale_v_3.json
+        - name: FlatPriceSaleFactory_v_3
+          file: ./abis/contracts/sale/v3/FlatPriceSaleFactory.sol/FlatPriceSaleFactory_v_3.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
+        - name: IERC20Metadata
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
+      eventHandlers:
+        - event: Buy(indexed address,indexed address,uint256,uint256,uint256,uint256)
+          handler: handleBuy
+        - event: Update((address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string))
+          handler: handleUpdate
+        - event: Initialize((address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
+          handler: handleInitialize
+        - event: SetPaymentTokenInfo(address,(address,uint256,uint8))
           handler: handleSetPaymentTokenInfo
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred

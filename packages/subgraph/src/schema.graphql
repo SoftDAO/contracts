@@ -4,7 +4,8 @@
 type SaleImplementation @entity {
   id: ID! # Address
   feeRecipient: Account
-  feeBips: BigInt!
+  feeBips: BigInt
+  networkConfig: String
   saleCount: BigInt!
   purchaseCount: BigInt!
   sales: [Sale!] @derivedFrom(field: "implementation")
@@ -49,6 +50,7 @@ type PaymentMethod @entity {
   id: ID! # `${token}-${oracle}`
   token: Bytes # native payments have no token
   oracle: Bytes # v1.x token contracts have no oracle (assume stablecoin treated at par)
+  heartbeat: BigInt
   native: Boolean!
   decimals: Int!
   purchaseTotal: BigInt! # Denominated in payment token
@@ -75,7 +77,9 @@ type Purchase @entity {
   baseCurrencyValue: BigInt! # Economic value of purchase with 8 decimals (eg 10.01 USD would be 1001000000) 
   paymentMethod: PaymentMethod! # payment method used for this purchase
   spent: BigInt! # number of payment tokens spent, including fee, with that token's base decimals (e.g. 1.0 USDC would be 1000000)
-  fee: BigInt! # number of payment tokens sent to the fee recipient (e.g. 0.01 USDC would be 1000)
+  fee: BigInt # DEPRECATED, number of protocol tokens sent to the fee recipient (e.g. 0.01 USDC would be 1000)
+  protocolTokenFee: BigInt # number of protocol tokens sent to the fee recipient (e.g. 0.01 USDC would be 1000)
+  platformTokenFee: BigInt # number of platform tokens sent to the fee recipient (e.g. 0.01 USDC would be 1000)
   price: BigInt! # price oracle for <PaymentMethod>/<BaseCurrency> at time of purchase, with 8 decimals (eg ETH/USD price of $1820.86/ETH would be 182086000000)
   transactionHash: String!
   uri: String!
