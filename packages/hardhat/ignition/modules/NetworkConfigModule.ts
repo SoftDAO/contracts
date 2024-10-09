@@ -1,8 +1,8 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
-import { vars } from 'hardhat/config';
+import { vars } from "hardhat/config";
 
 const networkConfigProxyModule = buildModule("NetworkConfigProxyModule", m => {
-  const networkConfigProxyAdminOwner = vars.get('NETWORK_CONFIG_PROXY_ADMIN');
+  const networkConfigProxyAdminOwner = vars.get("NETWORK_CONFIG_PROXY_ADMIN");
 
   // uninitialized implementation
   const networkConfig = m.contract("NetworkConfig");
