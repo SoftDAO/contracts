@@ -52,6 +52,32 @@ dataSources:
         - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,uint256,bool)
           handler: handleNewSale
   {{/each}}
+  {{#each FlatPriceSaleFactory_v_4_0}}
+  - kind: ethereum/contract
+    {{#if @index}}
+    name: FlatPriceSaleFactory_v_4_0_{{@index}}
+    {{else}}
+    name: FlatPriceSaleFactory_v_4_0
+    {{/if}}
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: FlatPriceSaleFactory_v_4_0
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/sale/v4.0/flatPriceSaleFactoryMapping.ts
+      entities:
+        - Sale
+      abis:
+        - name: FlatPriceSaleFactory_v_4_0
+          file: ./abis/contracts/sale/v4/FlatPriceSaleFactory.sol/FlatPriceSaleFactory_v_4_0.json
+      eventHandlers:
+        - event: NewSale(indexed address,indexed address,(address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,uint256,bool)
+          handler: handleNewSale
+  {{/each}}
   {{#each FlatPriceSale_v_3}}
   - kind: ethereum/contract
     {{#if @index}}
@@ -77,6 +103,32 @@ dataSources:
         - event: ImplementationConstructor(address)
           handler: handleImplementationConstructor
       file: ./src/sale/v3.0/saleImplementationMapping.ts
+  {{/each}}
+  {{#each FlatPriceSale_v_4_0}}
+  - kind: ethereum/contract
+    {{#if @index}}
+    name: FlatPriceSale_v_4_0_{{@index}}
+    {{else}}
+    name: FlatPriceSale_v_4_0
+    {{/if}}
+    network: {{../SubgraphNetwork}}
+    source:
+      address: '{{Address}}'
+      abi: FlatPriceSale_v_4_0
+      startBlock: {{BlockNumber}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - SaleImplementation
+      abis:
+        - name: FlatPriceSale_v_4_0
+          file: ./abis/contracts/sale/v4/FlatPriceSale.sol/FlatPriceSale_v_4_0.json
+      eventHandlers:
+        - event: ImplementationConstructor(address)
+          handler: handleImplementationConstructor
+      file: ./src/sale/v4.0/saleImplementationMapping.ts
   {{/each}}
   {{#each FlatPriceSaleFactory_v_2_1}}
   - kind: ethereum/contract
@@ -800,3 +852,44 @@ templates:
       eventHandlers:
         - event: CrosschainClaim(indexed bytes32,indexed address,indexed address,uint32,uint256)
           handler: handleCrosschainClaim
+
+  - kind: ethereum/contract
+    name: FlatPriceSale_v_4_0
+    network: {{SubgraphNetwork}}
+    source:
+      abi: FlatPriceSale_v_4_0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/sale/v4.0/saleMapping.ts
+      entities:
+        - Purchase
+        - Sale
+        - Distributor
+      abis:
+        - name: FlatPriceSale_v_4_0
+          file: ./abis/contracts/sale/v4/FlatPriceSale.sol/FlatPriceSale_v_4_0.json
+        - name: FlatPriceSaleFactory_v_4_0
+          file: ./abis/contracts/sale/v4/FlatPriceSaleFactory.sol/FlatPriceSaleFactory_v_4_0.json
+        - name: IDistributor
+          file: ./abis/contracts/interfaces/IDistributor.sol/IDistributor.json
+        - name: IERC20Metadata
+          file: ./abis/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol/IERC20Metadata.json
+      eventHandlers:
+        - event: Buy(indexed address,indexed address,uint256,uint256,uint256,uint256)
+          handler: handleBuy
+        - event: Update((address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string))
+          handler: handleUpdate
+        - event: Initialize((address,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,string),string,address,bool)
+          handler: handleInitialize
+        - event: SetPaymentTokenInfo(address,(address,uint256,uint8))
+          handler: handleSetPaymentTokenInfo
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: SweepToken(indexed address,uint256)
+          handler: handleSweepToken
+        - event: SweepNative(uint256)
+          handler: handleSweepNative
+        - event: RegisterDistributor(address)
+          handler: handleRegisterDistributor

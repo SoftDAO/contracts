@@ -319,7 +319,7 @@
   },
   "gnosis": {
     "SubgraphNetwork": "gnosis",
-    "Registry" : [
+    "Registry": [
       {
         "Address": "0x9dEbe59f42Be5152B3C98c09bAA705d09253fE4D",
         "BlockNumber": 29461994
@@ -817,6 +817,18 @@
       {
         "Address": "0xbA8425b5f7D139095eDb8885E428f387E78c6B51",
         "BlockNumber": "14335591"
+      }
+    ],
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0xe93FEf476974DdaabeCc670C0448d45A5d52D7f1",
+        "BlockNumber": "16332968"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0x22d2e721Da20FE25bB37c12eD0D3aC0BD1784362",
+        "BlockNumber": "16332975"
       }
     ]
   },
