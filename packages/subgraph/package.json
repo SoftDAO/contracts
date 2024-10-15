@@ -53,7 +53,7 @@
     "deploy:goerli": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-goerli",
     "deploy:sepolia-next": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-sepolia-next",
     "deploy:sepolia": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-sepolia",
-    "deploy:base-sepolia-alchemy-satsuma": "graph deploy base-sepolia --version-label v0.0.7 --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key ${SATSUMA_DEPLOY_KEY} --ipfs https://ipfs.satsuma.xyz",
+    "deploy:base-sepolia-alchemy-satsuma": "graph deploy base-sepolia --version-label v0.0.8 --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key ${SATSUMA_DEPLOY_KEY} --ipfs https://ipfs.satsuma.xyz",
     "deploy:base-next": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-base-next",
     "deploy:base": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-base",
     "deploy:goerli-next": "yarn auth && graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ tokensoft/sales-goerli-next",

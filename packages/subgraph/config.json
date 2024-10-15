@@ -821,14 +821,14 @@
     ],
     "FlatPriceSale_v_4_0": [
       {
-        "Address": "0x0758FB42B9DE30C7198558eCE53a4dbf9D9e99C0",
-        "BlockNumber": "16369571"
+        "Address": "0xa8aE1B587F97D6a6BC1D48C551eA3eD53d885358",
+        "BlockNumber": "16629801"
       }
     ],
     "FlatPriceSaleFactory_v_4_0": [
       {
-        "Address": "0x90E837ebB7e4b2A0D471fE058E72c1092631C1dB",
-        "BlockNumber": "16369578"
+        "Address": "0x4Be7467d6011CFB00a4b4cbEF69F03536Ee5f76F",
+        "BlockNumber": "16629808"
       }
     ]
   },

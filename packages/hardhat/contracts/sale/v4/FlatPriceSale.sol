@@ -4,12 +4,12 @@ pragma solidity ^0.8.21;
 
 import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PullPaymentUpgradeable.sol";
-import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import { Address } from "@openzeppelin/contracts/utils/Address.sol";
 import "./Sale.sol";
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
 import "../../config/INetworkConfig.sol";
 import "../../utilities/AccessVerifier.sol";
-import {IFeeLevelJudge} from "../../claim/IFeeLevelJudge.sol";
+import { IFeeLevelJudge } from "../../claim/IFeeLevelJudge.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
@@ -101,7 +101,10 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		IOracleOrL2OracleWithSequencerCheck nativeOracle,
 		bool nativePaymentsEnabled
 	);
-	event SetPaymentTokenInfo(IERC20Upgradeable token, PaymentTokenInfo paymentTokenInfo);
+	event SetPaymentTokenInfo(
+		IERC20Upgradeable token,
+		PaymentTokenInfo paymentTokenInfo
+	);
 	event SweepToken(address indexed token, uint256 amount);
 	event SweepNative(uint256 amount);
 	event RegisterDistributor(address distributor);
@@ -130,7 +133,7 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 	// the base currency being used, e.g. 'USD'
 	string public baseCurrency;
 
-	string public constant VERSION = "3.0";
+	string public constant VERSION = "4.0";
 
 	// <native token>/<base currency> price, e.g. ETH/USD price
 	IOracleOrL2OracleWithSequencerCheck public nativeTokenPriceOracle;
@@ -157,7 +160,7 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 
 	// All clones will share the information in the implementation constructor
 	constructor(address _networkConfig) {
-		networkConfig = INetworkConfig(_networkConfig); 
+		networkConfig = INetworkConfig(_networkConfig);
 
 		emit ImplementationConstructor(networkConfig);
 	}
@@ -185,8 +188,14 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 
 		// validate the new sale
 		require(tokens.length == oracles.length, "token and oracle lengths !=");
-		require(tokens.length == decimals.length, "token and decimals lengths !=");
-		require(address(_nativeTokenPriceOracle) != address(0), "native oracle == 0");
+		require(
+			tokens.length == decimals.length,
+			"token and decimals lengths !="
+		);
+		require(
+			address(_nativeTokenPriceOracle) != address(0),
+			"native oracle == 0"
+		);
 
 		// save the new sale
 		config = _config;
@@ -196,14 +205,23 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		nativeTokenPriceOracle = _nativeTokenPriceOracle;
 		nativeTokenPriceOracleHeartbeat = _nativeTokenPriceOracleHeartbeat;
 		nativePaymentsEnabled = _nativePaymentsEnabled;
-		emit Initialize(config, baseCurrency, nativeTokenPriceOracle, _nativePaymentsEnabled);
+		emit Initialize(
+			config,
+			baseCurrency,
+			nativeTokenPriceOracle,
+			_nativePaymentsEnabled
+		);
 
 		for (uint256 i = 0; i < tokens.length; i++) {
 			// double check that tokens and oracles are real addresses
 			require(address(tokens[i]) != address(0), "payment token == 0");
 			require(address(oracles[i]) != address(0), "token oracle == 0");
 			// save the payment token info
-			paymentTokens[tokens[i]] = PaymentTokenInfo({ oracle: oracles[i], heartbeat: oracleHeartbeats[i], decimals: decimals[i] });
+			paymentTokens[tokens[i]] = PaymentTokenInfo({
+				oracle: oracles[i],
+				heartbeat: oracleHeartbeats[i],
+				decimals: decimals[i]
+			});
 
 			emit SetPaymentTokenInfo(tokens[i], paymentTokens[tokens[i]]);
 		}
@@ -218,16 +236,29 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 	/**
   Check that the user can currently participate in the sale based on the access signature
   */
-	modifier canAccessSale(uint256 userLimit, uint64 expiresAt, bytes memory signature) {
+	modifier canAccessSale(
+		uint256 userLimit,
+		uint64 expiresAt,
+		bytes memory signature
+	) {
 		// make sure the buyer is an EOA
 		require((_msgSender() == tx.origin), "Must buy with an EOA");
 
-		verifyAccessSignature(networkConfig.getAccessAuthorityAddress(), _msgSender(), userLimit, expiresAt, signature);
+		verifyAccessSignature(
+			networkConfig.getAccessAuthorityAddress(),
+			_msgSender(),
+			userLimit,
+			expiresAt,
+			signature
+		);
 
 		// Require the sale to be open
 		require(block.timestamp > config.startTime, "sale has not started yet");
 		require(block.timestamp < config.endTime, "sale has ended");
-		require(metrics.purchaseTotal < config.saleMaximum, "sale buy limit reached");
+		require(
+			metrics.purchaseTotal < config.saleMaximum,
+			"sale buy limit reached"
+		);
 
 		// Reduce congestion by randomly assigning each user a delay time in a virtual queue based on comparing their address and a random value
 		// if config.maxQueueTime == 0 the delay is 0
@@ -254,7 +285,10 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
      */
 		if (randomValue != 0) {
 			// this is an existing sale: cannot update after it has ended
-			require(block.timestamp < oldConfig.endTime, "sale is over: cannot upate");
+			require(
+				block.timestamp < oldConfig.endTime,
+				"sale is over: cannot upate"
+			);
 			if (block.timestamp > oldConfig.startTime) {
 				// the sale has already started, some things should not be edited
 				require(
@@ -268,16 +302,31 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 
 		// all required values must be present and reasonable
 		// check if the caller accidentally entered a value in milliseconds instead of seconds
-		require(newConfig.startTime <= 4102444800, "start > 4102444800 (Jan 1 2100)");
-		require(newConfig.endTime <= 4102444800, "end > 4102444800 (Jan 1 2100)");
-		require(newConfig.maxQueueTime <= 604800, "max queue time > 604800 (1 week)");
+		require(
+			newConfig.startTime <= 4102444800,
+			"start > 4102444800 (Jan 1 2100)"
+		);
+		require(
+			newConfig.endTime <= 4102444800,
+			"end > 4102444800 (Jan 1 2100)"
+		);
+		require(
+			newConfig.maxQueueTime <= 604800,
+			"max queue time > 604800 (1 week)"
+		);
 		require(newConfig.recipient != address(0), "recipient == address(0)");
 
 		// sale, user, and purchase limits must be compatible
 		require(newConfig.saleMaximum > 0, "saleMaximum == 0");
 		require(newConfig.userMaximum > 0, "userMaximum == 0");
-		require(newConfig.userMaximum <= newConfig.saleMaximum, "userMaximum > saleMaximum");
-		require(newConfig.purchaseMinimum <= newConfig.userMaximum, "purchaseMinimum > userMaximum");
+		require(
+			newConfig.userMaximum <= newConfig.saleMaximum,
+			"userMaximum > saleMaximum"
+		);
+		require(
+			newConfig.purchaseMinimum <= newConfig.userMaximum,
+			"purchaseMinimum > userMaximum"
+		);
 
 		// new sale times must be internally consistent
 		require(
@@ -303,29 +352,28 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 	}
 
 	// Get info on a payment token
-	function getPaymentToken(IERC20Upgradeable token)
-		external
-		view
-		returns (PaymentTokenInfo memory)
-	{
+	function getPaymentToken(
+		IERC20Upgradeable token
+	) external view returns (PaymentTokenInfo memory) {
 		return paymentTokens[token];
 	}
 
 	// TODO: reduce duplication between other contracts
 	// Get a positive token price from a chainlink oracle
-  function getOraclePrice(IOracleOrL2OracleWithSequencerCheck oracle, uint256 heartbeat) public view returns (uint256) {
-		(
-			,
-			int256 _price,
-			,
-			uint256 updatedAt,
-			uint80 answeredInRound
-		) = oracle.latestRoundData();
+	function getOraclePrice(
+		IOracleOrL2OracleWithSequencerCheck oracle,
+		uint256 heartbeat
+	) public view returns (uint256) {
+		(, int256 _price, , uint256 updatedAt, uint80 answeredInRound) = oracle
+			.latestRoundData();
 
 		require(_price > 0, "negative price");
 		require(answeredInRound > 0, "answer == 0");
 		require(updatedAt > 0, "round not complete");
-		require(updatedAt > block.timestamp - heartbeat, "stale price due to heartbeat");
+		require(
+			updatedAt > block.timestamp - heartbeat,
+			"stale price due to heartbeat"
+		);
 
 		return uint256(_price);
 	}
@@ -362,7 +410,8 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		uint160 distance = uint160(buyer) ^ randomValue;
 
 		// calculate a speed at which the queue is exhausted such that all users complete the queue by sale.maxQueueTime
-		uint160 distancePerSecond = type(uint160).max / uint160(config.maxQueueTime);
+		uint160 distancePerSecond = type(uint160).max /
+			uint160(config.maxQueueTime);
 		// return the delay (seconds)
 		return distance / distancePerSecond;
 	}
@@ -395,7 +444,9 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		IOracleOrL2OracleWithSequencerCheck oracle,
 		uint256 heartbeat
 	) public view returns (uint256 value) {
-		return (tokenQuantity * getOraclePrice(oracle, heartbeat)) / (10**tokenDecimals);
+		return
+			(tokenQuantity * getOraclePrice(oracle, heartbeat)) /
+			(10 ** tokenDecimals);
 	}
 
 	function total() external view override returns (uint256) {
@@ -403,7 +454,9 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 	}
 
 	function isOver() public view override returns (bool) {
-		return config.endTime <= block.timestamp || metrics.purchaseTotal >= config.saleMaximum;
+		return
+			config.endTime <= block.timestamp ||
+			metrics.purchaseTotal >= config.saleMaximum;
 	}
 
 	function isOpen() public view override returns (bool) {
@@ -425,9 +478,13 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
   * Effects: record the payment
   * Interactions: none!
   */
-	function _execute(uint256 baseCurrencyQuantity, uint256 userLimit) internal {
+	function _execute(
+		uint256 baseCurrencyQuantity,
+		uint256 userLimit
+	) internal {
 		require(
-			baseCurrencyQuantity + metrics.buyerTotal[_msgSender()] <= userLimit,
+			baseCurrencyQuantity + metrics.buyerTotal[_msgSender()] <=
+				userLimit,
 			"purchase exceeds your limit"
 		);
 
@@ -436,7 +493,10 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 			"purchase exceeds sale limit"
 		);
 
-		require(baseCurrencyQuantity >= config.purchaseMinimum, "purchase under minimum");
+		require(
+			baseCurrencyQuantity >= config.purchaseMinimum,
+			"purchase under minimum"
+		);
 
 		// Effects
 		metrics.purchaseCount += 1;
@@ -460,22 +520,49 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		uint256 platformFlatRateFeeAmount
 	) internal {
 		uint256 fee = (quantity * feeLevel) / fractionDenominator;
-		token.safeTransferFrom(_msgSender(), networkConfig.getFeeRecipient(), fee);
+		token.safeTransferFrom(
+			_msgSender(),
+			networkConfig.getFeeRecipient(),
+			fee
+		);
 		token.safeTransferFrom(_msgSender(), address(this), quantity - fee);
-		emit Buy(_msgSender(), address(token), baseCurrencyValue, quantity, fee, platformFlatRateFeeAmount);
+		emit Buy(
+			_msgSender(),
+			address(token),
+			baseCurrencyValue,
+			quantity,
+			fee,
+			platformFlatRateFeeAmount
+		);
 	}
 
 	/**
   Settle payment made with native token
   Important: this function has no checks! Only call if the purchase is valid!
   */
-	function _settleNativeToken(uint256 baseCurrencyValue, uint256 nativeTokenQuantity, uint256 feeLevel, uint256 platformFlatRateFeeAmount) internal {
-		uint256 nativeFee = (nativeTokenQuantity * feeLevel) / fractionDenominator;
+	function _settleNativeToken(
+		uint256 baseCurrencyValue,
+		uint256 nativeTokenQuantity,
+		uint256 feeLevel,
+		uint256 platformFlatRateFeeAmount
+	) internal {
+		uint256 nativeFee = (nativeTokenQuantity * feeLevel) /
+			fractionDenominator;
 		_asyncTransfer(networkConfig.getFeeRecipient(), nativeFee);
-		_asyncTransfer(config.recipient, nativeTokenQuantity - nativeFee - platformFlatRateFeeAmount);
+		_asyncTransfer(
+			config.recipient,
+			nativeTokenQuantity - nativeFee - platformFlatRateFeeAmount
+		);
 
 		// This contract will hold the native token until claimed by the owner
-		emit Buy(_msgSender(), address(0), baseCurrencyValue, nativeTokenQuantity, nativeFee, platformFlatRateFeeAmount);
+		emit Buy(
+			_msgSender(),
+			address(0),
+			baseCurrencyValue,
+			nativeTokenQuantity,
+			nativeFee,
+			platformFlatRateFeeAmount
+		);
 	}
 
 	/**
@@ -489,7 +576,14 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		bytes memory signature,
 		address payable platformFlatRateFeeRecipient,
 		uint256 platformFlatRateFeeAmount
-	) external payable override canAccessSale(userLimit, expiresAt, signature) validPaymentToken(token) nonReentrant {
+	)
+		external
+		payable
+		override
+		canAccessSale(userLimit, expiresAt, signature)
+		validPaymentToken(token)
+		nonReentrant
+	{
 		uint256 nativeBaseCurrencyValue = tokensToBaseCurrency(
 			msg.value,
 			NATIVE_TOKEN_DECIMALS,
@@ -497,9 +591,17 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 			nativeTokenPriceOracleHeartbeat
 		);
 
-		require(nativeBaseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
+		require(
+			nativeBaseCurrencyValue >= platformFlatRateFeeAmount,
+			"fee payment below minimum"
+		);
 
-		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle, nativeTokenPriceOracleHeartbeat));
+		uint256 feeAmountInWei = ((platformFlatRateFeeAmount *
+			(10 ** NATIVE_TOKEN_DECIMALS)) /
+			getOraclePrice(
+				nativeTokenPriceOracle,
+				nativeTokenPriceOracleHeartbeat
+			));
 
 		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
 
@@ -512,7 +614,9 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 			tokenInfo.heartbeat
 		);
 
-		IFeeLevelJudge feeLevelJudge = IFeeLevelJudge(networkConfig.getStakingAddress());
+		IFeeLevelJudge feeLevelJudge = IFeeLevelJudge(
+			networkConfig.getStakingAddress()
+		);
 		uint256 feeLevel = feeLevelJudge.getFeeLevel(_msgSender());
 		if (feeLevel == 0) {
 			feeLevel = 100;
@@ -521,19 +625,26 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		// Checks and Effects
 		_execute(baseCurrencyValue + platformFlatRateFeeAmount, userLimit);
 		// Interactions
-		_settlePaymentToken(baseCurrencyValue + platformFlatRateFeeAmount, token, quantity, feeLevel, platformFlatRateFeeAmount);
+		_settlePaymentToken(
+			baseCurrencyValue + platformFlatRateFeeAmount,
+			token,
+			quantity,
+			feeLevel,
+			platformFlatRateFeeAmount
+		);
 	}
 
 	/**
   Pay with the native token (e.g. ETH)
    */
 	function buyWithNative(
-	  uint256 userLimit,
+		uint256 userLimit,
 		uint64 expiresAt,
 		bytes memory signature,
 		address payable platformFlatRateFeeRecipient,
 		uint256 platformFlatRateFeeAmount
-	) external
+	)
+		external
 		payable
 		override
 		canAccessSale(userLimit, expiresAt, signature)
@@ -543,7 +654,7 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		// convert to base currency from native tokens
 		// converts msg.value (which is how much ETH was sent by user) to USD
 		// Example: On September 1st, 2024
-		// 		0.005 * 2450**10e8 => ~$10 = how much in USD represents 
+		// 		0.005 * 2450**10e8 => ~$10 = how much in USD represents
 		// 		msg.value
 		uint256 baseCurrencyValue = tokensToBaseCurrency(
 			msg.value,
@@ -552,16 +663,26 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 			nativeTokenPriceOracleHeartbeat
 		);
 
-		require(baseCurrencyValue >= platformFlatRateFeeAmount, "fee payment below minimum");
+		require(
+			baseCurrencyValue >= platformFlatRateFeeAmount,
+			"fee payment below minimum"
+		);
 
 		// Example: On September 1st, 2024
-		// 		1/2450 * 10**18 = how much ETH (in wei) we need to represent 
+		// 		1/2450 * 10**18 = how much ETH (in wei) we need to represent
 		// 		1 USD
-		uint256 feeAmountInWei = ((platformFlatRateFeeAmount * (10 ** NATIVE_TOKEN_DECIMALS)) / getOraclePrice(nativeTokenPriceOracle, nativeTokenPriceOracleHeartbeat));
+		uint256 feeAmountInWei = ((platformFlatRateFeeAmount *
+			(10 ** NATIVE_TOKEN_DECIMALS)) /
+			getOraclePrice(
+				nativeTokenPriceOracle,
+				nativeTokenPriceOracleHeartbeat
+			));
 
 		platformFlatRateFeeRecipient.sendValue(feeAmountInWei);
 
-		IFeeLevelJudge feeLevelJudge = IFeeLevelJudge(networkConfig.getStakingAddress());
+		IFeeLevelJudge feeLevelJudge = IFeeLevelJudge(
+			networkConfig.getStakingAddress()
+		);
 		uint256 feeLevel = feeLevelJudge.getFeeLevel(_msgSender());
 		if (feeLevel == 0) {
 			feeLevel = 100;
@@ -569,13 +690,20 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 		// Checks and Effects
 		_execute(baseCurrencyValue, userLimit);
 		// Interactions
-		_settleNativeToken(baseCurrencyValue, msg.value, feeLevel, feeAmountInWei);
+		_settleNativeToken(
+			baseCurrencyValue,
+			msg.value,
+			feeLevel,
+			feeAmountInWei
+		);
 	}
 
 	/**
   External management functions (only the owner may update the sale)
   */
-	function update(Config calldata _config) external validUpdate(_config) onlyOwner {
+	function update(
+		Config calldata _config
+	) external validUpdate(_config) onlyOwner {
 		config = _config;
 		// updates always reset the random value
 		randomValue = generatePseudorandomValue();
