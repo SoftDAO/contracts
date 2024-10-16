@@ -7,7 +7,7 @@ import "./FlatPriceSale.sol";
 
 contract FlatPriceSaleFactory_v_4_0 is Ownable {
 	address public implementation;
-	string public constant VERSION = "3.0";
+	string public constant VERSION = "4.0";
 
 	event NewSale(
 		address indexed implementation,
@@ -23,7 +23,7 @@ contract FlatPriceSaleFactory_v_4_0 is Ownable {
 		implementation = _implementation;
 	}
 
-	function upgradeFutureSales(address _implementation) external onlyOwner() {
+	function upgradeFutureSales(address _implementation) external onlyOwner {
 		implementation = _implementation;
 	}
 

@@ -509,6 +509,18 @@
         "Address": "0x68f84b0fE75d6B3c9B5355f2C5BaA146e56478DA",
         "BlockNumber": 18529414
       }
+    ],
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0x08299e0fA3eB142122A8A7973888b0C990B097F8",
+        "BlockNumber": "20975422"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0xEB4605DB7e7B08f8D69697d2D52EC4b7776f346A",
+        "BlockNumber": "20975427"
+      }
     ]
   },
   "matic": {
