@@ -7,10 +7,11 @@ import "hardhat-jest"; // Typescript
 // Add the following variables to the configuration variables.
 const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY");
 const EVM_PRIVATE_KEY_1 = vars.get("EVM_PRIVATE_KEY_1");
-const EVM_PRIVATE_KEY_2 = vars.get("EVM_PRIVATE_KEY_2");
+// const EVM_PRIVATE_KEY_2 = vars.get("EVM_PRIVATE_KEY_2");
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 const BASESCAN_API_KEY = vars.get("BASESCAN_API_KEY");
 const COREDAO_BLOCK_EXPLORER_API_KEY = vars.get("COREDAO_BLOCK_EXPLORER_API_KEY");
+const BSCSCAN_API_KEY = vars.get("BSCSCAN_API_KEY");
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -41,6 +42,14 @@ const config: HardhatUserConfig = {
     },
     mainnet: {
       url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [EVM_PRIVATE_KEY_1],
+    },
+    bsc: {
+      url: `https://bnb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [EVM_PRIVATE_KEY_1],
+    },
+    bscTestnet: {
+      url: `https://bnb-testnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [EVM_PRIVATE_KEY_1],
     },
     coredao: {
@@ -75,6 +84,22 @@ const config: HardhatUserConfig = {
         },
       },
       {
+        network: "bsc",
+        chainId: 56,
+        urls: {
+          apiURL: "https://api.bscscan.com/api",
+          browserURL: "https://bscscan.com/",
+        },
+      },
+      {
+        network: "bscTestnet",
+        chainId: 97,
+        urls: {
+          apiURL: "https://api-testnet.bscscan.com/api",
+          browserURL: "https://testnet.bscscan.com/",
+        },
+      },
+      {
         network: "coredao",
         chainId: 1116,
         urls: {
@@ -89,6 +114,8 @@ const config: HardhatUserConfig = {
       baseSepolia: BASESCAN_API_KEY,
       sepolia: ETHERSCAN_API_KEY,
       coredao: COREDAO_BLOCK_EXPLORER_API_KEY,
+      bsc: BSCSCAN_API_KEY,
+      bscTestnet: BSCSCAN_API_KEY,
     },
   },
 };

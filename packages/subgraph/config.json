@@ -189,6 +189,18 @@
           "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
         }
       }
+    ],
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0x8a1278fa9B316EB48e8E015e6B7d983F4236c652",
+        "BlockNumber": "43204851"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0xBF38E9dA83DE7a1002d033F14b27d44bD3E2D078",
+        "BlockNumber": "43204856"
+      }
     ]
   },
   "bscTestnet": {
