@@ -37,7 +37,7 @@ export default buildModule("ExecuteNewSaleModule", m => {
         "v2.1": "0x934b7D8aAf0ab08cf8dbc45839C867038BC73487",
         v3: "",
         unknown: "0xe085d549c972555b0DD37f01869F235A5Cd0B720",
-        v4: "0x90E837ebB7e4b2A0D471fE058E72c1092631C1dB",
+        v4: "0x4Be7467d6011CFB00a4b4cbEF69F03536Ee5f76F",
       },
     },
   };

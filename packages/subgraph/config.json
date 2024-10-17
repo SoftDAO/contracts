@@ -510,6 +510,26 @@
         "BlockNumber": 18529414
       }
     ],
+    "FlatPriceSale_v_3": [
+      {
+        "Address": "0x5358832e91972eDaDD6cc9Ba10cd26D65cF939e3",
+        "BlockNumber": 20772297
+      },
+      {
+        "Address": "0xA557C9099cdB7Bd30605c6Ebb61405E980d81267",
+        "BlockNumber": 20772297
+      }
+    ],
+    "FlatPriceSaleFactory_v_3": [
+      {
+        "Address": "0x407213837eC1e37F3968eF237975e051F3eA0A68",
+        "BlockNumber": 20772303
+      },
+      {
+        "Address": "0xF7A48Cd5e9789dAA2810c2aa6A89D3464639520A",
+        "BlockNumber": 20772303
+      }
+    ],
     "FlatPriceSale_v_4_0": [
       {
         "Address": "0x08299e0fA3eB142122A8A7973888b0C990B097F8",
