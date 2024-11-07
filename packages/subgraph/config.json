@@ -939,5 +939,37 @@
         "BlockNumber": 7001339
       }
     ]
+  },
+  "zkSync": {
+    "SubgraphNetwork": "zksync-era",
+    "LowestStartBlock": 46937615,
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0x5D472F0509801Cd295b1636D6Cf38B8643F3C78D",
+        "BlockNumber": "46937616"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0xd14FE6459168bEFACDe8d9ee9305d9827Ab51709",
+        "BlockNumber": "46937626"
+      }
+    ]
+  },
+  "zkSyncSepolia": {
+    "SubgraphNetwork": "zksync-era-sepolia",
+    "LowestStartBlock": 3946161,
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0x80215884BB658b72741ad27Dd9C58414De04f01B",
+        "BlockNumber": "3946162"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0x8465C8ca6d1b8EDF7444d5E4BB9b45e1F35b1D02",
+        "BlockNumber": "3946164"
+      }
+    ]
   }
 }
