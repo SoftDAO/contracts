@@ -4,7 +4,9 @@ export default buildModule("ExecuteNewSaleModule", m => {
   const deployer = m.getAccount(0);
   // const recipient = m.getAccount(1);
 
-  //  UPDATE VARIABLES
+  /**
+   * UPDATE VARIABLES
+   */
   const currentNetwork = "baseSepolia";
   const currentFPSFVersion: string = "v4";
   const currentConfigVersion: keyof typeof configsDatabase = "v1";
@@ -38,6 +40,18 @@ export default buildModule("ExecuteNewSaleModule", m => {
         v3: "",
         unknown: "0xe085d549c972555b0DD37f01869F235A5Cd0B720",
         v4: "0x4Be7467d6011CFB00a4b4cbEF69F03536Ee5f76F",
+      },
+    },
+    scroll: {
+      ethOracleAddress: "0x6bF14CB0A831078629D993FDeBcB182b21A8774C",
+      usdcAddress: "0x0",
+      usdcOracleAddress: "0x0",
+      flatPriceSaleFactoryAddress: {
+        v2: "0x0",
+        "v2.1": "0x0",
+        v3: "0x8683361FC3D9dAda4a0adcd3383e65D9cE5A459c",
+        unknown: "0x0",
+        v4: "0x0",
       },
     },
   };
@@ -105,6 +119,29 @@ export default buildModule("ExecuteNewSaleModule", m => {
       [36000],
       // payment token decimals
       [6],
+    ],
+    // Used for Scroll
+    v3NoPaymentMethods: [
+      // the owner of the new sale (can later modify the sale)
+      deployer,
+      // the sale configuration
+      configsDatabase[currentConfigVersion],
+      // base currency
+      "USD",
+      // native payments enabled
+      true,
+      // native price oracle
+      addressesDatabase[currentNetwork].ethOracleAddress,
+      // native price oracle heartbeat
+      360000,
+      // payment tokens
+      [],
+      // payment token price oracles
+      [],
+      // payment token price oracle heartbeats
+      [],
+      // payment token decimals
+      [],
     ],
   };
 
