@@ -240,8 +240,12 @@ const deployedContracts = {
       ],
       inheritedFunctions: {},
     },
-    FlatPriceSale_v_2_1: {
-      address: "0x57c08f6827DC9A88b253830D73E0d8314b32E8D1",
+    // FlatPriceSale_v_2_1: {
+    //   address: "0x57c08f6827DC9A88b253830D73E0d8314b32E8D1",
+  },
+  11155111: {
+    FlatPriceSale: {
+      address: "0xf8C640003A2CA24272eB05a5493e84c62Efc3d9a",
       abi: [
         {
           inputs: [
@@ -560,6 +564,19 @@ const deployedContracts = {
           ],
           name: "Update",
           type: "event",
+        },
+        {
+          inputs: [],
+          name: "BASE_CURRENCY_DECIMALS",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
         },
         {
           inputs: [],
@@ -6716,6 +6733,25 @@ const deployedContracts = {
   10: {
     FlatPriceSaleFactory_v_2_1: {
       address: "0x33f439DB3c004A0E6398FcCcf9f81d2637c226f9",
+      inheritedFunctions: {
+        buyWithNative: "contracts/sale/v2/Sale.sol",
+        buyWithToken: "contracts/sale/v2/Sale.sol",
+        buyerTotal: "contracts/sale/v2/Sale.sol",
+        isOpen: "contracts/sale/v2/Sale.sol",
+        isOver: "contracts/sale/v2/Sale.sol",
+        isValidMerkleProof: "contracts/sale/v2/Sale.sol",
+        owner: "contracts/sale/v2/Sale.sol",
+        renounceOwnership: "contracts/sale/v2/Sale.sol",
+        total: "contracts/sale/v2/Sale.sol",
+        transferOwnership: "contracts/sale/v2/Sale.sol",
+        payments:
+          "@openzeppelin/contracts-upgradeable/security/PullPaymentUpgradeable.sol",
+        withdrawPayments:
+          "@openzeppelin/contracts-upgradeable/security/PullPaymentUpgradeable.sol",
+      },
+    },
+    FlatPriceSaleFactory: {
+      address: "0x7b8A7196991fFd1d08ba4b93df7f241767Dfc44d",
       abi: [
         {
           inputs: [
@@ -6739,7 +6775,7 @@ const deployedContracts = {
             },
             {
               indexed: true,
-              internalType: "contract FlatPriceSale_v_2_1",
+              internalType: "contract FlatPriceSale",
               name: "clone",
               type: "address",
             },
@@ -6937,7 +6973,7 @@ const deployedContracts = {
           name: "newSale",
           outputs: [
             {
-              internalType: "contract FlatPriceSale_v_2_1",
+              internalType: "contract FlatPriceSale",
               name: "sale",
               type: "address",
             },
@@ -11545,6 +11581,8 @@ const deployedContracts = {
   31337: {
     ContinuousVestingMerkleDistributor: {
       address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    TrancheVestingMerkleDistributor: {
+      address: "0xab276a23b467CfDc86f59C1aF3103E526ebc38a2",
       abi: [
         {
           inputs: [],
@@ -11773,31 +11811,6 @@ const deployedContracts = {
           inputs: [
             {
               indexed: false,
-              internalType: "uint256",
-              name: "start",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "cliff",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "end",
-              type: "uint256",
-            },
-          ],
-          name: "SetContinuousVesting",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
               internalType: "uint160",
               name: "maxDelayTime",
               type: "uint160",
@@ -11856,6 +11869,31 @@ const deployedContracts = {
             },
           ],
           name: "SetTotal",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint128",
+              name: "time",
+              type: "uint128",
+            },
+            {
+              indexed: false,
+              internalType: "uint128",
+              name: "VestedFraction",
+              type: "uint128",
+            },
+          ],
+          name: "SetTranche",
           type: "event",
         },
         {
@@ -12508,6 +12546,62 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          name: "getTranche",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getTranches",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "beneficiary",
               type: "address",
@@ -12525,29 +12619,6 @@ const deployedContracts = {
           ],
           name: "getVestedFraction",
           outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getVestingConfig",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
             {
               internalType: "uint256",
               name: "",
@@ -12637,19 +12708,21 @@ const deployedContracts = {
               type: "string",
             },
             {
-              internalType: "uint256",
-              name: "_start",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_cliff",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_end",
-              type: "uint256",
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "_tranches",
+              type: "tuple[]",
             },
             {
               internalType: "bytes32",
@@ -12895,12 +12968,24 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "string",
-              name: "_uri",
-              type: "string",
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "_tranches",
+              type: "tuple[]",
             },
           ],
-          name: "setUri",
+          name: "setTranches",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -12908,22 +12993,12 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
-              name: "_start",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_cliff",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_end",
-              type: "uint256",
+              internalType: "string",
+              name: "_uri",
+              type: "string",
             },
           ],
-          name: "setVestingConfig",
+          name: "setUri",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -13125,97 +13200,86 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        CLOCK_MODE:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+        CLOCK_MODE: "contracts/claim/factory/TrancheVestingInitializable.sol",
         DOMAIN_SEPARATOR:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        NAME: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        VERSION: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        adjust: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        allowance: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        approve: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        balanceOf: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        checkpoints:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        claimed: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        clock: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        decimals: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        NAME: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        VERSION: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        adjust: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        allowance: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        approve: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        balanceOf: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        checkpoints: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        claimed: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        clock: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        decimals: "contracts/claim/factory/TrancheVestingInitializable.sol",
         decreaseAllowance:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        delegate: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        delegate: "contracts/claim/factory/TrancheVestingInitializable.sol",
         delegateBySig:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        delegates: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        delegates: "contracts/claim/factory/TrancheVestingInitializable.sol",
         distancePerSecond:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        eip712Domain:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        eip712Domain: "contracts/claim/factory/TrancheVestingInitializable.sol",
         getClaimableAmount:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getDistributionRecord:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getFairDelayTime:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getFractionDenominator:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getPastTotalSupply:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        getPastVotes:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        getPastVotes: "contracts/claim/factory/TrancheVestingInitializable.sol",
         getSweepRecipient:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getTotalVotes:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        getTranche: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        getTranches: "contracts/claim/factory/TrancheVestingInitializable.sol",
         getVestedFraction:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        getVestingConfig:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         getVoteFactor:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        getVotes: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        getVotes: "contracts/claim/factory/TrancheVestingInitializable.sol",
         increaseAllowance:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        maxDelayTime:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        name: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        nonces: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        maxDelayTime: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        name: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        nonces: "contracts/claim/factory/TrancheVestingInitializable.sol",
         numCheckpoints:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        owner: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        permit: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        randomValue:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        owner: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        permit: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        randomValue: "contracts/claim/factory/TrancheVestingInitializable.sol",
         renounceOwnership:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
         setSweepRecipient:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        setToken: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        setTotal: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        setUri: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        setVestingConfig:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        setToken: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        setTotal: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        setTranches: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        setUri: "contracts/claim/factory/TrancheVestingInitializable.sol",
         setVoteFactor:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        sweepNative:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        sweepToken:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        symbol: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        token: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        total: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        totalSupply:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        transfer: "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        transferFrom:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        sweepNative: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        sweepToken: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        symbol: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        token: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        total: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        totalSupply: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        transfer: "contracts/claim/factory/TrancheVestingInitializable.sol",
+        transferFrom: "contracts/claim/factory/TrancheVestingInitializable.sol",
         transferOwnership:
-          "contracts/claim/factory/ContinuousVestingInitializable.sol",
-        uri: "contracts/claim/factory/ContinuousVestingInitializable.sol",
+          "contracts/claim/factory/TrancheVestingInitializable.sol",
+        uri: "contracts/claim/factory/TrancheVestingInitializable.sol",
         getMerkleRoot: "contracts/claim/factory/MerkleSetInitializable.sol",
       },
     },
-    ContinuousVestingMerkleDistributorFactory: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    TrancheVestingMerkleDistributorFactory: {
+      address: "0x5Bc44bCfa7f922096A7B5526ee0266f801FfE9a7",
       abi: [
         {
           inputs: [
@@ -13259,19 +13323,21 @@ const deployedContracts = {
               type: "string",
             },
             {
-              internalType: "uint256",
-              name: "_start",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_cliff",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_end",
-              type: "uint256",
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "_tranches",
+              type: "tuple[]",
             },
             {
               internalType: "bytes32",
@@ -13297,7 +13363,7 @@ const deployedContracts = {
           name: "deployDistributor",
           outputs: [
             {
-              internalType: "contract ContinuousVestingMerkleDistributor",
+              internalType: "contract TrancheVestingMerkleDistributor",
               name: "distributor",
               type: "address",
             },
@@ -13355,19 +13421,21 @@ const deployedContracts = {
               type: "string",
             },
             {
-              internalType: "uint256",
-              name: "_start",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_cliff",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_end",
-              type: "uint256",
+              components: [
+                {
+                  internalType: "uint128",
+                  name: "time",
+                  type: "uint128",
+                },
+                {
+                  internalType: "uint128",
+                  name: "vestedFraction",
+                  type: "uint128",
+                },
+              ],
+              internalType: "struct Tranche[]",
+              name: "_tranches",
+              type: "tuple[]",
             },
             {
               internalType: "bytes32",

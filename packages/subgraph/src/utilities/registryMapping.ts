@@ -30,7 +30,7 @@ export function handleDeployRegistry(event: DeployRegistry): void {
 	log.info('Trying to add distributor info to distributor {} with interfaces {}', [registeredAddress.id, registeredAddress.interfaceIds.toString()])
 
 	// add advanced distributor info
-	if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.AdvancedDistributor, legacyInterfaces.AdvancedDistributor, "0xfea5558a", "0xac409228"])) {
+	if (interfacesMatch(registeredAddress.interfaceIds, [currentInterfaces.AdvancedDistributor, legacyInterfaces.AdvancedDistributor, "0xfea5558a", "0xac409228", "0xa3996a27"])) {
 		log.info('Registered {} as AdvancedDistributor', [registeredAddress.id])
 		getOrCreateAdvancedDistributor(distributor.id, block)
 	}

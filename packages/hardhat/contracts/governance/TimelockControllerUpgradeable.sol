@@ -14,6 +14,6 @@ contract MyTimelockControllerUpgradeable is TimelockControllerUpgradeable {
 		address[] memory proposers,
 		address[] memory executors
 	) public initializer {
-		__TimelockController_init(minDelay, proposers, executors);
+		__TimelockController_init(minDelay, proposers, executors, address(0));
 	}
 }

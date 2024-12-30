@@ -1,18 +1,17 @@
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
-import hre from "hardhat";
+import { ethers } from "hardhat";
+import { campaignCIDs, merkleRoots } from "../../config";
 import {
-  GenericERC20,
   FakeChainlinkOracle,
-  TrancheVestingSale_2_0__factory,
-  TrancheVestingSale_2_0,
   FlatPriceSale,
   FlatPriceSaleFactory,
+  GenericERC20,
+  TrancheVestingSale_2_0,
+  TrancheVestingSale_2_0__factory,
 } from "../../typechain-types";
-import { delay, lastBlockTime, getSaleAddress_2_0, makeMonthlyTranches, expectCloseEnough } from "../lib";
-import { merkleRoots, campaignCIDs } from "../../config";
-import { buildIpfsUri } from "../../utils";
 import { ConfigStruct } from "../../typechain-types/contracts/sale/v2/FlatPriceSale";
-import { ethers } from "hardhat";
+import { buildIpfsUri } from "../../utils";
+import { delay, expectCloseEnough, getSaleAddress_2_0, lastBlockTime } from "../lib";
 
 jest.setTimeout(30000);
 

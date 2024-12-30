@@ -62,6 +62,12 @@
     },
     "MyERC20Votes": {
       "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+    },
+    "FlatPriceSale": {
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    },
+    "FlatPriceSaleFactory": {
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     }
   },
   "goerli": {
@@ -115,6 +121,38 @@
     },
     "FlatPriceSale_v_2_1": {
       "address": "0x99C9b22050E560E34d903a89388F4E41fCD61895"
+    }
+  },
+  "sepolia": {
+    "FlatPriceSaleFactory": {
+      "address": "0x7b8A7196991fFd1d08ba4b93df7f241767Dfc44d"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0x5Bc44bCfa7f922096A7B5526ee0266f801FfE9a7"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x724391bC965Ed86dDDAE9CB11BC85Db2fd5557B5"
+    },
+    "FlatPriceSale": {
+      "address": "0x9F8AA0cB482d67c53EA620Ba01be32f6A4d4ded3"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x64be0B781AB94c728a3Ee9459c683823d993fe9F"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x9960A249816c863865f35F80DAFCD10168973E98"
+    },
+    "GenericERC20": {
+      "address": "0x914cEF6E710E805bA1353bb8e6eBa2e81ab9A89b"
+    },
+    "PriceTierVesting": {
+      "address": "0x9768901bd58559b93C8D81beEf8a2783Fc8351EF"
+    },
+    "PriceTierVestingMerkle": {
+      "address": "0x18726B51836E972C209c88d8836070D46E217Efe"
+    },
+    "ERC20": {
+      "address": "0x43054cDD872976562eCc0aA7a100657b267fBea7"
     }
   },
   "gnosis": {
@@ -205,6 +243,85 @@
     },
     "FlatPriceSale_v_2_1": {
       "address": "0x797C0d5bC32bc29438c0555EA61EB0318bE40797"
+    }
+  },
+  "base": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x4959353534a8ecF0b698A9D3115FbCe393f3435C"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x904C250B5B1b45274d2d7909b9394bEdA143DD5C"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0x638E9F037F8B45F9B1b20bEB890225e1e8d29B95"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264"
+    },
+    "GenericERC20": {
+      "address": "0x85F9ba6938916C37d4Ece9C2156A329B7750882F"
+    }
+  },
+  "baseSepolia": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x724391bC965Ed86dDDAE9CB11BC85Db2fd5557B5"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0xC0A1CFc14996204C4bac28758b0A2C0d7b006fd9"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0x4aD35755F3bC7d591CBa3D0D0Eb27C2497A73d30"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x2C71e4cfa6DAe45aaA78f497Ab4BD5F0fb256fd3"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0xebd46b42b7e72B6D5f2aB8A81Cf4f3bEF9B4cB17"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0xab276a23b467CfDc86f59C1aF3103E526ebc38a2"
+    },
+    "GenericERC20": {
+      "address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8"
+    }
+  },
+  "polygonAmoy": {
+    "ContinuousVestingMerkleDistributor": {
+      "address": "0x4959353534a8ecF0b698A9D3115FbCe393f3435C"
+    },
+    "ContinuousVestingMerkleDistributorFactory": {
+      "address": "0x904C250B5B1b45274d2d7909b9394bEdA143DD5C"
+    },
+    "FlatPriceSaleFactory_v_2_1": {
+      "address": "0xA5D3d9Bf9940FeaCFcC2090D35e6c1AF4892DBE5"
+    },
+    "FlatPriceSale_v_2_1": {
+      "address": "0x89A415207B07a739b93d4fC70a2eaB67C0EffAA8"
+    },
+    "TrancheVestingMerkleDistributor": {
+      "address": "0x638E9F037F8B45F9B1b20bEB890225e1e8d29B95"
+    },
+    "TrancheVestingMerkleDistributorFactory": {
+      "address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264"
+    },
+    "GenericERC20": {
+      "address": "0x99464d188Ceb88200eb09461Db8b5900D0B0F487"
+    }
+  },
+  "binance": {
+    "GenericERC20": {
+      "address": "0xf8C640003A2CA24272eB05a5493e84c62Efc3d9a"
+    }
+  },
+  "polygon": {
+    "GenericERC20": {
+      "address": "0x99464d188Ceb88200eb09461Db8b5900D0B0F487"
     }
   }
 }
