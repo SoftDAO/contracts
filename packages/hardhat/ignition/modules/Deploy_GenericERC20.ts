@@ -4,7 +4,7 @@ const DeployGenericERC20Module = buildModule("DeployGenericERC20Module", m => {
   const _name = m.getParameter("_name", "My New Token");
   const _symbol = m.getParameter("_symbol", "ABC");
   const _decimals = m.getParameter("_decimals", 18);
-  const supply = m.getParameter("supply", 1_000_000_000n);
+  const supply = m.getParameter("supply", 1000000000000000000000000000n);
 
   const genericERC20 = m.contract("GenericERC20", [_name, _symbol, _decimals, supply]);
 
