@@ -1,12 +1,24 @@
+import { ethers } from 'ethers'
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
+
+const mnemonic = process.env.TOKENSOFT_E2E_MNEMONIC || 'test test test test test test test test test test test junk'
 
 const DeployGenericERC20Module = buildModule("DeployGenericERC20Module", m => {
   const _name = m.getParameter("_name", "My New Token");
   const _symbol = m.getParameter("_symbol", "ABC");
   const _decimals = m.getParameter("_decimals", 18);
-  const supply = m.getParameter("supply", 1000000000000000000000000000n);
+  const supply = m.getParameter("supply", 1_000_000_000_000000000000000000n);
 
   const genericERC20 = m.contract("GenericERC20", [_name, _symbol, _decimals, supply]);
+
+  for (let i = 0; i < 10; i++) {
+    const wallet = ethers.HDNodeWallet.fromMnemonic(
+      ethers.HDNodeWallet.fromPhrase(mnemonic).mnemonic!
+    , `m/44'/60'/0'/0/${i}`)
+    m.call(genericERC20, 'transfer', [wallet.address, 1_000_000_000000000000000000n], {
+      id: `DeployGenericERC20Module_GenericERC20_transfer${wallet.address}`
+    })
+  }
 
   return { genericERC20 };
 });

@@ -3,6 +3,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@nomicfoundation/hardhat-foundry";
 import "@nomicfoundation/hardhat-ignition-ethers";
 import "hardhat-jest"; // Typescript
+import { ethers } from 'ethers'
 
 // Add the following variables to the configuration variables.
 const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY");
@@ -13,6 +14,11 @@ const BASESCAN_API_KEY = vars.get("BASESCAN_API_KEY");
 const COREDAO_BLOCK_EXPLORER_API_KEY = vars.get("COREDAO_BLOCK_EXPLORER_API_KEY");
 const BSCSCAN_API_KEY = vars.get("BSCSCAN_API_KEY");
 const SCROLL_API_KEY = vars.get("SCROLL_API_KEY");
+
+const phrase = process.env.TOKENSOFT_E2E_MNEMONIC || 'test test test test test test test test test test test junk'
+const mnemonic = ethers.HDNodeWallet.fromPhrase(phrase).mnemonic!
+
+const wallet = ethers.HDNodeWallet.fromMnemonic(mnemonic, "m/44'/60'/0'/0/0")
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -31,7 +37,7 @@ const config: HardhatUserConfig = {
   networks: {
     anvil: {
       url: 'http://localhost:8545',
-      accounts: ['0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'],
+      accounts: [wallet.privateKey]
     },
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
