@@ -4,6 +4,7 @@
   "private": true,
   "workspaces": {
     "packages": [
+      "zksync-ts",
       "packages/hardhat",
       "packages/nextjs",
       "packages/subgraph"
