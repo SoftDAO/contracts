@@ -10,7 +10,7 @@ contract OracleMock is IOracleOrL2OracleWithSequencerCheck {
 
 	function latestRoundData()
 		external
-		pure
+		view
 		returns (
 			uint80 roundId,
 			int256 answer,
@@ -23,7 +23,7 @@ contract OracleMock is IOracleOrL2OracleWithSequencerCheck {
 			18446744073709590880,
 			294670000000,
 			1720387410,
-			1720387410,
+			block.timestamp,
 			18446744073709590880
 		);
 	}
