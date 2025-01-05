@@ -16,11 +16,9 @@ export default buildModule("InitializeNetworkConfigModule", m => {
   m.call(networkConfig, "initialize", [
     process.env.NETWORK_CONFIG_FEE_RECIPIENT ?? m.getParameter("NETWORK_CONFIG_FEE_RECIPIENT"),
     feeLevelJudgeStub,
-    m.getParameter("NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS"),
-    m.getParameter("NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_HEARTBEAT"),
-    m.getParameter("NETWORK_CONFIG_ACCESS_AUTHORITY_ADDRESS"),
     oracleMock ? oracleMock : m.getParameter("NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_ADDRESS"),
     oracleMock ? 1000000000000 : m.getParameter("NETWORK_CONFIG_NATIVE_TOKEN_PRICE_ORACLE_HEARTBEAT"),
+    process.env.NETWORK_CONFIG_ACCESS_AUTHORITY_ADDRESS ?? m.getParameter("NETWORK_CONFIG_ACCESS_AUTHORITY_ADDRESS"),
   ]);
 
   return { networkConfig };
