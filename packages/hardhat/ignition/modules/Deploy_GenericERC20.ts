@@ -11,7 +11,7 @@ const DeployGenericERC20Module = buildModule("DeployGenericERC20Module", m => {
 
   const genericERC20 = m.contract("GenericERC20", [_name, _symbol, _decimals, supply]);
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     const wallet = ethers.HDNodeWallet.fromMnemonic(
       ethers.HDNodeWallet.fromPhrase(mnemonic).mnemonic!
     , `m/44'/60'/0'/0/${i}`)
