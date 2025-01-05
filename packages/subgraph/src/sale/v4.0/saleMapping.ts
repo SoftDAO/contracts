@@ -8,7 +8,7 @@ import {
   OwnershipTransferred,
   RegisterDistributor,
   FlatPriceSale_v_4_0 as FlatPriceSaleContract
-} from "../../../generated/FlatPriceSale_v_4_0/FlatPriceSale_v_4_0";
+} from "../../../generated/templates/FlatPriceSale_v_4_0/FlatPriceSale_v_4_0";
 
 import {
   SaleImplementation,

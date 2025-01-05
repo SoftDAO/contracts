@@ -1,6 +1,6 @@
 
 import { BigInt } from "@graphprotocol/graph-ts";
-import { NewSale } from "../../../generated/FlatPriceSaleFactory_v_3/FlatPriceSaleFactory_v_3";
+import { NewSale } from "../../../generated/templates/FlatPriceSale_v_3/FlatPriceSaleFactory_v_3";
 import { getOrCreateAccount, getOrCreateNativePaymentMethod } from "../../lib";
 import {SaleImplementation, Sale} from "../../../generated/schema";
 import { FlatPriceSale_v_3 } from '../../../generated/templates'
