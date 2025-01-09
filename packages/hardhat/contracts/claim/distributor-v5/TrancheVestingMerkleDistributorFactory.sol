@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
@@ -174,7 +175,7 @@ contract TrancheVestingMerkleDistributorFactory_v_5_0 {
         require(answeredInRound > 0, "answer == 0");
         require(updatedAt > 0, "round not complete");
         require(answeredInRound >= roundID, "stale price");
-        require(updatedAt < block.timestamp - heartbeat, "stale price");
+        require(updatedAt > Math.max(block.timestamp, heartbeat) - heartbeat, "stale price");
 
         return uint256(_price);
     }
