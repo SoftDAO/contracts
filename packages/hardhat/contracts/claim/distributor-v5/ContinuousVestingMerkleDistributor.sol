@@ -114,7 +114,7 @@ contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVe
         payable(_msgSender()).sendValue(msg.value - feeAmountInWei);
 
         // effects
-        uint256 claimedAmount = super._executeClaim(beneficiary, totalAmount);
+        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, encodedVestingSchedule);
         // interactions
         _settleClaim(beneficiary, claimedAmount);
     }

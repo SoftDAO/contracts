@@ -86,6 +86,7 @@ contract TrancheVestingMerkleDistributor_v_5_0 is
     function claim(
         address beneficiary, // the address that will receive tokens
         uint256 totalAmount, // the total claimable by this beneficiary
+        bytes memory encodedVestingSchedule, // abi.encode(tranches)
         uint64 expiresAt,
         bytes memory signature,
         address payable platformFlatRateFeeRecipient,
@@ -114,7 +115,7 @@ contract TrancheVestingMerkleDistributor_v_5_0 is
         payable(_msgSender()).sendValue(msg.value - feeAmountInWei);
 
         // effects
-        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount);
+        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, encodedVestingSchedule);
         // interactions
         _settleClaim(beneficiary, claimedAmount);
     }
@@ -147,5 +148,66 @@ contract TrancheVestingMerkleDistributor_v_5_0 is
         require(updatedAt > Math.max(block.timestamp, heartbeat) - heartbeat, "stale price");
 
         return uint256(_price);
+    }
+
+    function _executeClaim(address beneficiary, uint256 _totalAmount) internal override virtual returns (uint256) {
+        revert("_executeClaim(address, uint256) is deprecated");
+    }
+
+    function _executeClaim(address beneficiary, uint256 _totalAmount, bytes memory encodedVestingSchedule) internal virtual returns (uint256) {
+        uint120 totalAmount = uint120(_totalAmount);
+
+        // effects
+        if (records[beneficiary].total != totalAmount) {
+            // re-initialize if the total has been updated
+            _initializeDistributionRecord(beneficiary, totalAmount);
+        }
+
+        uint120 claimableAmount = uint120(getClaimableAmount(beneficiary, encodedVestingSchedule));
+        require(claimableAmount > 0, "Distributor: no more tokens claimable right now");
+
+        records[beneficiary].claimed += claimableAmount;
+        claimed += claimableAmount;
+        return claimableAmount;
+    }
+
+    function getClaimableAmount(address beneficiary) public view override virtual returns (uint256) {
+        revert("getClaimableAmount(address) is deprecated");
+    }
+
+    function getClaimableAmount(address beneficiary, bytes memory encodedVestingSchedule) public view virtual returns (uint256) {
+        require(records[beneficiary].initialized, "Distributor: claim not initialized");
+
+        DistributionRecord memory record = records[beneficiary];
+
+        uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp, encodedVestingSchedule)) / fractionDenominator;
+        return record.claimed >= claimable
+            ? 0 // no more tokens to claim
+            : claimable - record.claimed; // claim all available tokens
+    }
+
+    function getVestedFraction(address beneficiary, uint256 time) public view override returns (uint256) {
+        revert("getVestedFraction(address, uint256) is deprecated");
+    }
+
+    function getVestedFraction(
+        address beneficiary,
+        uint256 time, // time is in seconds past the epoch (e.g. block.timestamp)
+        bytes memory encodedVestingSchedule
+    ) public view returns (uint256) {
+        Tranche[] memory tranches = abi.decode(encodedVestingSchedule, (Tranche[]));
+
+        uint256 delay = getFairDelayTime(beneficiary);
+        for (uint256 i = tranches.length; i != 0; ) {
+          unchecked {
+            --i;
+          }
+
+          if (time - delay > tranches[i].time) {
+            return tranches[i].vestedFraction;
+          }
+        }
+
+        return 0;
     }
 }
