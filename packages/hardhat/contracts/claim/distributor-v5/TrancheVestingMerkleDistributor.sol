@@ -19,6 +19,7 @@ import "../../config/INetworkConfig.sol";
 contract TrancheVestingMerkleDistributor_v_5_0 is
     Initializable,
     TrancheVestingInitializable,
+    MerkleSetInitializable,
     AccessVerifier
 {
     using Address for address payable;

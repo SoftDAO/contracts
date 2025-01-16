@@ -12,9 +12,10 @@ import {IFeeLevelJudge} from "../IFeeLevelJudge.sol";
 import "../factory/ContinuousVestingInitializable.sol";
 import "../../utilities/AccessVerifier.sol";
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
+import "../factory/MerkleSetInitializable.sol";
 import "../../config/INetworkConfig.sol";
 
-contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVestingInitializable, AccessVerifier {
+contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVestingInitializable, MerkleSetInitializable, AccessVerifier {
     using Address for address payable;
     using SafeERC20 for IERC20;
 
