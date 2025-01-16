@@ -77,8 +77,8 @@ contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVe
         return 5;
     }
 
-    modifier validSignature(uint256 totalAmount, uint64 expiresAt, bytes memory signature) {
-        verifyAccessSignature(networkConfig.getAccessAuthorityAddress(), _msgSender(), totalAmount, expiresAt, signature);
+    modifier validSignature(uint256 totalAmount, bytes memory extraDetails, uint64 expiresAt, bytes memory signature) {
+        verifyAccessSignature(networkConfig.getAccessAuthorityAddress(), _msgSender(), totalAmount, extraDetails, expiresAt, signature);
 
         _;
     }
@@ -94,7 +94,7 @@ contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVe
     )
         external
         payable
-        validSignature(totalAmount, expiresAt, signature)
+        validSignature(totalAmount, encodedVestingSchedule, expiresAt, signature)
         nonReentrant
     {
         IOracleOrL2OracleWithSequencerCheck nativeTokenPriceOracle = IOracleOrL2OracleWithSequencerCheck(networkConfig.getNativeTokenPriceOracleAddress());

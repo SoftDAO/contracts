@@ -248,6 +248,7 @@ contract FlatPriceSale_v_4_0 is Sale, PullPaymentUpgradeable, AccessVerifier {
 			networkConfig.getAccessAuthorityAddress(),
 			_msgSender(),
 			userLimit,
+			hex"",
 			expiresAt,
 			signature
 		);
