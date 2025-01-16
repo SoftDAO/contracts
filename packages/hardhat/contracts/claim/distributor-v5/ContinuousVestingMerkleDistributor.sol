@@ -12,9 +12,10 @@ import {IFeeLevelJudge} from "../IFeeLevelJudge.sol";
 import "../factory/ContinuousVestingInitializable.sol";
 import "../../utilities/AccessVerifier.sol";
 import "../../interfaces/IOracleOrL2OracleWithSequencerCheck.sol";
+import "../factory/MerkleSetInitializable.sol";
 import "../../config/INetworkConfig.sol";
 
-contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVestingInitializable, AccessVerifier {
+contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVestingInitializable, MerkleSetInitializable, AccessVerifier {
     using Address for address payable;
     using SafeERC20 for IERC20;
 
@@ -31,9 +32,9 @@ contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVe
         IERC20 _token, // the token being claimed
         uint256 _total, // the total claimable by all users
         string memory _uri, // information on the sale (e.g. merkle proofs)
-        uint256 _start, // vesting clock starts at this time
-        uint256 _cliff, // claims open at this time
-        uint256 _end, // vesting clock ends and this time
+        uint256 _start, // (deprecated) vesting clock starts at this time
+        uint256 _cliff, // (deprecated) claims open at this time
+        uint256 _end, // (deprecated) vesting clock ends and this time
         bytes32 _merkleRoot, // (deprecated) the merkle root for claim membership (also used as salt for the fair queue delay time),
         uint160 _maxDelayTime, // the maximum delay time for the fair queue
         address _owner,
@@ -85,6 +86,7 @@ contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVe
     function claim(
         address beneficiary, // the address that will receive tokens
         uint256 totalAmount, // the total claimable by this beneficiary
+        bytes memory encodedVestingSchedule, // abi.encode(start, cliff, end)
         uint64 expiresAt,
         bytes memory signature,
         address payable platformFlatRateFeeRecipient,
@@ -113,7 +115,7 @@ contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVe
         payable(_msgSender()).sendValue(msg.value - feeAmountInWei);
 
         // effects
-        uint256 claimedAmount = super._executeClaim(beneficiary, totalAmount);
+        uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, encodedVestingSchedule);
         // interactions
         _settleClaim(beneficiary, claimedAmount);
     }
@@ -146,5 +148,67 @@ contract ContinuousVestingMerkleDistributor_v_5_0 is Initializable, ContinuousVe
         require(updatedAt > Math.max(block.timestamp, heartbeat) - heartbeat, "stale price");
 
         return uint256(_price);
+    }
+
+    function _executeClaim(address beneficiary, uint256 _totalAmount) internal override virtual returns (uint256) {
+        revert("_executeClaim(address, uint256) is deprecated");
+    }
+
+    function _executeClaim(address beneficiary, uint256 _totalAmount, bytes memory encodedVestingSchedule) internal virtual returns (uint256) {
+        uint120 totalAmount = uint120(_totalAmount);
+
+        // effects
+        if (records[beneficiary].total != totalAmount) {
+            // re-initialize if the total has been updated
+            _initializeDistributionRecord(beneficiary, totalAmount);
+        }
+
+        uint120 claimableAmount = uint120(getClaimableAmount(beneficiary, encodedVestingSchedule));
+        require(claimableAmount > 0, "Distributor: no more tokens claimable right now");
+
+        records[beneficiary].claimed += claimableAmount;
+        claimed += claimableAmount;
+        return claimableAmount;
+    }
+
+    function getClaimableAmount(address beneficiary) public view override virtual returns (uint256) {
+        revert("getClaimableAmount(address) is deprecated");
+    }
+
+    function getClaimableAmount(address beneficiary, bytes memory encodedVestingSchedule) public view virtual returns (uint256) {
+        require(records[beneficiary].initialized, "Distributor: claim not initialized");
+
+        DistributionRecord memory record = records[beneficiary];
+
+        uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp, encodedVestingSchedule)) / fractionDenominator;
+        return record.claimed >= claimable
+            ? 0 // no more tokens to claim
+            : claimable - record.claimed; // claim all available tokens
+    }
+
+    function getVestedFraction(address beneficiary, uint256 time) public view override returns (uint256) {
+        revert("getVestedFraction(address, uint256) is deprecated");
+    }
+
+    function getVestedFraction(
+        address beneficiary,
+        uint256 time, // time is in seconds past the epoch (e.g. block.timestamp)
+        bytes memory encodedVestingSchedule
+    ) public view returns (uint256) {
+        (uint256 start, uint256 cliff, uint256 end) = abi.decode(encodedVestingSchedule, (uint256, uint256, uint256));
+
+        uint256 delayedTime = time - getFairDelayTime(beneficiary);
+        // no tokens are vested
+        if (delayedTime <= cliff) {
+            return 0;
+        }
+
+        // all tokens are vested
+        if (delayedTime >= end) {
+            return fractionDenominator;
+        }
+
+        // some tokens are vested
+        return (fractionDenominator * (delayedTime - start)) / (end - start);
     }
 }
