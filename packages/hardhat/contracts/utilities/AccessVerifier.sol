@@ -9,6 +9,7 @@ contract AccessVerifier {
 		address accessAuthorityAddress,
 		address member,
 		uint256 userLimit,
+		bytes memory extraDetails,
 		uint64 expires_at,
 		bytes memory signature
 	) internal view {
@@ -16,6 +17,7 @@ contract AccessVerifier {
 			address(this),
 			member,
 			userLimit,
+			extraDetails,
 			expires_at
 		);
 		bytes32 hash = keccak256(message);

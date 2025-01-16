@@ -78,8 +78,8 @@ contract TrancheVestingMerkleDistributor_v_5_0 is
         return 5;
     }
 
-    modifier validSignature(uint256 totalAmount, uint64 expiresAt, bytes memory signature) {
-        verifyAccessSignature(networkConfig.getAccessAuthorityAddress(), _msgSender(), totalAmount, expiresAt, signature);
+    modifier validSignature(uint256 totalAmount, bytes memory extraDetails, uint64 expiresAt, bytes memory signature) {
+        verifyAccessSignature(networkConfig.getAccessAuthorityAddress(), _msgSender(), totalAmount, extraDetails, expiresAt, signature);
 
         _;
     }
@@ -95,7 +95,7 @@ contract TrancheVestingMerkleDistributor_v_5_0 is
     )
         external
         payable
-        validSignature(totalAmount, expiresAt, signature)
+        validSignature(totalAmount, encodedVestingSchedule, expiresAt, signature)
         nonReentrant
     {
         IOracleOrL2OracleWithSequencerCheck nativeTokenPriceOracle = IOracleOrL2OracleWithSequencerCheck(networkConfig.getNativeTokenPriceOracleAddress());
