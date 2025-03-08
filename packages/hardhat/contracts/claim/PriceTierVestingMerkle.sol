@@ -69,7 +69,7 @@ contract PriceTierVestingMerkle is PriceTierVesting, MerkleSet {
     nonReentrant
   {
     // effects
-    uint256 claimedAmount = _executeClaim(beneficiary, totalAmount);
+    uint256 claimedAmount = _executeClaim(beneficiary, totalAmount, new bytes(0));
     // interactions
     _settleClaim(beneficiary, claimedAmount);
   }

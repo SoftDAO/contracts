@@ -29,7 +29,8 @@ contract BasicDistributor is AdvancedDistributor {
 
 	function getVestedFraction(
 		address, /*beneficiary*/
-		uint256 /*time*/
+		uint256, /*time*/
+    bytes memory /*data*/
 	) public view override returns (uint256) {
 		// all tokens vest immediately
 		return fractionDenominator;
@@ -45,7 +46,7 @@ contract BasicDistributor is AdvancedDistributor {
 
 	function claim(address beneficiary) external nonReentrant {
 		// effects
-		uint256 claimedAmount = super._executeClaim(beneficiary, records[beneficiary].total);
+		uint256 claimedAmount = super._executeClaim(beneficiary, records[beneficiary].total, new bytes(0));
 		// interactions
 		super._settleClaim(beneficiary, claimedAmount);
 	}

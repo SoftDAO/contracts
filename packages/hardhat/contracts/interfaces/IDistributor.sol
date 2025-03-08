@@ -42,7 +42,7 @@ interface IDistributor {
    * @dev get the amount of tokens currently claimable by a beneficiary
    * @param beneficiary the address of the beneficiary
    */
-  function getClaimableAmount(address beneficiary) external view returns (uint256);
+  function getClaimableAmount(address beneficiary, bytes calldata data) external view returns (uint256);
 
   /**
    * @dev get the denominator for vesting fractions represented as integers

@@ -1,13 +1,13 @@
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
+import { ethers } from "hardhat";
 import {
-  TrancheVestingSale_1_3,
-  SaleManager_v_1_3,
-  GenericERC20,
   FakeChainlinkOracle,
+  GenericERC20,
+  SaleManager_v_1_3,
+  TrancheVestingSale_1_3,
   TrancheVestingSale_1_3__factory,
 } from "../../typechain-types";
 import { delay, expectCloseEnough, getSaleId, lastBlockTime } from "../lib";
-import { ethers } from "hardhat";
 
 jest.setTimeout(30000);
 

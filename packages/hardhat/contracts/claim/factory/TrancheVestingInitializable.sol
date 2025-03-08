@@ -39,7 +39,7 @@ abstract contract TrancheVestingInitializable is Initializable, AdvancedDistribu
      * tranche_i and tranche_i+1, the vested fraction will be tranche_i+1's vested fraction.
      * After the last tranche time, the vested fraction will be the fraction denominator.
      */
-    function getVestedFraction(address beneficiary, uint256 time) public view override returns (uint256) {
+    function getVestedFraction(address beneficiary, uint256 time, bytes memory) public view override returns (uint256) {
         uint256 delay = getFairDelayTime(beneficiary);
         for (uint256 i = tranches.length; i != 0;) {
             unchecked {

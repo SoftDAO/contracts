@@ -101,9 +101,10 @@ abstract contract AdvancedDistributor is
 
   function _executeClaim(
     address beneficiary,
-    uint256 totalAmount
+    uint256 totalAmount,
+    bytes memory data
   ) internal virtual override returns (uint256 _claimed) {
-    _claimed = super._executeClaim(beneficiary, totalAmount);
+    _claimed = super._executeClaim(beneficiary, totalAmount, data);
     _reconcileVotingPower(beneficiary);
   }
 

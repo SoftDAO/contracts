@@ -1,18 +1,17 @@
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
-import hre from "hardhat";
+import { ethers } from "hardhat";
+import { campaignCIDs, merkleRoots } from "../../config";
 import {
-  GenericERC20,
   FakeChainlinkOracle,
-  TrancheVestingSale_2_0__factory,
-  TrancheVestingSale_2_0,
   FlatPriceSale,
   FlatPriceSaleFactory,
+  GenericERC20,
+  TrancheVestingSale_2_0,
+  TrancheVestingSale_2_0__factory,
 } from "../../typechain-types";
-import { delay, lastBlockTime, getSaleAddress_2_0, makeMonthlyTranches, expectCloseEnough } from "../lib";
-import { merkleRoots, campaignCIDs } from "../../config";
-import { buildIpfsUri } from "../../utils";
 import { ConfigStruct } from "../../typechain-types/contracts/sale/v2/FlatPriceSale";
-import { ethers } from "hardhat";
+import { buildIpfsUri } from "../../utils";
+import { delay, expectCloseEnough, getSaleAddress_2_0, lastBlockTime } from "../lib";
 
 jest.setTimeout(30000);
 
@@ -381,7 +380,7 @@ describe("TrancheVestingSale_2_0", function () {
     const currentlyClaimable = buyerTotal / 2n;
 
     // getClaimableAmount() works prior to initialization
-    expect(await distributor.getClaimableAmount(buyer.address)).toEqual(currentlyClaimable);
+    expect(await distributor.getClaimableAmount(buyer.address, "0x")).toEqual(currentlyClaimable);
 
     await distributor.initializeDistributionRecord(buyer.address);
     const distributionRecord = await distributor.getDistributionRecord(buyer.address);
@@ -389,7 +388,7 @@ describe("TrancheVestingSale_2_0", function () {
     expect(distributionRecord.initialized).toEqual(true);
 
     // getClaimableAmount() works after initialization
-    expect(await distributor.getClaimableAmount(buyer.address)).toEqual(currentlyClaimable);
+    expect(await distributor.getClaimableAmount(buyer.address, "0x")).toEqual(currentlyClaimable);
 
     // nothing has been claimed yet
     expect(distributionRecord.claimed).toEqual(0n);
@@ -414,7 +413,7 @@ describe("TrancheVestingSale_2_0", function () {
     const currentlyClaimable = buyerTotal / 2n;
 
     // getClaimableAmount() works prior to initialization
-    expect(await distributor.getClaimableAmount(buyer.address)).toEqual(currentlyClaimable);
+    expect(await distributor.getClaimableAmount(buyer.address, "0x")).toEqual(currentlyClaimable);
 
     await distributor.initializeDistributionRecord(buyer.address);
     let distributionRecord = await distributor.getDistributionRecord(buyer.address);
@@ -699,13 +698,13 @@ describe("TrancheVestingSale_2_0", function () {
 
   it("Handles negative adjustments to a user's total claimable amount", async () => {
     const buyer = buyer4;
-    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address);
+    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "0x");
 
     // adjust a buyer's allocation downward
     await fullyVestedDistributor.initializeDistributionRecord(buyer.address);
     await fullyVestedDistributor.adjust(buyer.address, -10000n);
 
-    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address);
+    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "0x");
     expect(newAllocation).toEqual(initialAllocation - 10000n);
 
     // claim
@@ -724,13 +723,13 @@ describe("TrancheVestingSale_2_0", function () {
 
   it("Handles positive adjustments to a user's total claimable amount", async () => {
     const buyer = buyer5;
-    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address);
+    const initialAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "0x");
 
     // adjust a buyer's allocation upward
     await fullyVestedDistributor.initializeDistributionRecord(buyer.address);
     await fullyVestedDistributor.adjust(buyer.address, 10000n);
 
-    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address);
+    const newAllocation = await fullyVestedDistributor.getClaimableAmount(buyer.address, "0x");
     expect(newAllocation).toEqual(initialAllocation + 10000n);
 
     // transfer additional tokens to the distributor

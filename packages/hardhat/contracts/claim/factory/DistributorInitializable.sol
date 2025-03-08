@@ -63,7 +63,7 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
      * @dev This function does not check permissions: caller must verify the claim is valid!
      * this function should not call any untrusted external contracts to avoid reentrancy
      */
-    function _executeClaim(address beneficiary, uint256 _totalAmount) internal virtual returns (uint256) {
+    function _executeClaim(address beneficiary, uint256 _totalAmount, bytes memory data) internal virtual returns (uint256) {
         uint120 totalAmount = uint120(_totalAmount);
 
         // effects
@@ -72,7 +72,7 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
             _initializeDistributionRecord(beneficiary, totalAmount);
         }
 
-        uint120 claimableAmount = uint120(getClaimableAmount(beneficiary));
+        uint120 claimableAmount = uint120(getClaimableAmount(beneficiary, data));
         require(claimableAmount > 0, "Distributor: no more tokens claimable right now");
 
         records[beneficiary].claimed += claimableAmount;
@@ -98,19 +98,19 @@ abstract contract DistributorInitializable is Initializable, IDistributor, Reent
     }
 
     // Get tokens vested as fraction of fractionDenominator
-    function getVestedFraction(address beneficiary, uint256 time) public view virtual returns (uint256);
+    function getVestedFraction(address beneficiary, uint256 time, bytes memory data) public view virtual returns (uint256);
 
     function getFractionDenominator() public view returns (uint256) {
         return fractionDenominator;
     }
 
     // get the number of tokens currently claimable by a specific use
-    function getClaimableAmount(address beneficiary) public view virtual returns (uint256) {
+    function getClaimableAmount(address beneficiary, bytes memory data) public view virtual returns (uint256) {
         require(records[beneficiary].initialized, "Distributor: claim not initialized");
 
         DistributionRecord memory record = records[beneficiary];
 
-        uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp)) / fractionDenominator;
+        uint256 claimable = (record.total * getVestedFraction(beneficiary, block.timestamp, data)) / fractionDenominator;
         return record.claimed >= claimable
             ? 0 // no more tokens to claim
             : claimable - record.claimed; // claim all available tokens

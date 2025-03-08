@@ -1,21 +1,20 @@
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
-import hre from "hardhat";
-import {
-  GenericERC20,
-  FakeChainlinkOracle,
-  PriceTierVestingSale_2_0__factory,
-  PriceTierVestingSale_2_0,
-  FlatPriceSale,
-  FlatPriceSaleFactory,
-  L2OracleWithSequencerCheck,
-  FakeSequencerUptimeFeed,
-} from "../../typechain-types";
-import { delay, lastBlockTime, getSaleAddress_2_0, expectCloseEnough } from "../lib";
-import { merkleRoots, campaignCIDs } from "../../config";
-import { buildIpfsUri } from "../../utils";
-import { ConfigStruct } from "../../typechain-types/contracts/sale/v2/FlatPriceSale";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { ethers } from "hardhat";
+import { campaignCIDs, merkleRoots } from "../../config";
+import {
+  FakeChainlinkOracle,
+  FakeSequencerUptimeFeed,
+  FlatPriceSale,
+  FlatPriceSaleFactory,
+  GenericERC20,
+  L2OracleWithSequencerCheck,
+  PriceTierVestingSale_2_0,
+  PriceTierVestingSale_2_0__factory,
+} from "../../typechain-types";
+import { ConfigStruct } from "../../typechain-types/contracts/sale/v2/FlatPriceSale";
+import { buildIpfsUri } from "../../utils";
+import { delay, expectCloseEnough, getSaleAddress_2_0, lastBlockTime } from "../lib";
 
 jest.setTimeout(30000);
 

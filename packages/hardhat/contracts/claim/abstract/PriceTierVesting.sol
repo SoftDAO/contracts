@@ -65,7 +65,8 @@ abstract contract PriceTierVesting is AdvancedDistributor, IPriceTierVesting {
 
 	function getVestedFraction(
 		address beneficiary,
-		uint256 time // time in seconds past epoch
+		uint256 time, // time in seconds past epoch
+		bytes memory /*data*/
 	) public view override returns (uint256) {
 		// shift this user's time by their fair delay
 		uint256 delayedTime = time - getFairDelayTime(beneficiary);
