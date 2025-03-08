@@ -189,6 +189,18 @@
           "Commit": "ebe10653145b5ceee86f6810c3e02814a3e92b92"
         }
       }
+    ],
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0x8a1278fa9B316EB48e8E015e6B7d983F4236c652",
+        "BlockNumber": "43204851"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0xBF38E9dA83DE7a1002d033F14b27d44bD3E2D078",
+        "BlockNumber": "43204856"
+      }
     ]
   },
   "bscTestnet": {
@@ -553,6 +565,18 @@
         "Address": "0xF7A48Cd5e9789dAA2810c2aa6A89D3464639520A",
         "BlockNumber": 20772303
       }
+    ],
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0x08299e0fA3eB142122A8A7973888b0C990B097F8",
+        "BlockNumber": "20975422"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0xEB4605DB7e7B08f8D69697d2D52EC4b7776f346A",
+        "BlockNumber": "20975427"
+      }
     ]
   },
   "matic": {
@@ -898,6 +922,18 @@
         "Address": "0x95503E5211A46bdA8A7FEA349De09388A04472D9",
         "BlockNumber": 15842002
       }
+    ],
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0xa8aE1B587F97D6a6BC1D48C551eA3eD53d885358",
+        "BlockNumber": "16629801"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0x4Be7467d6011CFB00a4b4cbEF69F03536Ee5f76F",
+        "BlockNumber": "16629808"
+      }
     ]
   },
   "base": {
@@ -997,6 +1033,38 @@
       {
         "Address": "0x5103ED418004b03a796a41c97BdaaC8FfB5aa264",
         "BlockNumber": 7001339
+      }
+    ]
+  },
+  "zkSync": {
+    "SubgraphNetwork": "zksync-era",
+    "LowestStartBlock": 46937615,
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0x5D472F0509801Cd295b1636D6Cf38B8643F3C78D",
+        "BlockNumber": "46937616"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0xd14FE6459168bEFACDe8d9ee9305d9827Ab51709",
+        "BlockNumber": "46937626"
+      }
+    ]
+  },
+  "zkSyncSepolia": {
+    "SubgraphNetwork": "zksync-era-sepolia",
+    "LowestStartBlock": 3946161,
+    "FlatPriceSale_v_4_0": [
+      {
+        "Address": "0x80215884BB658b72741ad27Dd9C58414De04f01B",
+        "BlockNumber": "3946162"
+      }
+    ],
+    "FlatPriceSaleFactory_v_4_0": [
+      {
+        "Address": "0x8465C8ca6d1b8EDF7444d5E4BB9b45e1F35b1D02",
+        "BlockNumber": "3946164"
       }
     ]
   },
